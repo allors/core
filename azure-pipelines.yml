@@ -1,0 +1,81 @@
+trigger:
+- master
+- feature/*
+
+variables:
+  buildConfiguration: 'Release'
+
+jobs:
+- job: MacOS
+  pool:
+    vmImage: 'macOS-latest'
+  steps:
+    - task: Bash@3
+      inputs:
+        targetType: 'filePath'
+        filePath: 'build.sh'
+        arguments: '-configuration $(buildConfiguration) -target CiNonWin'
+        failOnStderr: true
+      displayName: 'Build'
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'VSTest'
+        testResultsFiles: '*.trx'
+        searchFolder: '$(Build.SourcesDirectory)/artifacts/tests'
+      displayName: 'Publish Test results'
+
+- job: Ubuntu
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+    - task: Bash@3
+      inputs:
+        targetType: 'filePath'
+        filePath: 'build.sh'
+        arguments: '-configuration $(buildConfiguration) -target CiNonWin'
+        failOnStderr: true
+      displayName: 'Build'
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'VSTest'
+        testResultsFiles: '*.trx'
+        searchFolder: '$(Build.SourcesDirectory)/artifacts/tests'
+      displayName: 'Publish Test results'
+
+- job: Windows
+  pool:
+    vmImage: 'windows-latest'
+  steps:
+    - checkout: self
+      fetchDepth: 0
+      fetchTags: true
+    - task: PowerShell@2
+      inputs:
+        targetType: 'filePath'
+        filePath: 'build.ps1'
+        arguments: '-configuration $(buildConfiguration) -target Ci'
+        failOnStderr: true
+      displayName: 'Build'
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'VSTest'
+        testResultsFiles: '*.trx'
+        searchFolder: '$(Build.SourcesDirectory)/artifacts/tests'
+      displayName: 'Publish Test results'
+    - task: PublishCodeCoverageResults@1
+      inputs:
+        codeCoverageTool: "cobertura"
+        summaryFileLocation: "$(Build.SourcesDirectory)/artifacts/coverage/*.xml"
+        failIfCoverageEmpty: true
+      displayName: 'Publish Code Coverage'
+    - task: NuGetAuthenticate@1
+      displayName: 'NuGet Authenticate'
+    - task: NuGetCommand@2
+      displayName: 'NuGet push'
+      inputs:
+        command: push
+        packagesToPush: '$(Build.SourcesDirectory)/artifacts/nuget/**/*.nupkg;$(Build.SourcesDirectory)/artifacts/nuget/**/*.snupkg;!$(Build.SourcesDirectory)/artifacts/nuget/**/*.symbols.nupkg'
+        publishVstsFeed: 'Core/Core'
+        allowPackageConflicts: true
+
+
