@@ -10,6 +10,11 @@ jobs:
   pool:
     vmImage: 'macOS-latest'
   steps:
+    - task: UseDotNet@2
+      inputs:
+        packageType: sdk
+        version: 8.0.x
+      displayName: 'Use .NET 8.0 sdk'
     - task: Bash@3
       inputs:
         targetType: 'filePath'
@@ -28,6 +33,11 @@ jobs:
   pool:
     vmImage: 'ubuntu-latest'
   steps:
+    - task: UseDotNet@2
+      inputs:
+        packageType: sdk
+        version: 8.0.x
+      displayName: 'Use .NET 8.0 sdk'
     - task: Bash@3
       inputs:
         targetType: 'filePath'
@@ -47,8 +57,12 @@ jobs:
     vmImage: 'windows-latest'
   steps:
     - checkout: self
-      fetchDepth: 0
-      fetchTags: true
+      fetchDepth: "0"
+    - task: UseDotNet@2
+      inputs:
+        packageType: sdk
+        version: 8.0.x
+      displayName: 'Use .NET 8.0 sdk'
     - task: PowerShell@2
       inputs:
         targetType: 'filePath'
