@@ -62,7 +62,7 @@ jobs:
         testResultsFiles: '*.trx'
         searchFolder: '$(Build.SourcesDirectory)/artifacts/tests'
       displayName: 'Publish Test results'
-    - task: PublishCodeCoverageResults@1
+    - task: PublishCodeCoverageResults@2
       inputs:
         codeCoverageTool: "cobertura"
         summaryFileLocation: "$(Build.SourcesDirectory)/artifacts/coverage/*.xml"
