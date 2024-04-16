@@ -64,11 +64,11 @@ class Build : NukeBuild
         .Executes(() =>
         {
             DotNetTest(s => s
-                .SetProjectFile(Solution.GetProject("Allors.Core.Database.Meta.Tests"))
+                .SetProjectFile(Solution.GetProject("Allors.Core.Database.Tests"))
                 .SetConfiguration(Configuration)
                 .EnableNoBuild()
                 .EnableNoRestore()
-                .AddLoggers("trx;LogFileName=Allors.Core.Database.Meta.Tests.trx")
+                .AddLoggers("trx;LogFileName=Allors.Core.Database.Tests.trx")
                 .EnableProcessLogOutput()
                 .SetResultsDirectory(TestsDirectory)
                 .When(Cover, _ => _
@@ -86,7 +86,7 @@ class Build : NukeBuild
         .Executes(() =>
         {
             DotNetPack(s => s
-                .SetProject(Solution.GetProject("Allors.Core.Database.Meta"))
+                .SetProject(Solution.GetProject("Allors.Core.Database"))
                 .SetConfiguration(Configuration)
                 .EnableIncludeSource()
                 .EnableIncludeSymbols()
