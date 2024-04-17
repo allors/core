@@ -7,20 +7,19 @@
 classDiagram
     class AssociationType
     RelationEndType <|-- AssociationType
+    AssociationType o-- Composite : Composite
     class Class
     Composite <|-- Class
     class Composite
     ObjectType <|-- Composite
-    Composite o-- AssociationType : AssociationTypes
-    Composite o-- Class : Classes
-    Composite o-- Composite : Composites
+    Composite o-- Interface : DirectSupertypes
     class Domain
+    Domain o-- MetaIdentifiableObject : Members
     class Interface
     Composite <|-- Interface
     class MetaIdentifiableObject
     MetaIdentifiableObject : Guid Id
     class MethodType
-    MetaIdentifiableObject <|-- MethodType
     OperandType <|-- MethodType
     class ObjectType
     MetaIdentifiableObject <|-- ObjectType
@@ -28,12 +27,16 @@ classDiagram
     ObjectType : String DerivedPluralName
     ObjectType : String SingularName
     class OperandType
+    MetaIdentifiableObject <|-- OperandType
     class RelationEndType
     OperandType <|-- RelationEndType
-    class RelationType
-    MetaIdentifiableObject <|-- RelationType
     class RoleType
     RelationEndType <|-- RoleType
+    RoleType o-- AssociationType : AssociationType
+    RoleType o-- ObjectType : ObjectType
+    RoleType : String RoleTypeAssignedPluralName
+    RoleType : String RoleTypeDerivedPluralName
+    RoleType : String RoleTypeSingularName
     class Unit
     ObjectType <|-- Unit
     class Workspace

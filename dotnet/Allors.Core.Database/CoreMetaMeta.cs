@@ -28,7 +28,6 @@
             this.ObjectType = meta.AddInterface("ObjectType");
             this.OperandType = meta.AddInterface("OperandType");
             this.RelationEndType = meta.AddInterface("RelationEndType");
-            this.RelationType = meta.AddInterface("RelationType");
             this.RoleType = meta.AddClass("RoleType");
             this.Unit = meta.AddClass("Unit");
             this.Workspace = meta.AddClass("Workspace");
@@ -38,24 +37,31 @@
             this.Class.AddDirectSupertype(this.Composite);
             this.Composite.AddDirectSupertype(this.ObjectType);
             this.Interface.AddDirectSupertype(this.Composite);
-            this.MethodType.AddDirectSupertype(this.MetaIdentifiableObject);
             this.MethodType.AddDirectSupertype(this.OperandType);
             this.ObjectType.AddDirectSupertype(this.MetaIdentifiableObject);
-            this.RelationType.AddDirectSupertype(this.MetaIdentifiableObject);
+            this.OperandType.AddDirectSupertype(this.MetaIdentifiableObject);
             this.RelationEndType.AddDirectSupertype(this.OperandType);
             this.RoleType.AddDirectSupertype(this.RelationEndType);
             this.Unit.AddDirectSupertype(this.ObjectType);
 
             // Relations
-            this.CompositeAssociationTypes = this.EmbeddedMeta.AddManyToMany(this.Composite, this.AssociationType, "AssociationType");
-            this.CompositeClasses = this.EmbeddedMeta.AddManyToMany(this.Composite, this.Class, "Class");
-            this.CompositeComposites = this.EmbeddedMeta.AddManyToMany(this.Composite, this.Composite, "Composite");
+            this.AssociationTypeComposite = this.EmbeddedMeta.AddManyToOne(this.AssociationType, this.Composite);
+
+            this.CompositeDirectSupertypes = this.EmbeddedMeta.AddManyToMany(this.Composite, this.Interface, "DirectSupertype");
+
+            this.DomainMembers = this.EmbeddedMeta.AddManyToMany(this.Domain, this.MetaIdentifiableObject, "Member");
 
             this.ObjectTypeAssignedPluralName = this.EmbeddedMeta.AddUnit<string>(this.ObjectType, "AssignedPluralName");
             this.ObjectTypeDerivedPluralName = this.EmbeddedMeta.AddUnit<string>(this.ObjectType, "DerivedPluralName");
             this.ObjectTypeSingularName = this.EmbeddedMeta.AddUnit<string>(this.ObjectType, "SingularName");
 
             this.MetaIdentifiableObjectId = this.EmbeddedMeta.AddUnit<Guid>(this.MetaIdentifiableObject, "Id");
+
+            this.RoleTypeAssociationType = this.EmbeddedMeta.AddOneToOne(this.RoleType, this.AssociationType);
+            this.RoleTypeAssignedPluralName = this.EmbeddedMeta.AddUnit<string>(this.RoleType, "RoleTypeAssignedPluralName");
+            this.RoleTypeDerivedPluralName = this.EmbeddedMeta.AddUnit<string>(this.RoleType, "RoleTypeDerivedPluralName");
+            this.RoleTypeObjectType = this.EmbeddedMeta.AddManyToOne(this.RoleType, this.ObjectType);
+            this.RoleTypeSingularName = this.EmbeddedMeta.AddUnit<string>(this.RoleType, "RoleTypeSingularName");
 
             this.WorkspaceMembers = this.EmbeddedMeta.AddManyToMany(this.Workspace, this.MetaIdentifiableObject, "Member");
         }
@@ -81,25 +87,25 @@
         public EmbeddedObjectType Composite { get; }
 
         /// <summary>
-        /// The composite's association types.
-        /// </summary>
-        public EmbeddedManyToManyRoleType CompositeAssociationTypes { get; set; }
-
-        /// <summary>
-        /// The composite's classes.
-        /// </summary>
-        public EmbeddedManyToManyRoleType CompositeClasses { get; set; }
-
-        /// <summary>
-        /// The composite's composites.
-        /// </summary>
-        public EmbeddedManyToManyRoleType CompositeComposites { get; set; }
-
-        /// <summary>
         /// A Domain groups related DomainObjects.
         /// Domains can inherit from other domains.
         /// </summary>
         public EmbeddedObjectType Domain { get; set; }
+
+        /// <summary>
+        /// The composite of the association type.
+        /// </summary>
+        public EmbeddedManyToOneRoleType AssociationTypeComposite { get; set; }
+
+        /// <summary>
+        /// The direct supertypes of the composite.
+        /// </summary>
+        public EmbeddedManyToManyRoleType CompositeDirectSupertypes { get; set; }
+
+        /// <summary>
+        /// The members of the Domain.
+        /// </summary>
+        public EmbeddedManyToManyRoleType DomainMembers { get; set; }
 
         /// <summary>
         /// An interface is extensible by other interfaces.
@@ -115,6 +121,31 @@
         /// The id of the MetaIdentifiableObject.
         /// </summary>
         public EmbeddedUnitRoleType MetaIdentifiableObjectId { get; set; }
+
+        /// <summary>
+        /// The association type of the role type.
+        /// </summary>
+        public EmbeddedOneToOneRoleType RoleTypeAssociationType { get; set; }
+
+        /// <summary>
+        /// The assigned plural name of the role type.
+        /// </summary>
+        public EmbeddedUnitRoleType RoleTypeAssignedPluralName { get; set; }
+
+        /// <summary>
+        /// The derived plural name of the role type.
+        /// </summary>
+        public EmbeddedUnitRoleType RoleTypeDerivedPluralName { get; set; }
+
+        /// <summary>
+        /// The object type of the role type.
+        /// </summary>
+        public EmbeddedManyToOneRoleType RoleTypeObjectType { get; set; }
+
+        /// <summary>
+        /// The singular name of the role type.
+        /// </summary>
+        public EmbeddedUnitRoleType RoleTypeSingularName { get; set; }
 
         /// <summary>
         /// A MethodType describes a method.
@@ -145,11 +176,6 @@
         /// An OperandType is a shared interface implemented by Method and Relation types.
         /// </summary>
         public EmbeddedObjectType OperandType { get; set; }
-
-        /// <summary>
-        /// The relation type.
-        /// </summary>
-        public EmbeddedObjectType RelationType { get; set; }
 
         /// <summary>
         /// A RelationEndType describes either the association or role end point of a relation.
