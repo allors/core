@@ -6,12 +6,12 @@
     /// <summary>
     /// Meta Core.
     /// </summary>
-    public sealed class MetaMeta
+    public sealed class CoreMetaMeta
     {
         /// <summary>
         /// Creates a new Core Meta Population.
         /// </summary>
-        public MetaMeta()
+        public CoreMetaMeta()
         {
             this.EmbeddedMeta = new EmbeddedMeta();
 
@@ -56,8 +56,6 @@
             this.ObjectTypeSingularName = this.EmbeddedMeta.AddUnit<string>(this.ObjectType, "SingularName");
 
             this.MetaIdentifiableObjectId = this.EmbeddedMeta.AddUnit<Guid>(this.MetaIdentifiableObject, "Id");
-            this.MetaIdentifiableObjectAssignedTag = this.EmbeddedMeta.AddUnit<string>(this.MetaIdentifiableObject, "AssignedTag");
-            this.MetaIdentifiableObjectDerivedTag = this.EmbeddedMeta.AddUnit<string>(this.MetaIdentifiableObject, "DerivedTag");
 
             this.WorkspaceMembers = this.EmbeddedMeta.AddManyToMany(this.Workspace, this.MetaIdentifiableObject, "Member");
         }
@@ -117,16 +115,6 @@
         /// The id of the MetaIdentifiableObject.
         /// </summary>
         public EmbeddedUnitRoleType MetaIdentifiableObjectId { get; set; }
-
-        /// <summary>
-        /// The assigned tag of the MetaIdentifiableObject.
-        /// </summary>
-        public EmbeddedUnitRoleType MetaIdentifiableObjectAssignedTag { get; set; }
-
-        /// <summary>
-        /// The derived tag of the MetaIdentifiableObject.
-        /// </summary>
-        public EmbeddedUnitRoleType MetaIdentifiableObjectDerivedTag { get; set; }
 
         /// <summary>
         /// A MethodType describes a method.

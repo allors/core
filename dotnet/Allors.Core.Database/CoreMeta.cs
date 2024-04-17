@@ -5,23 +5,23 @@
     /// <summary>
     /// Meta Core.
     /// </summary>
-    public sealed class Meta
+    public sealed class CoreMeta
     {
         /// <summary>
         /// Creates a new Core Population.
         /// </summary>
-        public Meta()
+        public CoreMeta()
         {
-            this.MetaMeta = new MetaMeta();
+            this.CoreMetaMeta = new CoreMetaMeta();
             this.EmbeddedPopulation = new EmbeddedPopulation();
 
-            this.Object = this.EmbeddedPopulation.Create(this.MetaMeta.Interface);
+            this.Object = this.EmbeddedPopulation.Create(this.CoreMetaMeta.Interface);
         }
 
         /// <summary>
         /// The Meta Population.
         /// </summary>
-        public MetaMeta MetaMeta { get; }
+        public CoreMetaMeta CoreMetaMeta { get; }
 
         /// <summary>
         /// The embedded population.
