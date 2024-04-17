@@ -23,12 +23,13 @@
             this.Composite = meta.AddInterface("Composite");
             this.Domain = meta.AddClass("Domain");
             this.Interface = meta.AddClass("Interface");
-            this.MetaIdentifiableObject = meta.AddInterface("MetaIdentifiableObject");
+            this.MetaObject = meta.AddInterface("MetaObject");
             this.MethodType = meta.AddClass("MethodType");
             this.ObjectType = meta.AddInterface("ObjectType");
             this.OperandType = meta.AddInterface("OperandType");
             this.RelationEndType = meta.AddInterface("RelationEndType");
             this.RoleType = meta.AddClass("RoleType");
+            this.Type = meta.AddInterface("Type");
             this.Unit = meta.AddClass("Unit");
             this.Workspace = meta.AddClass("Workspace");
 
@@ -36,26 +37,29 @@
             this.AssociationType.AddDirectSupertype(this.RelationEndType);
             this.Class.AddDirectSupertype(this.Composite);
             this.Composite.AddDirectSupertype(this.ObjectType);
+            this.Domain.AddDirectSupertype(this.MetaObject);
             this.Interface.AddDirectSupertype(this.Composite);
             this.MethodType.AddDirectSupertype(this.OperandType);
-            this.ObjectType.AddDirectSupertype(this.MetaIdentifiableObject);
-            this.OperandType.AddDirectSupertype(this.MetaIdentifiableObject);
+            this.ObjectType.AddDirectSupertype(this.Type);
+            this.OperandType.AddDirectSupertype(this.Type);
             this.RelationEndType.AddDirectSupertype(this.OperandType);
             this.RoleType.AddDirectSupertype(this.RelationEndType);
+            this.Type.AddDirectSupertype(this.MetaObject);
             this.Unit.AddDirectSupertype(this.ObjectType);
+            this.Workspace.AddDirectSupertype(this.MetaObject);
 
             // Relations
             this.AssociationTypeComposite = this.EmbeddedMeta.AddManyToOne(this.AssociationType, this.Composite);
 
             this.CompositeDirectSupertypes = this.EmbeddedMeta.AddManyToMany(this.Composite, this.Interface, "DirectSupertype");
 
-            this.DomainMembers = this.EmbeddedMeta.AddManyToMany(this.Domain, this.MetaIdentifiableObject, "Member");
+            this.DomainTypes = this.EmbeddedMeta.AddManyToMany(this.Domain, this.Type);
 
             this.ObjectTypeAssignedPluralName = this.EmbeddedMeta.AddUnit<string>(this.ObjectType, "AssignedPluralName");
             this.ObjectTypeDerivedPluralName = this.EmbeddedMeta.AddUnit<string>(this.ObjectType, "DerivedPluralName");
             this.ObjectTypeSingularName = this.EmbeddedMeta.AddUnit<string>(this.ObjectType, "SingularName");
 
-            this.MetaIdentifiableObjectId = this.EmbeddedMeta.AddUnit<Guid>(this.MetaIdentifiableObject, "Id");
+            this.MetaObjectId = this.EmbeddedMeta.AddUnit<Guid>(this.MetaObject, "Id");
 
             this.RoleTypeAssociationType = this.EmbeddedMeta.AddOneToOne(this.RoleType, this.AssociationType);
             this.RoleTypeAssignedPluralName = this.EmbeddedMeta.AddUnit<string>(this.RoleType, "RoleTypeAssignedPluralName");
@@ -63,7 +67,7 @@
             this.RoleTypeObjectType = this.EmbeddedMeta.AddManyToOne(this.RoleType, this.ObjectType);
             this.RoleTypeSingularName = this.EmbeddedMeta.AddUnit<string>(this.RoleType, "RoleTypeSingularName");
 
-            this.WorkspaceMembers = this.EmbeddedMeta.AddManyToMany(this.Workspace, this.MetaIdentifiableObject, "Member");
+            this.WorkspaceTypes = this.EmbeddedMeta.AddManyToMany(this.Workspace, this.Type);
         }
 
         /// <summary>
@@ -103,9 +107,9 @@
         public EmbeddedManyToManyRoleType CompositeDirectSupertypes { get; set; }
 
         /// <summary>
-        /// The members of the Domain.
+        /// The types of the Domain.
         /// </summary>
-        public EmbeddedManyToManyRoleType DomainMembers { get; set; }
+        public EmbeddedManyToManyRoleType DomainTypes { get; set; }
 
         /// <summary>
         /// An interface is extensible by other interfaces.
@@ -113,39 +117,19 @@
         public EmbeddedObjectType Interface { get; }
 
         /// <summary>
-        /// A MetaIdentifiableObject that can be looked up by a unique identifier.
+        /// A type is either an object type or an operand type.
         /// </summary>
-        public EmbeddedObjectType MetaIdentifiableObject { get; }
+        public EmbeddedObjectType Type { get; }
 
         /// <summary>
         /// The id of the MetaIdentifiableObject.
         /// </summary>
-        public EmbeddedUnitRoleType MetaIdentifiableObjectId { get; set; }
+        public EmbeddedUnitRoleType MetaObjectId { get; set; }
 
         /// <summary>
-        /// The association type of the role type.
+        /// A MetaObject is the root of hierarchy.
         /// </summary>
-        public EmbeddedOneToOneRoleType RoleTypeAssociationType { get; set; }
-
-        /// <summary>
-        /// The assigned plural name of the role type.
-        /// </summary>
-        public EmbeddedUnitRoleType RoleTypeAssignedPluralName { get; set; }
-
-        /// <summary>
-        /// The derived plural name of the role type.
-        /// </summary>
-        public EmbeddedUnitRoleType RoleTypeDerivedPluralName { get; set; }
-
-        /// <summary>
-        /// The object type of the role type.
-        /// </summary>
-        public EmbeddedManyToOneRoleType RoleTypeObjectType { get; set; }
-
-        /// <summary>
-        /// The singular name of the role type.
-        /// </summary>
-        public EmbeddedUnitRoleType RoleTypeSingularName { get; set; }
+        public EmbeddedObjectType MetaObject { get; set; }
 
         /// <summary>
         /// A MethodType describes a method.
@@ -178,7 +162,7 @@
         public EmbeddedObjectType OperandType { get; set; }
 
         /// <summary>
-        /// A RelationEndType describes either the association or role end point of a relation.
+        /// A RelationEndType is either the association or role end point of a relation.
         /// </summary>
         public EmbeddedObjectType RelationEndType { get; set; }
 
@@ -186,6 +170,31 @@
         /// The passive end of a relation.
         /// </summary>
         public EmbeddedObjectType RoleType { get; set; }
+
+        /// <summary>
+        /// The association type of the role type.
+        /// </summary>
+        public EmbeddedOneToOneRoleType RoleTypeAssociationType { get; set; }
+
+        /// <summary>
+        /// The assigned plural name of the role type.
+        /// </summary>
+        public EmbeddedUnitRoleType RoleTypeAssignedPluralName { get; set; }
+
+        /// <summary>
+        /// The derived plural name of the role type.
+        /// </summary>
+        public EmbeddedUnitRoleType RoleTypeDerivedPluralName { get; set; }
+
+        /// <summary>
+        /// The object type of the role type.
+        /// </summary>
+        public EmbeddedManyToOneRoleType RoleTypeObjectType { get; set; }
+
+        /// <summary>
+        /// The singular name of the role type.
+        /// </summary>
+        public EmbeddedUnitRoleType RoleTypeSingularName { get; set; }
 
         /// <summary>
         /// A Unit can only be on the role side of a relation.
@@ -198,8 +207,8 @@
         public EmbeddedObjectType Workspace { get; set; }
 
         /// <summary>
-        /// The members of the Workspace.
+        /// The types of the Workspace.
         /// </summary>
-        public EmbeddedManyToManyRoleType WorkspaceMembers { get; set; }
+        public EmbeddedManyToManyRoleType WorkspaceTypes { get; set; }
     }
 }

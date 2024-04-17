@@ -14,20 +14,21 @@ classDiagram
     ObjectType <|-- Composite
     Composite o-- Interface : DirectSupertypes
     class Domain
-    Domain o-- MetaIdentifiableObject : Members
+    MetaObject <|-- Domain
+    Domain o-- Type : Types
     class Interface
     Composite <|-- Interface
-    class MetaIdentifiableObject
-    MetaIdentifiableObject : Guid Id
+    class MetaObject
+    MetaObject : Guid Id
     class MethodType
     OperandType <|-- MethodType
     class ObjectType
-    MetaIdentifiableObject <|-- ObjectType
+    Type <|-- ObjectType
     ObjectType : String AssignedPluralName
     ObjectType : String DerivedPluralName
     ObjectType : String SingularName
     class OperandType
-    MetaIdentifiableObject <|-- OperandType
+    Type <|-- OperandType
     class RelationEndType
     OperandType <|-- RelationEndType
     class RoleType
@@ -37,8 +38,12 @@ classDiagram
     RoleType : String RoleTypeAssignedPluralName
     RoleType : String RoleTypeDerivedPluralName
     RoleType : String RoleTypeSingularName
+    class Type
+    MetaObject <|-- Type
     class Unit
     ObjectType <|-- Unit
     class Workspace
-    Workspace o-- MetaIdentifiableObject : Members
+    MetaObject <|-- Workspace
+    Workspace o-- Type : Types
+
 ```
