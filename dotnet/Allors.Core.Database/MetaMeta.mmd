@@ -1,0 +1,36 @@
+﻿classDiagram
+    class AssociationType
+    RelationEndType <|-- AssociationType
+    class Class
+    Composite <|-- Class
+    class Composite
+    ObjectType <|-- Composite
+    Composite o-- AssociationType : AssociationTypes
+    Composite o-- Class : Classes
+    Composite o-- Composite : Composites
+    class Domain
+    class Interface
+    Composite <|-- Interface
+    class MetaIdentifiableObject
+    MetaIdentifiableObject : String AssignedTag
+    MetaIdentifiableObject : String DerivedTag
+    MetaIdentifiableObject : Guid Id
+    class MethodType
+    MetaIdentifiableObject <|-- MethodType
+    OperandType <|-- MethodType
+    class ObjectType
+    MetaIdentifiableObject <|-- ObjectType
+    ObjectType : String AssignedPluralName
+    ObjectType : String DerivedPluralName
+    ObjectType : String SingularName
+    class OperandType
+    class RelationEndType
+    OperandType <|-- RelationEndType
+    class RelationType
+    MetaIdentifiableObject <|-- RelationType
+    class RoleType
+    RelationEndType <|-- RoleType
+    class Unit
+    ObjectType <|-- Unit
+    class Workspace
+    Workspace o-- MetaIdentifiableObject : Members

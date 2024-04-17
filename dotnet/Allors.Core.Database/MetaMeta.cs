@@ -47,15 +47,13 @@
             this.Unit.AddDirectSupertype(this.ObjectType);
 
             // Relations
-            this.CompositeAssignedKeyRoleType = this.EmbeddedMeta.AddManyToOne(this.Composite, this.RoleType, "AssignedKeyRoleType");
             this.CompositeAssociationTypes = this.EmbeddedMeta.AddManyToMany(this.Composite, this.AssociationType, "AssociationType");
             this.CompositeClasses = this.EmbeddedMeta.AddManyToMany(this.Composite, this.Class, "Class");
             this.CompositeComposites = this.EmbeddedMeta.AddManyToMany(this.Composite, this.Composite, "Composite");
-            this.CompositeDerivedKeyRoleType = this.EmbeddedMeta.AddManyToOne(this.Composite, this.RoleType, "DerivedKeyRoleType");
 
-            this.ObjectTypeAssignedPluralName = this.EmbeddedMeta.AddUnit<Guid>(this.ObjectType, "AssignedPluralName");
-            this.ObjectTypeDerivedPluralName = this.EmbeddedMeta.AddUnit<Guid>(this.ObjectType, "DerivedPluralName");
-            this.ObjectTypeSingularName = this.EmbeddedMeta.AddUnit<Guid>(this.ObjectType, "SingularName");
+            this.ObjectTypeAssignedPluralName = this.EmbeddedMeta.AddUnit<string>(this.ObjectType, "AssignedPluralName");
+            this.ObjectTypeDerivedPluralName = this.EmbeddedMeta.AddUnit<string>(this.ObjectType, "DerivedPluralName");
+            this.ObjectTypeSingularName = this.EmbeddedMeta.AddUnit<string>(this.ObjectType, "SingularName");
 
             this.MetaIdentifiableObjectId = this.EmbeddedMeta.AddUnit<Guid>(this.MetaIdentifiableObject, "Id");
             this.MetaIdentifiableObjectAssignedTag = this.EmbeddedMeta.AddUnit<string>(this.MetaIdentifiableObject, "AssignedTag");
@@ -85,11 +83,6 @@
         public EmbeddedObjectType Composite { get; }
 
         /// <summary>
-        /// The composite's assigned key role type.
-        /// </summary>
-        public EmbeddedManyToOneRoleType CompositeAssignedKeyRoleType { get; set; }
-
-        /// <summary>
         /// The composite's association types.
         /// </summary>
         public EmbeddedManyToManyRoleType CompositeAssociationTypes { get; set; }
@@ -103,11 +96,6 @@
         /// The composite's composites.
         /// </summary>
         public EmbeddedManyToManyRoleType CompositeComposites { get; set; }
-
-        /// <summary>
-        /// The composite's derived key role type.
-        /// </summary>
-        public EmbeddedManyToOneRoleType CompositeDerivedKeyRoleType { get; set; }
 
         /// <summary>
         /// A Domain groups related DomainObjects.
