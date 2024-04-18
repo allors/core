@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Allors.Embedded" Version="3.0.0" />
+    <PackageReference Include="Allors.Embedded" Version="3.0.1" />
     <PackageReference Include="MinVer" Version="5.0.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.CodeStyle" Version="4.9.2" PrivateAssets="all" />

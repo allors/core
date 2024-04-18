@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Allors.Core.Database.Meta.MetaPopulation">
+    <Position X="0.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAABAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Meta\MetaPopulation.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="MetaObjectById" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Allors.Embedded.Domain.EmbeddedObject" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.MetaObject">
+    <Position X="3.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAABAAAA=</HashCode>
+      <FileName>Meta\MetaObject.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="MetaPopulation" />
+      <Property Name="EmbeddedObject" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.Domain" Collapsed="true">
+    <Position X="2" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\Domain.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.Type" Collapsed="true">
+    <Position X="5.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\Type.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.Workspace" Collapsed="true">
+    <Position X="3.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\Workspace.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.ObjectType" Collapsed="true">
+    <Position X="4.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\ObjectType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.OperandType" Collapsed="true">
+    <Position X="9.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\OperandType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.Composite" Collapsed="true">
+    <Position X="3.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\Composite.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.Unit" Collapsed="true">
+    <Position X="5.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\Unit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.Class" Collapsed="true">
+    <Position X="2.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\Class.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.Interface" Collapsed="true">
+    <Position X="4.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\Interface.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.MethodType" Collapsed="true">
+    <Position X="10.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\MethodType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.RelationEndType" Collapsed="true">
+    <Position X="8.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\RelationEndType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.AssociationType" Collapsed="true">
+    <Position X="7.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\AssociationType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.RoleType" Collapsed="true">
+    <Position X="13.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\RoleType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.CompositeAssociationType" Collapsed="true">
+    <Position X="6.25" Y="8.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\CompositeAssociationType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.UnitAssociationType" Collapsed="true">
+    <Position X="9" Y="8.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\UnitAssociationType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.ManyToAssociationType" Collapsed="true">
+    <Position X="9.25" Y="10.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\ManyToAssociationType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.OneToAssociationType" Collapsed="true">
+    <Position X="4.5" Y="10.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\OneToAssociationType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.CompositeRoleType" Collapsed="true">
+    <Position X="16.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\CompositeRoleType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.UnitRoleType" Collapsed="true">
+    <Position X="12.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\UnitRoleType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.ToManyRoleType" Collapsed="true">
+    <Position X="18.75" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\ToManyRoleType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.ToOneRoleType" Collapsed="true">
+    <Position X="14.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\ToOneRoleType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.OneToManyAssociationType" Collapsed="true">
+    <Position X="3" Y="11.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\OneToManyAssociationType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.OneToOneAssociationType" Collapsed="true">
+    <Position X="5.5" Y="11.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\OneToOneAssociationType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.ManyToManyAssociationType" Collapsed="true">
+    <Position X="8" Y="11.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\ManyToManyAssociationType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.ManyToOneAssociationType" Collapsed="true">
+    <Position X="10.5" Y="11.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\ManyToOneAssociationType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.ManyToOneRoleType" Collapsed="true">
+    <Position X="15.5" Y="11.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\ManyToOneRoleType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.OneToOneRoleType" Collapsed="true">
+    <Position X="13.5" Y="11.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\OneToOneRoleType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.ManyToManyRoleType" Collapsed="true">
+    <Position X="19.75" Y="11.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\ManyToManyRoleType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Core.Database.Meta.OneToManyRoleType" Collapsed="true">
+    <Position X="17.75" Y="11.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\OneToManyRoleType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
