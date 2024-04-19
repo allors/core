@@ -11,7 +11,10 @@
     {
         private readonly Dictionary<Guid, MetaObject> metaObjectById;
 
-        internal MetaPopulation(EmbeddedPopulation embeddedPopulation)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MetaPopulation"/> class.
+        /// </summary>
+        public MetaPopulation(EmbeddedPopulation embeddedPopulation)
         {
             this.EmbeddedPopulation = embeddedPopulation;
             this.metaObjectById = [];
