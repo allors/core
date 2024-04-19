@@ -10,8 +10,8 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="ManyToManyAssociationType"/> class.
         /// </summary>
-        internal ManyToManyAssociationType(MetaPopulation metaPopulation, EmbeddedObject embeddedObject)
-            : base(metaPopulation, embeddedObject)
+        internal ManyToManyAssociationType(Meta meta, EmbeddedObject embeddedObject)
+            : base(meta, embeddedObject)
         {
         }
     }

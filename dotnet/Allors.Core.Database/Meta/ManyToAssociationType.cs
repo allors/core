@@ -10,8 +10,8 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="ManyToAssociationType"/> class.
         /// </summary>
-        protected ManyToAssociationType(MetaPopulation metaPopulation, EmbeddedObject embeddedObject)
-            : base(metaPopulation, embeddedObject)
+        protected ManyToAssociationType(Meta meta, EmbeddedObject embeddedObject)
+            : base(meta, embeddedObject)
         {
         }
     }

@@ -10,8 +10,8 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="ObjectType"/> class.
         /// </summary>
-        protected ObjectType(MetaPopulation metaPopulation, EmbeddedObject embeddedObject)
-            : base(metaPopulation, embeddedObject)
+        protected ObjectType(Meta meta, EmbeddedObject embeddedObject)
+            : base(meta, embeddedObject)
         {
         }
     }

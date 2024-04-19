@@ -10,8 +10,8 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="UnitAssociationType"/> class.
         /// </summary>
-        internal UnitAssociationType(MetaPopulation metaPopulation, EmbeddedObject embeddedObject)
-            : base(metaPopulation, embeddedObject)
+        internal UnitAssociationType(Meta meta, EmbeddedObject embeddedObject)
+            : base(meta, embeddedObject)
         {
         }
     }

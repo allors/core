@@ -10,8 +10,8 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="ToManyRoleType"/> class.
         /// </summary>
-        protected ToManyRoleType(MetaPopulation metaPopulation, EmbeddedObject embeddedObject)
-            : base(metaPopulation, embeddedObject)
+        protected ToManyRoleType(Meta meta, EmbeddedObject embeddedObject)
+            : base(meta, embeddedObject)
         {
         }
     }

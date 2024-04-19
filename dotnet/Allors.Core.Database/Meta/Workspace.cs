@@ -5,13 +5,13 @@
     /// <summary>
     /// A workspace.
     /// </summary>
-    public abstract class Workspace : MetaObject
+    public sealed class Workspace : MetaObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Workspace"/> class.
         /// </summary>
-        protected Workspace(MetaPopulation metaPopulation, EmbeddedObject embeddedObject)
-            : base(metaPopulation, embeddedObject)
+        internal Workspace(Meta meta, EmbeddedObject embeddedObject)
+            : base(meta, embeddedObject)
         {
         }
     }

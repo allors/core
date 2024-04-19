@@ -10,8 +10,8 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="OneToOneAssociationType"/> class.
         /// </summary>
-        internal OneToOneAssociationType(MetaPopulation metaPopulation, EmbeddedObject embeddedObject)
-            : base(metaPopulation, embeddedObject)
+        internal OneToOneAssociationType(Meta meta, EmbeddedObject embeddedObject)
+            : base(meta, embeddedObject)
         {
         }
     }

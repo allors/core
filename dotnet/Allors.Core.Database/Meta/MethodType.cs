@@ -10,8 +10,8 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="MethodType"/> class.
         /// </summary>
-        internal MethodType(MetaPopulation metaPopulation, EmbeddedObject embeddedObject)
-            : base(metaPopulation, embeddedObject)
+        internal MethodType(Meta meta, EmbeddedObject embeddedObject)
+            : base(meta, embeddedObject)
         {
         }
     }

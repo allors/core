@@ -11,9 +11,9 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="MetaObject"/> class.
         /// </summary>
-        protected MetaObject(MetaPopulation metaPopulation, EmbeddedObject embeddedObject)
+        protected MetaObject(Meta meta, EmbeddedObject embeddedObject)
         {
-            this.MetaPopulation = metaPopulation;
+            this.Meta = meta;
             this.EmbeddedObject = embeddedObject;
             this.Id = (Guid?)embeddedObject["Id"] ?? throw new ArgumentException("Meta object has no id");
         }
@@ -21,7 +21,7 @@
         /// <summary>
         /// The meta population.
         /// </summary>
-        public MetaPopulation MetaPopulation { get; }
+        public Meta Meta { get; }
 
         /// <summary>
         /// The embedded object.

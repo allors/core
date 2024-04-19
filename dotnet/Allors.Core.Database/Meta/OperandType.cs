@@ -10,8 +10,8 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="OperandType"/> class.
         /// </summary>
-        protected OperandType(MetaPopulation metaPopulation, EmbeddedObject embeddedObject)
-            : base(metaPopulation, embeddedObject)
+        protected OperandType(Meta meta, EmbeddedObject embeddedObject)
+            : base(meta, embeddedObject)
         {
         }
     }

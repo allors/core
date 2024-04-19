@@ -10,8 +10,8 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="ManyToOneRoleType"/> class.
         /// </summary>
-        internal ManyToOneRoleType(MetaPopulation metaPopulation, EmbeddedObject embeddedObject)
-            : base(metaPopulation, embeddedObject)
+        internal ManyToOneRoleType(Meta meta, EmbeddedObject embeddedObject)
+            : base(meta, embeddedObject)
         {
         }
     }

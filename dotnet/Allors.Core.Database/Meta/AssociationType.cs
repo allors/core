@@ -10,8 +10,8 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="AssociationType"/> class.
         /// </summary>
-        protected AssociationType(MetaPopulation metaPopulation, EmbeddedObject embeddedObject)
-            : base(metaPopulation, embeddedObject)
+        protected AssociationType(Meta meta, EmbeddedObject embeddedObject)
+            : base(meta, embeddedObject)
         {
         }
     }

@@ -10,8 +10,8 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="CompositeRoleType"/> class.
         /// </summary>
-        protected ToOneRoleType(MetaPopulation metaPopulation, EmbeddedObject embeddedObject)
-            : base(metaPopulation, embeddedObject)
+        protected ToOneRoleType(Meta meta, EmbeddedObject embeddedObject)
+            : base(meta, embeddedObject)
         {
         }
     }

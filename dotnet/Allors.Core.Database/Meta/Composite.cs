@@ -10,8 +10,8 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="Composite"/> class.
         /// </summary>
-        protected Composite(MetaPopulation metaPopulation, EmbeddedObject embeddedObject)
-            : base(metaPopulation, embeddedObject)
+        protected Composite(Meta meta, EmbeddedObject embeddedObject)
+            : base(meta, embeddedObject)
         {
         }
     }

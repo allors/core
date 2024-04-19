@@ -10,8 +10,8 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="UnitRoleType"/> class.
         /// </summary>
-        internal UnitRoleType(MetaPopulation metaPopulation, EmbeddedObject embeddedObject)
-            : base(metaPopulation, embeddedObject)
+        internal UnitRoleType(Meta meta, EmbeddedObject embeddedObject)
+            : base(meta, embeddedObject)
         {
         }
     }

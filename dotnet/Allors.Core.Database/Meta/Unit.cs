@@ -10,8 +10,8 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="Unit"/> class.
         /// </summary>
-        internal Unit(MetaPopulation metaPopulation, EmbeddedObject embeddedObject)
-            : base(metaPopulation, embeddedObject)
+        internal Unit(Meta meta, EmbeddedObject embeddedObject)
+            : base(meta, embeddedObject)
         {
         }
     }

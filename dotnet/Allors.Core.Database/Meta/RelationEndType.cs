@@ -10,8 +10,8 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="RelationEndType"/> class.
         /// </summary>
-        protected RelationEndType(MetaPopulation metaPopulation, EmbeddedObject embeddedObject)
-            : base(metaPopulation, embeddedObject)
+        protected RelationEndType(Meta meta, EmbeddedObject embeddedObject)
+            : base(meta, embeddedObject)
         {
         }
     }

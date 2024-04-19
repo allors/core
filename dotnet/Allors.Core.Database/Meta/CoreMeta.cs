@@ -10,6 +10,11 @@
     public sealed class CoreMeta
     {
         /// <summary>
+        /// The id for Object.
+        /// </summary>
+        public static readonly Guid ID1595A154CEE841FCA88FCE3EEACA8B57 = new("1595A154-CEE8-41FC-A88F-CE3EEACA8B57");
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="CoreMeta"/> class.
         /// </summary>
         public CoreMeta()
@@ -64,6 +69,8 @@
 
             this.MetaObjectId = meta.AddUnit<Guid>(this.MetaObject, "Id");
 
+            this.RelationEndTypeIsMany = meta.AddUnit<bool>(this.RelationEndType, "IsMany");
+
             this.RoleTypeAssociationType = meta.AddOneToOne(this.RoleType, this.AssociationType);
             this.RoleTypeAssignedPluralName = meta.AddUnit<string>(this.RoleType, "AssignedPluralName");
             this.RoleTypeDerivedPluralName = meta.AddUnit<string>(this.RoleType, "DerivedPluralName");
@@ -83,7 +90,7 @@
                 });
             }
 
-            var @object = NewInterface(Symbols.ID1595A154CEE841FCA88FCE3EEACA8B57, "Object");
+            var @object = NewInterface(ID1595A154CEE841FCA88FCE3EEACA8B57, "Object");
         }
 
         /// <summary>
@@ -172,6 +179,11 @@
         public EmbeddedObjectType RelationEndType { get; set; }
 
         /// <summary>
+        /// The is many of a role type.
+        /// </summary>
+        public EmbeddedUnitRoleType RelationEndTypeIsMany { get; }
+
+        /// <summary>
         /// A role type.
         /// </summary>
         public EmbeddedObjectType RoleType { get; set; }
@@ -232,13 +244,12 @@
         public EmbeddedPopulation EmbeddedPopulation { get; set; }
 
         /// <summary>
-        /// The exported symbols
+        /// Build a MetaPopulation.
         /// </summary>
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-        public static class Symbols
+        /// <returns></returns>
+        public Meta Build()
         {
-            public static readonly Guid ID1595A154CEE841FCA88FCE3EEACA8B57 = new("1595A154-CEE8-41FC-A88F-CE3EEACA8B57");
+            return new Meta(this);
         }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     }
 }
