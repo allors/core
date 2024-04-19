@@ -15,6 +15,11 @@
         public static readonly Guid ID1595A154CEE841FCA88FCE3EEACA8B57 = new("1595A154-CEE8-41FC-A88F-CE3EEACA8B57");
 
         /// <summary>
+        /// The id for String.
+        /// </summary>
+        public static readonly Guid IDC2A52C6B82A14B5CAE643CB8EE0D7680 = new("C2A52C6B-82A1-4B5C-AE64-3CB8EE0D7680");
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="CoreMeta"/> class.
         /// </summary>
         public CoreMeta()
@@ -80,6 +85,16 @@
             this.WorkspaceTypes = meta.AddManyToMany(this.Workspace, this.Type);
 
             // Meta
+            EmbeddedObject NewUnit(Guid id, string singularName, string? assignedPluralName = null)
+            {
+                return this.EmbeddedPopulation.Create(this.Unit, v =>
+                {
+                    v[this.MetaObjectId] = id;
+                    v[this.ObjectTypeSingularName] = singularName;
+                    v[this.ObjectTypeAssignedPluralName] = assignedPluralName;
+                });
+            }
+
             EmbeddedObject NewInterface(Guid id, string singularName, string? assignedPluralName = null)
             {
                 return this.EmbeddedPopulation.Create(this.Interface, v =>
@@ -91,6 +106,7 @@
             }
 
             var @object = NewInterface(ID1595A154CEE841FCA88FCE3EEACA8B57, "Object");
+            var @string = NewUnit(IDC2A52C6B82A14B5CAE643CB8EE0D7680, "String");
         }
 
         /// <summary>
