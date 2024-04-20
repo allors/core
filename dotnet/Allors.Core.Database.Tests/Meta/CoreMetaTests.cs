@@ -20,17 +20,14 @@
         public void Build()
         {
             var coreMeta = new CoreMeta();
-            var meta = coreMeta.Build();
 
-            Assert.NotNull(meta);
-
-            var metaObjects = meta.MetaObjectById.Values.ToArray();
+            var metaObjects = coreMeta.MetaObjectById.Values.ToArray();
             var units = metaObjects.OfType<Unit>().ToArray();
             var interfaces = metaObjects.OfType<Interface>().ToArray();
             var classes = metaObjects.OfType<Class>().ToArray();
 
-            Assert.Single(metaObjects);
-            Assert.Empty(units);
+            Assert.Equal(2, metaObjects.Length);
+            Assert.Single(units);
             Assert.Single(interfaces);
             Assert.Empty(classes);
         }

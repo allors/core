@@ -1,5 +1,6 @@
 ﻿namespace Allors.Core.Database.Meta
 {
+    using System;
     using Allors.Embedded.Domain;
 
     /// <summary>
@@ -10,8 +11,8 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="Unit"/> class.
         /// </summary>
-        internal Unit(Meta meta, EmbeddedObject embeddedObject)
-            : base(meta, embeddedObject)
+        public Unit(Guid id, EmbeddedObject embeddedObject)
+            : base(id, embeddedObject)
         {
         }
     }

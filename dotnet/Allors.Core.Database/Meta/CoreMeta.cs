@@ -1,6 +1,8 @@
 ﻿namespace Allors.Core.Database.Meta
 {
     using System;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
     using Allors.Embedded.Domain;
     using Allors.Embedded.Meta;
 
@@ -10,41 +12,31 @@
     public sealed class CoreMeta
     {
         /// <summary>
-        /// The id for Object.
-        /// </summary>
-        public static readonly Guid ID1595A154CEE841FCA88FCE3EEACA8B57 = new("1595A154-CEE8-41FC-A88F-CE3EEACA8B57");
-
-        /// <summary>
-        /// The id for String.
-        /// </summary>
-        public static readonly Guid IDC2A52C6B82A14B5CAE643CB8EE0D7680 = new("C2A52C6B-82A1-4B5C-AE64-3CB8EE0D7680");
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="CoreMeta"/> class.
         /// </summary>
         public CoreMeta()
         {
+            this.MetaObjectById = new ConcurrentDictionary<Guid, MetaObject>();
+
             this.EmbeddedMeta = new EmbeddedMeta();
             this.EmbeddedPopulation = new EmbeddedPopulation();
 
             // Meta Meta
-            var meta = this.EmbeddedMeta;
-
             // ObjectTypes
-            this.AssociationType = meta.AddClass("AssociationType");
-            this.Class = meta.AddClass("Class");
-            this.Composite = meta.AddInterface("Composite");
-            this.Domain = meta.AddClass("Domain");
-            this.Interface = meta.AddClass("Interface");
-            this.MetaObject = meta.AddInterface("MetaObject");
-            this.MethodType = meta.AddClass("MethodType");
-            this.ObjectType = meta.AddInterface("ObjectType");
-            this.OperandType = meta.AddInterface("OperandType");
-            this.RelationEndType = meta.AddInterface("RelationEndType");
-            this.RoleType = meta.AddClass("RoleType");
-            this.Type = meta.AddInterface("Type");
-            this.Unit = meta.AddClass("Unit");
-            this.Workspace = meta.AddClass("Workspace");
+            this.AssociationType = this.NewMetaClass("AssociationType");
+            this.Class = this.NewMetaClass("Class");
+            this.Composite = this.NewMetaInterface("Composite");
+            this.Domain = this.NewMetaClass("Domain");
+            this.Interface = this.NewMetaClass("Interface");
+            this.MetaObject = this.NewMetaInterface("MetaObject");
+            this.MethodType = this.NewMetaClass("MethodType");
+            this.ObjectType = this.NewMetaInterface("ObjectType");
+            this.OperandType = this.NewMetaInterface("OperandType");
+            this.RelationEndType = this.NewMetaInterface("RelationEndType");
+            this.RoleType = this.NewMetaClass("RoleType");
+            this.Type = this.NewMetaInterface("Type");
+            this.Unit = this.NewMetaClass("Unit");
+            this.Workspace = this.NewMetaClass("Workspace");
 
             // Inheritance
             this.AssociationType.AddDirectSupertype(this.RelationEndType);
@@ -62,52 +54,47 @@
             this.Workspace.AddDirectSupertype(this.MetaObject);
 
             // Relations
-            this.AssociationTypeComposite = meta.AddManyToOne(this.AssociationType, this.Composite);
+            this.AssociationTypeComposite = this.EmbeddedMeta.AddManyToOne(this.AssociationType, this.Composite);
 
-            this.CompositeDirectSupertypes = meta.AddManyToMany(this.Composite, this.Interface, "DirectSupertype");
+            this.CompositeDirectSupertypes = this.EmbeddedMeta.AddManyToMany(this.Composite, this.Interface, "DirectSupertype");
 
-            this.DomainTypes = meta.AddManyToMany(this.Domain, this.Type);
+            this.DomainTypes = this.EmbeddedMeta.AddManyToMany(this.Domain, this.Type);
 
-            this.ObjectTypeAssignedPluralName = meta.AddUnit<string>(this.ObjectType, "AssignedPluralName");
-            this.ObjectTypeDerivedPluralName = meta.AddUnit<string>(this.ObjectType, "DerivedPluralName");
-            this.ObjectTypeSingularName = meta.AddUnit<string>(this.ObjectType, "SingularName");
+            this.ObjectTypeAssignedPluralName = this.EmbeddedMeta.AddUnit<string>(this.ObjectType, "AssignedPluralName");
+            this.ObjectTypeDerivedPluralName = this.EmbeddedMeta.AddUnit<string>(this.ObjectType, "DerivedPluralName");
+            this.ObjectTypeSingularName = this.EmbeddedMeta.AddUnit<string>(this.ObjectType, "SingularName");
 
-            this.MetaObjectId = meta.AddUnit<Guid>(this.MetaObject, "Id");
+            this.MetaObjectId = this.EmbeddedMeta.AddUnit<Guid>(this.MetaObject, "Id");
 
-            this.RelationEndTypeIsMany = meta.AddUnit<bool>(this.RelationEndType, "IsMany");
+            this.RelationEndTypeIsMany = this.EmbeddedMeta.AddUnit<bool>(this.RelationEndType, "IsMany");
 
-            this.RoleTypeAssociationType = meta.AddOneToOne(this.RoleType, this.AssociationType);
-            this.RoleTypeAssignedPluralName = meta.AddUnit<string>(this.RoleType, "AssignedPluralName");
-            this.RoleTypeDerivedPluralName = meta.AddUnit<string>(this.RoleType, "DerivedPluralName");
-            this.RoleTypeObjectType = meta.AddManyToOne(this.RoleType, this.ObjectType);
-            this.RoleTypeSingularName = meta.AddUnit<string>(this.RoleType, "SingularName");
+            this.RoleTypeAssociationType = this.EmbeddedMeta.AddOneToOne(this.RoleType, this.AssociationType);
+            this.RoleTypeAssignedPluralName = this.EmbeddedMeta.AddUnit<string>(this.RoleType, "AssignedPluralName");
+            this.RoleTypeDerivedPluralName = this.EmbeddedMeta.AddUnit<string>(this.RoleType, "DerivedPluralName");
+            this.RoleTypeObjectType = this.EmbeddedMeta.AddManyToOne(this.RoleType, this.ObjectType);
+            this.RoleTypeSingularName = this.EmbeddedMeta.AddUnit<string>(this.RoleType, "SingularName");
 
-            this.WorkspaceTypes = meta.AddManyToMany(this.Workspace, this.Type);
+            this.WorkspaceTypes = this.EmbeddedMeta.AddManyToMany(this.Workspace, this.Type);
 
             // Meta
-            EmbeddedObject NewUnit(Guid id, string singularName, string? assignedPluralName = null)
-            {
-                return this.EmbeddedPopulation.Create(this.Unit, v =>
-                {
-                    v[this.MetaObjectId] = id;
-                    v[this.ObjectTypeSingularName] = singularName;
-                    v[this.ObjectTypeAssignedPluralName] = assignedPluralName;
-                });
-            }
-
-            EmbeddedObject NewInterface(Guid id, string singularName, string? assignedPluralName = null)
-            {
-                return this.EmbeddedPopulation.Create(this.Interface, v =>
-                {
-                    v[this.MetaObjectId] = id;
-                    v[this.ObjectTypeSingularName] = singularName;
-                    v[this.ObjectTypeAssignedPluralName] = assignedPluralName;
-                });
-            }
-
-            var @object = NewInterface(ID1595A154CEE841FCA88FCE3EEACA8B57, "Object");
-            var @string = NewUnit(IDC2A52C6B82A14B5CAE643CB8EE0D7680, "String");
+            this.Object = this.NewInterface(new Guid("8904EE32-CF11-4019-9FD7-FB9631F9ACAC"), "Object");
+            this.String = this.NewUnit(new Guid("58BB7632-4724-4F92-869B-B30D7A7BEE9E"), "String");
         }
+
+        /// <summary>
+        /// Lookup a meta object by id.
+        /// </summary>
+        public IDictionary<Guid, MetaObject> MetaObjectById { get; }
+
+        /// <summary>
+        /// The embedded meta.
+        /// </summary>
+        public EmbeddedMeta EmbeddedMeta { get; }
+
+        /// <summary>
+        /// The embedded population.
+        /// </summary>
+        public EmbeddedPopulation EmbeddedPopulation { get; set; }
 
         /// <summary>
         /// An association type.
@@ -250,22 +237,77 @@
         public EmbeddedManyToManyRoleType WorkspaceTypes { get; set; }
 
         /// <summary>
-        /// The embedded meta.
+        /// The Object interface.
         /// </summary>
-        public EmbeddedMeta EmbeddedMeta { get; }
+        public Interface Object { get; set; }
 
         /// <summary>
-        /// The embedded population.
+        /// The String unit.
         /// </summary>
-        public EmbeddedPopulation EmbeddedPopulation { get; set; }
+        public Unit String { get; set; }
 
         /// <summary>
-        /// Build a MetaPopulation.
+        /// Creates a new meta class.
         /// </summary>
-        /// <returns></returns>
-        public Meta Build()
+        public EmbeddedObjectType NewMetaClass(string name)
         {
-            return new Meta(this);
+            return this.EmbeddedMeta.AddClass(name);
+        }
+
+        /// <summary>
+        /// Creates a new meta interface.
+        /// </summary>
+        public EmbeddedObjectType NewMetaInterface(string name)
+        {
+            return this.EmbeddedMeta.AddInterface(name);
+        }
+
+        /// <summary>
+        /// Creates a new unit.
+        /// </summary>
+        public Unit NewUnit(Guid id, string singularName, string? assignedPluralName = null)
+        {
+            var unit = new Unit(id, this.EmbeddedPopulation.Create(this.Unit, v =>
+            {
+                v[this.MetaObjectId] = id;
+                v[this.ObjectTypeSingularName] = singularName;
+                v[this.ObjectTypeAssignedPluralName] = assignedPluralName;
+            }));
+
+            this.MetaObjectById.Add(id, unit);
+            return unit;
+        }
+
+        /// <summary>
+        /// Creates a new interface.
+        /// </summary>
+        public Interface NewInterface(Guid id, string singularName, string? assignedPluralName = null)
+        {
+            var @interface = new Interface(id, this.EmbeddedPopulation.Create(this.Interface, v =>
+            {
+                v[this.MetaObjectId] = id;
+                v[this.ObjectTypeSingularName] = singularName;
+                v[this.ObjectTypeAssignedPluralName] = assignedPluralName;
+            }));
+
+            this.MetaObjectById.Add(id, @interface);
+            return @interface;
+        }
+
+        /// <summary>
+        /// Creates a new class.
+        /// </summary>
+        public Class NewClass(Guid id, string singularName, string? assignedPluralName = null)
+        {
+            var @class = new Class(id, this.EmbeddedPopulation.Create(this.Class, v =>
+            {
+                v[this.MetaObjectId] = id;
+                v[this.ObjectTypeSingularName] = singularName;
+                v[this.ObjectTypeAssignedPluralName] = assignedPluralName;
+            }));
+
+            this.MetaObjectById.Add(id, @class);
+            return @class;
         }
     }
 }
