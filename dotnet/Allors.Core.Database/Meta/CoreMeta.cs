@@ -244,7 +244,7 @@
         /// <summary>
         /// The String unit.
         /// </summary>
-        public Unit String { get; set; }
+        public UnitRole String { get; set; }
 
         /// <summary>
         /// Creates a new meta class.
@@ -265,9 +265,9 @@
         /// <summary>
         /// Creates a new unit.
         /// </summary>
-        public Unit NewUnit(Guid id, string singularName, string? assignedPluralName = null)
+        public UnitRole NewUnit(Guid id, string singularName, string? assignedPluralName = null)
         {
-            var unit = new Unit(id, this.EmbeddedPopulation.Create(this.Unit, v =>
+            var unit = new UnitRole(id, this.EmbeddedPopulation.Create(this.Unit, v =>
             {
                 v[this.MetaObjectId] = id;
                 v[this.ObjectTypeSingularName] = singularName;
@@ -313,7 +313,7 @@
         /// <summary>
         /// Creates new unit relation end types.
         /// </summary>
-        public (UnitAssociationType AssociationType, UnitRoleType RoleType) NewUnitRelationEndTypes(Guid associationTypeId, Guid roleTypeId, Composite associationComposite, Unit roleUnit, string singularName, string? assignedPluralName = null)
+        public (UnitAssociationType AssociationType, UnitRoleType RoleType) NewUnitRelationEndTypes(Guid associationTypeId, Guid roleTypeId, Composite associationComposite, UnitRole unitRole, string singularName, string? assignedPluralName = null)
         {
             var associationType = new UnitAssociationType(associationTypeId, this.EmbeddedPopulation.Create(this.AssociationType, v =>
             {
@@ -327,7 +327,7 @@
             {
                 v[this.MetaObjectId] = roleTypeId;
                 v[this.RoleTypeAssociationType] = associationType.EmbeddedObject;
-                v[this.RoleTypeObjectType] = roleUnit.EmbeddedObject;
+                v[this.RoleTypeObjectType] = unitRole.EmbeddedObject;
                 v[this.RoleTypeSingularName] = singularName;
                 v[this.RoleTypeAssignedPluralName] = assignedPluralName;
             }));

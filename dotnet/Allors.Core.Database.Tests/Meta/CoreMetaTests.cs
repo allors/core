@@ -22,7 +22,7 @@
             var coreMeta = new CoreMeta();
 
             var metaObjects = coreMeta.MetaObjectById.Values.ToArray();
-            var units = metaObjects.OfType<Unit>().ToArray();
+            var units = metaObjects.OfType<UnitRole>().ToArray();
             var interfaces = metaObjects.OfType<Interface>().ToArray();
             var classes = metaObjects.OfType<Class>().ToArray();
 

@@ -1,6 +1,6 @@
 ﻿namespace Allors.Core.Database.Adapters.Memory.Tests
 {
-    public class UnitTests : Adapters.Tests.UnitTests
+    public class ChangesTests : Adapters.Tests.ChangesTests
     {
         protected override IDatabase CreateDatabase() => new Database();
     }

@@ -3,7 +3,7 @@
   <Class Name="Allors.Core.Database.Adapters.Memory.Transaction">
     <Position X="3.25" Y="0.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAECAAAAAAAAQAAAAAAAAgAAAAAAAAQABgAA=</HashCode>
+      <HashCode>AAAAAFAIAEAAAgACAAQAAAAAAAAAgAAAAAAAAAAAgAA=</HashCode>
       <FileName>Transaction.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -14,7 +14,7 @@
   <Class Name="Allors.Core.Database.Adapters.Memory.Database">
     <Position X="0.5" Y="0.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAgAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAEAAAABAAAAAAAAAAAAAAAABAAAgAA=</HashCode>
       <FileName>Database.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -22,7 +22,7 @@
   <Class Name="Allors.Core.Database.Adapters.Memory.Object">
     <Position X="7.25" Y="0.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AACAAAAAAgAAAAAACAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AACCAAAAAgAQAAAACAIAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Object.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>

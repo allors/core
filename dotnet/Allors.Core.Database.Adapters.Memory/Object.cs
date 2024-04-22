@@ -2,24 +2,37 @@
 
 using System;
 using System.Collections.Generic;
+using System.Transactions;
 using Allors.Core.Database.Meta;
 
 /// <inheritdoc />
 public class Object : IObject
 {
-    private readonly State? state;
-    private Dictionary<Guid, object?>? roleByRoleTypeId;
+    private State? originalState;
+    private Dictionary<Guid, object?>? changedRoleByRoleTypeId;
+    private Dictionary<Guid, object?>? checkpointRoleByRoleTypeId;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Object"/> class.
     /// </summary>
-    public Object(Transaction transaction, Class @class, long id)
+    internal Object(Transaction transaction, Class @class, long id)
     {
         this.Transaction = transaction;
         this.Class = @class;
         this.Id = id;
 
-        transaction.OriginalState.TryGetValue(this.Id, out this.state);
+        transaction.OriginalState.TryGetValue(this.Id, out this.originalState);
+    }
+
+    /// <summary>
+    /// Initializes an existing instance of the <see cref="Object"/> class.
+    /// </summary>
+    internal Object(Transaction transaction, State originalState)
+    {
+        this.Transaction = transaction;
+        this.originalState = originalState;
+        this.Id = originalState.Id;
+        this.Class = originalState.Class;
     }
 
     /// <inheritdoc />
@@ -37,12 +50,12 @@ public class Object : IObject
     {
         get
         {
-            if (this.roleByRoleTypeId != null && this.roleByRoleTypeId.TryGetValue(unitRoleType.Id, out var changedRole))
+            if (this.changedRoleByRoleTypeId != null && this.changedRoleByRoleTypeId.TryGetValue(unitRoleType.Id, out var changedRole))
             {
                 return changedRole;
             }
 
-            if (this.state != null && this.state.RoleByRoleTypeId.TryGetValue(unitRoleType.Id, out var role))
+            if (this.originalState != null && this.originalState.RoleByRoleTypeId.TryGetValue(unitRoleType.Id, out var role))
             {
                 return role;
             }
@@ -58,8 +71,30 @@ public class Object : IObject
                 return;
             }
 
-            this.roleByRoleTypeId ??= [];
-            this.roleByRoleTypeId[unitRoleType.Id] = value;
+            this.changedRoleByRoleTypeId ??= [];
+            this.changedRoleByRoleTypeId[unitRoleType.Id] = value;
         }
+    }
+
+    internal void Checkpoint(
+        HashSet<IObject> created,
+        HashSet<IObject> deleted,
+        Dictionary<IObject, ISet<RoleType>> roleTypesByAssociation,
+        Dictionary<IObject, ISet<AssociationType>> associationTypesByRole)
+    {
+        if (this.changedRoleByRoleTypeId == null)
+        {
+            return;
+        }
+
+        // TODO:
+        this.checkpointRoleByRoleTypeId = this.changedRoleByRoleTypeId;
+    }
+
+    internal void Rollback()
+    {
+        this.Transaction.OriginalState.TryGetValue(this.Id, out this.originalState);
+        this.changedRoleByRoleTypeId = null;
+        this.checkpointRoleByRoleTypeId = null;
     }
 }

@@ -3,7 +3,7 @@
     using Allors.Core.Database.Meta;
     using Xunit;
 
-    public abstract class UnitTestsBase
+    public abstract class UnitTests
     {
         [Fact]
         public void String()
@@ -16,9 +16,9 @@
 
             var c1a = transaction.Build(adaptersMeta.C1);
 
-            c1a[adaptersMeta.I1String] = "A string";
+            c1a[adaptersMeta.I1AllorsString] = "A string";
 
-            Assert.Equal("A string", c1a[adaptersMeta.I1String]);
+            Assert.Equal("A string", c1a[adaptersMeta.I1AllorsString]);
         }
 
         protected abstract IDatabase CreateDatabase();
