@@ -309,5 +309,32 @@
             this.MetaObjectById.Add(id, @class);
             return @class;
         }
+
+        /// <summary>
+        /// Creates new unit relation end types.
+        /// </summary>
+        public (UnitAssociationType AssociationType, UnitRoleType RoleType) NewUnitRelationEndTypes(Guid associationTypeId, Guid roleTypeId, Composite associationComposite, Unit roleUnit, string singularName, string? assignedPluralName = null)
+        {
+            var associationType = new UnitAssociationType(associationTypeId, this.EmbeddedPopulation.Create(this.AssociationType, v =>
+            {
+                v[this.MetaObjectId] = associationTypeId;
+                v[this.AssociationTypeComposite] = associationComposite.EmbeddedObject;
+            }));
+
+            this.MetaObjectById.Add(associationTypeId, associationType);
+
+            var roleType = new UnitRoleType(roleTypeId, this.EmbeddedPopulation.Create(this.RoleType, v =>
+            {
+                v[this.MetaObjectId] = roleTypeId;
+                v[this.RoleTypeAssociationType] = associationType.EmbeddedObject;
+                v[this.RoleTypeObjectType] = roleUnit.EmbeddedObject;
+                v[this.RoleTypeSingularName] = singularName;
+                v[this.RoleTypeAssignedPluralName] = assignedPluralName;
+            }));
+
+            this.MetaObjectById.Add(roleTypeId, roleType);
+
+            return (associationType, roleType);
+        }
     }
 }
