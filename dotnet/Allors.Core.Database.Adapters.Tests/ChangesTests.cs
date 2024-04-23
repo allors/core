@@ -23,9 +23,9 @@
 
             transaction.Commit();
 
-            a = transaction.Instantiate(a);
+            a = transaction.Instantiate(a.Id)!;
             var b = transaction.Build(m.C2);
-            transaction.Instantiate(c);
+            transaction.Instantiate(c.Id);
 
             a[m.C1AllorsString] = null;
             b[m.C2AllorsString] = null;

@@ -22,18 +22,13 @@
   <Class Name="Allors.Core.Database.Adapters.Memory.Object">
     <Position X="7.25" Y="0.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AACCAAAAAgAQAAAACAIAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AACCAAAAAgAQAgBKCAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Object.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Class" />
       <Property Name="Transaction" />
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="Allors.Core.Database.Meta.Class" Collapsed="true">
-    <Position X="10.5" Y="0.5" Width="1.5" />
-    <TypeIdentifier />
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

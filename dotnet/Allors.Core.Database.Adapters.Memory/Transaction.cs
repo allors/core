@@ -1,52 +1,51 @@
-﻿using Allors.Embedded.Domain;
-
-namespace Allors.Core.Database.Adapters.Memory;
+﻿namespace Allors.Core.Database.Adapters.Memory;
 
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using Allors.Core.Database.Meta;
 
 /// <inheritdoc />
 public class Transaction : ITransaction
 {
-    private readonly IDictionary<long, Object> instantiatedObjectByObjectId;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="Transaction"/> class.
     /// </summary>
     public Transaction(Database database)
     {
         this.Database = database;
-        this.OriginalState = database.State;
+        this.Store = database.Store;
 
-        this.instantiatedObjectByObjectId = new Dictionary<long, Object>();
+        this.InstantiatedObjectByObjectId = new Dictionary<long, Object>();
     }
 
     IDatabase ITransaction.Database => this.Database;
 
-    internal Database Database { get; }
+    internal Store Store { get; private set; }
 
-    internal ImmutableDictionary<long, State> OriginalState { get; private set; }
+    internal IDictionary<long, Object> InstantiatedObjectByObjectId { get; }
+
+    private Database Database { get; }
 
     /// <inheritdoc/>
     public IObject Build(Class @class)
     {
-        return new Object(this, @class, this.Database.NextObjectId());
+        var newObject = new Object(this, @class, this.Database.NextObjectId());
+        this.InstantiatedObjectByObjectId.Add(newObject.Id, newObject);
+        return newObject;
     }
 
     /// <inheritdoc />
     public IObject Instantiate(long id)
     {
-        if (this.instantiatedObjectByObjectId.TryGetValue(id, out var @object))
+        if (this.InstantiatedObjectByObjectId.TryGetValue(id, out var @object))
         {
             return @object;
         }
 
-        if (this.OriginalState.TryGetValue(id, out var originalState))
+        if (this.Store.RecordById.TryGetValue(id, out var originalState))
         {
             var instantiatedObject = new Object(this, originalState);
-            this.instantiatedObjectByObjectId.Add(instantiatedObject.Id, instantiatedObject);
+            this.InstantiatedObjectByObjectId.Add(instantiatedObject.Id, instantiatedObject);
             return instantiatedObject;
         }
 
@@ -56,31 +55,34 @@ public class Transaction : ITransaction
     /// <inheritdoc />
     public IChangeSet Checkpoint()
     {
-        var created = new HashSet<IObject>();
-        var deleted = new HashSet<IObject>();
-        var roleTypesByAssociation = new Dictionary<IObject, ISet<RoleType>>();
-        var associationTypesByRole = new Dictionary<IObject, ISet<AssociationType>>();
+        var changeSet = new ChangeSet();
 
-        foreach (var (_, @object) in this.instantiatedObjectByObjectId)
+        foreach (var (_, @object) in this.InstantiatedObjectByObjectId)
         {
-            @object.Checkpoint(created, deleted, roleTypesByAssociation, associationTypesByRole);
+            @object.Checkpoint(changeSet);
         }
 
-        return new ChangeSet(created, deleted, roleTypesByAssociation, associationTypesByRole);
+        return changeSet;
     }
 
     /// <inheritdoc />
     public void Commit()
     {
-        throw new System.NotImplementedException();
+        this.Database.Commit(this);
+        this.Reset();
     }
 
     /// <inheritdoc />
     public void Rollback()
     {
-        this.OriginalState = this.Database.State;
+        this.Reset();
+    }
 
-        foreach (var (_, @object) in this.instantiatedObjectByObjectId)
+    private void Reset()
+    {
+        this.Store = this.Database.Store;
+
+        foreach (var (_, @object) in this.InstantiatedObjectByObjectId)
         {
             @object.Rollback();
         }

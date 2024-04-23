@@ -2,15 +2,16 @@
 
 using System;
 using System.Collections.Generic;
-using System.Transactions;
+using System.Collections.Immutable;
+using System.Linq;
 using Allors.Core.Database.Meta;
 
 /// <inheritdoc />
 public class Object : IObject
 {
-    private State? originalState;
-    private Dictionary<Guid, object?>? changedRoleByRoleTypeId;
-    private Dictionary<Guid, object?>? checkpointRoleByRoleTypeId;
+    private Record? record;
+    private Dictionary<RoleType, object?>? changedRoleByRoleType;
+    private Dictionary<RoleType, object?>? checkpointRoleByRoleType;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Object"/> class.
@@ -21,18 +22,18 @@ public class Object : IObject
         this.Class = @class;
         this.Id = id;
 
-        transaction.OriginalState.TryGetValue(this.Id, out this.originalState);
+        transaction.Store.RecordById.TryGetValue(this.Id, out this.record);
     }
 
     /// <summary>
     /// Initializes an existing instance of the <see cref="Object"/> class.
     /// </summary>
-    internal Object(Transaction transaction, State originalState)
+    internal Object(Transaction transaction, Record record)
     {
         this.Transaction = transaction;
-        this.originalState = originalState;
-        this.Id = originalState.Id;
-        this.Class = originalState.Class;
+        this.record = record;
+        this.Id = record.Id;
+        this.Class = record.Class;
     }
 
     /// <inheritdoc />
@@ -41,21 +42,55 @@ public class Object : IObject
     /// <inheritdoc/>
     public long Id { get; }
 
+    /// <inheritdoc/>
+    public long Version => this.record?.Version ?? 0;
+
     ITransaction IObject.Transaction => this.Transaction;
 
-    internal Transaction Transaction { get; }
+    internal Record? Record => this.record;
+
+    internal bool IsChanged
+    {
+        get
+        {
+            if (this.changedRoleByRoleType == null)
+            {
+                return false;
+            }
+
+            foreach (var (roleType, changedRole) in this.changedRoleByRoleType)
+            {
+                if (this.record != null)
+                {
+                    this.record.RoleByRoleTypeId.TryGetValue(roleType.Id, out var recordRole);
+                    if (!Equals(changedRole, recordRole))
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    }
+
+    private Transaction Transaction { get; }
 
     /// <inheritdoc />
     public object? this[UnitRoleType unitRoleType]
     {
         get
         {
-            if (this.changedRoleByRoleTypeId != null && this.changedRoleByRoleTypeId.TryGetValue(unitRoleType.Id, out var changedRole))
+            if (this.changedRoleByRoleType != null && this.changedRoleByRoleType.TryGetValue(unitRoleType, out var changedRole))
             {
                 return changedRole;
             }
 
-            if (this.originalState != null && this.originalState.RoleByRoleTypeId.TryGetValue(unitRoleType.Id, out var role))
+            if (this.record != null && this.record.RoleByRoleTypeId.TryGetValue(unitRoleType.Id, out var role))
             {
                 return role;
             }
@@ -71,30 +106,66 @@ public class Object : IObject
                 return;
             }
 
-            this.changedRoleByRoleTypeId ??= [];
-            this.changedRoleByRoleTypeId[unitRoleType.Id] = value;
+            this.changedRoleByRoleType ??= [];
+            this.changedRoleByRoleType[unitRoleType] = value;
         }
     }
 
-    internal void Checkpoint(
-        HashSet<IObject> created,
-        HashSet<IObject> deleted,
-        Dictionary<IObject, ISet<RoleType>> roleTypesByAssociation,
-        Dictionary<IObject, ISet<AssociationType>> associationTypesByRole)
+    internal void Checkpoint(ChangeSet changeSet)
     {
-        if (this.changedRoleByRoleTypeId == null)
+        if (this.changedRoleByRoleType == null)
         {
             return;
         }
 
-        // TODO:
-        this.checkpointRoleByRoleTypeId = this.changedRoleByRoleTypeId;
+        foreach (var (roleType, changedRole) in this.changedRoleByRoleType)
+        {
+            if (this.checkpointRoleByRoleType != null &&
+                this.checkpointRoleByRoleType.TryGetValue(roleType, out var checkpointRole))
+            {
+                if (!Equals(changedRole, checkpointRole))
+                {
+                    changeSet.AddChangedRoleByRoleTypeId(this, roleType);
+                }
+            }
+            else if (this.record != null)
+            {
+                this.record.RoleByRoleTypeId.TryGetValue(roleType.Id, out var recordRole);
+                if (!Equals(changedRole, recordRole))
+                {
+                    changeSet.AddChangedRoleByRoleTypeId(this, roleType);
+                }
+            }
+            else
+            {
+                changeSet.AddChangedRoleByRoleTypeId(this, roleType);
+            }
+        }
+
+        this.checkpointRoleByRoleType = new Dictionary<RoleType, object?>(this.changedRoleByRoleType);
+    }
+
+    internal Record NewRecord()
+    {
+        if (this.Record == null)
+        {
+            var roleByRoleTypeId = this.changedRoleByRoleType!
+                .Where(kvp => kvp.Value != null)
+                .Select(kvp => new KeyValuePair<Guid, object>(kvp.Key.Id, kvp.Value!));
+
+            return new Record(this.Class, this.Id, this.Version + 1, ImmutableDictionary.CreateRange(roleByRoleTypeId));
+        }
+        else
+        {
+            // TODO: Implement for existing objects
+            return this.Record;
+        }
     }
 
     internal void Rollback()
     {
-        this.Transaction.OriginalState.TryGetValue(this.Id, out this.originalState);
-        this.changedRoleByRoleTypeId = null;
-        this.checkpointRoleByRoleTypeId = null;
+        this.Transaction.Store.RecordById.TryGetValue(this.Id, out this.record);
+        this.changedRoleByRoleType = null;
+        this.checkpointRoleByRoleType = null;
     }
 }

@@ -1,32 +1,79 @@
-﻿namespace Allors.Core.Database.Adapters.Memory
+﻿namespace Allors.Core.Database.Adapters.Memory;
+
+using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
+
+/// <inheritdoc />
+public class Database : IDatabase
 {
-    using System.Collections.Immutable;
+    private readonly object commitLock = new object();
+
+    private long nextObjectId;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Database"/> class.
+    /// </summary>
+    public Database()
+    {
+        this.Store = new Store(ImmutableDictionary<long, Record>.Empty);
+        this.nextObjectId = 0;
+    }
+
+    internal Store Store { get; set; }
 
     /// <inheritdoc />
-    public class Database : IDatabase
+    public ITransaction CreateTransaction()
     {
-        private long nextObjectId;
+        return new Transaction(this);
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Database"/> class.
-        /// </summary>
-        public Database()
+    internal long NextObjectId()
+    {
+        return this.nextObjectId++;
+    }
+
+    internal void Commit(Transaction transaction)
+    {
+        lock (this.commitLock)
         {
-            this.State = ImmutableDictionary<long, State>.Empty;
-            this.nextObjectId = 0;
-        }
+            var recordById = this.Store.RecordById;
 
-        internal ImmutableDictionary<long, State> State { get; set; }
+            var objects = transaction.InstantiatedObjectByObjectId
+                .Where(kvp => kvp.Value is { IsChanged: true })
+                .Select(kvp => kvp.Value)
+                .ToArray();
 
-        /// <inheritdoc />
-        public ITransaction CreateTransaction()
-        {
-            return new Transaction(this);
-        }
+            var addedObjects = objects
+                .Where(v => v.Record == null)
+                .ToArray();
 
-        internal long NextObjectId()
-        {
-            return this.nextObjectId++;
+            var existingObjects = objects
+                .Where(v => v.Record != null)
+                .ToArray();
+
+            // Assert concurrency with object versions
+            foreach (var existingObject in existingObjects)
+            {
+                if (!recordById.TryGetValue(existingObject.Id, out var record))
+                {
+                    throw new Exception("Concurrency error");
+                }
+
+                if (record.Version != existingObject.Record!.Version)
+                {
+                    throw new Exception("Concurrency error");
+                }
+            }
+
+            recordById = recordById.AddRange(addedObjects.Select(v => new KeyValuePair<long, Record>(v.Id, v.NewRecord())));
+            recordById = recordById.SetItems(existingObjects.Select(v => new KeyValuePair<long, Record>(v.Id, v.NewRecord())));
+
+            this.Store = this.Store with
+            {
+                RecordById = recordById,
+            };
         }
     }
 }

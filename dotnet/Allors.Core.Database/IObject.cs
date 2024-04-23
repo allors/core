@@ -23,6 +23,11 @@ public interface IObject
     public long Id { get; }
 
     /// <summary>
+    /// The version.
+    /// </summary>
+    public long Version { get; }
+
+    /// <summary>
     /// Gets or sets the unit role value.
     /// </summary>
     object? this[UnitRoleType unitRoleType] { get; set; }

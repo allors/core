@@ -7,34 +7,35 @@ using Allors.Core.Database.Meta;
 /// <inheritdoc />
 public class ChangeSet : IChangeSet
 {
+    private readonly HashSet<IObject> created;
+    private readonly HashSet<IObject> deleted;
+    private readonly Dictionary<IObject, ISet<RoleType>> roleTypesByAssociation;
+    private readonly Dictionary<IObject, ISet<AssociationType>> associationTypesByRole;
+
     private ISet<IObject>? associations;
     private ISet<IObject>? roles;
     private IDictionary<RoleType, ISet<IObject>>? associationsByRoleType;
     private IDictionary<AssociationType, ISet<IObject>>? rolesByAssociationType;
 
-    internal ChangeSet(
-        ISet<IObject> created,
-        ISet<IObject> deleted,
-        IDictionary<IObject, ISet<RoleType>> roleTypesByAssociation,
-        IDictionary<IObject, ISet<AssociationType>> associationTypesByRole)
+    internal ChangeSet()
     {
-        this.Created = created;
-        this.Deleted = deleted;
-        this.RoleTypesByAssociation = roleTypesByAssociation;
-        this.AssociationTypesByRole = associationTypesByRole;
+        this.created = [];
+        this.deleted = [];
+        this.roleTypesByAssociation = [];
+        this.associationTypesByRole = [];
     }
 
     /// <inheritdoc />
-    public ISet<IObject> Created { get; }
+    public ISet<IObject> Created => this.created;
 
     /// <inheritdoc />
-    public ISet<IObject> Deleted { get; }
+    public ISet<IObject> Deleted => this.deleted;
 
     /// <inheritdoc />
-    public IDictionary<IObject, ISet<RoleType>> RoleTypesByAssociation { get; }
+    public IDictionary<IObject, ISet<RoleType>> RoleTypesByAssociation => this.roleTypesByAssociation;
 
     /// <inheritdoc />
-    public IDictionary<IObject, ISet<AssociationType>> AssociationTypesByRole { get; }
+    public IDictionary<IObject, ISet<AssociationType>> AssociationTypesByRole => this.associationTypesByRole;
 
     /// <inheritdoc />
     public ISet<IObject> Associations => this.associations ??= new HashSet<IObject>(this.RoleTypesByAssociation.Keys);
@@ -55,4 +56,15 @@ public class ChangeSet : IChangeSet
          from value in kvp.Value
          group kvp.Key by value)
         .ToDictionary(grp => grp.Key, grp => new HashSet<IObject>(grp) as ISet<IObject>);
+
+    internal void AddChangedRoleByRoleTypeId(IObject @object, RoleType roleTypeId)
+    {
+        if (!this.roleTypesByAssociation.TryGetValue(@object, out var roleTypes))
+        {
+            roleTypes = new HashSet<RoleType>();
+            this.roleTypesByAssociation.Add(@object, roleTypes);
+        }
+
+        roleTypes.Add(roleTypeId);
+    }
 }
