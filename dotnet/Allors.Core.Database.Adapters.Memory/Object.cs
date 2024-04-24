@@ -1,8 +1,8 @@
 ﻿namespace Allors.Core.Database.Adapters.Memory;
 
 using System;
+using System.Collections.Frozen;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 using Allors.Core.Database.Meta;
 
@@ -62,7 +62,7 @@ public class Object : IObject
             {
                 if (this.record != null)
                 {
-                    this.record.RoleByRoleTypeId.TryGetValue(roleType.Id, out var recordRole);
+                    this.record.RoleByRoleTypeId.TryGetValue(roleType, out var recordRole);
                     if (!Equals(changedRole, recordRole))
                     {
                         return true;
@@ -90,7 +90,7 @@ public class Object : IObject
                 return changedRole;
             }
 
-            if (this.record != null && this.record.RoleByRoleTypeId.TryGetValue(unitRoleType.Id, out var role))
+            if (this.record != null && this.record.RoleByRoleTypeId.TryGetValue(unitRoleType, out var role))
             {
                 return role;
             }
@@ -130,7 +130,7 @@ public class Object : IObject
             }
             else if (this.record != null)
             {
-                this.record.RoleByRoleTypeId.TryGetValue(roleType.Id, out var recordRole);
+                this.record.RoleByRoleTypeId.TryGetValue(roleType, out var recordRole);
                 if (!Equals(changedRole, recordRole))
                 {
                     changeSet.AddChangedRoleByRoleTypeId(this, roleType);
@@ -151,14 +151,21 @@ public class Object : IObject
         {
             var roleByRoleTypeId = this.changedRoleByRoleType!
                 .Where(kvp => kvp.Value != null)
-                .Select(kvp => new KeyValuePair<Guid, object>(kvp.Key.Id, kvp.Value!));
+                .Select(kvp => new KeyValuePair<RoleType, object>(kvp.Key, kvp.Value!))
+                .ToFrozenDictionary();
 
-            return new Record(this.Class, this.Id, this.Version + 1, ImmutableDictionary.CreateRange(roleByRoleTypeId));
+            return new Record(this.Class, this.Id, this.Version + 1, roleByRoleTypeId);
         }
         else
         {
-            // TODO: Implement for existing objects
-            return this.Record;
+            var roleByRoleTypeId = this.Record.RoleByRoleTypeId
+                .Where(kvp => this.changedRoleByRoleType!.ContainsKey(kvp.Key))
+                .Union(this.changedRoleByRoleType!
+                    .Where(kvp => kvp.Value != null)
+                    .Cast<KeyValuePair<RoleType, object>>())
+                .ToFrozenDictionary();
+
+            return new Record(this.Class, this.Id, this.Version + 1, roleByRoleTypeId);
         }
     }
 
