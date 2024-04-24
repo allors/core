@@ -244,7 +244,7 @@
         /// <summary>
         /// The String unit.
         /// </summary>
-        public UnitRole String { get; set; }
+        public Unit String { get; set; }
 
         /// <summary>
         /// Creates a new meta class.
@@ -265,9 +265,9 @@
         /// <summary>
         /// Creates a new unit.
         /// </summary>
-        public UnitRole NewUnit(Guid id, string singularName, string? assignedPluralName = null)
+        public Unit NewUnit(Guid id, string singularName, string? assignedPluralName = null)
         {
-            var unit = new UnitRole(id, this.EmbeddedPopulation.Create(this.Unit, v =>
+            var unit = new Unit(id, this.EmbeddedPopulation.Create(this.Unit, v =>
             {
                 v[this.MetaObjectId] = id;
                 v[this.ObjectTypeSingularName] = singularName;
@@ -313,7 +313,7 @@
         /// <summary>
         /// Creates new unit relation end types.
         /// </summary>
-        public (UnitAssociationType AssociationType, UnitRoleType RoleType) NewUnitRelationEndTypes(Guid associationTypeId, Guid roleTypeId, Composite associationComposite, UnitRole unitRole, string singularName, string? assignedPluralName = null)
+        public (UnitAssociationType AssociationType, UnitRoleType RoleType) NewUnitRelationEndTypes(Guid associationTypeId, Guid roleTypeId, Composite associationComposite, Unit unit, string singularName, string? assignedPluralName = null)
         {
             var associationType = new UnitAssociationType(associationTypeId, this.EmbeddedPopulation.Create(this.AssociationType, v =>
             {
@@ -327,7 +327,34 @@
             {
                 v[this.MetaObjectId] = roleTypeId;
                 v[this.RoleTypeAssociationType] = associationType.EmbeddedObject;
-                v[this.RoleTypeObjectType] = unitRole.EmbeddedObject;
+                v[this.RoleTypeObjectType] = unit.EmbeddedObject;
+                v[this.RoleTypeSingularName] = singularName;
+                v[this.RoleTypeAssignedPluralName] = assignedPluralName;
+            }));
+
+            this.MetaObjectById.Add(roleTypeId, roleType);
+
+            return (associationType, roleType);
+        }
+
+        /// <summary>
+        /// Creates new unit relation end types.
+        /// </summary>
+        public (ManyToOneAssociationType AssociationType, ManyToOneRoleType RoleType) NewManyToOneRelationEndTypes(Guid associationTypeId, Guid roleTypeId, Composite associationComposite, Composite roleComposite, string singularName, string? assignedPluralName = null)
+        {
+            var associationType = new ManyToOneAssociationType(associationTypeId, this.EmbeddedPopulation.Create(this.AssociationType, v =>
+            {
+                v[this.MetaObjectId] = associationTypeId;
+                v[this.AssociationTypeComposite] = associationComposite.EmbeddedObject;
+            }));
+
+            this.MetaObjectById.Add(associationTypeId, associationType);
+
+            var roleType = new ManyToOneRoleType(roleTypeId, this.EmbeddedPopulation.Create(this.RoleType, v =>
+            {
+                v[this.MetaObjectId] = roleTypeId;
+                v[this.RoleTypeAssociationType] = associationType.EmbeddedObject;
+                v[this.RoleTypeObjectType] = roleComposite.EmbeddedObject;
                 v[this.RoleTypeSingularName] = singularName;
                 v[this.RoleTypeAssignedPluralName] = assignedPluralName;
             }));

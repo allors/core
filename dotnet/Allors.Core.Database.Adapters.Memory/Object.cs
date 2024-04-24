@@ -1,6 +1,5 @@
 ﻿namespace Allors.Core.Database.Adapters.Memory;
 
-using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Linq;
@@ -81,16 +80,16 @@ public class Object : IObject
     private Transaction Transaction { get; }
 
     /// <inheritdoc />
-    public object? this[UnitRoleType unitRoleType]
+    public object? this[UnitRoleType roleType]
     {
         get
         {
-            if (this.changedRoleByRoleType != null && this.changedRoleByRoleType.TryGetValue(unitRoleType, out var changedRole))
+            if (this.changedRoleByRoleType != null && this.changedRoleByRoleType.TryGetValue(roleType, out var changedRole))
             {
                 return changedRole;
             }
 
-            if (this.record != null && this.record.RoleByRoleTypeId.TryGetValue(unitRoleType, out var role))
+            if (this.record != null && this.record.RoleByRoleTypeId.TryGetValue(roleType, out var role))
             {
                 return role;
             }
@@ -100,14 +99,44 @@ public class Object : IObject
 
         set
         {
-            var currentRole = this[unitRoleType];
+            var currentRole = this[roleType];
             if (Equals(currentRole, value))
             {
                 return;
             }
 
             this.changedRoleByRoleType ??= [];
-            this.changedRoleByRoleType[unitRoleType] = value;
+            this.changedRoleByRoleType[roleType] = value;
+        }
+    }
+
+    /// <inheritdoc />
+    public IObject? this[ManyToOneRoleType roleType]
+    {
+        get
+        {
+            if (this.changedRoleByRoleType != null && this.changedRoleByRoleType.TryGetValue(roleType, out var changedRole))
+            {
+                return (IObject?)changedRole;
+            }
+
+            if (this.record != null && this.record.RoleByRoleTypeId.TryGetValue(roleType, out var role))
+            {
+                return this.Transaction.Instantiate((long)role);
+            }
+
+            return null;
+        }
+
+        set
+        {
+            if (value == null)
+            {
+                this.RemoveMany2OneRole(roleType);
+                return;
+            }
+
+            this.SetMany2OneRole(roleType, (Object)value);
         }
     }
 
@@ -174,5 +203,68 @@ public class Object : IObject
         this.Transaction.Store.RecordById.TryGetValue(this.Id, out this.record);
         this.changedRoleByRoleType = null;
         this.checkpointRoleByRoleType = null;
+    }
+
+    private void SetMany2OneRole(ManyToOneRoleType roleType, Object role)
+    {
+        /*  [if exist]        [then remove]        set
+         *
+         *  RA ----- R         RA       R       RA    -- R       RA ----- R
+         *                ->                +        -        =       -
+         *   A ----- PR         A --x-- PR       A --    PR       A --    PR
+         */
+        var previousRole = (Object?)this[roleType];
+
+        // R = PR
+        if (Equals(role, previousRole))
+        {
+            return;
+        }
+
+        // A --x-- PR
+        if (previousRole != null)
+        {
+            // TODO:
+            // previousRole.RemoveAssociation(roleType.AssociationType, this);
+        }
+
+        // A <---- R
+        // TODO:
+        // role.AddAssociation(roleType.AssociationType, this);
+
+        // A ----> R
+        this.changedRoleByRoleType ??= [];
+        this.changedRoleByRoleType[roleType] = role;
+    }
+
+    private void RemoveMany2OneRole(ManyToOneRoleType roleType)
+    {
+        /*                        delete
+         *  RA --                                RA --
+         *       -        ->                 =        -
+         *   A ----- R           A --x-- R             -- R
+         */
+
+        var previousRole = (Object?)this[roleType];
+        if (previousRole == null)
+        {
+            return;
+        }
+
+        // A <---- R
+        // TODO:
+        // previousRole.RemoveAssociation(roleType.AssociationType, this);
+
+        // A ----> R
+        this.changedRoleByRoleType ??= [];
+        this.changedRoleByRoleType[roleType] = null;
+    }
+
+    private void AddAssociation(ManyToOneAssociationType associationType, Object association)
+    {
+    }
+
+    private void RemoveAssociation(ManyToOneAssociationType associationType, Object association)
+    {
     }
 }

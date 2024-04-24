@@ -28,7 +28,12 @@ public interface IObject
     public long Version { get; }
 
     /// <summary>
-    /// Gets or sets the unit role value.
+    /// Gets or sets the unit role.
     /// </summary>
-    object? this[UnitRoleType unitRoleType] { get; set; }
+    object? this[UnitRoleType roleType] { get; set; }
+
+    /// <summary>
+    /// Gets or sets the ManyToOne role.
+    /// </summary>
+    IObject? this[ManyToOneRoleType roleType] { get; set; }
 }

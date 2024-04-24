@@ -6,12 +6,12 @@
     /// <summary>
     /// A unit.
     /// </summary>
-    public sealed class UnitRole : ObjectType
+    public sealed class Unit : ObjectType
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="UnitRole"/> class.
+        /// Initializes a new instance of the <see cref="Unit"/> class.
         /// </summary>
-        public UnitRole(Guid id, EmbeddedObject embeddedObject)
+        public Unit(Guid id, EmbeddedObject embeddedObject)
             : base(id, embeddedObject)
         {
         }
