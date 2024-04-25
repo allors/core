@@ -67,4 +67,15 @@ public class ChangeSet : IChangeSet
 
         roleTypes.Add(roleTypeHandleId);
     }
+
+    internal void AddChangedAssociationByAssociationTypeId(IObject @object, AssociationTypeHandle associationTypeHandleId)
+    {
+        if (!this.associationTypesByRole.TryGetValue(@object, out var associationTypes))
+        {
+            associationTypes = new HashSet<AssociationTypeHandle>();
+            this.associationTypesByRole.Add(@object, associationTypes);
+        }
+
+        associationTypes.Add(associationTypeHandleId);
+    }
 }

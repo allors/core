@@ -12,7 +12,7 @@
         public void Diagram()
         {
             var coreMeta = new CoreMeta();
-            var diagram = new ClassDiagram(coreMeta.Meta.EmbeddedMeta).Render();
+            var diagram = new ClassDiagram(coreMeta.EmbeddedMeta).Render();
 
             Assert.NotNull(diagram);
         }
@@ -21,13 +21,12 @@
         public void Build()
         {
             var coreMeta = new CoreMeta();
-            var meta = coreMeta.Meta;
 
-            var units = meta.MetaHandles.OfType<UnitHandle>().ToArray();
-            var interfaces = meta.MetaHandles.OfType<Interface>().ToArray();
-            var classes = meta.MetaHandles.OfType<ClassHandle>().ToArray();
+            var units = coreMeta.MetaHandles.OfType<UnitHandle>().ToArray();
+            var interfaces = coreMeta.MetaHandles.OfType<Interface>().ToArray();
+            var classes = coreMeta.MetaHandles.OfType<ClassHandle>().ToArray();
 
-            Assert.Equal(2, meta.MetaHandles.Count());
+            Assert.Equal(2, coreMeta.MetaHandles.Count());
             Assert.Single(units);
             Assert.Single(interfaces);
             Assert.Empty(classes);

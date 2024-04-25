@@ -2,6 +2,7 @@
 
 using System.Collections.Frozen;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using Allors.Core.Database.Meta.Handles;
 
@@ -9,8 +10,12 @@ using Allors.Core.Database.Meta.Handles;
 public class Object : IObject
 {
     private Record? record;
+
     private Dictionary<RoleTypeHandle, object?>? changedRoleByRoleType;
     private Dictionary<RoleTypeHandle, object?>? checkpointRoleByRoleType;
+
+    private Dictionary<AssociationTypeHandle, object?>? changedAssociationByAssociationType;
+    private Dictionary<AssociationTypeHandle, object?>? checkpointAssociationByAssociationType;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Object"/> class.
@@ -140,62 +145,135 @@ public class Object : IObject
         }
     }
 
-    internal void Checkpoint(ChangeSet changeSet)
+    /// <inheritdoc />
+    public IEnumerable<IObject> this[ManyToAssociationTypeHandle associationTypeHandle]
     {
-        if (this.changedRoleByRoleType == null)
+        get
         {
-            return;
+            var association = this.ManyToAssociation(associationTypeHandle);
+            return association != null ? association.Select(this.Transaction.Instantiate) : [];
         }
-
-        foreach (var (roleType, changedRole) in this.changedRoleByRoleType)
-        {
-            if (this.checkpointRoleByRoleType != null &&
-                this.checkpointRoleByRoleType.TryGetValue(roleType, out var checkpointRole))
-            {
-                if (!Equals(changedRole, checkpointRole))
-                {
-                    changeSet.AddChangedRoleByRoleTypeId(this, roleType);
-                }
-            }
-            else if (this.record != null)
-            {
-                this.record.RoleByRoleTypeId.TryGetValue(roleType, out var recordRole);
-                if (!Equals(changedRole, recordRole))
-                {
-                    changeSet.AddChangedRoleByRoleTypeId(this, roleType);
-                }
-            }
-            else
-            {
-                changeSet.AddChangedRoleByRoleTypeId(this, roleType);
-            }
-        }
-
-        this.checkpointRoleByRoleType = new Dictionary<RoleTypeHandle, object?>(this.changedRoleByRoleType);
     }
 
-    internal Record NewRecord()
+    internal void Checkpoint(ChangeSet changeSet)
+    {
+        if (this.changedRoleByRoleType != null)
+        {
+            foreach (var (roleType, changedRole) in this.changedRoleByRoleType)
+            {
+                if (this.checkpointRoleByRoleType != null &&
+                    this.checkpointRoleByRoleType.TryGetValue(roleType, out var checkpointRole))
+                {
+                    if (roleType is ToManyRoleTypeHandle ?
+                            SetEquals((ImmutableHashSet<long>?)changedRole, (ImmutableHashSet<long>?)checkpointRole) :
+                            Equals(changedRole, checkpointRole))
+                    {
+                        continue;
+                    }
+
+                    changeSet.AddChangedRoleByRoleTypeId(this, roleType);
+                }
+                else if (this.record != null)
+                {
+                    this.record.RoleByRoleTypeId.TryGetValue(roleType, out var recordRole);
+
+                    if (roleType is ToManyRoleTypeHandle ?
+                            SetEquals((ImmutableHashSet<long>?)changedRole, (ImmutableHashSet<long>?)recordRole) :
+                            Equals(changedRole, recordRole))
+                    {
+                        continue;
+                    }
+
+                    changeSet.AddChangedRoleByRoleTypeId(this, roleType);
+                }
+                else
+                {
+                    changeSet.AddChangedRoleByRoleTypeId(this, roleType);
+                }
+            }
+
+            this.checkpointRoleByRoleType = new Dictionary<RoleTypeHandle, object?>(this.changedRoleByRoleType);
+        }
+
+        if (this.changedAssociationByAssociationType != null)
+        {
+            foreach (var (associationType, changedAssociation) in this.changedAssociationByAssociationType)
+            {
+                if (this.checkpointAssociationByAssociationType != null &&
+                    this.checkpointAssociationByAssociationType.TryGetValue(associationType, out var checkpointAssociation))
+                {
+                    if (associationType is ManyToAssociationTypeHandle ?
+                            SetEquals((ImmutableHashSet<long>?)changedAssociation, (ImmutableHashSet<long>?)checkpointAssociation) :
+                            Equals(changedAssociation, checkpointAssociation))
+                    {
+                        continue;
+                    }
+
+                    changeSet.AddChangedAssociationByAssociationTypeId(this, associationType);
+                }
+                else if (this.record != null)
+                {
+                    this.record.AssociationByAssociationTypeId.TryGetValue(associationType, out var recordAssociation);
+
+                    if (associationType is ManyToAssociationTypeHandle ?
+                            SetEquals((ImmutableHashSet<long>?)changedAssociation, (ImmutableHashSet<long>?)recordAssociation) :
+                            Equals(changedAssociation, recordAssociation))
+                    {
+                        continue;
+                    }
+
+                    changeSet.AddChangedAssociationByAssociationTypeId(this, associationType);
+                }
+                else
+                {
+                    changeSet.AddChangedAssociationByAssociationTypeId(this, associationType);
+                }
+            }
+
+            this.checkpointAssociationByAssociationType = new Dictionary<AssociationTypeHandle, object?>(this.changedAssociationByAssociationType);
+        }
+    }
+
+    internal Record ToRecord()
     {
         if (this.Record == null)
         {
-            var roleByRoleTypeId = this.changedRoleByRoleType!
+            var roleByRoleTypeId = this.changedRoleByRoleType?
                 .Where(kvp => kvp.Value != null)
-                .Select(kvp => new KeyValuePair<RoleTypeHandle, object>(kvp.Key, kvp.Value!))
-                .ToFrozenDictionary();
+                .Select(RoleToFrozenSet)
+                .ToFrozenDictionary() ?? FrozenDictionary<RoleTypeHandle, object>.Empty;
 
-            return new Record(this.ClassHandle, this.Id, this.Version + 1, roleByRoleTypeId);
+            var associationByAssociationTypeId = this.changedAssociationByAssociationType?
+                .Where(kvp => kvp.Value != null)
+                .Select(AssociationToFrozenSet)
+                .ToFrozenDictionary() ?? FrozenDictionary<AssociationTypeHandle, object>.Empty;
+
+            return new Record(this.ClassHandle, this.Id, this.Version + 1, roleByRoleTypeId, associationByAssociationTypeId);
         }
         else
         {
-            var roleByRoleTypeId = this.Record.RoleByRoleTypeId
-                .Where(kvp => this.changedRoleByRoleType!.ContainsKey(kvp.Key))
+            var roleByRoleTypeId = this.changedRoleByRoleType != null ? this.Record.RoleByRoleTypeId
+                .Where(kvp => this.changedRoleByRoleType.ContainsKey(kvp.Key))
                 .Union(this.changedRoleByRoleType!
                     .Where(kvp => kvp.Value != null)
-                    .Cast<KeyValuePair<RoleTypeHandle, object>>())
-                .ToFrozenDictionary();
+                    .Select(RoleToFrozenSet))
+                .ToFrozenDictionary() : FrozenDictionary<RoleTypeHandle, object>.Empty;
 
-            return new Record(this.ClassHandle, this.Id, this.Version + 1, roleByRoleTypeId);
+            var associationByAssociationTypeId = this.changedAssociationByAssociationType != null ? this.Record.AssociationByAssociationTypeId
+                .Where(kvp => this.changedAssociationByAssociationType.ContainsKey(kvp.Key))
+                .Union(this.changedAssociationByAssociationType!
+                    .Where(kvp => kvp.Value != null)
+                    .Select(AssociationToFrozenSet))
+                .ToFrozenDictionary() : FrozenDictionary<AssociationTypeHandle, object>.Empty;
+
+            return new Record(this.ClassHandle, this.Id, this.Version + 1, roleByRoleTypeId, associationByAssociationTypeId);
         }
+
+        KeyValuePair<RoleTypeHandle, object> RoleToFrozenSet(KeyValuePair<RoleTypeHandle, object?> kvp) =>
+            new(kvp.Key, kvp.Value is ImmutableHashSet<long> set ? set.ToFrozenSet() : kvp.Value!);
+
+        KeyValuePair<AssociationTypeHandle, object> AssociationToFrozenSet(KeyValuePair<AssociationTypeHandle, object?> kvp) =>
+            new(kvp.Key, kvp.Value is ImmutableHashSet<long> set ? set.ToFrozenSet() : kvp.Value!);
     }
 
     internal void Rollback()
@@ -203,6 +281,23 @@ public class Object : IObject
         this.Transaction.Store.RecordById.TryGetValue(this.Id, out this.record);
         this.changedRoleByRoleType = null;
         this.checkpointRoleByRoleType = null;
+        this.changedAssociationByAssociationType = null;
+        this.checkpointAssociationByAssociationType = null;
+    }
+
+    private static bool SetEquals(ImmutableHashSet<long>? objA, ImmutableHashSet<long>? objB)
+    {
+        if (objA == objB)
+        {
+            return true;
+        }
+
+        if (objA == null || objB == null)
+        {
+            return false;
+        }
+
+        return objA.SetEquals(objB);
     }
 
     private void SetMany2OneRole(ManyToOneRoleTypeHandle roleTypeHandle, Object role)
@@ -221,16 +316,16 @@ public class Object : IObject
             return;
         }
 
+        var associationType = this.Transaction.Database.AssociationTypeHandle(roleTypeHandle);
+
         // A --x-- PR
         if (previousRole != null)
         {
-            // TODO:
-            // previousRole.RemoveAssociation(roleType.AssociationType, this);
+            previousRole.RemoveAssociation(associationType, this);
         }
 
         // A <---- R
-        // TODO:
-        // role.AddAssociation(roleType.AssociationType, this);
+        role.AddAssociation(associationType, this);
 
         // A ----> R
         this.changedRoleByRoleType ??= [];
@@ -251,20 +346,59 @@ public class Object : IObject
             return;
         }
 
+        var associationType = this.Transaction.Database.AssociationTypeHandle(roleTypeHandle);
+
         // A <---- R
-        // TODO:
-        // previousRole.RemoveAssociation(roleType.AssociationType, this);
+        previousRole.RemoveAssociation(associationType, this);
 
         // A ----> R
         this.changedRoleByRoleType ??= [];
         this.changedRoleByRoleType[roleTypeHandle] = null;
     }
 
-    private void AddAssociation(ManyToOneAssociationTypeHandle associationTypeHandle, Object association)
+    private void AddAssociation(ManyToOneAssociationTypeHandle associationTypeHandle, Object value)
     {
+        var previousAssociation = this.ManyToAssociation(associationTypeHandle);
+
+        if (previousAssociation?.Contains(value.Id) == true)
+        {
+            return;
+        }
+
+        this.changedAssociationByAssociationType ??= [];
+        this.changedAssociationByAssociationType[associationTypeHandle] = previousAssociation == null ?
+            ImmutableHashSet.CreateRange([value.Id]) :
+            previousAssociation.Add(value.Id);
     }
 
-    private void RemoveAssociation(ManyToOneAssociationTypeHandle associationTypeHandle, Object association)
+    private void RemoveAssociation(ManyToOneAssociationTypeHandle associationTypeHandle, Object value)
     {
+        var previousAssociation = this.ManyToAssociation(associationTypeHandle);
+
+        if (previousAssociation?.Contains(value.Id) != true)
+        {
+            return;
+        }
+
+        var newAssociation = previousAssociation.Remove(value.Id);
+
+        this.changedAssociationByAssociationType ??= [];
+        this.changedAssociationByAssociationType[associationTypeHandle] = newAssociation.Count != 0 ? newAssociation : null;
+    }
+
+    private ImmutableHashSet<long>? ManyToAssociation(ManyToAssociationTypeHandle associationTypeHandle)
+    {
+        ImmutableHashSet<long>? association = null;
+
+        if (this.changedAssociationByAssociationType != null && this.changedAssociationByAssociationType.TryGetValue(associationTypeHandle, out var changedAssociation))
+        {
+            association = (ImmutableHashSet<long>?)changedAssociation;
+        }
+        else if (this.record != null && this.record.AssociationByAssociationTypeId.TryGetValue(associationTypeHandle, out var recordAssociation))
+        {
+            association = (ImmutableHashSet<long>?)recordAssociation;
+        }
+
+        return association;
     }
 }

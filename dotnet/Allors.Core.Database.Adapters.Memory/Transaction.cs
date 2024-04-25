@@ -24,7 +24,7 @@ public class Transaction : ITransaction
 
     internal IDictionary<long, Object> InstantiatedObjectByObjectId { get; }
 
-    private Database Database { get; }
+    internal Database Database { get; }
 
     /// <inheritdoc/>
     public IObject Build(ClassHandle classHandle)

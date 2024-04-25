@@ -4,24 +4,29 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using Allors.Core.Database.Meta;
+using Allors.Core.Database.Meta.Handles;
 
 /// <inheritdoc />
 public class Database : IDatabase
 {
-    private readonly object commitLock = new object();
+    private readonly object commitLock = new();
 
     private long nextObjectId;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Database"/> class.
     /// </summary>
-    public Database()
+    public Database(CoreMeta meta)
     {
+        this.Meta = meta;
         this.Store = new Store(ImmutableDictionary<long, Record>.Empty);
         this.nextObjectId = 0;
     }
 
-    internal Store Store { get; set; }
+    internal CoreMeta Meta { get; }
+
+    internal Store Store { get; private set; }
 
     /// <inheritdoc />
     public ITransaction CreateTransaction()
@@ -67,13 +72,22 @@ public class Database : IDatabase
                 }
             }
 
-            recordById = recordById.AddRange(addedObjects.Select(v => new KeyValuePair<long, Record>(v.Id, v.NewRecord())));
-            recordById = recordById.SetItems(existingObjects.Select(v => new KeyValuePair<long, Record>(v.Id, v.NewRecord())));
+            recordById = recordById.AddRange(addedObjects.Select(v => new KeyValuePair<long, Record>(v.Id, v.ToRecord())));
+            recordById = recordById.SetItems(existingObjects.Select(v => new KeyValuePair<long, Record>(v.Id, v.ToRecord())));
 
             this.Store = this.Store with
             {
                 RecordById = recordById,
             };
         }
+    }
+
+    internal ManyToOneAssociationTypeHandle AssociationTypeHandle(ManyToOneRoleTypeHandle manyToOneRoleTypeHandle)
+    {
+        // TODO: cache value
+        var manyToOneRoleType = this.Meta[manyToOneRoleTypeHandle];
+        var manyToOneAssociationType = manyToOneRoleType[this.Meta.RoleTypeAssociationType];
+        var manyToOneAssociationTypeHandle = this.Meta[manyToOneAssociationType!];
+        return (ManyToOneAssociationTypeHandle)manyToOneAssociationTypeHandle;
     }
 }
