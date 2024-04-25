@@ -387,7 +387,7 @@
         /// <summary>
         /// Creates new unit relation end types.
         /// </summary>
-        public (UnitAssociationTypeHandleHandle AssociationType, UnitRoleTypeHandleHandle RoleType) NewUnitRelationEndTypes(Guid associationTypeId, Guid roleTypeId, CompositeHandle associationCompositeHandle, UnitHandle unitHandle, string singularName, string? assignedPluralName = null)
+        public (UnitAssociationTypeHandle AssociationType, UnitRoleTypeHandle RoleType) NewUnitRelationEndTypes(Guid associationTypeId, Guid roleTypeId, CompositeHandle associationCompositeHandle, UnitHandle unitHandle, string singularName, string? assignedPluralName = null)
         {
             var associationType = this.EmbeddedPopulation.Create(this.AssociationType, v =>
             {
@@ -395,7 +395,7 @@
                 v[this.AssociationTypeComposite] = this[associationCompositeHandle.Id];
             });
 
-            var unitAssociationTypeHandle = new UnitAssociationTypeHandleHandle(associationTypeId);
+            var unitAssociationTypeHandle = new UnitAssociationTypeHandle(associationTypeId);
             this.Add(unitAssociationTypeHandle, associationType);
 
             var roleType = this.EmbeddedPopulation.Create(this.RoleType, v =>
@@ -407,7 +407,7 @@
                 v[this.RoleTypeAssignedPluralName] = assignedPluralName;
             });
 
-            var unitRoleTypeHandle = new UnitRoleTypeHandleHandle(roleTypeId);
+            var unitRoleTypeHandle = new UnitRoleTypeHandle(roleTypeId);
             this.Add(unitRoleTypeHandle, roleType);
 
             return (unitAssociationTypeHandle, unitRoleTypeHandle);

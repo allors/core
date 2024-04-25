@@ -5,12 +5,12 @@
     /// <summary>
     /// A unit role type handle.
     /// </summary>
-    public sealed record UnitRoleTypeHandleHandle : RoleTypeHandle
+    public sealed record UnitRoleTypeHandle : RoleTypeHandle
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="UnitRoleTypeHandleHandle"/> class.
+        /// Initializes a new instance of the <see cref="UnitRoleTypeHandle"/> class.
         /// </summary>
-        internal UnitRoleTypeHandleHandle(Guid id)
+        internal UnitRoleTypeHandle(Guid id)
             : base(id)
         {
         }

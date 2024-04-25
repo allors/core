@@ -85,16 +85,16 @@ public class Object : IObject
     private Transaction Transaction { get; }
 
     /// <inheritdoc />
-    public object? this[UnitRoleTypeHandleHandle roleTypeHandleHandle]
+    public object? this[UnitRoleTypeHandle roleTypeHandle]
     {
         get
         {
-            if (this.changedRoleByRoleType != null && this.changedRoleByRoleType.TryGetValue(roleTypeHandleHandle, out var changedRole))
+            if (this.changedRoleByRoleType != null && this.changedRoleByRoleType.TryGetValue(roleTypeHandle, out var changedRole))
             {
                 return changedRole;
             }
 
-            if (this.record != null && this.record.RoleByRoleTypeId.TryGetValue(roleTypeHandleHandle, out var role))
+            if (this.record != null && this.record.RoleByRoleTypeId.TryGetValue(roleTypeHandle, out var role))
             {
                 return role;
             }
@@ -104,14 +104,14 @@ public class Object : IObject
 
         set
         {
-            var currentRole = this[roleTypeHandleHandle];
+            var currentRole = this[roleTypeHandle];
             if (Equals(currentRole, value))
             {
                 return;
             }
 
             this.changedRoleByRoleType ??= [];
-            this.changedRoleByRoleType[roleTypeHandleHandle] = value;
+            this.changedRoleByRoleType[roleTypeHandle] = value;
         }
     }
 
@@ -153,6 +153,28 @@ public class Object : IObject
             var association = this.ManyToAssociation(associationTypeHandle);
             return association != null ? association.Select(this.Transaction.Instantiate) : [];
         }
+    }
+
+    /// <inheritdoc />
+    public bool Exist(RoleTypeHandle roleTypeHandle)
+    {
+        if (this.changedRoleByRoleType != null && this.changedRoleByRoleType.TryGetValue(roleTypeHandle, out var changedRole))
+        {
+            return changedRole != null;
+        }
+
+        return this.Record?.RoleByRoleTypeId.ContainsKey(roleTypeHandle) == true;
+    }
+
+    /// <inheritdoc />
+    public bool Exist(AssociationTypeHandle associationTypeHandle)
+    {
+        if (this.changedAssociationByAssociationType != null && this.changedAssociationByAssociationType.TryGetValue(associationTypeHandle, out var changedAssociation))
+        {
+            return changedAssociation != null;
+        }
+
+        return this.Record?.AssociationByAssociationTypeId.ContainsKey(associationTypeHandle) == true;
     }
 
     internal void Checkpoint(ChangeSet changeSet)

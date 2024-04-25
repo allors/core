@@ -5,12 +5,12 @@
     /// <summary>
     /// An association type handle for a unit role.
     /// </summary>
-    public sealed record UnitAssociationTypeHandleHandle : AssociationTypeHandle
+    public sealed record UnitAssociationTypeHandle : AssociationTypeHandle
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="UnitAssociationTypeHandleHandle"/> class.
+        /// Initializes a new instance of the <see cref="UnitAssociationTypeHandle"/> class.
         /// </summary>
-        internal UnitAssociationTypeHandleHandle(Guid id)
+        internal UnitAssociationTypeHandle(Guid id)
             : base(id)
         {
         }

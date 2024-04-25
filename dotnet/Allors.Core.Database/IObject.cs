@@ -31,7 +31,7 @@ public interface IObject
     /// <summary>
     /// Gets or sets the unit role.
     /// </summary>
-    object? this[UnitRoleTypeHandleHandle roleTypeHandleHandle] { get; set; }
+    object? this[UnitRoleTypeHandle roleTypeHandle] { get; set; }
 
     /// <summary>
     /// Gets or sets the ManyToOne role.
@@ -42,4 +42,14 @@ public interface IObject
     /// Gets the ManyTo role.
     /// </summary>
     IEnumerable<IObject> this[ManyToAssociationTypeHandle associationTypeHandle] { get; }
+
+    /// <summary>
+    /// Is there a value for this role type.
+    /// </summary>
+    bool Exist(RoleTypeHandle roleTypeHandle);
+
+    /// <summary>
+    /// Is there a value for this role type.
+    /// </summary>
+    bool Exist(AssociationTypeHandle associationTypeHandle);
 }
