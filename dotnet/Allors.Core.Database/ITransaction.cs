@@ -1,6 +1,6 @@
 ﻿namespace Allors.Core.Database;
 
-using Allors.Core.Database.Meta;
+using Allors.Core.Database.Meta.Handles;
 
 /// <summary>
 /// The transaction.
@@ -15,7 +15,7 @@ public interface ITransaction
     /// <summary>
     /// Builds a new object.
     /// </summary>
-    IObject Build(Class @class);
+    IObject Build(ClassHandle classHandle);
 
     /// <summary>
     /// Instantiates an object.

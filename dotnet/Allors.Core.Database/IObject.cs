@@ -1,6 +1,6 @@
 ﻿namespace Allors.Core.Database;
 
-using Allors.Core.Database.Meta;
+using Allors.Core.Database.Meta.Handles;
 
 /// <summary>
 /// The object.
@@ -15,7 +15,7 @@ public interface IObject
     /// <summary>
     /// The class.
     /// </summary>
-    public Class Class { get; }
+    public ClassHandle ClassHandle { get; }
 
     /// <summary>
     /// The id.
@@ -30,10 +30,10 @@ public interface IObject
     /// <summary>
     /// Gets or sets the unit role.
     /// </summary>
-    object? this[UnitRoleType roleType] { get; set; }
+    object? this[UnitRoleTypeHandleHandle roleTypeHandleHandle] { get; set; }
 
     /// <summary>
     /// Gets or sets the ManyToOne role.
     /// </summary>
-    IObject? this[ManyToOneRoleType roleType] { get; set; }
+    IObject? this[ManyToOneRoleTypeHandle roleTypeHandle] { get; set; }
 }

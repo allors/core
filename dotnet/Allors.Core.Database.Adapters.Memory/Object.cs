@@ -3,22 +3,22 @@
 using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Linq;
-using Allors.Core.Database.Meta;
+using Allors.Core.Database.Meta.Handles;
 
 /// <inheritdoc />
 public class Object : IObject
 {
     private Record? record;
-    private Dictionary<RoleType, object?>? changedRoleByRoleType;
-    private Dictionary<RoleType, object?>? checkpointRoleByRoleType;
+    private Dictionary<RoleTypeHandle, object?>? changedRoleByRoleType;
+    private Dictionary<RoleTypeHandle, object?>? checkpointRoleByRoleType;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Object"/> class.
     /// </summary>
-    internal Object(Transaction transaction, Class @class, long id)
+    internal Object(Transaction transaction, ClassHandle classHandle, long id)
     {
         this.Transaction = transaction;
-        this.Class = @class;
+        this.ClassHandle = classHandle;
         this.Id = id;
 
         transaction.Store.RecordById.TryGetValue(this.Id, out this.record);
@@ -32,11 +32,11 @@ public class Object : IObject
         this.Transaction = transaction;
         this.record = record;
         this.Id = record.Id;
-        this.Class = record.Class;
+        this.ClassHandle = record.ClassHandle;
     }
 
     /// <inheritdoc />
-    public Class Class { get; }
+    public ClassHandle ClassHandle { get; }
 
     /// <inheritdoc/>
     public long Id { get; }
@@ -80,16 +80,16 @@ public class Object : IObject
     private Transaction Transaction { get; }
 
     /// <inheritdoc />
-    public object? this[UnitRoleType roleType]
+    public object? this[UnitRoleTypeHandleHandle roleTypeHandleHandle]
     {
         get
         {
-            if (this.changedRoleByRoleType != null && this.changedRoleByRoleType.TryGetValue(roleType, out var changedRole))
+            if (this.changedRoleByRoleType != null && this.changedRoleByRoleType.TryGetValue(roleTypeHandleHandle, out var changedRole))
             {
                 return changedRole;
             }
 
-            if (this.record != null && this.record.RoleByRoleTypeId.TryGetValue(roleType, out var role))
+            if (this.record != null && this.record.RoleByRoleTypeId.TryGetValue(roleTypeHandleHandle, out var role))
             {
                 return role;
             }
@@ -99,28 +99,28 @@ public class Object : IObject
 
         set
         {
-            var currentRole = this[roleType];
+            var currentRole = this[roleTypeHandleHandle];
             if (Equals(currentRole, value))
             {
                 return;
             }
 
             this.changedRoleByRoleType ??= [];
-            this.changedRoleByRoleType[roleType] = value;
+            this.changedRoleByRoleType[roleTypeHandleHandle] = value;
         }
     }
 
     /// <inheritdoc />
-    public IObject? this[ManyToOneRoleType roleType]
+    public IObject? this[ManyToOneRoleTypeHandle roleTypeHandle]
     {
         get
         {
-            if (this.changedRoleByRoleType != null && this.changedRoleByRoleType.TryGetValue(roleType, out var changedRole))
+            if (this.changedRoleByRoleType != null && this.changedRoleByRoleType.TryGetValue(roleTypeHandle, out var changedRole))
             {
                 return (IObject?)changedRole;
             }
 
-            if (this.record != null && this.record.RoleByRoleTypeId.TryGetValue(roleType, out var role))
+            if (this.record != null && this.record.RoleByRoleTypeId.TryGetValue(roleTypeHandle, out var role))
             {
                 return this.Transaction.Instantiate((long)role);
             }
@@ -132,11 +132,11 @@ public class Object : IObject
         {
             if (value == null)
             {
-                this.RemoveMany2OneRole(roleType);
+                this.RemoveMany2OneRole(roleTypeHandle);
                 return;
             }
 
-            this.SetMany2OneRole(roleType, (Object)value);
+            this.SetMany2OneRole(roleTypeHandle, (Object)value);
         }
     }
 
@@ -171,7 +171,7 @@ public class Object : IObject
             }
         }
 
-        this.checkpointRoleByRoleType = new Dictionary<RoleType, object?>(this.changedRoleByRoleType);
+        this.checkpointRoleByRoleType = new Dictionary<RoleTypeHandle, object?>(this.changedRoleByRoleType);
     }
 
     internal Record NewRecord()
@@ -180,10 +180,10 @@ public class Object : IObject
         {
             var roleByRoleTypeId = this.changedRoleByRoleType!
                 .Where(kvp => kvp.Value != null)
-                .Select(kvp => new KeyValuePair<RoleType, object>(kvp.Key, kvp.Value!))
+                .Select(kvp => new KeyValuePair<RoleTypeHandle, object>(kvp.Key, kvp.Value!))
                 .ToFrozenDictionary();
 
-            return new Record(this.Class, this.Id, this.Version + 1, roleByRoleTypeId);
+            return new Record(this.ClassHandle, this.Id, this.Version + 1, roleByRoleTypeId);
         }
         else
         {
@@ -191,10 +191,10 @@ public class Object : IObject
                 .Where(kvp => this.changedRoleByRoleType!.ContainsKey(kvp.Key))
                 .Union(this.changedRoleByRoleType!
                     .Where(kvp => kvp.Value != null)
-                    .Cast<KeyValuePair<RoleType, object>>())
+                    .Cast<KeyValuePair<RoleTypeHandle, object>>())
                 .ToFrozenDictionary();
 
-            return new Record(this.Class, this.Id, this.Version + 1, roleByRoleTypeId);
+            return new Record(this.ClassHandle, this.Id, this.Version + 1, roleByRoleTypeId);
         }
     }
 
@@ -205,7 +205,7 @@ public class Object : IObject
         this.checkpointRoleByRoleType = null;
     }
 
-    private void SetMany2OneRole(ManyToOneRoleType roleType, Object role)
+    private void SetMany2OneRole(ManyToOneRoleTypeHandle roleTypeHandle, Object role)
     {
         /*  [if exist]        [then remove]        set
          *
@@ -213,7 +213,7 @@ public class Object : IObject
          *                ->                +        -        =       -
          *   A ----- PR         A --x-- PR       A --    PR       A --    PR
          */
-        var previousRole = (Object?)this[roleType];
+        var previousRole = (Object?)this[roleTypeHandle];
 
         // R = PR
         if (Equals(role, previousRole))
@@ -234,10 +234,10 @@ public class Object : IObject
 
         // A ----> R
         this.changedRoleByRoleType ??= [];
-        this.changedRoleByRoleType[roleType] = role;
+        this.changedRoleByRoleType[roleTypeHandle] = role;
     }
 
-    private void RemoveMany2OneRole(ManyToOneRoleType roleType)
+    private void RemoveMany2OneRole(ManyToOneRoleTypeHandle roleTypeHandle)
     {
         /*                        delete
          *  RA --                                RA --
@@ -245,7 +245,7 @@ public class Object : IObject
          *   A ----- R           A --x-- R             -- R
          */
 
-        var previousRole = (Object?)this[roleType];
+        var previousRole = (Object?)this[roleTypeHandle];
         if (previousRole == null)
         {
             return;
@@ -257,14 +257,14 @@ public class Object : IObject
 
         // A ----> R
         this.changedRoleByRoleType ??= [];
-        this.changedRoleByRoleType[roleType] = null;
+        this.changedRoleByRoleType[roleTypeHandle] = null;
     }
 
-    private void AddAssociation(ManyToOneAssociationType associationType, Object association)
+    private void AddAssociation(ManyToOneAssociationTypeHandle associationTypeHandle, Object association)
     {
     }
 
-    private void RemoveAssociation(ManyToOneAssociationType associationType, Object association)
+    private void RemoveAssociation(ManyToOneAssociationTypeHandle associationTypeHandle, Object association)
     {
     }
 }

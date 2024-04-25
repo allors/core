@@ -2,7 +2,7 @@
 
 using System;
 using System.Collections.Generic;
-using Allors.Core.Database.Meta;
+using Allors.Core.Database.Meta.Handles;
 
 /// <inheritdoc />
 public class Transaction : ITransaction
@@ -27,9 +27,9 @@ public class Transaction : ITransaction
     private Database Database { get; }
 
     /// <inheritdoc/>
-    public IObject Build(Class @class)
+    public IObject Build(ClassHandle classHandle)
     {
-        var newObject = new Object(this, @class, this.Database.NextObjectId());
+        var newObject = new Object(this, classHandle, this.Database.NextObjectId());
         this.InstantiatedObjectByObjectId.Add(newObject.Id, newObject);
         return newObject;
     }

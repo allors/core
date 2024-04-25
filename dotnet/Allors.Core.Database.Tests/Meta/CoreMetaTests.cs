@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using Allors.Core.Database.Meta;
+    using Allors.Core.Database.Meta.Handles;
     using Allors.Embedded.Meta.Diagrams;
     using Xunit;
 
@@ -11,7 +12,7 @@
         public void Diagram()
         {
             var coreMeta = new CoreMeta();
-            var diagram = new ClassDiagram(coreMeta.EmbeddedMeta).Render();
+            var diagram = new ClassDiagram(coreMeta.Meta.EmbeddedMeta).Render();
 
             Assert.NotNull(diagram);
         }
@@ -20,13 +21,13 @@
         public void Build()
         {
             var coreMeta = new CoreMeta();
+            var meta = coreMeta.Meta;
 
-            var metaObjects = coreMeta.MetaObjectById.Values.ToArray();
-            var units = metaObjects.OfType<Unit>().ToArray();
-            var interfaces = metaObjects.OfType<Interface>().ToArray();
-            var classes = metaObjects.OfType<Class>().ToArray();
+            var units = meta.MetaHandles.OfType<UnitHandle>().ToArray();
+            var interfaces = meta.MetaHandles.OfType<Interface>().ToArray();
+            var classes = meta.MetaHandles.OfType<ClassHandle>().ToArray();
 
-            Assert.Equal(2, metaObjects.Length);
+            Assert.Equal(2, meta.MetaHandles.Count());
             Assert.Single(units);
             Assert.Single(interfaces);
             Assert.Empty(classes);

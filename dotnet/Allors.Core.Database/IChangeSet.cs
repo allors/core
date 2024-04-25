@@ -1,7 +1,7 @@
 ﻿namespace Allors.Core.Database;
 
 using System.Collections.Generic;
-using Allors.Core.Database.Meta;
+using Allors.Core.Database.Meta.Handles;
 
 /// <summary>
 /// The change set.
@@ -31,20 +31,20 @@ public interface IChangeSet
     /// <summary>
     ///     Gets the changed role types by association.
     /// </summary>
-    IDictionary<IObject, ISet<RoleType>> RoleTypesByAssociation { get; }
+    IDictionary<IObject, ISet<RoleTypeHandle>> RoleTypesByAssociation { get; }
 
     /// <summary>
     ///     Gets the changed association types by role.
     /// </summary>
-    IDictionary<IObject, ISet<AssociationType>> AssociationTypesByRole { get; }
+    IDictionary<IObject, ISet<AssociationTypeHandle>> AssociationTypesByRole { get; }
 
     /// <summary>
     ///     Gets the changed associations by role type.
     /// </summary>
-    IDictionary<RoleType, ISet<IObject>> AssociationsByRoleType { get; }
+    IDictionary<RoleTypeHandle, ISet<IObject>> AssociationsByRoleType { get; }
 
     /// <summary>
     ///     Gets the changed roles by association type.
     /// </summary>
-    IDictionary<AssociationType, ISet<IObject>> RolesByAssociationType { get; }
+    IDictionary<AssociationTypeHandle, ISet<IObject>> RolesByAssociationType { get; }
 }

@@ -2,6 +2,7 @@
 {
     using System;
     using Allors.Core.Database.Meta;
+    using Allors.Core.Database.Meta.Handles;
     using Allors.Embedded.Meta;
 
     /// <summary>
@@ -28,32 +29,32 @@
             (_, this.C3AllorsString) = this.NewUnitRelationEndTypes(new Guid("5B9E7A1B-4CA2-45D4-8FEB-829CF2115F33"), new Guid("F5EF2461-ED10-496B-A5C1-3AFFB4C29A8E"), this.C3, coreMeta.String, "C3AllorsString");
             (_, this.C4AllorsString) = this.NewUnitRelationEndTypes(new Guid("2B0B3AAE-0F9E-43CF-BF0C-2CD38C3D08F6"), new Guid("50FE6867-2E78-4D37-B3F7-CD04135B1230"), this.C4, coreMeta.String, "C4AllorsString");
 
-            (_, this.C1C1ManyToOne) = this.NewManyToOneRelationEndTypes(new Guid("2B0B3AAE-0F9E-43CF-BF0C-2CD38C3D08F6"), new Guid("50FE6867-2E78-4D37-B3F7-CD04135B1230"), this.C1, this.C1, "C1ManyToOne");
+            (_, this.C1C1ManyToOne) = this.NewManyToOneRelationEndTypes(new Guid("ECC71685-4003-4A85-BFD3-2A90BE7DA2AA"), new Guid("67912ABF-9A24-47B4-8C22-E2BE15FE94B3"), this.C1, this.C1, "C1ManyToOne");
         }
 
         public CoreMeta CoreMeta { get; }
 
-        public Class C1 { get; }
+        public ClassHandle C1 { get; }
 
-        public ManyToOneRoleType C1C1ManyToOne { get; }
+        public ManyToOneRoleTypeHandle C1C1ManyToOne { get; }
 
-        public Class C2 { get; }
+        public ClassHandle C2 { get; }
 
-        public Class C3 { get; }
+        public ClassHandle C3 { get; }
 
-        public Class C4 { get; }
+        public ClassHandle C4 { get; }
 
         public Interface I1 { get; }
 
-        public UnitRoleType I1AllorsString { get; }
+        public UnitRoleTypeHandleHandle I1AllorsString { get; }
 
-        public UnitRoleType C1AllorsString { get; }
+        public UnitRoleTypeHandleHandle C1AllorsString { get; }
 
-        public UnitRoleType C2AllorsString { get; }
+        public UnitRoleTypeHandleHandle C2AllorsString { get; }
 
-        public UnitRoleType C3AllorsString { get; }
+        public UnitRoleTypeHandleHandle C3AllorsString { get; }
 
-        public UnitRoleType C4AllorsString { get; }
+        public UnitRoleTypeHandleHandle C4AllorsString { get; }
 
         /// <summary>
         /// Creates a new meta class.
@@ -68,7 +69,7 @@
         /// <summary>
         /// Creates a new unit.
         /// </summary>
-        public Unit NewUnit(Guid id, string singularName, string? assignedPluralName = null) => this.CoreMeta.NewUnit(id, singularName, assignedPluralName);
+        public UnitHandle NewUnit(Guid id, string singularName, string? assignedPluralName = null) => this.CoreMeta.NewUnit(id, singularName, assignedPluralName);
 
         /// <summary>
         /// Creates a new interface.
@@ -78,12 +79,12 @@
         /// <summary>
         /// Creates a new class.
         /// </summary>
-        public Class NewClass(Guid id, string singularName, string? assignedPluralName = null) => this.CoreMeta.NewClass(id, singularName, assignedPluralName);
+        public ClassHandle NewClass(Guid id, string singularName, string? assignedPluralName = null) => this.CoreMeta.NewClass(id, singularName, assignedPluralName);
 
-        private (UnitAssociationType AssociationType, UnitRoleType RoleType) NewUnitRelationEndTypes(Guid associationTypeId, Guid roleTypeId, Composite associationComposite, Unit unit, string singularName, string? assignedPluralName = null)
-            => this.CoreMeta.NewUnitRelationEndTypes(associationTypeId, roleTypeId, associationComposite, unit, singularName, assignedPluralName);
+        private (UnitAssociationTypeHandleHandle AssociationType, UnitRoleTypeHandleHandle RoleType) NewUnitRelationEndTypes(Guid associationTypeId, Guid roleTypeId, CompositeHandle associationCompositeHandle, UnitHandle unitHandle, string singularName, string? assignedPluralName = null)
+            => this.CoreMeta.NewUnitRelationEndTypes(associationTypeId, roleTypeId, associationCompositeHandle, unitHandle, singularName, assignedPluralName);
 
-        private (ManyToOneAssociationType AssociationType, ManyToOneRoleType RoleType) NewManyToOneRelationEndTypes(Guid associationTypeId, Guid roleTypeId, Composite associationComposite, Composite roleComposite, string singularName, string? assignedPluralName = null)
-            => this.CoreMeta.NewManyToOneRelationEndTypes(associationTypeId, roleTypeId, associationComposite, roleComposite, singularName, assignedPluralName);
+        private (ManyToOneAssociationTypeHandle AssociationType, ManyToOneRoleTypeHandle RoleType) NewManyToOneRelationEndTypes(Guid associationTypeId, Guid roleTypeId, CompositeHandle associationCompositeHandle, CompositeHandle roleCompositeHandle, string singularName, string? assignedPluralName = null)
+            => this.CoreMeta.NewManyToOneRelationEndTypes(associationTypeId, roleTypeId, associationCompositeHandle, roleCompositeHandle, singularName, assignedPluralName);
     }
 }
