@@ -34,9 +34,19 @@ public interface IObject
     object? this[UnitRoleTypeHandle roleTypeHandle] { get; set; }
 
     /// <summary>
+    /// Gets or sets the OneToOne role.
+    /// </summary>
+    IObject? this[OneToOneRoleTypeHandle roleTypeHandle] { get; set; }
+
+    /// <summary>
     /// Gets or sets the ManyToOne role.
     /// </summary>
     IObject? this[ManyToOneRoleTypeHandle roleTypeHandle] { get; set; }
+
+    /// <summary>
+    /// Gets the OneTo role.
+    /// </summary>
+    IObject? this[OneToAssociationTypeHandle associationTypeHandle] { get; }
 
     /// <summary>
     /// Gets the ManyTo role.

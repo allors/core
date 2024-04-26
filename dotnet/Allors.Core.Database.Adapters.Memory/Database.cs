@@ -90,4 +90,13 @@ public class Database : IDatabase
         var manyToOneAssociationTypeHandle = this.Meta[manyToOneAssociationType!];
         return (ManyToOneAssociationTypeHandle)manyToOneAssociationTypeHandle;
     }
+
+    internal OneToOneAssociationTypeHandle AssociationTypeHandle(OneToOneRoleTypeHandle oneToOneRoleTypeHandle)
+    {
+        // TODO: cache value
+        var oneToOneRoleType = this.Meta[oneToOneRoleTypeHandle];
+        var oneToOneAssociationType = oneToOneRoleType[this.Meta.RoleTypeAssociationType];
+        var oneToOneAssociationTypeHandle = this.Meta[oneToOneAssociationType!];
+        return (OneToOneAssociationTypeHandle)oneToOneAssociationTypeHandle;
+    }
 }

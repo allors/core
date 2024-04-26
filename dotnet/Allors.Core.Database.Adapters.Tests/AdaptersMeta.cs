@@ -29,12 +29,17 @@
             (_, this.C3AllorsString) = this.NewUnitRelationEndTypes(new Guid("5B9E7A1B-4CA2-45D4-8FEB-829CF2115F33"), new Guid("F5EF2461-ED10-496B-A5C1-3AFFB4C29A8E"), this.C3, coreMeta.String, "C3AllorsString");
             (_, this.C4AllorsString) = this.NewUnitRelationEndTypes(new Guid("2B0B3AAE-0F9E-43CF-BF0C-2CD38C3D08F6"), new Guid("50FE6867-2E78-4D37-B3F7-CD04135B1230"), this.C4, coreMeta.String, "C4AllorsString");
 
+            (this.C1WhereC1OneToOne, this.C1C1OneToOne) = this.NewOneToOneRelationEndTypes(new Guid("3C696258-F21A-4A01-8791-6C978173CC0E"), new Guid("7497C880-94D3-464A-B15B-402AE4444533"), this.C1, this.C1, "C1ManyToOne");
             (this.C1sWhereC1ManyToOne, this.C1C1ManyToOne) = this.NewManyToOneRelationEndTypes(new Guid("ECC71685-4003-4A85-BFD3-2A90BE7DA2AA"), new Guid("67912ABF-9A24-47B4-8C22-E2BE15FE94B3"), this.C1, this.C1, "C1ManyToOne");
         }
 
         public CoreMeta CoreMeta { get; }
 
         public ClassHandle C1 { get; }
+
+        public OneToOneRoleTypeHandle C1C1OneToOne { get; }
+
+        public OneToOneAssociationTypeHandle C1WhereC1OneToOne { get; }
 
         public ManyToOneRoleTypeHandle C1C1ManyToOne { get; }
 
@@ -85,6 +90,9 @@
 
         private (UnitAssociationTypeHandle AssociationType, UnitRoleTypeHandle RoleType) NewUnitRelationEndTypes(Guid associationTypeId, Guid roleTypeId, CompositeHandle associationCompositeHandle, UnitHandle unitHandle, string singularName, string? assignedPluralName = null)
             => this.CoreMeta.NewUnitRelationEndTypes(associationTypeId, roleTypeId, associationCompositeHandle, unitHandle, singularName, assignedPluralName);
+
+        private (OneToOneAssociationTypeHandle AssociationType, OneToOneRoleTypeHandle RoleType) NewOneToOneRelationEndTypes(Guid associationTypeId, Guid roleTypeId, CompositeHandle associationCompositeHandle, CompositeHandle roleCompositeHandle, string singularName, string? assignedPluralName = null)
+            => this.CoreMeta.NewOneToOneRelationEndTypes(associationTypeId, roleTypeId, associationCompositeHandle, roleCompositeHandle, singularName, assignedPluralName);
 
         private (ManyToOneAssociationTypeHandle AssociationType, ManyToOneRoleTypeHandle RoleType) NewManyToOneRelationEndTypes(Guid associationTypeId, Guid roleTypeId, CompositeHandle associationCompositeHandle, CompositeHandle roleCompositeHandle, string singularName, string? assignedPluralName = null)
             => this.CoreMeta.NewManyToOneRelationEndTypes(associationTypeId, roleTypeId, associationCompositeHandle, roleCompositeHandle, singularName, assignedPluralName);

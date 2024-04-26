@@ -414,7 +414,36 @@
         }
 
         /// <summary>
-        /// Creates new unit relation end types.
+        /// Creates new OneToOne relation end types.
+        /// </summary>
+        public (OneToOneAssociationTypeHandle AssociationType, OneToOneRoleTypeHandle RoleType) NewOneToOneRelationEndTypes(Guid associationTypeId, Guid roleTypeId, CompositeHandle associationCompositeHandle, CompositeHandle roleCompositeHandle, string singularName, string? assignedPluralName = null)
+        {
+            var associationType = this.EmbeddedPopulation.Create(this.AssociationType, v =>
+            {
+                v[this.MetaObjectId] = associationTypeId;
+                v[this.AssociationTypeComposite] = this[associationCompositeHandle.Id];
+            });
+
+            var manyToOneAssociationTypeHandle = new OneToOneAssociationTypeHandle(associationTypeId);
+            this.Add(manyToOneAssociationTypeHandle, associationType);
+
+            var roleType = this.EmbeddedPopulation.Create(this.RoleType, v =>
+            {
+                v[this.MetaObjectId] = roleTypeId;
+                v[this.RoleTypeAssociationType] = associationType;
+                v[this.RoleTypeObjectType] = this[roleCompositeHandle.Id];
+                v[this.RoleTypeSingularName] = singularName;
+                v[this.RoleTypeAssignedPluralName] = assignedPluralName;
+            });
+
+            var manyToOneRoleTypeHandle = new OneToOneRoleTypeHandle(roleTypeId);
+            this.Add(manyToOneRoleTypeHandle, roleType);
+
+            return (manyToOneAssociationTypeHandle, manyToOneRoleTypeHandle);
+        }
+
+        /// <summary>
+        /// Creates new ManyToOne relation end types.
         /// </summary>
         public (ManyToOneAssociationTypeHandle AssociationType, ManyToOneRoleTypeHandle RoleType) NewManyToOneRelationEndTypes(Guid associationTypeId, Guid roleTypeId, CompositeHandle associationCompositeHandle, CompositeHandle roleCompositeHandle, string singularName, string? assignedPluralName = null)
         {
