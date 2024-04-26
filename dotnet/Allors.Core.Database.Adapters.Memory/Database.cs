@@ -82,6 +82,24 @@ public class Database : IDatabase
         }
     }
 
+    internal OneToOneAssociationTypeHandle AssociationTypeHandle(OneToOneRoleTypeHandle oneToOneRoleTypeHandle)
+    {
+        // TODO: cache value
+        var oneToOneRoleType = this.Meta[oneToOneRoleTypeHandle];
+        var oneToOneAssociationType = oneToOneRoleType[this.Meta.RoleTypeAssociationType];
+        var oneToOneAssociationTypeHandle = this.Meta[oneToOneAssociationType!];
+        return (OneToOneAssociationTypeHandle)oneToOneAssociationTypeHandle;
+    }
+
+    internal OneToManyAssociationTypeHandle AssociationTypeHandle(OneToManyRoleTypeHandle oneToManyRoleTypeHandle)
+    {
+        // TODO: cache value
+        var oneToManyRoleType = this.Meta[oneToManyRoleTypeHandle];
+        var oneToManyAssociationType = oneToManyRoleType[this.Meta.RoleTypeAssociationType];
+        var oneToManyAssociationTypeHandle = this.Meta[oneToManyAssociationType!];
+        return (OneToManyAssociationTypeHandle)oneToManyAssociationTypeHandle;
+    }
+
     internal ManyToOneAssociationTypeHandle AssociationTypeHandle(ManyToOneRoleTypeHandle manyToOneRoleTypeHandle)
     {
         // TODO: cache value
@@ -91,12 +109,12 @@ public class Database : IDatabase
         return (ManyToOneAssociationTypeHandle)manyToOneAssociationTypeHandle;
     }
 
-    internal OneToOneAssociationTypeHandle AssociationTypeHandle(OneToOneRoleTypeHandle oneToOneRoleTypeHandle)
+    internal ManyToManyAssociationTypeHandle AssociationTypeHandle(ManyToManyRoleTypeHandle manyToOneRoleTypeHandle)
     {
         // TODO: cache value
-        var oneToOneRoleType = this.Meta[oneToOneRoleTypeHandle];
-        var oneToOneAssociationType = oneToOneRoleType[this.Meta.RoleTypeAssociationType];
-        var oneToOneAssociationTypeHandle = this.Meta[oneToOneAssociationType!];
-        return (OneToOneAssociationTypeHandle)oneToOneAssociationTypeHandle;
+        var manyToOneRoleType = this.Meta[manyToOneRoleTypeHandle];
+        var manyToOneAssociationType = manyToOneRoleType[this.Meta.RoleTypeAssociationType];
+        var manyToOneAssociationTypeHandle = this.Meta[manyToOneAssociationType!];
+        return (ManyToManyAssociationTypeHandle)manyToOneAssociationTypeHandle;
     }
 }

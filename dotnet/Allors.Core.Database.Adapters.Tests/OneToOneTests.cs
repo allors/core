@@ -6,12 +6,6 @@
     public abstract class OneToOneTests
     {
         [Fact]
-        public void ToDo()
-        {
-            Assert.True(true);
-        }
-
-        [Fact]
         public void C1_C1OneToOne()
         {
             var coreMeta = new CoreMeta();
