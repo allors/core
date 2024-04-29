@@ -110,92 +110,92 @@
         /// <summary>
         /// The embedded population.
         /// </summary>
-        public EmbeddedPopulation EmbeddedPopulation { get; set; }
+        public EmbeddedPopulation EmbeddedPopulation { get; init; }
 
         /// <summary>
         /// An association type.
         /// </summary>
-        public EmbeddedObjectType AssociationType { get; set; }
+        public EmbeddedObjectType AssociationType { get; init; }
 
         /// <summary>
         /// The composite of an association type.
         /// </summary>
-        public EmbeddedManyToOneRoleType AssociationTypeComposite { get; set; }
+        public EmbeddedManyToOneRoleType AssociationTypeComposite { get; init; }
 
         /// <summary>
         /// A class.
         /// </summary>
-        public EmbeddedObjectType Class { get; set; }
+        public EmbeddedObjectType Class { get; init; }
 
         /// <summary>
         /// A composite.
         /// </summary>
-        public EmbeddedObjectType Composite { get; set; }
+        public EmbeddedObjectType Composite { get; init; }
 
         /// <summary>
         /// The direct supertypes of a composite.
         /// </summary>
-        public EmbeddedManyToManyRoleType CompositeDirectSupertypes { get; set; }
+        public EmbeddedManyToManyRoleType CompositeDirectSupertypes { get; init; }
 
         /// <summary>
         /// A domain.
         /// </summary>
-        public EmbeddedObjectType Domain { get; set; }
+        public EmbeddedObjectType Domain { get; init; }
 
         /// <summary>
         /// The types of a domain.
         /// </summary>
-        public EmbeddedManyToManyRoleType DomainTypes { get; set; }
+        public EmbeddedManyToManyRoleType DomainTypes { get; init; }
 
         /// <summary>
         /// An interface.
         /// </summary>
-        public EmbeddedObjectType Interface { get; set; }
+        public EmbeddedObjectType Interface { get; init; }
 
         /// <summary>
         /// A meta object.
         /// </summary>
-        public EmbeddedObjectType MetaObject { get; set; }
+        public EmbeddedObjectType MetaObject { get; init; }
 
         /// <summary>
         /// The id of a meta object.
         /// </summary>
-        public EmbeddedUnitRoleType MetaObjectId { get; set; }
+        public EmbeddedUnitRoleType MetaObjectId { get; init; }
 
         /// <summary>
         /// A method type.
         /// </summary>
-        public EmbeddedObjectType MethodType { get; set; }
+        public EmbeddedObjectType MethodType { get; init; }
 
         /// <summary>
         /// An object type.
         /// </summary>
-        public EmbeddedObjectType ObjectType { get; set; }
+        public EmbeddedObjectType ObjectType { get; init; }
 
         /// <summary>
         /// The assigned plural name of an object type.
         /// </summary>
-        public EmbeddedUnitRoleType ObjectTypeAssignedPluralName { get; set; }
+        public EmbeddedUnitRoleType ObjectTypeAssignedPluralName { get; init; }
 
         /// <summary>
         /// The derived plural name of an object type.
         /// </summary>
-        public EmbeddedUnitRoleType ObjectTypeDerivedPluralName { get; set; }
+        public EmbeddedUnitRoleType ObjectTypeDerivedPluralName { get; init; }
 
         /// <summary>
         /// The singular name of an object type.
         /// </summary>
-        public EmbeddedUnitRoleType ObjectTypeSingularName { get; set; }
+        public EmbeddedUnitRoleType ObjectTypeSingularName { get; init; }
 
         /// <summary>
         /// An operand type.
-        /// </summary>public EmbeddedObjectType OperandType { get; set; }
-        public EmbeddedObjectType OperandType { get; set; }
+        /// </summary>public EmbeddedObjectType OperandType { get; init; }
+        public EmbeddedObjectType OperandType { get; init; }
 
         /// <summary>
         /// A relation end type.
-        /// </summary>public EmbeddedObjectType OperandType { get; set; }
-        public EmbeddedObjectType RelationEndType { get; set; }
+        /// </summary>public EmbeddedObjectType OperandType { get; init; }
+        public EmbeddedObjectType RelationEndType { get; init; }
 
         /// <summary>
         /// The is many of a role type.
@@ -205,62 +205,62 @@
         /// <summary>
         /// A role type.
         /// </summary>
-        public EmbeddedObjectType RoleType { get; set; }
+        public EmbeddedObjectType RoleType { get; init; }
 
         /// <summary>
         /// The association type a role type.
         /// </summary>
-        public EmbeddedOneToOneRoleType RoleTypeAssociationType { get; set; }
+        public EmbeddedOneToOneRoleType RoleTypeAssociationType { get; init; }
 
         /// <summary>
         /// The assigned plural name of a role type.
         /// </summary>
-        public EmbeddedUnitRoleType RoleTypeAssignedPluralName { get; set; }
+        public EmbeddedUnitRoleType RoleTypeAssignedPluralName { get; init; }
 
         /// <summary>
         /// The derived plural name of a role type.
         /// </summary>
-        public EmbeddedUnitRoleType RoleTypeDerivedPluralName { get; set; }
+        public EmbeddedUnitRoleType RoleTypeDerivedPluralName { get; init; }
 
         /// <summary>
         /// The role type of object type.
         /// </summary>
-        public EmbeddedManyToOneRoleType RoleTypeObjectType { get; set; }
+        public EmbeddedManyToOneRoleType RoleTypeObjectType { get; init; }
 
         /// <summary>
         /// The singular name of object type.
         /// </summary>
-        public EmbeddedUnitRoleType RoleTypeSingularName { get; set; }
+        public EmbeddedUnitRoleType RoleTypeSingularName { get; init; }
 
         /// <summary>
         /// A type.
         /// </summary>
-        public EmbeddedObjectType Type { get; set; }
+        public EmbeddedObjectType Type { get; init; }
 
         /// <summary>
         /// A unit.
         /// </summary>
-        public EmbeddedObjectType Unit { get; set; }
+        public EmbeddedObjectType Unit { get; init; }
 
         /// <summary>
         /// A workspace.
         /// </summary>
-        public EmbeddedObjectType Workspace { get; set; }
+        public EmbeddedObjectType Workspace { get; init; }
 
         /// <summary>
         /// The types of a workspace.
         /// </summary>
-        public EmbeddedManyToManyRoleType WorkspaceTypes { get; set; }
+        public EmbeddedManyToManyRoleType WorkspaceTypes { get; init; }
 
         /// <summary>
         /// The Object interface.
         /// </summary>
-        public Interface Object { get; set; }
+        public Interface Object { get; init; }
 
         /// <summary>
         /// The String unit.
         /// </summary>
-        public UnitHandle String { get; set; }
+        public UnitHandle String { get; init; }
 
         /// <summary>
         /// Gets meta object by meta handle.

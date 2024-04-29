@@ -46,7 +46,7 @@ public interface IObject
     /// <summary>
     /// Gets the ManyTo role.
     /// </summary>
-    IEnumerable<IObject> this[ManyToAssociationTypeHandle associationTypeHandle] { get; }
+    IExtentSet this[ManyToAssociationTypeHandle associationTypeHandle] { get; }
 
     /// <summary>
     /// Is there a value for this role type.
