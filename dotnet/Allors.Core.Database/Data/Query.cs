@@ -7,9 +7,9 @@ namespace Allors.Core.Database.Data;
 using Allors.Core.Database.Meta.Handles;
 
 /// <summary>
-/// A pull.
+/// A query.
 /// </summary>
-public record Pull : IVisitable
+public record Query : IVisitable
 {
     /// <summary>
     /// The object type.

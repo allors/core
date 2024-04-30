@@ -10,7 +10,7 @@ using Allors.Core.Database.Meta.Handles;
 /// <summary>
 /// A less than predicate.
 /// </summary>
-public class LessThan : IRolePredicate
+public record LessThan : IRolePredicate
 {
     /// <summary>
     /// The role type.

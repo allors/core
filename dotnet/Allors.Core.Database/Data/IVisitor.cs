@@ -38,7 +38,7 @@ public interface IVisitor
     /// <summary>
     /// Visit equals.
     /// </summary>
-    void VisitEquals(Equals visited);
+    void VisitEquals(Equal visited);
 
     /// <summary>
     /// Visit except.
@@ -51,9 +51,19 @@ public interface IVisitor
     void VisitExists(Exists visited);
 
     /// <summary>
-    /// Visit extent.
+    /// Visit the composite extent.
     /// </summary>
-    void VisitExtent(Filter visited);
+    void VisitExtent(CompositeExtent visited);
+
+    /// <summary>
+    /// Visit the association extent.
+    /// </summary>
+    void VisitExtent(AssociationExtent visited);
+
+    /// <summary>
+    /// Visit the role extent.
+    /// </summary>
+    void VisitExtent(RoleExtent visited);
 
     /// <summary>
     /// Visit select.
@@ -103,7 +113,7 @@ public interface IVisitor
     /// <summary>
     /// Visit pull.
     /// </summary>
-    void VisitPull(Pull visited);
+    void VisitPull(Query visited);
 
     /// <summary>
     /// Visit result.

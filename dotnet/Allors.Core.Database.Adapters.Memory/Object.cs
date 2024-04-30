@@ -83,7 +83,7 @@ public class Object : IObject
         }
     }
 
-    private Transaction Transaction { get; }
+    internal Transaction Transaction { get; }
 
     /// <inheritdoc />
     public object? this[UnitRoleTypeHandle roleTypeHandle]
@@ -172,14 +172,7 @@ public class Object : IObject
     }
 
     /// <inheritdoc />
-    public IEnumerable<IObject> this[ManyToAssociationTypeHandle associationTypeHandle]
-    {
-        get
-        {
-            var association = this.ManyToAssociation(associationTypeHandle);
-            return association != null ? association.Select(this.Transaction.Instantiate) : [];
-        }
-    }
+    public IExtentSet this[ManyToAssociationTypeHandle associationTypeHandle] => new AssociationExtentSet(this, associationTypeHandle);
 
     /// <inheritdoc />
     public bool Exist(RoleTypeHandle roleTypeHandle)
@@ -331,6 +324,22 @@ public class Object : IObject
         this.checkpointRoleByRoleType = null;
         this.changedAssociationByAssociationType = null;
         this.checkpointAssociationByAssociationType = null;
+    }
+
+    internal ImmutableHashSet<long>? ManyToAssociation(ManyToAssociationTypeHandle associationTypeHandle)
+    {
+        ImmutableHashSet<long>? association = null;
+
+        if (this.changedAssociationByAssociationType != null && this.changedAssociationByAssociationType.TryGetValue(associationTypeHandle, out var changedAssociation))
+        {
+            association = (ImmutableHashSet<long>?)changedAssociation;
+        }
+        else if (this.record != null && this.record.AssociationByAssociationTypeId.TryGetValue(associationTypeHandle, out var recordAssociation))
+        {
+            association = (ImmutableHashSet<long>?)recordAssociation;
+        }
+
+        return association;
     }
 
     private static bool SetEquals(ImmutableHashSet<long>? objA, ImmutableHashSet<long>? objB)
@@ -535,22 +544,6 @@ public class Object : IObject
         else if (this.record != null && this.record.AssociationByAssociationTypeId.TryGetValue(associationTypeHandle, out var recordAssociation))
         {
             association = (long?)recordAssociation;
-        }
-
-        return association;
-    }
-
-    private ImmutableHashSet<long>? ManyToAssociation(ManyToAssociationTypeHandle associationTypeHandle)
-    {
-        ImmutableHashSet<long>? association = null;
-
-        if (this.changedAssociationByAssociationType != null && this.changedAssociationByAssociationType.TryGetValue(associationTypeHandle, out var changedAssociation))
-        {
-            association = (ImmutableHashSet<long>?)changedAssociation;
-        }
-        else if (this.record != null && this.record.AssociationByAssociationTypeId.TryGetValue(associationTypeHandle, out var recordAssociation))
-        {
-            association = (ImmutableHashSet<long>?)recordAssociation;
         }
 
         return association;

@@ -5,12 +5,10 @@
 
 namespace Allors.Core.Database.Data;
 
-using Allors.Core.Database.Meta.Handles;
-
 /// <summary>
 /// A union operator.
 /// </summary>
-public class Union : IExtentOperator
+public record Union : IExtentOperator
 {
     /// <summary>
     /// The operands.
@@ -21,11 +19,6 @@ public class Union : IExtentOperator
     /// The sorting.
     /// </summary>
     public Sort[]? Sorting { get; init; }
-
-    /// <summary>
-    /// The object type.
-    /// </summary>
-    public CompositeHandle ObjectType => this.Operands[0].ObjectType;
 
     /// <inheritdoc />
     public void Accept(IVisitor visitor) => visitor.VisitUnion(this);

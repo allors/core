@@ -8,14 +8,19 @@ namespace Allors.Core.Database.Data;
 using Allors.Core.Database.Meta.Handles;
 
 /// <summary>
-/// A filter.
+/// An extent based on a role type.
 /// </summary>
-public class Filter() : IExtent, IPredicateContainer
+public record RoleExtent : IPredicateExtent
 {
     /// <summary>
-    /// The object type.
+    /// The object.
     /// </summary>
-    public required CompositeHandle ObjectType { get; init; }
+    public required long Object { get; init; }
+
+    /// <summary>
+    /// The role type.
+    /// </summary>
+    public required RoleTypeHandle RoleType { get; init; }
 
     /// <summary>
     /// The predicate.

@@ -10,7 +10,7 @@ using Allors.Core.Database.Meta.Handles;
 /// <summary>
 /// An exists predicate.
 /// </summary>
-public class Exists : IPropertyPredicate
+public record Exists : IPropertyPredicate
 {
     /// <summary>
     /// The relation end type.

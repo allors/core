@@ -10,7 +10,7 @@ using Allors.Core.Database.Meta.Handles;
 /// <summary>
 /// An intersects predicate.
 /// </summary>
-public class Intersects : IPropertyPredicate
+public record Intersects : IPropertyPredicate
 {
     /// <summary>
     /// The relation end type.

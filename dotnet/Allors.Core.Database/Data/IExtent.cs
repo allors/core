@@ -5,18 +5,11 @@
 
 namespace Allors.Core.Database.Data;
 
-using Allors.Core.Database.Meta.Handles;
-
 /// <summary>
 /// An extent.
 /// </summary>
 public interface IExtent : IVisitable
 {
-    /// <summary>
-    /// The object type.
-    /// </summary>
-    CompositeHandle ObjectType { get; }
-
     /// <summary>
     /// The sorting.
     /// </summary>

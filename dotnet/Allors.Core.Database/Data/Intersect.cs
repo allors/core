@@ -5,12 +5,10 @@
 
 namespace Allors.Core.Database.Data;
 
-using Allors.Core.Database.Meta.Handles;
-
 /// <summary>
 /// An intersect operator.
 /// </summary>
-public class Intersect : IExtentOperator
+public record Intersect : IExtentOperator
 {
     /// <summary>
     /// The operands.
@@ -21,11 +19,6 @@ public class Intersect : IExtentOperator
     /// The sorting.
     /// </summary>
     public Sort[]? Sorting { get; init; }
-
-    /// <summary>
-    /// The object type.
-    /// </summary>
-    public CompositeHandle ObjectType => this.Operands[0].ObjectType;
 
     /// <inheritdoc />
     public void Accept(IVisitor visitor) => visitor.VisitIntersect(this);

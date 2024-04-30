@@ -5,7 +5,7 @@ using Allors.Core.Database.Data;
 /// <summary>
 /// An extent set.
 /// </summary>
-public interface IExtentSet
+public interface IExtentSet : IExtentEnumerable<IObject>
 {
     /// <summary>
     /// The transaction
@@ -16,4 +16,9 @@ public interface IExtentSet
     /// The extent.
     /// </summary>
     IExtent Extent { get; }
+
+    /// <summary>
+    /// Materialize the extent set into an array.
+    /// </summary>
+    IObject[] ToArray();
 }

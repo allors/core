@@ -10,7 +10,7 @@ using Allors.Core.Database.Meta.Handles;
 /// <summary>
 /// A like predicate.
 /// </summary>
-public class Like : IRolePredicate
+public record Like : IRolePredicate
 {
     /// <summary>
     /// The role type.

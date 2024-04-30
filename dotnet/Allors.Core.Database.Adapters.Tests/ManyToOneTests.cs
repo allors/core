@@ -26,8 +26,8 @@ public abstract class ManyToOneTests
 
         // New 0-4-0
         // Get
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.Null(from1[m.C1C1ManyToOne]);
         Assert.Null(from1[m.C1C1ManyToOne]);
         Assert.Null(from2[m.C1C1ManyToOne]);
@@ -41,10 +41,10 @@ public abstract class ManyToOneTests
         from1[m.C1C1ManyToOne] = to;
         from1[m.C1C1ManyToOne] = to; // Twice
 
-        Assert.Single(to[m.C1sWhereC1ManyToOne]);
-        Assert.Single(to[m.C1sWhereC1ManyToOne]);
-        Assert.Equal(from1, to[m.C1sWhereC1ManyToOne].ElementAt(0));
-        Assert.Equal(from1, to[m.C1sWhereC1ManyToOne].ElementAt(0));
+        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Equal(from1, to[m.C1sWhereC1ManyToOne].ToArray().ElementAt(0));
+        Assert.Equal(from1, to[m.C1sWhereC1ManyToOne].ToArray().ElementAt(0));
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Null(from2[m.C1C1ManyToOne]);
@@ -58,12 +58,12 @@ public abstract class ManyToOneTests
         from2[m.C1C1ManyToOne] = to;
         from2[m.C1C1ManyToOne] = to; // Twice
 
-        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].Count());
-        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].Count());
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne]);
+        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].ToArray().ToArray().Length);
+        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].ToArray().ToArray().Length);
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from2[m.C1C1ManyToOne]);
@@ -77,14 +77,14 @@ public abstract class ManyToOneTests
         from3[m.C1C1ManyToOne] = to;
         from3[m.C1C1ManyToOne] = to; // Twice
 
-        Assert.Equal(3, to[m.C1sWhereC1ManyToOne].Count());
-        Assert.Equal(3, to[m.C1sWhereC1ManyToOne].Count());
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne]);
+        Assert.Equal(3, to[m.C1sWhereC1ManyToOne].ToArray().Length);
+        Assert.Equal(3, to[m.C1sWhereC1ManyToOne].ToArray().Length);
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from2[m.C1C1ManyToOne]);
@@ -98,16 +98,16 @@ public abstract class ManyToOneTests
         from4[m.C1C1ManyToOne] = to;
         from4[m.C1C1ManyToOne] = to; // Twice
 
-        Assert.Equal(4, to[m.C1sWhereC1ManyToOne].Count());
-        Assert.Equal(4, to[m.C1sWhereC1ManyToOne].Count());
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from4, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from4, to[m.C1sWhereC1ManyToOne]);
+        Assert.Equal(4, to[m.C1sWhereC1ManyToOne].ToArray().Length);
+        Assert.Equal(4, to[m.C1sWhereC1ManyToOne].ToArray().Length);
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from4, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from4, to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from2[m.C1C1ManyToOne]);
@@ -121,14 +121,14 @@ public abstract class ManyToOneTests
         from4[m.C1C1ManyToOne] = null;
         from4[m.C1C1ManyToOne] = null; // Twice
 
-        Assert.Equal(3, to[m.C1sWhereC1ManyToOne].Count());
-        Assert.Equal(3, to[m.C1sWhereC1ManyToOne].Count());
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne]);
+        Assert.Equal(3, to[m.C1sWhereC1ManyToOne].ToArray().Length);
+        Assert.Equal(3, to[m.C1sWhereC1ManyToOne].ToArray().Length);
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from2[m.C1C1ManyToOne]);
@@ -142,12 +142,12 @@ public abstract class ManyToOneTests
         from3[m.C1C1ManyToOne] = null;
         from3[m.C1C1ManyToOne] = null; // Twice
 
-        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].Count());
-        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].Count());
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne]);
+        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].ToArray().Length);
+        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].ToArray().Length);
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from2[m.C1C1ManyToOne]);
@@ -161,10 +161,10 @@ public abstract class ManyToOneTests
         from2[m.C1C1ManyToOne] = null;
         from2[m.C1C1ManyToOne] = null; // Twice
 
-        Assert.Single(to[m.C1sWhereC1ManyToOne]);
-        Assert.Single(to[m.C1sWhereC1ManyToOne]);
-        Assert.Equal(from1, to[m.C1sWhereC1ManyToOne].ElementAt(0));
-        Assert.Equal(from1, to[m.C1sWhereC1ManyToOne].ElementAt(0));
+        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Equal(from1, to[m.C1sWhereC1ManyToOne].ToArray().ElementAt(0));
+        Assert.Equal(from1, to[m.C1sWhereC1ManyToOne].ToArray().ElementAt(0));
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Null(from2[m.C1C1ManyToOne]);
@@ -324,25 +324,25 @@ public abstract class ManyToOneTests
         // Get
         Assert.Null(from1[m.C1C1ManyToOne]);
         Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
 
         from1[m.C1C1ManyToOne] = to;
         from1[m.C1C1ManyToOne] = to; // Twice
 
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Single(to[m.C1sWhereC1ManyToOne]);
-        Assert.Single(to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
+        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
 
         from1[m.C1C1ManyToOne] = null;
 
         Assert.Null(from1[m.C1C1ManyToOne]);
         Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
 
         // Exist
         Assert.False(from1.Exist(m.C1C1ManyToOne));
@@ -367,46 +367,46 @@ public abstract class ManyToOneTests
 
         // Same New / Different To
         // Get
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.Null(from1[m.C1C1ManyToOne]);
         Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
 
         from1[m.C1C1ManyToOne] = to;
         from1[m.C1C1ManyToOne] = to; // Twice
 
-        Assert.Single(to[m.C1sWhereC1ManyToOne]);
-        Assert.Single(to[m.C1sWhereC1ManyToOne]);
+        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
 
         from1[m.C1C1ManyToOne] = toAnother;
         from1[m.C1C1ManyToOne] = toAnother; // Twice
 
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.Equal(toAnother, from1[m.C1C1ManyToOne]);
         Assert.Equal(toAnother, from1[m.C1C1ManyToOne]);
-        Assert.Single(toAnother[m.C1sWhereC1ManyToOne]);
-        Assert.Single(toAnother[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, toAnother[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, toAnother[m.C1sWhereC1ManyToOne]);
+        Assert.Single(toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Single(toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, toAnother[m.C1sWhereC1ManyToOne].ToArray());
 
         from1[m.C1C1ManyToOne] = null;
         from1[m.C1C1ManyToOne] = null; // Twice
 
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.Null(from1[m.C1C1ManyToOne]);
         Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
 
         // Exist
         Assert.False(to.Exist(m.C1sWhereC1ManyToOne));
@@ -452,42 +452,42 @@ public abstract class ManyToOneTests
         // Get
         Assert.Null(from1[m.C1C1ManyToOne]);
         Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.Null(from2[m.C1C1ManyToOne]);
         Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
 
         from1[m.C1C1ManyToOne] = to;
         from1[m.C1C1ManyToOne] = to; // Twice
 
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Single(to[m.C1sWhereC1ManyToOne]);
-        Assert.Single(to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
+        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.Null(from2[m.C1C1ManyToOne]);
         Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
 
         from2[m.C1C1ManyToOne] = toAnother;
         from2[m.C1C1ManyToOne] = toAnother; // Twice
 
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Single(to[m.C1sWhereC1ManyToOne]);
-        Assert.Single(to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
+        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.Equal(toAnother, from2[m.C1C1ManyToOne]);
         Assert.Equal(toAnother, from2[m.C1C1ManyToOne]);
-        Assert.Single(toAnother[m.C1sWhereC1ManyToOne]);
-        Assert.Single(toAnother[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from2, toAnother[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from2, toAnother[m.C1sWhereC1ManyToOne]);
+        Assert.Single(toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Single(toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from2, toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from2, toAnother[m.C1sWhereC1ManyToOne].ToArray());
 
         from1[m.C1C1ManyToOne] = null;
         from1[m.C1C1ManyToOne] = null; // Twice
@@ -496,12 +496,12 @@ public abstract class ManyToOneTests
 
         Assert.Null(from1[m.C1C1ManyToOne]);
         Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.Null(from2[m.C1C1ManyToOne]);
         Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
 
         // Exist
         Assert.False(from1.Exist(m.C1C1ManyToOne));
@@ -557,8 +557,8 @@ public abstract class ManyToOneTests
         Assert.Null(from1[m.C1C1ManyToOne]);
         Assert.Null(from2[m.C1C1ManyToOne]);
         Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
 
         from1[m.C1C1ManyToOne] = to;
         from1[m.C1C1ManyToOne] = to; // Twice
@@ -567,12 +567,12 @@ public abstract class ManyToOneTests
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Null(from2[m.C1C1ManyToOne]);
         Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Single(to[m.C1sWhereC1ManyToOne]);
-        Assert.Single(to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.DoesNotContain(from2, to[m.C1sWhereC1ManyToOne]);
-        Assert.DoesNotContain(from2, to[m.C1sWhereC1ManyToOne]);
+        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.DoesNotContain(from2, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.DoesNotContain(from2, to[m.C1sWhereC1ManyToOne].ToArray());
 
         from2[m.C1C1ManyToOne] = to;
         from2[m.C1C1ManyToOne] = to; // Twice
@@ -581,12 +581,12 @@ public abstract class ManyToOneTests
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from2[m.C1C1ManyToOne]);
         Assert.Equal(to, from2[m.C1C1ManyToOne]);
-        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].Count());
-        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].Count());
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne]);
+        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].ToArray().Length);
+        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].ToArray().Length);
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
 
         from1[m.C1C1ManyToOne] = null;
         from2[m.C1C1ManyToOne] = null;
@@ -595,8 +595,8 @@ public abstract class ManyToOneTests
         Assert.Null(from1[m.C1C1ManyToOne]);
         Assert.Null(from2[m.C1C1ManyToOne]);
         Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
 
         // Exist
         Assert.False(from1.Exist(m.C1C1ManyToOne));
@@ -633,8 +633,8 @@ public abstract class ManyToOneTests
         Assert.Null(from1[m.C1C1ManyToOne]);
         Assert.Null(from2[m.C1C1ManyToOne]);
         Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
 
         // Null & Empty Array
         // Set Null
@@ -695,8 +695,8 @@ public abstract class ManyToOneTests
 
         // New 0-4-0
         // Get
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.Null(from1[m.C1C1ManyToOne]);
         Assert.Null(from1[m.C1C1ManyToOne]);
         Assert.Null(from2[m.C1C1ManyToOne]);
@@ -711,10 +711,10 @@ public abstract class ManyToOneTests
         from1[m.C1C1ManyToOne] = to;
 
         // Twice
-        Assert.Single(to[m.C1sWhereC1ManyToOne]);
-        Assert.Single(to[m.C1sWhereC1ManyToOne]);
-        Assert.Equal(from1, to[m.C1sWhereC1ManyToOne].ElementAt(0));
-        Assert.Equal(from1, to[m.C1sWhereC1ManyToOne].ElementAt(0));
+        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Equal(from1, to[m.C1sWhereC1ManyToOne].ToArray().ElementAt(0));
+        Assert.Equal(from1, to[m.C1sWhereC1ManyToOne].ToArray().ElementAt(0));
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Null(from2[m.C1C1ManyToOne]);
@@ -729,12 +729,12 @@ public abstract class ManyToOneTests
         from2[m.C1C1ManyToOne] = to;
 
         // Twice
-        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].Count());
-        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].Count());
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne]);
+        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].ToArray().Length);
+        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].ToArray().Length);
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from2[m.C1C1ManyToOne]);
@@ -749,14 +749,14 @@ public abstract class ManyToOneTests
         from3[m.C1C1ManyToOne] = to;
 
         // Twice
-        Assert.Equal(3, to[m.C1sWhereC1ManyToOne].Count());
-        Assert.Equal(3, to[m.C1sWhereC1ManyToOne].Count());
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne]);
+        Assert.Equal(3, to[m.C1sWhereC1ManyToOne].ToArray().Length);
+        Assert.Equal(3, to[m.C1sWhereC1ManyToOne].ToArray().Length);
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from2[m.C1C1ManyToOne]);
@@ -771,16 +771,16 @@ public abstract class ManyToOneTests
         from4[m.C1C1ManyToOne] = to;
 
         // Twice
-        Assert.Equal(4, to[m.C1sWhereC1ManyToOne].Count());
-        Assert.Equal(4, to[m.C1sWhereC1ManyToOne].Count());
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from4, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from4, to[m.C1sWhereC1ManyToOne]);
+        Assert.Equal(4, to[m.C1sWhereC1ManyToOne].ToArray().Length);
+        Assert.Equal(4, to[m.C1sWhereC1ManyToOne].ToArray().Length);
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from4, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from4, to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from2[m.C1C1ManyToOne]);
@@ -795,14 +795,14 @@ public abstract class ManyToOneTests
         from4[m.C1C1ManyToOne] = null;
 
         // Twice
-        Assert.Equal(3, to[m.C1sWhereC1ManyToOne].Count());
-        Assert.Equal(3, to[m.C1sWhereC1ManyToOne].Count());
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne]);
+        Assert.Equal(3, to[m.C1sWhereC1ManyToOne].ToArray().Length);
+        Assert.Equal(3, to[m.C1sWhereC1ManyToOne].ToArray().Length);
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from2[m.C1C1ManyToOne]);
@@ -817,12 +817,12 @@ public abstract class ManyToOneTests
         from3[m.C1C1ManyToOne] = null;
 
         // Twice
-        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].Count());
-        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].Count());
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne]);
+        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].ToArray().Length);
+        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].ToArray().Length);
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from2[m.C1C1ManyToOne]);
@@ -837,10 +837,10 @@ public abstract class ManyToOneTests
         from2[m.C1C1ManyToOne] = null;
 
         // Twice
-        Assert.Single(to[m.C1sWhereC1ManyToOne]);
-        Assert.Single(to[m.C1sWhereC1ManyToOne]);
-        Assert.Equal(from1, to[m.C1sWhereC1ManyToOne].ElementAt(0));
-        Assert.Equal(from1, to[m.C1sWhereC1ManyToOne].ElementAt(0));
+        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Equal(from1, to[m.C1sWhereC1ManyToOne].ToArray().ElementAt(0));
+        Assert.Equal(from1, to[m.C1sWhereC1ManyToOne].ToArray().ElementAt(0));
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Null(from2[m.C1C1ManyToOne]);
@@ -1009,8 +1009,8 @@ public abstract class ManyToOneTests
         // Get
         Assert.Null(from1[m.C1C1ManyToOne]);
         Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
 
         from1[m.C1C1ManyToOne] = to;
         from1[m.C1C1ManyToOne] = to;
@@ -1018,17 +1018,17 @@ public abstract class ManyToOneTests
         // Twice
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Single(to[m.C1sWhereC1ManyToOne]);
-        Assert.Single(to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
+        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
 
         from1[m.C1C1ManyToOne] = null;
 
         Assert.Null(from1[m.C1C1ManyToOne]);
         Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
 
         // Exist
         Assert.False(from1.Exist(m.C1C1ManyToOne));
@@ -1054,49 +1054,49 @@ public abstract class ManyToOneTests
 
         // Same New / Different To
         // Get
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.Null(from1[m.C1C1ManyToOne]);
         Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
 
         from1[m.C1C1ManyToOne] = to;
         from1[m.C1C1ManyToOne] = to;
 
         // Twice
-        Assert.Single(to[m.C1sWhereC1ManyToOne]);
-        Assert.Single(to[m.C1sWhereC1ManyToOne]);
+        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
 
         from1[m.C1C1ManyToOne] = toAnother;
         from1[m.C1C1ManyToOne] = toAnother;
 
         // Twice
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.Equal(toAnother, from1[m.C1C1ManyToOne]);
         Assert.Equal(toAnother, from1[m.C1C1ManyToOne]);
-        Assert.Single(toAnother[m.C1sWhereC1ManyToOne]);
-        Assert.Single(toAnother[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, toAnother[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, toAnother[m.C1sWhereC1ManyToOne]);
+        Assert.Single(toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Single(toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, toAnother[m.C1sWhereC1ManyToOne].ToArray());
 
         from1[m.C1C1ManyToOne] = null;
         from1[m.C1C1ManyToOne] = null;
 
         // Twice
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.Null(from1[m.C1C1ManyToOne]);
         Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
 
         // Exist
         Assert.False(to.Exist(m.C1sWhereC1ManyToOne));
@@ -1147,12 +1147,12 @@ public abstract class ManyToOneTests
         // Get
         Assert.Null(from1[m.C1C1ManyToOne]);
         Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.Null(from2[m.C1C1ManyToOne]);
         Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
 
         from1[m.C1C1ManyToOne] = to;
         from1[m.C1C1ManyToOne] = to;
@@ -1160,15 +1160,15 @@ public abstract class ManyToOneTests
         // Twice
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Single(to[m.C1sWhereC1ManyToOne]);
-        Assert.Single(to[m.C1sWhereC1ManyToOne]);
+        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
 
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.Null(from2[m.C1C1ManyToOne]);
         Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
 
         from2[m.C1C1ManyToOne] = toAnother;
         from2[m.C1C1ManyToOne] = toAnother;
@@ -1176,16 +1176,16 @@ public abstract class ManyToOneTests
         // Twice
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Single(to[m.C1sWhereC1ManyToOne]);
-        Assert.Single(to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
+        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.Equal(toAnother, from2[m.C1C1ManyToOne]);
         Assert.Equal(toAnother, from2[m.C1C1ManyToOne]);
-        Assert.Single(toAnother[m.C1sWhereC1ManyToOne]);
-        Assert.Single(toAnother[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from2, toAnother[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from2, toAnother[m.C1sWhereC1ManyToOne]);
+        Assert.Single(toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Single(toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from2, toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from2, toAnother[m.C1sWhereC1ManyToOne].ToArray());
 
         from1[m.C1C1ManyToOne] = null;
         from1[m.C1C1ManyToOne] = null;
@@ -1197,12 +1197,12 @@ public abstract class ManyToOneTests
         // Twice
         Assert.Null(from1[m.C1C1ManyToOne]);
         Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.Null(from2[m.C1C1ManyToOne]);
         Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
 
         // Exist
         Assert.False(from1.Exist(m.C1C1ManyToOne));
@@ -1263,8 +1263,8 @@ public abstract class ManyToOneTests
         Assert.Null(from1[m.C1C1ManyToOne]);
         Assert.Null(from2[m.C1C1ManyToOne]);
         Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
 
         from1[m.C1C1ManyToOne] = to;
         from1[m.C1C1ManyToOne] = to;
@@ -1274,12 +1274,12 @@ public abstract class ManyToOneTests
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Null(from2[m.C1C1ManyToOne]);
         Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Single(to[m.C1sWhereC1ManyToOne]);
-        Assert.Single(to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.DoesNotContain(from2, to[m.C1sWhereC1ManyToOne]);
-        Assert.DoesNotContain(from2, to[m.C1sWhereC1ManyToOne]);
+        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.DoesNotContain(from2, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.DoesNotContain(from2, to[m.C1sWhereC1ManyToOne].ToArray());
 
         from2[m.C1C1ManyToOne] = to;
         from2[m.C1C1ManyToOne] = to;
@@ -1289,12 +1289,12 @@ public abstract class ManyToOneTests
         Assert.Equal(to, from1[m.C1C1ManyToOne]);
         Assert.Equal(to, from2[m.C1C1ManyToOne]);
         Assert.Equal(to, from2[m.C1C1ManyToOne]);
-        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].Count());
-        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].Count());
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne]);
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne]);
+        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].ToArray().Length);
+        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].ToArray().Length);
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
 
         from1[m.C1C1ManyToOne] = null;
         from2[m.C1C1ManyToOne] = null;
@@ -1303,8 +1303,8 @@ public abstract class ManyToOneTests
         Assert.Null(from1[m.C1C1ManyToOne]);
         Assert.Null(from2[m.C1C1ManyToOne]);
         Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
 
         // Exist
         Assert.False(from1.Exist(m.C1C1ManyToOne));
@@ -1343,8 +1343,8 @@ public abstract class ManyToOneTests
         Assert.Null(from1[m.C1C1ManyToOne]);
         Assert.Null(from2[m.C1C1ManyToOne]);
         Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne]);
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
+        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
 
         // Null & Empty Array
         // Set Null

@@ -8,7 +8,7 @@ namespace Allors.Core.Database.Data;
 /// <summary>
 /// A not predicate.
 /// </summary>
-public class Not : ICompositePredicate
+public record Not : IPredicate
 {
     /// <summary>
     /// The operand.

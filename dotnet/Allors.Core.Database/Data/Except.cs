@@ -5,22 +5,15 @@
 
 namespace Allors.Core.Database.Data;
 
-using Allors.Core.Database.Meta.Handles;
-
 /// <summary>
 /// An except operator.
 /// </summary>
-public class Except : IExtentOperator
+public record Except : IExtentOperator
 {
     /// <summary>
     /// The operands.
     /// </summary>
     public required IExtent[] Operands { get; init; }
-
-    /// <summary>
-    /// The object type.
-    /// </summary>
-    public CompositeHandle ObjectType => this.Operands[0].ObjectType;
 
     /// <summary>
     /// The sorting.

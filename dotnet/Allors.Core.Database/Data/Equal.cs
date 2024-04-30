@@ -8,9 +8,9 @@ namespace Allors.Core.Database.Data;
 using Allors.Core.Database.Meta.Handles;
 
 /// <summary>
-/// An equals predicate.
+/// An equal predicate.
 /// </summary>
-public class Equals : IPropertyPredicate
+public record Equal : IPropertyPredicate
 {
     /// <summary>
     /// The relation end type.
