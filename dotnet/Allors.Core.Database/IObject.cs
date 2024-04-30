@@ -1,6 +1,5 @@
 ﻿namespace Allors.Core.Database;
 
-using System.Collections.Generic;
 using Allors.Core.Database.Meta.Handles;
 
 /// <summary>
@@ -16,7 +15,7 @@ public interface IObject
     /// <summary>
     /// The class.
     /// </summary>
-    public ClassHandle ClassHandle { get; }
+    public ClassHandle Class { get; }
 
     /// <summary>
     /// The id.
@@ -39,6 +38,11 @@ public interface IObject
     IObject? this[ToOneRoleTypeHandle roleTypeHandle] { get; set; }
 
     /// <summary>
+    /// Gets the ManyTo role.
+    /// </summary>
+    IExtentSet this[ToManyRoleTypeHandle roleTypeHandle] { get; }
+
+    /// <summary>
     /// Gets the OneTo role.
     /// </summary>
     IObject? this[OneToAssociationTypeHandle associationTypeHandle] { get; }
@@ -47,6 +51,16 @@ public interface IObject
     /// Gets the ManyTo role.
     /// </summary>
     IExtentSet this[ManyToAssociationTypeHandle associationTypeHandle] { get; }
+
+    /// <summary>
+    /// Add an object to the role.
+    /// </summary>
+    void Add(ToManyRoleTypeHandle roleTypeHandle, IObject value);
+
+    /// <summary>
+    /// Remove an object from the role.
+    /// </summary>
+    void Remove(ToManyRoleTypeHandle roleTypeHandle, IObject value);
 
     /// <summary>
     /// Is there a value for this role type.
