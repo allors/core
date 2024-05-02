@@ -9,28 +9,35 @@ using Allors.Core.Database.Meta.Handles;
 /// <summary>
 /// A query.
 /// </summary>
-public record Query : IVisitable
+public record Query : IFilter
 {
-    /// <summary>
-    /// The object type.
-    /// </summary>
-    public ObjectTypeHandle? ObjectType { get; init; }
-
     /// <summary>
     /// The extent.
     /// </summary>
     public IExtent? Extent { get; init; }
 
     /// <summary>
-    /// The object.
+    /// The select.
     /// </summary>
-    public long? Object { get; init; }
+    public Select? Select { get; init; }
 
     /// <summary>
-    /// The results.
+    /// The includes.
     /// </summary>
-    public Result[]? Results { get; init; }
+    public Include[]? Includes { get; init; }
 
     /// <inheritdoc />
-    public void Accept(IVisitor visitor) => visitor.VisitPull(this);
+    public CompositeHandle? OfType { get; init; }
+
+    /// <inheritdoc />
+    public Sort[]? Sorting { get; init; }
+
+    /// <inheritdoc />
+    public int? Skip { get; init; }
+
+    /// <inheritdoc />
+    public int? Take { get; init; }
+
+    /// <inheritdoc />
+    public void Accept(IVisitor visitor) => visitor.VisitQuery(this);
 }

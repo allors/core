@@ -8,17 +8,12 @@ namespace Allors.Core.Database.Data;
 /// <summary>
 /// An intersect operator.
 /// </summary>
-public record Intersect : IExtentOperator
+public record Intersect : IOperatorExtent
 {
     /// <summary>
     /// The operands.
     /// </summary>
     public required IExtent[] Operands { get; init; }
-
-    /// <summary>
-    /// The sorting.
-    /// </summary>
-    public Sort[]? Sorting { get; init; }
 
     /// <inheritdoc />
     public void Accept(IVisitor visitor) => visitor.VisitIntersect(this);

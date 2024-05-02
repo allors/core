@@ -10,7 +10,7 @@ using Allors.Core.Database.Meta.Handles;
 /// <summary>
 /// An equal predicate.
 /// </summary>
-public record Equal : IPropertyPredicate
+public record Equal : IRelationEndPredicate
 {
     /// <summary>
     /// The relation end type.

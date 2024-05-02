@@ -27,11 +27,6 @@ public record AssociationExtent : IPredicateExtent
     /// </summary>
     public IPredicate? Predicate { get; init; }
 
-    /// <summary>
-    /// The sorting.
-    /// </summary>
-    public Sort[]? Sorting { get; init; }
-
     /// <inheritdoc />
     public void Accept(IVisitor visitor) => visitor.VisitExtent(this);
 }

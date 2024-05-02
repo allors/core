@@ -10,7 +10,7 @@ using Allors.Core.Database.Meta.Handles;
 /// <summary>
 /// An in predicate.
 /// </summary>
-public record In : IPropertyPredicate
+public record In : IRelationEndPredicate
 {
     /// <summary>
     /// The relation end type.
@@ -21,11 +21,6 @@ public record In : IPropertyPredicate
     /// The extent.
     /// </summary>
     public IExtent? Extent { get; init; }
-
-    /// <summary>
-    /// The objects.
-    /// </summary>
-    public long[]? Objects { get; init; }
 
     /// <summary>
     /// The parameter.

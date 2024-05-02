@@ -10,7 +10,7 @@ using Allors.Core.Database.Meta.Handles;
 /// <summary>
 /// A node.
 /// </summary>
-public record Node : IVisitable
+public record Include : IFilter
 {
     /// <summary>
     /// The relation end type.
@@ -18,15 +18,22 @@ public record Node : IVisitable
     public required RelationEndTypeHandle RelationEndType { get; init; }
 
     /// <summary>
-    /// The nodes.
+    /// The includes.
     /// </summary>
-    public Node[]? Nodes { get; private set; }
+    public Include[]? Children { get; init; }
 
-    /// <summary>
-    /// Of type.
-    /// </summary>
+    /// <inheritdoc/>
     public CompositeHandle? OfType { get; init; }
 
     /// <inheritdoc/>
-    public void Accept(IVisitor visitor) => visitor.VisitNode(this);
+    public Sort[]? Sorting { get; }
+
+    /// <inheritdoc/>
+    public int? Skip { get; init; }
+
+    /// <inheritdoc/>
+    public int? Take { get; init; }
+
+    /// <inheritdoc/>
+    public void Accept(IVisitor visitor) => visitor.VisitInclude(this);
 }

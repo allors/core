@@ -8,17 +8,12 @@ namespace Allors.Core.Database.Data;
 /// <summary>
 /// A union operator.
 /// </summary>
-public record Union : IExtentOperator
+public record Union : IOperatorExtent
 {
     /// <summary>
     /// The operands.
     /// </summary>
     public required IExtent[] Operands { get; init; }
-
-    /// <summary>
-    /// The sorting.
-    /// </summary>
-    public Sort[]? Sorting { get; init; }
 
     /// <inheritdoc />
     public void Accept(IVisitor visitor) => visitor.VisitUnion(this);

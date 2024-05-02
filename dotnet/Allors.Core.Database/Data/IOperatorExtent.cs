@@ -1,19 +1,17 @@
-﻿// <copyright file="IPropertyPredicate.cs" company="Allors bv">
+﻿// <copyright file="IOperatorExtent.cs" company="Allors bv">
 // Copyright (c) Allors bv. All rights reserved.
 // Licensed under the LGPL license. See LICENSE file in the project root for full license information.
 // </copyright>
 
 namespace Allors.Core.Database.Data;
 
-using Allors.Core.Database.Meta.Handles;
-
 /// <summary>
-/// A property predicate.
+/// An operator extent.
 /// </summary>
-public interface IPropertyPredicate : IPredicate
+public interface IOperatorExtent : IExtent
 {
     /// <summary>
-    /// The relation end type.
+    /// The operands.
     /// </summary>
-    RelationEndTypeHandle RelationEndType { get; }
+    IExtent[] Operands { get; init; }
 }

@@ -8,17 +8,12 @@ namespace Allors.Core.Database.Data;
 /// <summary>
 /// An except operator.
 /// </summary>
-public record Except : IExtentOperator
+public record Except : IOperatorExtent
 {
     /// <summary>
     /// The operands.
     /// </summary>
     public required IExtent[] Operands { get; init; }
-
-    /// <summary>
-    /// The sorting.
-    /// </summary>
-    public Sort[]? Sorting { get; init; }
 
     /// <inheritdoc />
     public void Accept(IVisitor visitor) => visitor.VisitExcept(this);

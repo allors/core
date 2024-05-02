@@ -98,7 +98,7 @@ public interface IVisitor
     /// <summary>
     /// Visit node.
     /// </summary>
-    void VisitNode(Node visited);
+    void VisitInclude(Include visited);
 
     /// <summary>
     /// Visit not.
@@ -113,12 +113,12 @@ public interface IVisitor
     /// <summary>
     /// Visit pull.
     /// </summary>
-    void VisitPull(Query visited);
+    void VisitQuery(Query visited);
 
     /// <summary>
-    /// Visit result.
+    /// Visit range.
     /// </summary>
-    void VisitResult(Result visited);
+    void VisitRange(Range range);
 
     /// <summary>
     /// Visit sort.

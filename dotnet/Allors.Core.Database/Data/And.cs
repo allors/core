@@ -8,7 +8,7 @@ namespace Allors.Core.Database.Data;
 /// <summary>
 /// An and predicate.
 /// </summary>
-public record And : IPredicate
+public record And : IOperatorPredicate
 {
     /// <summary>
     /// The operands.
