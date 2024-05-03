@@ -326,12 +326,12 @@ public class Object : IObject
         {
             var roleByRoleTypeId = this.changedRoleByRoleType?
                 .Where(kvp => kvp.Value != null)
-                .Select(RoleToFrozenSet)
+                .Select(RoleNotNull)
                 .ToFrozenDictionary() ?? FrozenDictionary<RoleTypeHandle, object>.Empty;
 
             var associationByAssociationTypeId = this.changedAssociationByAssociationType?
                 .Where(kvp => kvp.Value != null)
-                .Select(AssociationToFrozenSet)
+                .Select(AssociationNotNull)
                 .ToFrozenDictionary() ?? FrozenDictionary<AssociationTypeHandle, object>.Empty;
 
             return new Record(this.Class, this.Id, this.Version + 1, roleByRoleTypeId, associationByAssociationTypeId);
@@ -342,24 +342,24 @@ public class Object : IObject
                 .Where(kvp => this.changedRoleByRoleType.ContainsKey(kvp.Key))
                 .Union(this.changedRoleByRoleType!
                     .Where(kvp => kvp.Value != null)
-                    .Select(RoleToFrozenSet))
+                    .Select(RoleNotNull))
                 .ToFrozenDictionary() : FrozenDictionary<RoleTypeHandle, object>.Empty;
 
             var associationByAssociationTypeId = this.changedAssociationByAssociationType != null ? this.Record.AssociationByAssociationTypeId
                 .Where(kvp => this.changedAssociationByAssociationType.ContainsKey(kvp.Key))
                 .Union(this.changedAssociationByAssociationType!
                     .Where(kvp => kvp.Value != null)
-                    .Select(AssociationToFrozenSet))
+                    .Select(AssociationNotNull))
                 .ToFrozenDictionary() : FrozenDictionary<AssociationTypeHandle, object>.Empty;
 
             return new Record(this.Class, this.Id, this.Version + 1, roleByRoleTypeId, associationByAssociationTypeId);
         }
 
-        KeyValuePair<RoleTypeHandle, object> RoleToFrozenSet(KeyValuePair<RoleTypeHandle, object?> kvp) =>
-            new(kvp.Key, kvp.Value is ImmutableHashSet<long> set ? set.ToFrozenSet() : kvp.Value!);
+        KeyValuePair<RoleTypeHandle, object> RoleNotNull(KeyValuePair<RoleTypeHandle, object?> kvp) =>
+            new(kvp.Key, kvp.Value!);
 
-        KeyValuePair<AssociationTypeHandle, object> AssociationToFrozenSet(KeyValuePair<AssociationTypeHandle, object?> kvp) =>
-            new(kvp.Key, kvp.Value is ImmutableHashSet<long> set ? set.ToFrozenSet() : kvp.Value!);
+        KeyValuePair<AssociationTypeHandle, object> AssociationNotNull(KeyValuePair<AssociationTypeHandle, object?> kvp) =>
+            new(kvp.Key, kvp.Value!);
     }
 
     internal void Rollback()
@@ -605,29 +605,30 @@ public class Object : IObject
 
     private void SetOneToManyRole(OneToManyRoleTypeHandle roleTypeHandle, IEnumerable<IObject> value)
     {
+        var objects = value.Where(v => (IObject?)v != null).Distinct().Cast<Object>().ToArray();
+
         // TODO: Optimize
         var previousRole = this.ToManyRole(roleTypeHandle);
 
         if (previousRole == null)
         {
-            foreach (var @object in value)
+            foreach (var @object in objects)
             {
-                this.AddOneToManyRole(roleTypeHandle, (Object)@object);
+                this.AddOneToManyRole(roleTypeHandle, @object);
             }
         }
         else
         {
-            var materialized = value.ToArray();
-            var remove = previousRole.Except(materialized.ToArray().Select(v => v.Id));
+            var remove = previousRole.Except(objects.Select(v => v.Id));
             foreach (var @object in remove.Select(this.Transaction.Instantiate).Cast<Object>())
             {
                 this.RemoveOneToManyRole(roleTypeHandle, @object);
             }
 
-            var add = materialized.ToArray().Where(v => !previousRole.Contains(v.Id));
+            var add = objects.Where(v => !previousRole.Contains(v.Id));
             foreach (var @object in add.Cast<Object>())
             {
-                this.RemoveOneToManyRole(roleTypeHandle, @object);
+                this.AddOneToManyRole(roleTypeHandle, @object);
             }
         }
     }
@@ -699,29 +700,30 @@ public class Object : IObject
 
     private void SetManyToManyRole(ManyToManyRoleTypeHandle roleTypeHandle, IEnumerable<IObject> value)
     {
+        var objects = value.Where(v => (IObject?)v != null).Distinct().Cast<Object>().ToArray();
+
         // TODO: Optimize
         var previousRole = this.ToManyRole(roleTypeHandle);
 
         if (previousRole == null)
         {
-            foreach (var @object in value)
+            foreach (var @object in objects)
             {
-                this.AddManyToManyRole(roleTypeHandle, (Object)@object);
+                this.AddManyToManyRole(roleTypeHandle, @object);
             }
         }
         else
         {
-            var materialized = value.ToArray();
-            var remove = previousRole.Except(materialized.ToArray().Select(v => v.Id));
+            var remove = previousRole.Except(objects.Select(v => v.Id));
             foreach (var @object in remove.Select(this.Transaction.Instantiate).Cast<Object>())
             {
                 this.RemoveManyToManyRole(roleTypeHandle, @object);
             }
 
-            var add = materialized.ToArray().Where(v => !previousRole.Contains(v.Id));
+            var add = objects.Where(v => !previousRole.Contains(v.Id));
             foreach (var @object in add.Cast<Object>())
             {
-                this.RemoveManyToManyRole(roleTypeHandle, @object);
+                this.AddManyToManyRole(roleTypeHandle, @object);
             }
         }
     }
