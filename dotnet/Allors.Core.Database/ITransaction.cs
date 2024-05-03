@@ -1,5 +1,6 @@
 ﻿namespace Allors.Core.Database;
 
+using System.Collections.Generic;
 using Allors.Core.Database.Meta.Handles;
 
 /// <summary>
@@ -15,7 +16,12 @@ public interface ITransaction
     /// <summary>
     /// Builds a new object.
     /// </summary>
-    IObject Build(ClassHandle classHandle);
+    IObject Build(ClassHandle @class);
+
+    /// <summary>
+    /// Builds amount new objects.
+    /// </summary>
+    IEnumerable<IObject> Build(ClassHandle @class, int amount);
 
     /// <summary>
     /// Instantiates an object.

@@ -470,5 +470,34 @@
 
             return (manyToOneAssociationTypeHandle, manyToOneRoleTypeHandle);
         }
+
+        /// <summary>
+        /// Creates new OneToMany relation end types.
+        /// </summary>
+        public (OneToManyAssociationTypeHandle AssociationType, OneToManyRoleTypeHandle RoleType) NewOneToManyRelationEndTypes(Guid associationTypeId, Guid roleTypeId, CompositeHandle associationCompositeHandle, CompositeHandle roleCompositeHandle, string singularName, string? assignedPluralName = null)
+        {
+            var associationType = this.EmbeddedPopulation.Create(this.AssociationType, v =>
+            {
+                v[this.MetaObjectId] = associationTypeId;
+                v[this.AssociationTypeComposite] = this[associationCompositeHandle.Id];
+            });
+
+            var oneToManyAssociationTypeHandle = new OneToManyAssociationTypeHandle(associationTypeId);
+            this.Add(oneToManyAssociationTypeHandle, associationType);
+
+            var roleType = this.EmbeddedPopulation.Create(this.RoleType, v =>
+            {
+                v[this.MetaObjectId] = roleTypeId;
+                v[this.RoleTypeAssociationType] = associationType;
+                v[this.RoleTypeObjectType] = this[roleCompositeHandle.Id];
+                v[this.RoleTypeSingularName] = singularName;
+                v[this.RoleTypeAssignedPluralName] = assignedPluralName;
+            });
+
+            var oneToManyRoleTypeHandle = new OneToManyRoleTypeHandle(roleTypeId);
+            this.Add(oneToManyRoleTypeHandle, roleType);
+
+            return (oneToManyAssociationTypeHandle, oneToManyRoleTypeHandle);
+        }
     }
 }

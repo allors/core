@@ -1,5 +1,6 @@
 ﻿namespace Allors.Core.Database;
 
+using System.Collections.Generic;
 using Allors.Core.Database.Meta.Handles;
 
 /// <summary>
@@ -40,7 +41,7 @@ public interface IObject
     /// <summary>
     /// Gets the ManyTo role.
     /// </summary>
-    IExtentSet this[ToManyRoleTypeHandle roleTypeHandle] { get; }
+    IEnumerable<IObject> this[ToManyRoleTypeHandle roleTypeHandle] { get; set; }
 
     /// <summary>
     /// Gets the OneTo role.
@@ -50,7 +51,7 @@ public interface IObject
     /// <summary>
     /// Gets the ManyTo role.
     /// </summary>
-    IExtentSet this[ManyToAssociationTypeHandle associationTypeHandle] { get; }
+    IEnumerable<IObject> this[ManyToAssociationTypeHandle associationTypeHandle] { get; }
 
     /// <summary>
     /// Add an object to the role.

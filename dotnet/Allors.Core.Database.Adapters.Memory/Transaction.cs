@@ -27,11 +27,23 @@ public class Transaction : ITransaction
     internal Database Database { get; }
 
     /// <inheritdoc/>
-    public IObject Build(ClassHandle classHandle)
+    public IObject Build(ClassHandle @class)
     {
-        var newObject = new Object(this, classHandle, this.Database.NextObjectId());
+        var newObject = new Object(this, @class, this.Database.NextObjectId());
         this.InstantiatedObjectByObjectId.Add(newObject.Id, newObject);
         return newObject;
+    }
+
+    /// <inheritdoc/>
+    public IEnumerable<IObject> Build(ClassHandle @class, int amount)
+    {
+        var objects = new IObject[amount];
+        for (var i = 0; i < amount; i++)
+        {
+            objects[i] = this.Build(@class);
+        }
+
+        return objects;
     }
 
     /// <inheritdoc />

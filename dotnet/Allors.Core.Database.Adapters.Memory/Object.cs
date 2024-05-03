@@ -161,7 +161,22 @@ public class Object : IObject
     }
 
     /// <inheritdoc />
-    public IExtentSet this[ToManyRoleTypeHandle roleTypeHandle] => new RoleExtentSet(this, roleTypeHandle);
+    public IEnumerable<IObject> this[ToManyRoleTypeHandle roleTypeHandle]
+    {
+        get => this.ToManyRole(roleTypeHandle)?.Select(this.Transaction.Instantiate) ?? [];
+        set
+        {
+            if (roleTypeHandle is OneToManyRoleTypeHandle oneToManyRoleTypeHandle)
+            {
+                this.SetOneToManyRole(oneToManyRoleTypeHandle, value);
+            }
+            else
+            {
+                var manyToManyRoleTypeHandle = (ManyToManyRoleTypeHandle)roleTypeHandle;
+                this.SetManyToManyRole(manyToManyRoleTypeHandle, value);
+            }
+        }
+    }
 
     /// <inheritdoc />
     public IObject? this[OneToAssociationTypeHandle associationTypeHandle]
@@ -174,7 +189,7 @@ public class Object : IObject
     }
 
     /// <inheritdoc />
-    public IExtentSet this[ManyToAssociationTypeHandle associationTypeHandle] => new AssociationExtentSet(this, associationTypeHandle);
+    public IEnumerable<IObject> this[ManyToAssociationTypeHandle associationTypeHandle] => this.ManyToAssociation(associationTypeHandle)?.Select(this.Transaction.Instantiate) ?? [];
 
     /// <inheritdoc />
     public void Add(ToManyRoleTypeHandle roleTypeHandle, IObject value)
@@ -564,7 +579,7 @@ public class Object : IObject
         var previousRoleIds = this.ToManyRole(roleTypeHandle);
 
         // R not in PR
-        if (previousRoleIds?.Contains(role.Id) != false)
+        if (previousRoleIds?.Contains(role.Id) != true)
         {
             return;
         }
@@ -578,13 +593,42 @@ public class Object : IObject
         var newRole = previousRoleIds.Remove(role.Id);
         if (newRole.Count == 0)
         {
-            role.changedRoleByRoleType ??= [];
-            role.changedRoleByRoleType.Remove(roleTypeHandle);
+            this.changedRoleByRoleType ??= [];
+            this.changedRoleByRoleType.Remove(roleTypeHandle);
         }
         else
         {
-            role.changedRoleByRoleType ??= [];
-            role.changedRoleByRoleType[roleTypeHandle] = newRole;
+            this.changedRoleByRoleType ??= [];
+            this.changedRoleByRoleType[roleTypeHandle] = newRole;
+        }
+    }
+
+    private void SetOneToManyRole(OneToManyRoleTypeHandle roleTypeHandle, IEnumerable<IObject> value)
+    {
+        // TODO: Optimize
+        var previousRole = this.ToManyRole(roleTypeHandle);
+
+        if (previousRole == null)
+        {
+            foreach (var @object in value)
+            {
+                this.AddOneToManyRole(roleTypeHandle, (Object)@object);
+            }
+        }
+        else
+        {
+            var materialized = value.ToArray();
+            var remove = previousRole.Except(materialized.ToArray().Select(v => v.Id));
+            foreach (var @object in remove.Select(this.Transaction.Instantiate).Cast<Object>())
+            {
+                this.RemoveOneToManyRole(roleTypeHandle, @object);
+            }
+
+            var add = materialized.ToArray().Where(v => !previousRole.Contains(v.Id));
+            foreach (var @object in add.Cast<Object>())
+            {
+                this.RemoveOneToManyRole(roleTypeHandle, @object);
+            }
         }
     }
 
@@ -629,7 +673,7 @@ public class Object : IObject
         var previousRole = this.ToManyRole(roleTypeHandle);
 
         // R not in PR
-        if (previousRole?.Contains(role.Id) != false)
+        if (previousRole?.Contains(role.Id) != true)
         {
             return;
         }
@@ -643,13 +687,42 @@ public class Object : IObject
         var newRole = previousRole.Remove(role.Id);
         if (newRole.Count == 0)
         {
-            role.changedRoleByRoleType ??= [];
-            role.changedRoleByRoleType.Remove(roleTypeHandle);
+            this.changedRoleByRoleType ??= [];
+            this.changedRoleByRoleType.Remove(roleTypeHandle);
         }
         else
         {
-            role.changedRoleByRoleType ??= [];
-            role.changedRoleByRoleType[roleTypeHandle] = newRole;
+            this.changedRoleByRoleType ??= [];
+            this.changedRoleByRoleType[roleTypeHandle] = newRole;
+        }
+    }
+
+    private void SetManyToManyRole(ManyToManyRoleTypeHandle roleTypeHandle, IEnumerable<IObject> value)
+    {
+        // TODO: Optimize
+        var previousRole = this.ToManyRole(roleTypeHandle);
+
+        if (previousRole == null)
+        {
+            foreach (var @object in value)
+            {
+                this.AddManyToManyRole(roleTypeHandle, (Object)@object);
+            }
+        }
+        else
+        {
+            var materialized = value.ToArray();
+            var remove = previousRole.Except(materialized.ToArray().Select(v => v.Id));
+            foreach (var @object in remove.Select(this.Transaction.Instantiate).Cast<Object>())
+            {
+                this.RemoveManyToManyRole(roleTypeHandle, @object);
+            }
+
+            var add = materialized.ToArray().Where(v => !previousRole.Contains(v.Id));
+            foreach (var @object in add.Cast<Object>())
+            {
+                this.RemoveManyToManyRole(roleTypeHandle, @object);
+            }
         }
     }
 
