@@ -1,7 +1,10 @@
 ﻿namespace Allors.Core.Database.Adapters.Tests
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Allors.Core.Database.Meta.Handles;
+    using MoreLinq;
     using Xunit;
 
     public abstract class OneToOneTests : Tests
@@ -32,197 +35,145 @@
         }
 
         [Fact]
-        public void Initial()
+        public void FromToInitial()
         {
-            this.Test((fixture, _, assert) =>
-            {
-                var database = this.CreateDatabase();
-                var transaction = database.CreateTransaction();
-
-                var (association, role, _, fromBuilder, _, toBuilder, _) = fixture();
-
-                var from = fromBuilder(transaction);
-                var to = toBuilder(transaction);
-
-                assert(
-                    () => Assert.Null(to[association]),
-                    () => Assert.Null(from[role]));
-            });
+            this.FromTo(
+                () =>
+                [
+                ],
+                () =>
+                [
+                    (association, _, _, to) => Assert.Null(to[association]),
+                    (_, role, from, _) => Assert.Null(from[role])
+                ]);
         }
 
         [Fact]
-        public void Set()
+        public void FromToSet()
         {
-            this.Test((fixture, act, assert) =>
-            {
-                var database = this.CreateDatabase();
-                var transaction = database.CreateTransaction();
-
-                var (association, role, _, fromBuilder, _, toBuilder, _) = fixture();
-
-                var from = fromBuilder(transaction);
-                var to = toBuilder(transaction);
-
-                act(() => from[role] = to);
-
-                assert(
-                  () => Assert.Equal(from, to[association]),
-                  () => Assert.Equal(to, from[role]));
-            });
+            this.FromTo(
+                () =>
+                [
+                    (_, role, from, to) => from[role] = to
+                ],
+                () =>
+                [
+                    (association, _, from, to) => Assert.Equal(from, to[association]),
+                    (_, role, from, to) => Assert.Equal(to, from[role])
+                ]);
         }
 
         [Fact]
-        public void SetReset()
+        public void FromToSetReset()
         {
-            this.Test((fixture, act, assert) =>
-            {
-                var database = this.CreateDatabase();
-                var transaction = database.CreateTransaction();
-
-                var (association, role, _, fromBuilder, _, toBuilder, _) = fixture();
-
-                var from = fromBuilder(transaction);
-                var to = toBuilder(transaction);
-
-                act(() => from[role] = to);
-                act(() => from[role] = null);
-
-                assert(
-                    () => Assert.Null(to[association]),
-                    () => Assert.Null(from[role]));
-            });
+            this.FromTo(
+                () =>
+                [
+                    (_, role, from, to) => from[role] = to,
+                    (_, role, from, _) => from[role] = null
+                ],
+                () =>
+                [
+                    (association, _, _, to) => Assert.Null(to[association]),
+                    (_, role, from, _) => Assert.Null(from[role])
+                ]);
         }
 
         [Fact]
-        public void SetAndReset()
+        public void FromToSetAndReset()
         {
-            this.Test((fixture, act, assert) =>
-            {
-                var database = this.CreateDatabase();
-                var transaction = database.CreateTransaction();
-
-                var (association, role, _, fromBuilder, _, toBuilder, _) = fixture();
-
-                var from = fromBuilder(transaction);
-                var to = toBuilder(transaction);
-
-                act(() =>
-                {
-                    from[role] = to;
-                    from[role] = null;
-                });
-
-                assert(
-                    () => Assert.Null(to[association]),
-                    () => Assert.Null(from[role]));
-            });
+            this.FromTo(
+                () =>
+                [
+                    (_, role, from, to) =>
+                    {
+                        from[role] = to;
+                        from[role] = null;
+                    },
+                ],
+                () =>
+                [
+                    (association, _, _, to) => Assert.Null(to[association]),
+                    (_, role, from, _) => Assert.Null(from[role])
+                ]);
         }
 
         [Fact]
-        public void InitialWithExist()
+        public void FromToInitialWithExist()
         {
-            this.Test((fixture, _, assert) =>
-            {
-                var database = this.CreateDatabase();
-                var transaction = database.CreateTransaction();
-
-                var (association, role, _, fromBuilder, _, toBuilder, _) = fixture();
-
-                var from = fromBuilder(transaction);
-                var to = toBuilder(transaction);
-
-                assert(
-                    () => Assert.False(to.Exist(association)),
-                    () => Assert.False(from.Exist(role)));
-            });
+            this.FromTo(
+                () =>
+                [
+                ],
+                () =>
+                [
+                    (association, _, _, to) => Assert.False(to.Exist(association)),
+                    (_, role, from, _) => Assert.False(from.Exist(role))
+                ]);
         }
 
         [Fact]
-        public void SetWithExist()
+        public void FromToSetWithExist()
         {
-            this.Test((fixture, act, assert) =>
-            {
-                var database = this.CreateDatabase();
-                var transaction = database.CreateTransaction();
-
-                var (association, role, _, fromBuilder, _, toBuilder, _) = fixture();
-
-                var from = fromBuilder(transaction);
-                var to = toBuilder(transaction);
-
-                act(() => from[role] = to);
-
-                assert(
-                    () => Assert.True(to.Exist(association)),
-                    () => Assert.True(from.Exist(role)));
-            });
+            this.FromTo(
+                () =>
+                [
+                    (_, role, from, to) => from[role] = to
+                ],
+                () =>
+                [
+                    (association, _, _, to) => Assert.True(to.Exist(association)),
+                    (_, role, from, _) => Assert.True(from.Exist(role))
+                ]);
         }
 
         [Fact]
-        public void SetResetWithExist()
+        public void FromToSetResetWithExist()
         {
-            this.Test((fixture, act, assert) =>
-            {
-                var database = this.CreateDatabase();
-                var transaction = database.CreateTransaction();
-
-                var (association, role, _, fromBuilder, _, toBuilder, _) = fixture();
-
-                var from = fromBuilder(transaction);
-                var to = toBuilder(transaction);
-
-                act(() => from[role] = null);
-                act(() => from[role] = null);
-
-                assert(
-                    () => to.Exist(association),
-                    () => from.Exist(role));
-            });
+            this.FromTo(
+                () =>
+                [
+                    (_, role, from, to) => from[role] = to,
+                    (_, role, from, _) => from[role] = null
+                ],
+                () =>
+                [
+                    (association, _, _, to) => Assert.False(to.Exist(association)),
+                    (_, role, from, _) => Assert.False(from.Exist(role))
+                ]);
         }
 
         [Fact]
-        public void SetAndResetWithExist()
+        public void FromToSetAndResetWithExist()
         {
-            this.Test((fixture, act, assert) =>
-            {
-                var database = this.CreateDatabase();
-                var transaction = database.CreateTransaction();
-
-                var (association, role, _, fromBuilder, _, toBuilder, _) = fixture();
-
-                var from = fromBuilder(transaction);
-                var to = toBuilder(transaction);
-
-                act(() =>
-                {
-                    from[role] = to;
-                    from[role] = null;
-                });
-
-                assert(
-                    () => to.Exist(association),
-                    () => from.Exist(role));
-            });
+            this.FromTo(
+                () =>
+                [
+                    (_, role, from, to) =>
+                    {
+                        from[role] = to;
+                        from[role] = null;
+                    }
+                ],
+                () =>
+                [
+                    (association, _, _, to) => Assert.False(to.Exist(association)),
+                    (_, role, from, _) => Assert.False(from.Exist(role))
+                ]);
         }
 
         [Fact]
-        public void ToAnotherInitial()
+        public void FromFromAnotherToInitial()
         {
-            this.Test((fixture, _, assert) =>
-            {
-                var database = this.CreateDatabase();
-                var transaction = database.CreateTransaction();
-
-                var (association, role, _, fromBuilder, fromAnotherBuilder, toBuilder, _) = fixture();
-
-                var from = fromBuilder(transaction);
-                var fromAnother = fromAnotherBuilder(transaction);
-                var to = toBuilder(transaction);
-
-                assert(
-                    () => Assert.Null(to[association]),
-                    () => Assert.Null(from[role]));
-            });
+            this.FromFromAnotherTo(
+                () =>
+                [
+                ],
+                () =>
+                [
+                    (association, _, _, _, to) => Assert.Null(to[association]),
+                    (_, role, from, _, _) => Assert.Null(from[role])
+                ]);
         }
 
         [Fact]
@@ -233,7 +184,8 @@
                 var database = this.CreateDatabase();
                 var transaction = database.CreateTransaction();
 
-                var (association, role, builders, fromBuilder, fromAnotherBuilder, toBuilder, toAnotherBuilder) = fixture();
+                var (association, role, builders, fromBuilder, fromAnotherBuilder, toBuilder, toAnotherBuilder) =
+                    fixture();
 
                 var from = fromBuilder(transaction);
                 var fromAnother = fromAnotherBuilder(transaction);
@@ -622,43 +574,116 @@
                 Func<ITransaction, IObject> ToBuilder,
                 Func<ITransaction, IObject> ToAnotherBuilder)>,
             Action<Action>,
-            Action<Action, Action>> test)
+            Action<Action>> test)
         {
             foreach (var actRepeat in new[] { 1, 2 })
             {
                 foreach (var assertRepeat in new[] { 1, 2 })
                 {
-                    foreach (var assertOrder in this.AssertOrders)
+                    foreach (var fixture in this.fixtures)
+                    {
+                        test(
+                            fixture,
+                            act =>
+                            {
+                                for (var i1 = 0; i1 < actRepeat; i1++)
+                                {
+                                    act();
+                                }
+                            },
+                            assert =>
+                            {
+                                for (var i1 = 0; i1 < assertRepeat; i1++)
+                                {
+                                    assert();
+                                }
+                            });
+                    }
+                }
+            }
+        }
+
+        private void FromTo(
+           Func<IEnumerable<Action<OneToOneAssociationTypeHandle, OneToOneRoleTypeHandle, IObject, IObject>>> acts,
+           Func<IEnumerable<Action<OneToOneAssociationTypeHandle, OneToOneRoleTypeHandle, IObject, IObject>>> asserts)
+        {
+            var assertPermutations = asserts().Permutations().ToArray();
+
+            foreach (var actRepeats in new[] { 1, 2 })
+            {
+                foreach (var assertPermutation in assertPermutations)
+                {
+                    foreach (var assertRepeats in new[] { 1, 2 })
                     {
                         foreach (var fixture in this.fixtures)
                         {
-                            test(
-                                fixture,
-                                act =>
+                            var (association, role, _, fromBuilder, _, toBuilder, _) = fixture();
+
+                            var database = this.CreateDatabase();
+                            var transaction = database.CreateTransaction();
+
+                            var from = fromBuilder(transaction);
+                            var to = toBuilder(transaction);
+
+                            foreach (var act in acts())
+                            {
+                                for (var actRepeat = 0; actRepeat < actRepeats; actRepeat++)
                                 {
-                                    for (var i1 = 0; i1 < actRepeat; i1++)
-                                    {
-                                        act();
-                                    }
-                                },
-                                (associationAssert, roleAssert) =>
+                                    act(association, role, from, to);
+                                }
+                            }
+
+                            foreach (var assert in assertPermutation)
+                            {
+                                for (var assertRepeat = 0; assertRepeat < assertRepeats; assertRepeat++)
                                 {
-                                    for (var i = 0; i < assertRepeat; i++)
-                                    {
-                                        foreach (var assert1 in assertOrder)
-                                        {
-                                            switch (assert1)
-                                            {
-                                                case "A":
-                                                    associationAssert();
-                                                    break;
-                                                case "R":
-                                                    roleAssert();
-                                                    break;
-                                            }
-                                        }
-                                    }
-                                });
+                                    assert(association, role, from, to);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void FromFromAnotherTo(
+           Func<IEnumerable<Action<OneToOneAssociationTypeHandle, OneToOneRoleTypeHandle, IObject, IObject, IObject>>> acts,
+           Func<IEnumerable<Action<OneToOneAssociationTypeHandle, OneToOneRoleTypeHandle, IObject, IObject, IObject>>> asserts)
+        {
+            var assertPermutations = asserts().Permutations().ToArray();
+
+            foreach (var actRepeats in new[] { 1, 2 })
+            {
+                foreach (var assertPermutation in assertPermutations)
+                {
+                    foreach (var assertRepeats in new[] { 1, 2 })
+                    {
+                        foreach (var fixture in this.fixtures)
+                        {
+                            var (association, role, _, fromBuilder, fromAnotherBuilder, toBuilder, _) = fixture();
+
+                            var database = this.CreateDatabase();
+                            var transaction = database.CreateTransaction();
+
+                            var from = fromBuilder(transaction);
+                            var fromAnother = fromAnotherBuilder(transaction);
+                            var to = toBuilder(transaction);
+
+                            foreach (var act in acts())
+                            {
+                                for (var actRepeat = 0; actRepeat < actRepeats; actRepeat++)
+                                {
+                                    act(association, role, from, fromAnother, to);
+                                }
+                            }
+
+                            foreach (var assert in assertPermutation)
+                            {
+                                for (var assertRepeat = 0; assertRepeat < assertRepeats; assertRepeat++)
+                                {
+                                    assert(association, role, from, fromAnother, to);
+                                }
+                            }
                         }
                     }
                 }
