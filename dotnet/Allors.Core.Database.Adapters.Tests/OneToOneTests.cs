@@ -1,19 +1,22 @@
 ﻿namespace Allors.Core.Database.Adapters.Tests
 {
     using System;
-    using Allors.Core.Database.Meta;
     using Allors.Core.Database.Meta.Handles;
     using Xunit;
 
-    public abstract class OneToOneTests
+    public abstract class OneToOneTests : Tests
     {
-        private readonly Func<(OneToOneAssociationTypeHandle Association, OneToOneRoleTypeHandle Role, Func<ITransaction, IObject>[] Builders)>[] fixtures;
+        private readonly Func<(
+            OneToOneAssociationTypeHandle Association,
+            OneToOneRoleTypeHandle Role,
+            Func<ITransaction, IObject>[] Builders,
+            Func<ITransaction, IObject> FromBuilder,
+            Func<ITransaction, IObject> FromAnotherBuilder,
+            Func<ITransaction, IObject> ToBuilder,
+            Func<ITransaction, IObject> ToAnotherBuilder)>[] fixtures;
 
         protected OneToOneTests()
         {
-            var coreMeta = new CoreMeta();
-            this.Meta = new AdaptersMeta(coreMeta);
-
             this.fixtures =
             [
                 () =>
@@ -21,14 +24,206 @@
                     var association = this.Meta.C1WhereC1OneToOne;
                     var role = this.Meta.C1C1OneToOne;
 
-                    return (association, role, [Builder]);
+                    return (association, role, [Builder], Builder, Builder, Builder, Builder);
 
                     IObject Builder(ITransaction transaction) => transaction.Build(this.Meta.C1);
                 }
             ];
         }
 
-        public AdaptersMeta Meta { get; }
+        [Fact]
+        public void Initial()
+        {
+            this.Test((fixture, _, assert) =>
+            {
+                var database = this.CreateDatabase();
+                var transaction = database.CreateTransaction();
+
+                var (association, role, _, fromBuilder, _, toBuilder, _) = fixture();
+
+                var from = fromBuilder(transaction);
+                var to = toBuilder(transaction);
+
+                assert(
+                    () => Assert.Null(to[association]),
+                    () => Assert.Null(from[role]));
+            });
+        }
+
+        [Fact]
+        public void Set()
+        {
+            this.Test((fixture, act, assert) =>
+            {
+                var database = this.CreateDatabase();
+                var transaction = database.CreateTransaction();
+
+                var (association, role, _, fromBuilder, _, toBuilder, _) = fixture();
+
+                var from = fromBuilder(transaction);
+                var to = toBuilder(transaction);
+
+                act(() => from[role] = to);
+
+                assert(
+                  () => Assert.Equal(from, to[association]),
+                  () => Assert.Equal(to, from[role]));
+            });
+        }
+
+        [Fact]
+        public void SetReset()
+        {
+            this.Test((fixture, act, assert) =>
+            {
+                var database = this.CreateDatabase();
+                var transaction = database.CreateTransaction();
+
+                var (association, role, _, fromBuilder, _, toBuilder, _) = fixture();
+
+                var from = fromBuilder(transaction);
+                var to = toBuilder(transaction);
+
+                act(() => from[role] = to);
+                act(() => from[role] = null);
+
+                assert(
+                    () => Assert.Null(to[association]),
+                    () => Assert.Null(from[role]));
+            });
+        }
+
+        [Fact]
+        public void SetAndReset()
+        {
+            this.Test((fixture, act, assert) =>
+            {
+                var database = this.CreateDatabase();
+                var transaction = database.CreateTransaction();
+
+                var (association, role, _, fromBuilder, _, toBuilder, _) = fixture();
+
+                var from = fromBuilder(transaction);
+                var to = toBuilder(transaction);
+
+                act(() =>
+                {
+                    from[role] = to;
+                    from[role] = null;
+                });
+
+                assert(
+                    () => Assert.Null(to[association]),
+                    () => Assert.Null(from[role]));
+            });
+        }
+
+        [Fact]
+        public void InitialWithExist()
+        {
+            this.Test((fixture, _, assert) =>
+            {
+                var database = this.CreateDatabase();
+                var transaction = database.CreateTransaction();
+
+                var (association, role, _, fromBuilder, _, toBuilder, _) = fixture();
+
+                var from = fromBuilder(transaction);
+                var to = toBuilder(transaction);
+
+                assert(
+                    () => Assert.False(to.Exist(association)),
+                    () => Assert.False(from.Exist(role)));
+            });
+        }
+
+        [Fact]
+        public void SetWithExist()
+        {
+            this.Test((fixture, act, assert) =>
+            {
+                var database = this.CreateDatabase();
+                var transaction = database.CreateTransaction();
+
+                var (association, role, _, fromBuilder, _, toBuilder, _) = fixture();
+
+                var from = fromBuilder(transaction);
+                var to = toBuilder(transaction);
+
+                act(() => from[role] = to);
+
+                assert(
+                    () => Assert.True(to.Exist(association)),
+                    () => Assert.True(from.Exist(role)));
+            });
+        }
+
+        [Fact]
+        public void SetResetWithExist()
+        {
+            this.Test((fixture, act, assert) =>
+            {
+                var database = this.CreateDatabase();
+                var transaction = database.CreateTransaction();
+
+                var (association, role, _, fromBuilder, _, toBuilder, _) = fixture();
+
+                var from = fromBuilder(transaction);
+                var to = toBuilder(transaction);
+
+                act(() => from[role] = null);
+                act(() => from[role] = null);
+
+                assert(
+                    () => to.Exist(association),
+                    () => from.Exist(role));
+            });
+        }
+
+        [Fact]
+        public void SetAndResetWithExist()
+        {
+            this.Test((fixture, act, assert) =>
+            {
+                var database = this.CreateDatabase();
+                var transaction = database.CreateTransaction();
+
+                var (association, role, _, fromBuilder, _, toBuilder, _) = fixture();
+
+                var from = fromBuilder(transaction);
+                var to = toBuilder(transaction);
+
+                act(() =>
+                {
+                    from[role] = to;
+                    from[role] = null;
+                });
+
+                assert(
+                    () => to.Exist(association),
+                    () => from.Exist(role));
+            });
+        }
+
+        [Fact]
+        public void ToAnotherInitial()
+        {
+            this.Test((fixture, _, assert) =>
+            {
+                var database = this.CreateDatabase();
+                var transaction = database.CreateTransaction();
+
+                var (association, role, _, fromBuilder, fromAnotherBuilder, toBuilder, _) = fixture();
+
+                var from = fromBuilder(transaction);
+                var fromAnother = fromAnotherBuilder(transaction);
+                var to = toBuilder(transaction);
+
+                assert(
+                    () => Assert.Null(to[association]),
+                    () => Assert.Null(from[role]));
+            });
+        }
 
         [Fact]
         public void C1_C1OneToOne()
@@ -38,133 +233,12 @@
                 var database = this.CreateDatabase();
                 var transaction = database.CreateTransaction();
 
-                (OneToOneAssociationTypeHandle association, OneToOneRoleTypeHandle role, Func<ITransaction, IObject>[] builders) = fixture();
-
-                var fromBuilder = builders[0];
-                var fromAnotherBuilder = builders.Length switch
-                {
-                    4 => builders[2],
-                    _ => builders[0],
-                };
-                var toBuilder = builders.Length switch
-                {
-                    2 => builders[1],
-                    4 => builders[2],
-                    _ => builders[0],
-                };
-                var toAnotherBuilder = builders.Length switch
-                {
-                    2 => builders[1],
-                    4 => builders[3],
-                    _ => builders[0],
-                };
+                var (association, role, builders, fromBuilder, fromAnotherBuilder, toBuilder, toAnotherBuilder) = fixture();
 
                 var from = fromBuilder(transaction);
                 var fromAnother = fromAnotherBuilder(transaction);
                 var to = toBuilder(transaction);
                 var toAnother = toAnotherBuilder(transaction);
-
-                // To 1 and back
-                // Get
-                Assert.Null(from[role]);
-                Assert.Null(from[role]);
-                Assert.Null(to[association]);
-                Assert.Null(to[association]);
-
-                // 1-1
-                from[role] = to;
-                from[role] = to;
-
-                Assert.Equal(to, from[role]);
-                Assert.Equal(to, from[role]);
-                Assert.Equal(from, to[association]);
-                Assert.Equal(from, to[association]);
-
-                // 0-0
-                from[role] = null;
-                from[role] = null;
-                from[role] = to;
-                from[role] = null;
-                from[role] = null;
-
-                Assert.Null(from[role]);
-                Assert.Null(from[role]);
-                Assert.Null(to[association]);
-                Assert.Null(to[association]);
-
-                // Exist
-                Assert.False(from.Exist(role));
-                Assert.False(from.Exist(role));
-                Assert.False(to.Exist(association));
-                Assert.False(to.Exist(association));
-
-                // 1-1
-                from[role] = to;
-                from[role] = to;
-
-                Assert.True(from.Exist(role));
-                Assert.True(from.Exist(role));
-                Assert.True(to.Exist(association));
-                Assert.True(to.Exist(association));
-
-                // 0-0
-                from[role] = null;
-                from[role] = null;
-                from[role] = to;
-                from[role] = to;
-                from[role] = null;
-                from[role] = null;
-
-                Assert.False(from.Exist(role));
-                Assert.False(from.Exist(role));
-                Assert.False(to.Exist(association));
-                Assert.False(to.Exist(association));
-
-                // Multiplicity
-                // Same New / Same To
-                // Get
-                Assert.Null(from[role]);
-                Assert.Null(from[role]);
-                Assert.Null(to[association]);
-                Assert.Null(to[association]);
-
-                from[role] = to;
-                from[role] = to;
-
-                Assert.Equal(to, from[role]);
-                Assert.Equal(to, from[role]);
-                Assert.Equal(from, to[association]);
-                Assert.Equal(from, to[association]);
-
-                from[role] = null;
-                from[role] = null;
-
-                Assert.Null(from[role]);
-                Assert.Null(from[role]);
-                Assert.Null(to[association]);
-                Assert.Null(to[association]);
-
-                // Exist
-                Assert.False(from.Exist(role));
-                Assert.False(from.Exist(role));
-                Assert.False(to.Exist(association));
-                Assert.False(to.Exist(association));
-
-                from[role] = to;
-                from[role] = to;
-
-                Assert.True(from.Exist(role));
-                Assert.True(from.Exist(role));
-                Assert.True(to.Exist(association));
-                Assert.True(to.Exist(association));
-
-                from[role] = null;
-                from[role] = null;
-
-                Assert.Null(from[role]);
-                Assert.Null(from[role]);
-                Assert.Null(to[association]);
-                Assert.Null(to[association]);
 
                 // Same New / Different To
                 // Get
@@ -537,5 +611,58 @@
         }
 
         protected abstract IDatabase CreateDatabase();
+
+        private void Test(Action<
+            Func<(
+                OneToOneAssociationTypeHandle Association,
+                OneToOneRoleTypeHandle Role,
+                Func<ITransaction, IObject>[] Builders,
+                Func<ITransaction, IObject> FromBuilder,
+                Func<ITransaction, IObject> FromAnotherBuilder,
+                Func<ITransaction, IObject> ToBuilder,
+                Func<ITransaction, IObject> ToAnotherBuilder)>,
+            Action<Action>,
+            Action<Action, Action>> test)
+        {
+            foreach (var actRepeat in new[] { 1, 2 })
+            {
+                foreach (var assertRepeat in new[] { 1, 2 })
+                {
+                    foreach (var assertOrder in this.AssertOrders)
+                    {
+                        foreach (var fixture in this.fixtures)
+                        {
+                            test(
+                                fixture,
+                                act =>
+                                {
+                                    for (var i1 = 0; i1 < actRepeat; i1++)
+                                    {
+                                        act();
+                                    }
+                                },
+                                (associationAssert, roleAssert) =>
+                                {
+                                    for (var i = 0; i < assertRepeat; i++)
+                                    {
+                                        foreach (var assert1 in assertOrder)
+                                        {
+                                            switch (assert1)
+                                            {
+                                                case "A":
+                                                    associationAssert();
+                                                    break;
+                                                case "R":
+                                                    roleAssert();
+                                                    break;
+                                            }
+                                        }
+                                    }
+                                });
+                        }
+                    }
+                }
+            }
+        }
     }
 }
