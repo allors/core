@@ -172,7 +172,39 @@
                 () =>
                 [
                     (association, _, _, _, to) => Assert.Null(to[association]),
-                    (_, role, from, _, _) => Assert.Null(from[role])
+                    (_, role, from, _, _) => Assert.Null(from[role]),
+                    (_, role, _, fromAnother, _) => Assert.Null(fromAnother[role])
+                ]);
+        }
+
+        [Fact]
+        public void FromToToAnotherInitial()
+        {
+            this.FromToToAnother(
+                () =>
+                [
+                ],
+                () =>
+                [
+                    (association, _, _, to, _) => Assert.Null(to[association]),
+                    (association, _, _, _, toAnother) => Assert.Null(toAnother[association]),
+                    (_, role, from, _, _) => Assert.Null(from[role]),
+                ]);
+        }
+
+        [Fact]
+        public void FromFromAnotherToToAnotherInitial()
+        {
+            this.FromFromAnotherToToAnother(
+                () =>
+                [
+                ],
+                () =>
+                [
+                    (association, _, _, _, to, _) => Assert.Null(to[association]),
+                    (association, _, _, _, _, toAnother) => Assert.Null(toAnother[association]),
+                    (_, role, from, _, _, _) => Assert.Null(from[role]),
+                    (_, role, _, fromAnother, _, _) => Assert.Null(fromAnother[role]),
                 ]);
         }
 
@@ -682,6 +714,95 @@
                                 for (var assertRepeat = 0; assertRepeat < assertRepeats; assertRepeat++)
                                 {
                                     assert(association, role, from, fromAnother, to);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void FromToToAnother(
+           Func<IEnumerable<Action<OneToOneAssociationTypeHandle, OneToOneRoleTypeHandle, IObject, IObject, IObject>>> acts,
+           Func<IEnumerable<Action<OneToOneAssociationTypeHandle, OneToOneRoleTypeHandle, IObject, IObject, IObject>>> asserts)
+        {
+            var assertPermutations = asserts().Permutations().ToArray();
+
+            foreach (var actRepeats in new[] { 1, 2 })
+            {
+                foreach (var assertPermutation in assertPermutations)
+                {
+                    foreach (var assertRepeats in new[] { 1, 2 })
+                    {
+                        foreach (var fixture in this.fixtures)
+                        {
+                            var (association, role, _, fromBuilder, _, toBuilder, toAnotherBuilder) = fixture();
+
+                            var database = this.CreateDatabase();
+                            var transaction = database.CreateTransaction();
+
+                            var from = fromBuilder(transaction);
+                            var to = toBuilder(transaction);
+                            var toAnother = toAnotherBuilder(transaction);
+
+                            foreach (var act in acts())
+                            {
+                                for (var actRepeat = 0; actRepeat < actRepeats; actRepeat++)
+                                {
+                                    act(association, role, from, to, toAnother);
+                                }
+                            }
+
+                            foreach (var assert in assertPermutation)
+                            {
+                                for (var assertRepeat = 0; assertRepeat < assertRepeats; assertRepeat++)
+                                {
+                                    assert(association, role, from, to, toAnother);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void FromFromAnotherToToAnother(
+           Func<IEnumerable<Action<OneToOneAssociationTypeHandle, OneToOneRoleTypeHandle, IObject, IObject, IObject, IObject>>> acts,
+           Func<IEnumerable<Action<OneToOneAssociationTypeHandle, OneToOneRoleTypeHandle, IObject, IObject, IObject, IObject>>> asserts)
+        {
+            var assertPermutations = asserts().Permutations().ToArray();
+
+            foreach (var actRepeats in new[] { 1, 2 })
+            {
+                foreach (var assertPermutation in assertPermutations)
+                {
+                    foreach (var assertRepeats in new[] { 1, 2 })
+                    {
+                        foreach (var fixture in this.fixtures)
+                        {
+                            var (association, role, _, fromBuilder, fromAnotherBuilder, toBuilder, toAnotherBuilder) = fixture();
+
+                            var database = this.CreateDatabase();
+                            var transaction = database.CreateTransaction();
+
+                            var from = fromBuilder(transaction);
+                            var fromAnother = fromAnotherBuilder(transaction);
+                            var to = toBuilder(transaction);
+                            var toAnother = toAnotherBuilder(transaction);
+
+                            foreach (var act in acts())
+                            {
+                                for (var actRepeat = 0; actRepeat < actRepeats; actRepeat++)
+                                {
+                                    act(association, role, from, fromAnother, to, toAnother);
+                                }
+                            }
+
+                            foreach (var assert in assertPermutation)
+                            {
+                                for (var assertRepeat = 0; assertRepeat < assertRepeats; assertRepeat++)
+                                {
+                                    assert(association, role, from, fromAnother, to, toAnother);
                                 }
                             }
                         }
