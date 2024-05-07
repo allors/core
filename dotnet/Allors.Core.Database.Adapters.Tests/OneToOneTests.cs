@@ -178,6 +178,173 @@
         }
 
         [Fact]
+        public void FromFromAnotherToSetSet()
+        {
+            this.FromFromAnotherTo(
+                () =>
+                [
+                    (_, role, from, _, to) => from[role] = to,
+                    (_, role, _, fromAnother, to) => fromAnother[role] = to
+                ],
+                () =>
+                [
+                    (association, _, _, fromAnother, to) => Assert.Equal(fromAnother, to[association]),
+                    (_, role, from, _, _) => Assert.Null(from[role]),
+                    (_, role, _, fromAnother, to) => Assert.Equal(to, fromAnother[role])
+                ]);
+        }
+
+        [Fact]
+        public void FromFromAnotherToSetAndSet()
+        {
+            this.FromFromAnotherTo(
+                () =>
+                [
+                    (_, role, from, fromAnother, to) =>
+                    {
+                        from[role] = to;
+                        fromAnother[role] = to;
+                    },
+                ],
+                () =>
+                [
+                    (association, _, _, fromAnother, to) => Assert.Equal(fromAnother, to[association]),
+                    (_, role, from, _, _) => Assert.Null(from[role]),
+                    (_, role, _, fromAnother, to) => Assert.Equal(to, fromAnother[role])
+                ]);
+        }
+
+        [Fact]
+        public void FromFromAnotherToSetSetReset()
+        {
+            this.FromFromAnotherTo(
+                () =>
+                [
+                    (_, role, from, _, to) => from[role] = to,
+                    (_, role, _, fromAnother, to) => fromAnother[role] = to,
+                    (_, role, _, fromAnother, _) => fromAnother[role] = null
+                ],
+                () =>
+                [
+                    (association, _, _, _, to) => Assert.Null(to[association]),
+                    (_, role, from, _, _) => Assert.Null(from[role]),
+                    (_, role, _, fromAnother, _) => Assert.Null(fromAnother[role])
+                ]);
+        }
+
+        [Fact]
+        public void FromFromAnotherToSetSetAndReset()
+        {
+            this.FromFromAnotherTo(
+                () =>
+                [
+                    (_, role, from, fromAnother, to) =>
+                    {
+                        from[role] = to;
+                        fromAnother[role] = to;
+                        fromAnother[role] = null;
+                    }
+                ],
+                () =>
+                [
+                    (association, _, _, _, to) => Assert.Null(to[association]),
+                    (_, role, from, _, _) => Assert.Null(from[role]),
+                    (_, role, _, fromAnother, _) => Assert.Null(fromAnother[role])
+                ]);
+        }
+
+        [Fact]
+        public void FromFromAnotherToInitialWithExist()
+        {
+            this.FromFromAnotherTo(
+                () =>
+                [
+                ],
+                () =>
+                [
+                    (association, _, _, _, to) => Assert.False(to.Exist(association)),
+                    (_, role, from, _, _) => Assert.False(from.Exist(role)),
+                    (_, role, _, fromAnother, _) => Assert.False(fromAnother.Exist(role))
+                ]);
+        }
+
+        [Fact]
+        public void FromFromAnotherToSetSetWithExist()
+        {
+            this.FromFromAnotherTo(
+                () =>
+                [
+                    (_, role, from, _, to) => from[role] = to,
+                    (_, role, _, fromAnother, to) => fromAnother[role] = to
+                ],
+                () =>
+                [
+                    (association, _, _, fromAnother, to) => Assert.Equal(fromAnother, to[association]),
+                    (_, role, from, _, _) => Assert.False(from.Exist(role)),
+                    (_, role, _, fromAnother, to) => Assert.Equal(to, fromAnother[role])
+                ]);
+        }
+
+        [Fact]
+        public void FromFromAnotherToSetAndSetWithExist()
+        {
+            this.FromFromAnotherTo(
+                () =>
+                [
+                    (_, role, from, fromAnother, to) =>
+                    {
+                        from[role] = to;
+                        fromAnother[role] = to;
+                    },
+                ],
+                () =>
+                [
+                    (association, _, _, fromAnother, to) => Assert.Equal(fromAnother, to[association]),
+                    (_, role, from, _, _) => Assert.False(from.Exist(role)),
+                    (_, role, _, fromAnother, to) => Assert.Equal(to, fromAnother[role])
+                ]);
+        }
+
+        [Fact]
+        public void FromFromAnotherToSetSetResetWithExist()
+        {
+            this.FromFromAnotherTo(
+                () =>
+                [
+                    (_, role, from, _, to) => from[role] = to,
+                    (_, role, _, fromAnother, to) => fromAnother[role] = to,
+                    (_, role, _, fromAnother, _) => fromAnother[role] = null
+                ],
+                () =>
+                [
+                    (association, _, _, _, to) => Assert.False(to.Exist(association)),
+                    (_, role, from, _, _) => Assert.False(from.Exist(role)),
+                    (_, role, _, fromAnother, _) => Assert.False(fromAnother.Exist(role))
+                ]);
+        }
+
+        [Fact]
+        public void FromFromAnotherToSetSetAndResetWithExist()
+        {
+            this.FromFromAnotherTo(
+                () =>
+                [
+                    (_, role, from, fromAnother, to) =>
+                    {
+                        from[role] = to;
+                        fromAnother[role] = to;
+                        fromAnother[role] = null;
+                    }
+                ],
+                () =>
+                [
+                    (association, _, _, _, to) => Assert.False(to.Exist(association)),
+                    (_, role, from, _, _) => Assert.False(from.Exist(role)),
+                    (_, role, _, fromAnother, _) => Assert.False(fromAnother.Exist(role))
+                ]);
+        }
+
+        [Fact]
         public void FromToToAnotherInitial()
         {
             this.FromToToAnother(
@@ -189,6 +356,173 @@
                     (association, _, _, to, _) => Assert.Null(to[association]),
                     (association, _, _, _, toAnother) => Assert.Null(toAnother[association]),
                     (_, role, from, _, _) => Assert.Null(from[role]),
+                ]);
+        }
+
+        [Fact]
+        public void FromToToAnotherSetSet()
+        {
+            this.FromToToAnother(
+                () =>
+                [
+                    (_, role, from, to, _) => from[role] = to,
+                    (_, role, from, _, toAnother) => from[role] = toAnother
+                ],
+                () =>
+                [
+                    (association, _, _, to, _) => Assert.Null(to[association]),
+                    (association, _, from, _, toAnother) => Assert.Equal(from, toAnother[association]),
+                    (_, role, from, _, toAnother) => Assert.Equal(toAnother, from[role])
+                ]);
+        }
+
+        [Fact]
+        public void FromToToAnotherSetAndSet()
+        {
+            this.FromToToAnother(
+                () =>
+                [
+                    (_, role, from, to, toAnother) =>
+                    {
+                        from[role] = to;
+                        from[role] = toAnother;
+                    },
+                ],
+                () =>
+                [
+                    (association, _, _, to, _) => Assert.Null(to[association]),
+                    (association, _, from, _, toAnother) => Assert.Equal(from, toAnother[association]),
+                    (_, role, from, _, toAnother) => Assert.Equal(toAnother, from[role])
+                ]);
+        }
+
+        [Fact]
+        public void FromToToAnotherSetSetReset()
+        {
+            this.FromToToAnother(
+                () =>
+                [
+                    (_, role, from, to, _) => from[role] = to,
+                    (_, role, from, _, toAnother) => from[role] = toAnother,
+                    (_, role, from, _, _) => from[role] = null
+                ],
+                () =>
+                [
+                    (association, _, _, to, _) => Assert.Null(to[association]),
+                    (association, _, _, _, toAnother) => Assert.Null(toAnother[association]),
+                    (_, role, from, _, _) => Assert.Null(from[role]),
+                ]);
+        }
+
+        [Fact]
+        public void FromToToAnotherSetSetAndReset()
+        {
+            this.FromToToAnother(
+                () =>
+                [
+                    (_, role, from, to, toAnother) =>
+                    {
+                        from[role] = to;
+                        from[role] = toAnother;
+                        from[role] = null;
+                    }
+                ],
+                () =>
+                [
+                    (association, _, _, to, _) => Assert.Null(to[association]),
+                    (association, _, _, _, toAnother) => Assert.Null(toAnother[association]),
+                    (_, role, from, _, _) => Assert.Null(from[role]),
+                ]);
+        }
+
+        [Fact]
+        public void FromToToAnotherInitialWithExist()
+        {
+            this.FromToToAnother(
+                () =>
+                [
+                ],
+                () =>
+                [
+                    (association, _, _, to, _) => Assert.False(to.Exist(association)),
+                    (association, _, _, _, toAnother) => Assert.False(toAnother.Exist(association)),
+                    (_, role, from, _, _) => Assert.False(from.Exist(role)),
+                ]);
+        }
+
+        [Fact]
+        public void FromToToAnotherSetSetWithExist()
+        {
+            this.FromToToAnother(
+                () =>
+                [
+                    (_, role, from, to, _) => from[role] = to,
+                    (_, role, from, _, toAnother) => from[role] = toAnother
+                ],
+                () =>
+                [
+                    (association, _, _, to, _) => Assert.False(to.Exist(association)),
+                    (association, _, from, _, toAnother) => Assert.Equal(from, toAnother[association]),
+                    (_, role, from, _, toAnother) => Assert.Equal(toAnother, from[role])
+                ]);
+        }
+
+        [Fact]
+        public void FromToToAnotherSetAndSetWithExist()
+        {
+            this.FromToToAnother(
+                () =>
+                [
+                    (_, role, from, to, toAnother) =>
+                    {
+                        from[role] = to;
+                        from[role] = toAnother;
+                    },
+                ],
+                () =>
+                [
+                    (association, _, _, to, _) => Assert.False(to.Exist(association)),
+                    (association, _, from, _, toAnother) => Assert.Equal(from, toAnother[association]),
+                    (_, role, from, _, toAnother) => Assert.Equal(toAnother, from[role])
+                ]);
+        }
+
+        [Fact]
+        public void FromToToAnotherSetSetResetWithExist()
+        {
+            this.FromToToAnother(
+                () =>
+                [
+                    (_, role, from, to, _) => from[role] = to,
+                    (_, role, from, _, toAnother) => from[role] = toAnother,
+                    (_, role, from, _, _) => from[role] = null
+                ],
+                () =>
+                [
+                    (association, _, _, to, _) => Assert.False(to.Exist(association)),
+                    (association, _, _, _, toAnother) => Assert.False(toAnother.Exist(association)),
+                    (_, role, from, _, _) => Assert.False(from.Exist(role)),
+                ]);
+        }
+
+        [Fact]
+        public void FromToToAnotherSetSetAndResetWithExist()
+        {
+            this.FromToToAnother(
+                () =>
+                [
+                    (_, role, from, to, toAnother) =>
+                    {
+                        from[role] = to;
+                        from[role] = toAnother;
+                        from[role] = null;
+                    }
+                ],
+                () =>
+                [
+                    (association, _, _, to, _) => Assert.False(to.Exist(association)),
+                    (association, _, _, _, toAnother) => Assert.False(toAnother.Exist(association)),
+                    (_, role, from, _, _) => Assert.False(from.Exist(role)),
                 ]);
         }
 
@@ -209,377 +543,205 @@
         }
 
         [Fact]
-        public void C1_C1OneToOne()
+        public void FromFromAnotherToToAnotherSetSetSet()
+        {
+            this.FromFromAnotherToToAnother(
+                () =>
+                [
+                    (_, role, from, _, to, _) => from[role] = to,
+                    (_, role, _, fromAnother, _, toAnother) => fromAnother[role] = toAnother,
+                    (_, role, from, _, _, toAnother) => from[role] = toAnother,
+                ],
+                () =>
+                [
+                    (association, _, _, _, to, _) => Assert.Null(to[association]),
+                    (association, _, from, _, _, toAnother) => Assert.Equal(from, toAnother[association]),
+                    (_, role, from, _, _, toAnother) => Assert.Equal(toAnother, from[role]),
+                    (_, role, _, fromAnother, _, _) => Assert.Null(fromAnother[role]),
+                ]);
+        }
+
+        [Fact]
+        public void FromFromAnotherToToAnotherSetAndSetAndSet()
+        {
+            this.FromFromAnotherToToAnother(
+                () =>
+                [
+                    (_, role, from, fromAnother, to, toAnother) =>
+                    {
+                        from[role] = to;
+                        fromAnother[role] = toAnother;
+                        from[role] = toAnother;
+                    },
+                ],
+                () =>
+                [
+                    (association, _, _, _, to, _) => Assert.Null(to[association]),
+                    (association, _, from, _, _, toAnother) => Assert.Equal(from, toAnother[association]),
+                    (_, role, from, _, _, toAnother) => Assert.Equal(toAnother, from[role]),
+                    (_, role, _, fromAnother, _, _) => Assert.Null(fromAnother[role]),
+                ]);
+        }
+
+        [Fact]
+        public void FromFromAnotherToToAnotherSetSetSetReset()
+        {
+            this.FromFromAnotherToToAnother(
+                () =>
+                [
+                    (_, role, from, _, to, _) => from[role] = to,
+                    (_, role, _, fromAnother, _, toAnother) => fromAnother[role] = toAnother,
+                    (_, role, from, _, _, toAnother) => from[role] = toAnother,
+                    (_, role, from, _, _, _) => from[role] = null
+                ],
+                () =>
+                [
+                    (association, _, _, _, to, _) => Assert.Null(to[association]),
+                    (association, _, _, _, _, toAnother) => Assert.Null(toAnother[association]),
+                    (_, role, from, _, _, _) => Assert.Null(from[role]),
+                    (_, role, _, fromAnother, _, _) => Assert.Null(fromAnother[role]),
+                ]);
+        }
+
+        [Fact]
+        public void FromFromAnotherToToAnotherSetAndSetAndSetAndReset()
+        {
+            this.FromFromAnotherToToAnother(
+                () =>
+                [
+                    (_, role, from, fromAnother, to, toAnother) =>
+                    {
+                        from[role] = to;
+                        fromAnother[role] = toAnother;
+                        from[role] = toAnother;
+                        from[role] = null;
+                    }
+                ],
+                () =>
+                [
+                    (association, _, _, _, to, _) => Assert.Null(to[association]),
+                    (association, _, _, _, _, toAnother) => Assert.Null(toAnother[association]),
+                    (_, role, from, _, _, _) => Assert.Null(from[role]),
+                    (_, role, _, fromAnother, _, _) => Assert.Null(fromAnother[role]),
+                ]);
+        }
+
+        [Fact]
+        public void FromFromAnotherToToAnotherInitialWithExist()
+        {
+            this.FromFromAnotherToToAnother(
+                () =>
+                [
+                ],
+                () =>
+                [
+                    (association, _, _, _, to, _) => Assert.False(to.Exist(association)),
+                    (association, _, _, _, _, toAnother) => Assert.False(toAnother.Exist(association)),
+                    (_, role, from, _, _, _) => Assert.False(from.Exist(role)),
+                    (_, role, _, fromAnother, _, _) => Assert.False(fromAnother.Exist(role)),
+                ]);
+        }
+
+        [Fact]
+        public void FromFromAnotherToToAnotherSetSetSetWithExist()
+        {
+            this.FromFromAnotherToToAnother(
+                () =>
+                [
+                    (_, role, from, _, to, _) => from[role] = to,
+                    (_, role, _, fromAnother, _, toAnother) => fromAnother[role] = toAnother,
+                    (_, role, from, _, _, toAnother) => from[role] = toAnother,
+                ],
+                () =>
+                [
+                    (association, _, _, _, to, _) => Assert.False(to.Exist(association)),
+                    (association, _, from, _, _, toAnother) => Assert.Equal(from, toAnother[association]),
+                    (_, role, from, _, _, toAnother) => Assert.Equal(toAnother, from[role]),
+                    (_, role, _, fromAnother, _, _) => Assert.False(fromAnother.Exist(role)),
+                ]);
+        }
+
+        [Fact]
+        public void FromFromAnotherToToAnotherSetAndSetAndSetWithExist()
+        {
+            this.FromFromAnotherToToAnother(
+                () =>
+                [
+                    (_, role, from, fromAnother, to, toAnother) =>
+                    {
+                        from[role] = to;
+                        fromAnother[role] = toAnother;
+                        from[role] = toAnother;
+                    },
+                ],
+                () =>
+                [
+                    (association, _, _, _, to, _) => Assert.False(to.Exist(association)),
+                    (association, _, from, _, _, toAnother) => Assert.Equal(from, toAnother[association]),
+                    (_, role, from, _, _, toAnother) => Assert.Equal(toAnother, from[role]),
+                    (_, role, _, fromAnother, _, _) => Assert.False(fromAnother.Exist(role)),
+                ]);
+        }
+
+        [Fact]
+        public void FromFromAnotherToToAnotherSetSetSetResetWithExist()
+        {
+            this.FromFromAnotherToToAnother(
+                () =>
+                [
+                    (_, role, from, _, to, _) => from[role] = to,
+                    (_, role, _, fromAnother, _, toAnother) => fromAnother[role] = toAnother,
+                    (_, role, from, _, _, toAnother) => from[role] = toAnother,
+                    (_, role, from, _, _, _) => from[role] = null
+                ],
+                () =>
+                [
+                    (association, _, _, _, to, _) => Assert.False(to.Exist(association)),
+                    (association, _, _, _, _, toAnother) => Assert.False(toAnother.Exist(association)),
+                    (_, role, from, _, _, _) => Assert.False(from.Exist(role)),
+                    (_, role, _, fromAnother, _, _) => Assert.False(fromAnother.Exist(role)),
+                ]);
+        }
+
+        [Fact]
+        public void FromFromAnotherToToAnotherSetAndSetAndSetAndResetWithExist()
+        {
+            this.FromFromAnotherToToAnother(
+                () =>
+                [
+                    (_, role, from, fromAnother, to, toAnother) =>
+                    {
+                        from[role] = to;
+                        fromAnother[role] = toAnother;
+                        from[role] = toAnother;
+                        from[role] = null;
+                    }
+                ],
+                () =>
+                [
+                    (association, _, _, _, to, _) => Assert.False(to.Exist(association)),
+                    (association, _, _, _, _, toAnother) => Assert.False(toAnother.Exist(association)),
+                    (_, role, from, _, _, _) => Assert.False(from.Exist(role)),
+                    (_, role, _, fromAnother, _, _) => Assert.False(fromAnother.Exist(role)),
+                ]);
+        }
+
+        [Fact]
+        public void BeginMiddleEndSet()
         {
             foreach (var fixture in this.fixtures)
             {
                 var database = this.CreateDatabase();
                 var transaction = database.CreateTransaction();
 
-                var (association, role, builders, fromBuilder, fromAnotherBuilder, toBuilder, toAnotherBuilder) =
+                var (association, role, builders, _, _, _, _) =
                     fixture();
-
-                var from = fromBuilder(transaction);
-                var fromAnother = fromAnotherBuilder(transaction);
-                var to = toBuilder(transaction);
-                var toAnother = toAnotherBuilder(transaction);
-
-                // Same New / Different To
-                // Get
-                Assert.Null(to[association]);
-                Assert.Null(to[association]);
-                Assert.Null(from[role]);
-                Assert.Null(from[role]);
-                Assert.Null(toAnother[association]);
-                Assert.Null(toAnother[association]);
-
-                from[role] = to;
-                from[role] = to;
-
-                Assert.Equal(from, to[association]);
-                Assert.Equal(from, to[association]);
-                Assert.Equal(to, from[role]);
-                Assert.Equal(to, from[role]);
-                Assert.Null(toAnother[association]);
-                Assert.Null(toAnother[association]);
-
-                from[role] = toAnother;
-                from[role] = toAnother;
-
-                Assert.Null(to[association]);
-                Assert.Null(to[association]);
-                Assert.Equal(toAnother, from[role]);
-                Assert.Equal(toAnother, from[role]);
-                Assert.Equal(from, toAnother[association]);
-                Assert.Equal(from, toAnother[association]);
-
-                from[role] = null;
-                from[role] = null;
-
-                Assert.Null(to[association]);
-                Assert.Null(to[association]);
-                Assert.Null(from[role]);
-                Assert.Null(from[role]);
-                Assert.Null(toAnother[association]);
-                Assert.Null(toAnother[association]);
-
-                // Exist
-                Assert.False(to.Exist(association));
-                Assert.False(to.Exist(association));
-                Assert.False(from.Exist(role));
-                Assert.False(from.Exist(role));
-                Assert.False(toAnother.Exist(association));
-                Assert.False(toAnother.Exist(association));
-
-                from[role] = to;
-                from[role] = to;
-
-                Assert.True(to.Exist(association));
-                Assert.True(to.Exist(association));
-                Assert.True(from.Exist(role));
-                Assert.True(from.Exist(role));
-                Assert.False(toAnother.Exist(association));
-                Assert.False(toAnother.Exist(association));
-
-                from[role] = toAnother;
-                from[role] = toAnother;
-
-                Assert.False(to.Exist(association));
-                Assert.False(to.Exist(association));
-                Assert.True(from.Exist(role));
-                Assert.True(from.Exist(role));
-                Assert.True(toAnother.Exist(association));
-                Assert.True(toAnother.Exist(association));
-
-                from[role] = null;
-                from[role] = null;
-
-                Assert.False(to.Exist(association));
-                Assert.False(to.Exist(association));
-                Assert.False(from.Exist(role));
-                Assert.False(from.Exist(role));
-                Assert.False(toAnother.Exist(association));
-                Assert.False(toAnother.Exist(association));
-
-                // Different New / Different To
-                // Get
-                Assert.Null(from[role]);
-                Assert.Null(from[role]);
-                Assert.Null(to[association]);
-                Assert.Null(to[association]);
-                Assert.Null(fromAnother[role]);
-                Assert.Null(fromAnother[role]);
-                Assert.Null(toAnother[association]);
-                Assert.Null(toAnother[association]);
-
-                from[role] = to;
-                from[role] = to;
-
-                Assert.Equal(to, from[role]);
-                Assert.Equal(to, from[role]);
-                Assert.Equal(from, to[association]);
-                Assert.Equal(from, to[association]);
-                Assert.Null(fromAnother[role]);
-                Assert.Null(fromAnother[role]);
-                Assert.Null(toAnother[association]);
-                Assert.Null(toAnother[association]);
-
-                fromAnother[role] = toAnother;
-
-                Assert.Equal(to, from[role]);
-                Assert.Equal(to, from[role]);
-                Assert.Equal(from, to[association]);
-                Assert.Equal(from, to[association]);
-                Assert.Equal(toAnother, fromAnother[role]);
-                Assert.Equal(toAnother, fromAnother[role]);
-                Assert.Equal(fromAnother, toAnother[association]);
-                Assert.Equal(fromAnother, toAnother[association]);
-
-                from[role] = null;
-                from[role] = null;
-
-                Assert.Null(from[role]);
-                Assert.Null(from[role]);
-                Assert.Null(to[association]);
-                Assert.Null(to[association]);
-                Assert.Equal(toAnother, fromAnother[role]);
-                Assert.Equal(toAnother, fromAnother[role]);
-                Assert.Equal(fromAnother, toAnother[association]);
-                Assert.Equal(fromAnother, toAnother[association]);
-
-                fromAnother[role] = null;
-                fromAnother[role] = null;
-
-                Assert.Null(from[role]);
-                Assert.Null(from[role]);
-                Assert.Null(to[association]);
-                Assert.Null(to[association]);
-                Assert.Null(fromAnother[role]);
-                Assert.Null(fromAnother[role]);
-                Assert.Null(toAnother[association]);
-                Assert.Null(toAnother[association]);
-
-                // Exist
-                Assert.False(from.Exist(role));
-                Assert.False(from.Exist(role));
-                Assert.False(to.Exist(association));
-                Assert.False(to.Exist(association));
-                Assert.False(fromAnother.Exist(role));
-                Assert.False(fromAnother.Exist(role));
-                Assert.False(toAnother.Exist(association));
-                Assert.False(toAnother.Exist(association));
-
-                from[role] = to;
-                from[role] = to;
-
-                Assert.True(from.Exist(role));
-                Assert.True(from.Exist(role));
-                Assert.True(to.Exist(association));
-                Assert.True(to.Exist(association));
-                Assert.False(fromAnother.Exist(role));
-                Assert.False(fromAnother.Exist(role));
-                Assert.False(toAnother.Exist(association));
-                Assert.False(toAnother.Exist(association));
-
-                fromAnother[role] = toAnother;
-                fromAnother[role] = toAnother;
-
-                Assert.True(from.Exist(role));
-                Assert.True(from.Exist(role));
-                Assert.True(to.Exist(association));
-                Assert.True(to.Exist(association));
-                Assert.True(fromAnother.Exist(role));
-                Assert.True(fromAnother.Exist(role));
-                Assert.True(toAnother.Exist(association));
-                Assert.True(toAnother.Exist(association));
-
-                from[role] = null;
-                from[role] = null;
-
-                Assert.False(from.Exist(role));
-                Assert.False(from.Exist(role));
-                Assert.False(to.Exist(association));
-                Assert.False(to.Exist(association));
-                Assert.True(fromAnother.Exist(role));
-                Assert.True(fromAnother.Exist(role));
-                Assert.True(toAnother.Exist(association));
-                Assert.True(toAnother.Exist(association));
-
-                fromAnother[role] = null;
-                fromAnother[role] = null;
-
-                Assert.False(from.Exist(role));
-                Assert.False(from.Exist(role));
-                Assert.False(to.Exist(association));
-                Assert.False(to.Exist(association));
-                Assert.False(fromAnother.Exist(role));
-                Assert.False(fromAnother.Exist(role));
-                Assert.False(toAnother.Exist(association));
-                Assert.False(toAnother.Exist(association));
-
-                // Different New / Same To
-                // Get
-                Assert.Null(from[role]);
-                Assert.Null(from[role]);
-                Assert.Null(fromAnother[role]);
-                Assert.Null(fromAnother[role]);
-                Assert.Null(to[association]);
-                Assert.Null(to[association]);
-
-                from[role] = to;
-                from[role] = to;
-
-                Assert.Equal(to, from[role]);
-                Assert.Equal(to, from[role]);
-                Assert.Null(fromAnother[role]);
-                Assert.Null(fromAnother[role]);
-                Assert.Equal(from, to[association]);
-                Assert.Equal(from, to[association]);
-
-                fromAnother[role] = to;
-                fromAnother[role] = to;
-
-                Assert.Null(from[role]);
-                Assert.Null(from[role]);
-                Assert.Equal(to, fromAnother[role]);
-                Assert.Equal(to, fromAnother[role]);
-                Assert.Equal(fromAnother, to[association]);
-                Assert.Equal(fromAnother, to[association]);
-
-                fromAnother[role] = null;
-                fromAnother[role] = null;
-
-                Assert.Null(from[role]);
-                Assert.Null(from[role]);
-                Assert.Null(fromAnother[role]);
-                Assert.Null(fromAnother[role]);
-                Assert.Null(to[association]);
-                Assert.Null(to[association]);
-
-                from[role] = to;
-
-                Assert.Equal(to, from[role]);
-                fromAnother[role] = to;
-
-                Assert.Null(from[role]);
-                Assert.Equal(to, fromAnother[role]);
-                fromAnother[role] = null;
-
-                // Exist
-                Assert.False(from.Exist(role));
-                Assert.False(from.Exist(role));
-                Assert.False(fromAnother.Exist(role));
-                Assert.False(fromAnother.Exist(role));
-                Assert.False(to.Exist(association));
-                Assert.False(to.Exist(association));
-
-                from[role] = to;
-                from[role] = to;
-
-                Assert.True(from.Exist(role));
-                Assert.True(from.Exist(role));
-                Assert.False(fromAnother.Exist(role));
-                Assert.False(fromAnother.Exist(role));
-                Assert.True(to.Exist(association));
-                Assert.True(to.Exist(association));
-
-                fromAnother[role] = to;
-                fromAnother[role] = to;
-
-                Assert.False(from.Exist(role));
-                Assert.False(from.Exist(role));
-                Assert.True(fromAnother.Exist(role));
-                Assert.True(fromAnother.Exist(role));
-                Assert.True(to.Exist(association));
-                Assert.True(to.Exist(association));
-
-                fromAnother[role] = null;
-                fromAnother[role] = null;
-
-                Assert.False(from.Exist(role));
-                Assert.False(from.Exist(role));
-                Assert.False(fromAnother.Exist(role));
-                Assert.False(fromAnother.Exist(role));
-                Assert.False(to.Exist(association));
-                Assert.False(to.Exist(association));
-
-                // Null
-                // Set Null
-                // Get
-                Assert.Null(from[role]);
-                Assert.Null(from[role]);
-
-                from[role] = null;
-                from[role] = null;
-
-                Assert.Null(from[role]);
-                Assert.Null(from[role]);
-
-                from[role] = to;
-                from[role] = to;
-
-                Assert.Equal(to, from[role]);
-                Assert.Equal(to, from[role]);
-
-                from[role] = null;
-                from[role] = null;
-
-                Assert.Null(from[role]);
-                Assert.Null(from[role]);
-
-                // Get
-                Assert.Null(from[role]);
-                Assert.Null(from[role]);
-
-                from[role] = null;
-                from[role] = null;
-
-                Assert.Null(from[role]);
-                Assert.Null(from[role]);
-
-                from[role] = to;
-                from[role] = to;
-
-                Assert.Equal(to, from[role]);
-                Assert.Equal(to, from[role]);
-
-                from[role] = null;
-                from[role] = null;
-
-                Assert.Null(from[role]);
-                Assert.Null(from[role]);
-
-                from = fromBuilder(transaction);
-                to = toBuilder(transaction);
-
-                Assert.Null(from[role]);
-                Assert.Null(from[role]);
-                Assert.Null(to[association]);
-                Assert.Null(to[association]);
-
-                // 1-1
-                from[role] = to;
-                from[role] = to;
-
-                Assert.Equal(to, from[role]);
-                Assert.Equal(to, from[role]);
-                Assert.Equal(from, to[association]);
-                Assert.Equal(from, to[association]);
-
-                // 0-0
-                from[role] = null;
-                from[role] = null;
-
-                Assert.Null(from[role]);
-                Assert.Null(from[role]);
-                Assert.Null(to[association]);
-                Assert.Null(to[association]);
 
                 if (builders.Length == 1)
                 {
                     var builder = builders[0];
 
-                    // New - Middle - To
+                    // Begin - Middle - End
                     var begin = builder(transaction);
                     var middle = builder(transaction);
                     var end = builder(transaction);
@@ -589,51 +751,52 @@
                     begin[role] = end;
 
                     Assert.Null(middle[association]);
+                    Assert.Equal(begin, end[association]);
+                    Assert.Null(begin[association]);
+
+                    Assert.Equal(end, begin[role]);
                     Assert.Null(middle[role]);
+                    Assert.Null(end[role]);
+                }
+            }
+        }
+
+        [Fact]
+        public void BeginMiddleEndRingSet()
+        {
+            foreach (var fixture in this.fixtures)
+            {
+                var database = this.CreateDatabase();
+                var transaction = database.CreateTransaction();
+
+                var (association, role, builders, fromBuilder, fromAnotherBuilder, toBuilder, toAnotherBuilder) =
+                    fixture();
+
+                if (builders.Length == 1)
+                {
+                    var builder = builders[0];
+
+                    // Begin - Middle - End
+                    var begin = builder(transaction);
+                    var middle = builder(transaction);
+                    var end = builder(transaction);
+
+                    begin[role] = middle;
+                    middle[role] = end;
+                    end[role] = begin;
+
+                    Assert.Equal(begin, middle[association]);
+                    Assert.Equal(middle, end[association]);
+                    Assert.Equal(end, begin[association]);
+
+                    Assert.Equal(middle, begin[role]);
+                    Assert.Equal(end, middle[role]);
+                    Assert.Equal(begin, end[role]);
                 }
             }
         }
 
         protected abstract IDatabase CreateDatabase();
-
-        private void Test(Action<
-            Func<(
-                OneToOneAssociationTypeHandle Association,
-                OneToOneRoleTypeHandle Role,
-                Func<ITransaction, IObject>[] Builders,
-                Func<ITransaction, IObject> FromBuilder,
-                Func<ITransaction, IObject> FromAnotherBuilder,
-                Func<ITransaction, IObject> ToBuilder,
-                Func<ITransaction, IObject> ToAnotherBuilder)>,
-            Action<Action>,
-            Action<Action>> test)
-        {
-            foreach (var actRepeat in new[] { 1, 2 })
-            {
-                foreach (var assertRepeat in new[] { 1, 2 })
-                {
-                    foreach (var fixture in this.fixtures)
-                    {
-                        test(
-                            fixture,
-                            act =>
-                            {
-                                for (var i1 = 0; i1 < actRepeat; i1++)
-                                {
-                                    act();
-                                }
-                            },
-                            assert =>
-                            {
-                                for (var i1 = 0; i1 < assertRepeat; i1++)
-                                {
-                                    assert();
-                                }
-                            });
-                    }
-                }
-            }
-        }
 
         private void FromTo(
            Func<IEnumerable<Action<OneToOneAssociationTypeHandle, OneToOneRoleTypeHandle, IObject, IObject>>> acts,
