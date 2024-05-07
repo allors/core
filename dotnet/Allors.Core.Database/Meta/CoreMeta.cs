@@ -5,7 +5,6 @@
     using System.Collections.Generic;
     using Allors.Core.Database.Meta.Handles;
     using Allors.Embedded.Domain;
-    using Allors.Embedded.Meta;
 
     /// <summary>
     /// Core Meta.
@@ -187,7 +186,7 @@
             var associationType = this.EmbeddedPopulation.Create(m.AssociationType, v =>
             {
                 v[m.MetaObjectId] = associationTypeId;
-                v[m.AssociationTypeComposite] = this[associationCompositeHandle.Id];
+                v[m.AssociationTypeComposite] = this[associationCompositeHandle];
             });
 
             var unitAssociationTypeHandle = new UnitAssociationTypeHandle(associationTypeId);
@@ -197,7 +196,7 @@
             {
                 v[m.MetaObjectId] = roleTypeId;
                 v[m.RoleTypeAssociationType] = associationType;
-                v[m.RoleTypeObjectType] = this[unitHandle.Id];
+                v[m.RoleTypeObjectType] = this[unitHandle];
                 v[m.RoleTypeSingularName] = singularName;
                 v[m.RoleTypeAssignedPluralName] = assignedPluralName;
             });
@@ -218,7 +217,7 @@
             var associationType = this.EmbeddedPopulation.Create(m.AssociationType, v =>
             {
                 v[m.MetaObjectId] = associationTypeId;
-                v[m.AssociationTypeComposite] = this[associationCompositeHandle.Id];
+                v[m.AssociationTypeComposite] = this[associationCompositeHandle];
             });
 
             var manyToOneAssociationTypeHandle = new OneToOneAssociationTypeHandle(associationTypeId);
@@ -228,7 +227,7 @@
             {
                 v[m.MetaObjectId] = roleTypeId;
                 v[m.RoleTypeAssociationType] = associationType;
-                v[m.RoleTypeObjectType] = this[roleCompositeHandle.Id];
+                v[m.RoleTypeObjectType] = this[roleCompositeHandle];
                 v[m.RoleTypeSingularName] = singularName;
                 v[m.RoleTypeAssignedPluralName] = assignedPluralName;
             });
@@ -249,7 +248,7 @@
             var associationType = this.EmbeddedPopulation.Create(m.AssociationType, v =>
             {
                 v[m.MetaObjectId] = associationTypeId;
-                v[m.AssociationTypeComposite] = this[associationCompositeHandle.Id];
+                v[m.AssociationTypeComposite] = this[associationCompositeHandle];
             });
 
             var manyToOneAssociationTypeHandle = new ManyToOneAssociationTypeHandle(associationTypeId);
@@ -259,7 +258,7 @@
             {
                 v[m.MetaObjectId] = roleTypeId;
                 v[m.RoleTypeAssociationType] = associationType;
-                v[m.RoleTypeObjectType] = this[roleCompositeHandle.Id];
+                v[m.RoleTypeObjectType] = this[roleCompositeHandle];
                 v[m.RoleTypeSingularName] = singularName;
                 v[m.RoleTypeAssignedPluralName] = assignedPluralName;
             });
@@ -280,7 +279,7 @@
             var associationType = this.EmbeddedPopulation.Create(m.AssociationType, v =>
             {
                 v[m.MetaObjectId] = associationTypeId;
-                v[m.AssociationTypeComposite] = this[associationCompositeHandle.Id];
+                v[m.AssociationTypeComposite] = this[associationCompositeHandle];
             });
 
             var oneToManyAssociationTypeHandle = new OneToManyAssociationTypeHandle(associationTypeId);
@@ -290,7 +289,7 @@
             {
                 v[m.MetaObjectId] = roleTypeId;
                 v[m.RoleTypeAssociationType] = associationType;
-                v[m.RoleTypeObjectType] = this[roleCompositeHandle.Id];
+                v[m.RoleTypeObjectType] = this[roleCompositeHandle];
                 v[m.RoleTypeSingularName] = singularName;
                 v[m.RoleTypeAssignedPluralName] = assignedPluralName;
             });
@@ -311,7 +310,7 @@
             var associationType = this.EmbeddedPopulation.Create(m.AssociationType, v =>
             {
                 v[m.MetaObjectId] = associationTypeId;
-                v[m.AssociationTypeComposite] = this[associationCompositeHandle.Id];
+                v[m.AssociationTypeComposite] = this[associationCompositeHandle];
             });
 
             var manyToManyAssociationTypeHandle = new ManyToManyAssociationTypeHandle(associationTypeId);
@@ -321,7 +320,7 @@
             {
                 v[m.MetaObjectId] = roleTypeId;
                 v[m.RoleTypeAssociationType] = associationType;
-                v[m.RoleTypeObjectType] = this[roleCompositeHandle.Id];
+                v[m.RoleTypeObjectType] = this[roleCompositeHandle];
                 v[m.RoleTypeSingularName] = singularName;
                 v[m.RoleTypeAssignedPluralName] = assignedPluralName;
             });
@@ -337,11 +336,9 @@
         /// </summary>
         public void AddDirectSupertype(CompositeHandle subtypeHandle, InterfaceHandle supertypeHandle)
         {
-            var m = this.Meta;
-
             var subtype = this[subtypeHandle];
             var supertype = this[supertypeHandle];
-            subtype.Add(m.CompositeDirectSupertypes, supertype);
+            subtype.Add(this.Meta.CompositeDirectSupertypes, supertype);
         }
     }
 }
