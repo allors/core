@@ -5,12 +5,12 @@
     /// <summary>
     /// A domain handle.
     /// </summary>
-    public sealed record Domain : MetaHandle
+    public sealed record DomainHandle : MetaHandle
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Domain"/> class.
+        /// Initializes a new instance of the <see cref="DomainHandle"/> class.
         /// </summary>
-        internal Domain(Guid id)
+        internal DomainHandle(Guid id)
             : base(id)
         {
         }

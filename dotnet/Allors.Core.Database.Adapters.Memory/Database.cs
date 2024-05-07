@@ -86,7 +86,7 @@ public class Database : IDatabase
     {
         // TODO: cache value
         var oneToOneRoleType = this.Meta[oneToOneRoleTypeHandle];
-        var oneToOneAssociationType = oneToOneRoleType[this.Meta.RoleTypeAssociationType];
+        var oneToOneAssociationType = oneToOneRoleType[this.Meta.Meta.RoleTypeAssociationType];
         var oneToOneAssociationTypeHandle = this.Meta[oneToOneAssociationType!];
         return (OneToOneAssociationTypeHandle)oneToOneAssociationTypeHandle;
     }
@@ -95,7 +95,7 @@ public class Database : IDatabase
     {
         // TODO: cache value
         var oneToManyRoleType = this.Meta[oneToManyRoleTypeHandle];
-        var oneToManyAssociationType = oneToManyRoleType[this.Meta.RoleTypeAssociationType];
+        var oneToManyAssociationType = oneToManyRoleType[this.Meta.Meta.RoleTypeAssociationType];
         var oneToManyAssociationTypeHandle = this.Meta[oneToManyAssociationType!];
         return (OneToManyAssociationTypeHandle)oneToManyAssociationTypeHandle;
     }
@@ -104,7 +104,7 @@ public class Database : IDatabase
     {
         // TODO: cache value
         var manyToOneRoleType = this.Meta[manyToOneRoleTypeHandle];
-        var manyToOneAssociationType = manyToOneRoleType[this.Meta.RoleTypeAssociationType];
+        var manyToOneAssociationType = manyToOneRoleType[this.Meta.Meta.RoleTypeAssociationType];
         var manyToOneAssociationTypeHandle = this.Meta[manyToOneAssociationType!];
         return (ManyToOneAssociationTypeHandle)manyToOneAssociationTypeHandle;
     }
@@ -113,7 +113,7 @@ public class Database : IDatabase
     {
         // TODO: cache value
         var manyToOneRoleType = this.Meta[manyToOneRoleTypeHandle];
-        var manyToOneAssociationType = manyToOneRoleType[this.Meta.RoleTypeAssociationType];
+        var manyToOneAssociationType = manyToOneRoleType[this.Meta.Meta.RoleTypeAssociationType];
         var manyToOneAssociationTypeHandle = this.Meta[manyToOneAssociationType!];
         return (ManyToManyAssociationTypeHandle)manyToOneAssociationTypeHandle;
     }

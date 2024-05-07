@@ -5,12 +5,12 @@
     /// <summary>
     /// A unit handle.
     /// </summary>
-    public sealed record Interface : CompositeHandle
+    public sealed record InterfaceHandle : CompositeHandle
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Interface"/> class.
+        /// Initializes a new instance of the <see cref="InterfaceHandle"/> class.
         /// </summary>
-        internal Interface(Guid id)
+        internal InterfaceHandle(Guid id)
             : base(id)
         {
         }

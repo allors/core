@@ -24,13 +24,46 @@
             [
                 () =>
                 {
+                    // C1 <-> C1
                     var association = this.Meta.C1WhereC1OneToOne;
                     var role = this.Meta.C1C1OneToOne;
 
-                    return (association, role, [Builder], Builder, Builder, Builder, Builder);
+                    return (association, role, [C1Builder], C1Builder, C1Builder, C1Builder, C1Builder);
 
-                    IObject Builder(ITransaction transaction) => transaction.Build(this.Meta.C1);
-                }
+                    IObject C1Builder(ITransaction transaction) => transaction.Build(this.Meta.C1);
+                },
+                () =>
+                {
+                    // C1 <-> I1
+                    var association = this.Meta.C1WhereI1OneToOne;
+                    var role = this.Meta.C1I1OneToOne;
+
+                    return (association, role, [C1Builder], C1Builder, C1Builder, C1Builder, C1Builder);
+
+                    IObject C1Builder(ITransaction transaction) => transaction.Build(this.Meta.C1);
+                },
+                () =>
+                {
+                    // C1 <-> C2
+                    var association = this.Meta.C1WhereC2OneToOne;
+                    var role = this.Meta.C1C2OneToOne;
+
+                    return (association, role, [C1Builder, C2Builder],  C1Builder, C1Builder, C2Builder, C2Builder);
+
+                    IObject C1Builder(ITransaction transaction) => transaction.Build(this.Meta.C1);
+                    IObject C2Builder(ITransaction transaction) => transaction.Build(this.Meta.C2);
+                },
+                () =>
+                {
+                    // C1 <-> I2
+                    var association = this.Meta.C1WhereI2OneToOne;
+                    var role = this.Meta.C1I2OneToOne;
+
+                    return (association, role, [C1Builder, C2Builder],  C1Builder, C1Builder, C2Builder, C2Builder);
+
+                    IObject C1Builder(ITransaction transaction) => transaction.Build(this.Meta.C1);
+                    IObject C2Builder(ITransaction transaction) => transaction.Build(this.Meta.C2);
+                },
             ];
         }
 
