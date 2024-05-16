@@ -18,6 +18,8 @@
             Func<ITransaction, IObject> ToBuilder,
             Func<ITransaction, IObject> ToAnotherBuilder)>[] fixtures;
 
+        private readonly Action<ITransaction>[] preActs;
+
         protected OneToOneTests()
         {
             this.fixtures =
@@ -64,6 +66,33 @@
                     IObject C1Builder(ITransaction transaction) => transaction.Build(this.Meta.C1);
                     IObject C2Builder(ITransaction transaction) => transaction.Build(this.Meta.C2);
                 },
+            ];
+
+            this.preActs =
+            [
+                _ => { },
+                v => v.Checkpoint(),
+                v =>
+                {
+                    v.Checkpoint();
+                    v.Checkpoint();
+                },
+                v => v.Commit(),
+                v =>
+                {
+                    v.Commit();
+                    v.Commit();
+                },
+                v =>
+                {
+                    v.Checkpoint();
+                    v.Commit();
+                },
+                v =>
+                {
+                    v.Commit();
+                    v.Checkpoint();
+                }
             ];
         }
 
@@ -837,35 +866,39 @@
         {
             var assertPermutations = asserts().Permutations().ToArray();
 
-            foreach (var actRepeats in new[] { 1, 2 })
+            foreach (var preact in this.preActs)
             {
-                foreach (var assertPermutation in assertPermutations)
+                foreach (var actRepeats in new[] { 1, 2 })
                 {
-                    foreach (var assertRepeats in new[] { 1, 2 })
+                    foreach (var assertPermutation in assertPermutations)
                     {
-                        foreach (var fixture in this.fixtures)
+                        foreach (var assertRepeats in new[] { 1, 2 })
                         {
-                            var (association, role, _, fromBuilder, _, toBuilder, _) = fixture();
-
-                            var database = this.CreateDatabase();
-                            var transaction = database.CreateTransaction();
-
-                            var from = fromBuilder(transaction);
-                            var to = toBuilder(transaction);
-
-                            foreach (var act in acts())
+                            foreach (var fixture in this.fixtures)
                             {
-                                for (var actRepeat = 0; actRepeat < actRepeats; actRepeat++)
+                                var (association, role, _, fromBuilder, _, toBuilder, _) = fixture();
+
+                                var database = this.CreateDatabase();
+                                var transaction = database.CreateTransaction();
+
+                                var from = fromBuilder(transaction);
+                                var to = toBuilder(transaction);
+
+                                foreach (var act in acts())
                                 {
-                                    act(association, role, from, to);
+                                    for (var actRepeat = 0; actRepeat < actRepeats; actRepeat++)
+                                    {
+                                        preact(transaction);
+                                        act(association, role, from, to);
+                                    }
                                 }
-                            }
 
-                            foreach (var assert in assertPermutation)
-                            {
-                                for (var assertRepeat = 0; assertRepeat < assertRepeats; assertRepeat++)
+                                foreach (var assert in assertPermutation)
                                 {
-                                    assert(association, role, from, to);
+                                    for (var assertRepeat = 0; assertRepeat < assertRepeats; assertRepeat++)
+                                    {
+                                        assert(association, role, from, to);
+                                    }
                                 }
                             }
                         }
@@ -880,36 +913,40 @@
         {
             var assertPermutations = asserts().Permutations().ToArray();
 
-            foreach (var actRepeats in new[] { 1, 2 })
+            foreach (var preact in this.preActs)
             {
-                foreach (var assertPermutation in assertPermutations)
+                foreach (var actRepeats in new[] { 1, 2 })
                 {
-                    foreach (var assertRepeats in new[] { 1, 2 })
+                    foreach (var assertPermutation in assertPermutations)
                     {
-                        foreach (var fixture in this.fixtures)
+                        foreach (var assertRepeats in new[] { 1, 2 })
                         {
-                            var (association, role, _, fromBuilder, fromAnotherBuilder, toBuilder, _) = fixture();
-
-                            var database = this.CreateDatabase();
-                            var transaction = database.CreateTransaction();
-
-                            var from = fromBuilder(transaction);
-                            var fromAnother = fromAnotherBuilder(transaction);
-                            var to = toBuilder(transaction);
-
-                            foreach (var act in acts())
+                            foreach (var fixture in this.fixtures)
                             {
-                                for (var actRepeat = 0; actRepeat < actRepeats; actRepeat++)
+                                var (association, role, _, fromBuilder, fromAnotherBuilder, toBuilder, _) = fixture();
+
+                                var database = this.CreateDatabase();
+                                var transaction = database.CreateTransaction();
+
+                                var from = fromBuilder(transaction);
+                                var fromAnother = fromAnotherBuilder(transaction);
+                                var to = toBuilder(transaction);
+
+                                foreach (var act in acts())
                                 {
-                                    act(association, role, from, fromAnother, to);
+                                    for (var actRepeat = 0; actRepeat < actRepeats; actRepeat++)
+                                    {
+                                        preact(transaction);
+                                        act(association, role, from, fromAnother, to);
+                                    }
                                 }
-                            }
 
-                            foreach (var assert in assertPermutation)
-                            {
-                                for (var assertRepeat = 0; assertRepeat < assertRepeats; assertRepeat++)
+                                foreach (var assert in assertPermutation)
                                 {
-                                    assert(association, role, from, fromAnother, to);
+                                    for (var assertRepeat = 0; assertRepeat < assertRepeats; assertRepeat++)
+                                    {
+                                        assert(association, role, from, fromAnother, to);
+                                    }
                                 }
                             }
                         }
@@ -924,36 +961,40 @@
         {
             var assertPermutations = asserts().Permutations().ToArray();
 
-            foreach (var actRepeats in new[] { 1, 2 })
+            foreach (var preact in this.preActs)
             {
-                foreach (var assertPermutation in assertPermutations)
+                foreach (var actRepeats in new[] { 1, 2 })
                 {
-                    foreach (var assertRepeats in new[] { 1, 2 })
+                    foreach (var assertPermutation in assertPermutations)
                     {
-                        foreach (var fixture in this.fixtures)
+                        foreach (var assertRepeats in new[] { 1, 2 })
                         {
-                            var (association, role, _, fromBuilder, _, toBuilder, toAnotherBuilder) = fixture();
-
-                            var database = this.CreateDatabase();
-                            var transaction = database.CreateTransaction();
-
-                            var from = fromBuilder(transaction);
-                            var to = toBuilder(transaction);
-                            var toAnother = toAnotherBuilder(transaction);
-
-                            foreach (var act in acts())
+                            foreach (var fixture in this.fixtures)
                             {
-                                for (var actRepeat = 0; actRepeat < actRepeats; actRepeat++)
+                                var (association, role, _, fromBuilder, _, toBuilder, toAnotherBuilder) = fixture();
+
+                                var database = this.CreateDatabase();
+                                var transaction = database.CreateTransaction();
+
+                                var from = fromBuilder(transaction);
+                                var to = toBuilder(transaction);
+                                var toAnother = toAnotherBuilder(transaction);
+
+                                foreach (var act in acts())
                                 {
-                                    act(association, role, from, to, toAnother);
+                                    for (var actRepeat = 0; actRepeat < actRepeats; actRepeat++)
+                                    {
+                                        preact(transaction);
+                                        act(association, role, from, to, toAnother);
+                                    }
                                 }
-                            }
 
-                            foreach (var assert in assertPermutation)
-                            {
-                                for (var assertRepeat = 0; assertRepeat < assertRepeats; assertRepeat++)
+                                foreach (var assert in assertPermutation)
                                 {
-                                    assert(association, role, from, to, toAnother);
+                                    for (var assertRepeat = 0; assertRepeat < assertRepeats; assertRepeat++)
+                                    {
+                                        assert(association, role, from, to, toAnother);
+                                    }
                                 }
                             }
                         }
@@ -968,37 +1009,41 @@
         {
             var assertPermutations = asserts().Permutations().ToArray();
 
-            foreach (var actRepeats in new[] { 1, 2 })
+            foreach (var preact in this.preActs)
             {
-                foreach (var assertPermutation in assertPermutations)
+                foreach (var actRepeats in new[] { 1, 2 })
                 {
-                    foreach (var assertRepeats in new[] { 1, 2 })
+                    foreach (var assertPermutation in assertPermutations)
                     {
-                        foreach (var fixture in this.fixtures)
+                        foreach (var assertRepeats in new[] { 1, 2 })
                         {
-                            var (association, role, _, fromBuilder, fromAnotherBuilder, toBuilder, toAnotherBuilder) = fixture();
-
-                            var database = this.CreateDatabase();
-                            var transaction = database.CreateTransaction();
-
-                            var from = fromBuilder(transaction);
-                            var fromAnother = fromAnotherBuilder(transaction);
-                            var to = toBuilder(transaction);
-                            var toAnother = toAnotherBuilder(transaction);
-
-                            foreach (var act in acts())
+                            foreach (var fixture in this.fixtures)
                             {
-                                for (var actRepeat = 0; actRepeat < actRepeats; actRepeat++)
+                                var (association, role, _, fromBuilder, fromAnotherBuilder, toBuilder, toAnotherBuilder) = fixture();
+
+                                var database = this.CreateDatabase();
+                                var transaction = database.CreateTransaction();
+
+                                var from = fromBuilder(transaction);
+                                var fromAnother = fromAnotherBuilder(transaction);
+                                var to = toBuilder(transaction);
+                                var toAnother = toAnotherBuilder(transaction);
+
+                                foreach (var act in acts())
                                 {
-                                    act(association, role, from, fromAnother, to, toAnother);
+                                    for (var actRepeat = 0; actRepeat < actRepeats; actRepeat++)
+                                    {
+                                        preact(transaction);
+                                        act(association, role, from, fromAnother, to, toAnother);
+                                    }
                                 }
-                            }
 
-                            foreach (var assert in assertPermutation)
-                            {
-                                for (var assertRepeat = 0; assertRepeat < assertRepeats; assertRepeat++)
+                                foreach (var assert in assertPermutation)
                                 {
-                                    assert(association, role, from, fromAnother, to, toAnother);
+                                    for (var assertRepeat = 0; assertRepeat < assertRepeats; assertRepeat++)
+                                    {
+                                        assert(association, role, from, fromAnother, to, toAnother);
+                                    }
                                 }
                             }
                         }

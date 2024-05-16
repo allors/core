@@ -87,51 +87,15 @@ public class Object : IObject
     /// <inheritdoc />
     public object? this[UnitRoleTypeHandle roleTypeHandle]
     {
-        get
-        {
-            if (this.changedRoleByRoleType != null && this.changedRoleByRoleType.TryGetValue(roleTypeHandle, out var changedRole))
-            {
-                return changedRole;
-            }
+        get => this.GetUnitRole(roleTypeHandle);
 
-            if (this.record != null && this.record.RoleByRoleTypeId.TryGetValue(roleTypeHandle, out var role))
-            {
-                return role;
-            }
-
-            return null;
-        }
-
-        set
-        {
-            var currentRole = this[roleTypeHandle];
-            if (Equals(currentRole, value))
-            {
-                return;
-            }
-
-            this.changedRoleByRoleType ??= [];
-            this.changedRoleByRoleType[roleTypeHandle] = value;
-        }
+        set => this.SetUnitRole(roleTypeHandle, value);
     }
 
     /// <inheritdoc />
     public IObject? this[ToOneRoleTypeHandle roleTypeHandle]
     {
-        get
-        {
-            if (this.changedRoleByRoleType != null && this.changedRoleByRoleType.TryGetValue(roleTypeHandle, out var changedRole))
-            {
-                return (IObject?)changedRole;
-            }
-
-            if (this.record != null && this.record.RoleByRoleTypeId.TryGetValue(roleTypeHandle, out var role))
-            {
-                return this.Transaction.Instantiate((long)role);
-            }
-
-            return null;
-        }
+        get => this.GetToOneRole(roleTypeHandle);
 
         set
         {
@@ -163,7 +127,7 @@ public class Object : IObject
     /// <inheritdoc />
     public IEnumerable<IObject> this[ToManyRoleTypeHandle roleTypeHandle]
     {
-        get => this.ToManyRole(roleTypeHandle)?.Select(this.Transaction.Instantiate) ?? [];
+        get => this.GetToManyRole(roleTypeHandle)?.Select(this.Transaction.Instantiate) ?? [];
         set
         {
             if (roleTypeHandle is OneToManyRoleTypeHandle oneToManyRoleTypeHandle)
@@ -371,39 +335,6 @@ public class Object : IObject
         this.checkpointAssociationByAssociationType = null;
     }
 
-    internal ImmutableHashSet<long>? ToManyRole(ToManyRoleTypeHandle roleTypeHandle)
-    {
-        ImmutableHashSet<long>? role = null;
-
-        if (this.changedRoleByRoleType != null && this.changedRoleByRoleType.TryGetValue(roleTypeHandle, out var changedRole))
-        {
-            role = (ImmutableHashSet<long>?)changedRole;
-        }
-
-        if (this.record != null && this.record.RoleByRoleTypeId.TryGetValue(roleTypeHandle, out var recordRole))
-        {
-            role = (ImmutableHashSet<long>?)recordRole;
-        }
-
-        return role;
-    }
-
-    internal ImmutableHashSet<long>? ManyToAssociation(ManyToAssociationTypeHandle associationTypeHandle)
-    {
-        ImmutableHashSet<long>? association = null;
-
-        if (this.changedAssociationByAssociationType != null && this.changedAssociationByAssociationType.TryGetValue(associationTypeHandle, out var changedAssociation))
-        {
-            association = (ImmutableHashSet<long>?)changedAssociation;
-        }
-        else if (this.record != null && this.record.AssociationByAssociationTypeId.TryGetValue(associationTypeHandle, out var recordAssociation))
-        {
-            association = (ImmutableHashSet<long>?)recordAssociation;
-        }
-
-        return association;
-    }
-
     private static bool SetEquals(ImmutableHashSet<long>? objA, ImmutableHashSet<long>? objB)
     {
         if (objA == objB)
@@ -417,6 +348,48 @@ public class Object : IObject
         }
 
         return objA.SetEquals(objB);
+    }
+
+    private object? GetUnitRole(UnitRoleTypeHandle roleTypeHandle)
+    {
+        if (this.changedRoleByRoleType != null && this.changedRoleByRoleType.TryGetValue(roleTypeHandle, out var changedRole))
+        {
+            return changedRole;
+        }
+
+        if (this.record != null && this.record.RoleByRoleTypeId.TryGetValue(roleTypeHandle, out var role))
+        {
+            return role;
+        }
+
+        return null;
+    }
+
+    private void SetUnitRole(UnitRoleTypeHandle roleTypeHandle, object? value)
+    {
+        var currentRole = this[roleTypeHandle];
+        if (Equals(currentRole, value))
+        {
+            return;
+        }
+
+        this.changedRoleByRoleType ??= [];
+        this.changedRoleByRoleType[roleTypeHandle] = value;
+    }
+
+    private IObject? GetToOneRole(ToOneRoleTypeHandle roleTypeHandle)
+    {
+        if (this.changedRoleByRoleType != null && this.changedRoleByRoleType.TryGetValue(roleTypeHandle, out var changedRole))
+        {
+            return (IObject?)changedRole;
+        }
+
+        if (this.record != null && this.record.RoleByRoleTypeId.TryGetValue(roleTypeHandle, out var role))
+        {
+            return this.Transaction.Instantiate((long)role);
+        }
+
+        return null;
     }
 
     private void SetOneToOneRole(OneToOneRoleTypeHandle roleTypeHandle, Object role)
@@ -435,13 +408,13 @@ public class Object : IObject
             return;
         }
 
+        var associationTypeHandle = this.Transaction.Database.AssociationTypeHandle(roleTypeHandle);
+
         // A --x-- PR
         if (previousRole != null)
         {
             this.RemoveOneToOneRole(roleTypeHandle);
         }
-
-        var associationTypeHandle = this.Transaction.Database.AssociationTypeHandle(roleTypeHandle);
 
         var roleAssociation = (Object?)role[associationTypeHandle];
 
@@ -499,10 +472,7 @@ public class Object : IObject
         var associationType = this.Transaction.Database.AssociationTypeHandle(roleTypeHandle);
 
         // A --x-- PR
-        if (previousRole != null)
-        {
-            previousRole.RemoveManyToAssociation(associationType, this);
-        }
+        previousRole?.RemoveManyToAssociation(associationType, this);
 
         // A <---- R
         role.AddManyToAssociation(associationType, this);
@@ -536,6 +506,53 @@ public class Object : IObject
         this.changedRoleByRoleType[roleTypeHandle] = null;
     }
 
+    private ImmutableHashSet<long>? GetToManyRole(ToManyRoleTypeHandle roleTypeHandle)
+    {
+        ImmutableHashSet<long>? role = null;
+
+        if (this.changedRoleByRoleType != null && this.changedRoleByRoleType.TryGetValue(roleTypeHandle, out var changedRole))
+        {
+            role = (ImmutableHashSet<long>?)changedRole;
+        }
+
+        if (this.record != null && this.record.RoleByRoleTypeId.TryGetValue(roleTypeHandle, out var recordRole))
+        {
+            role = (ImmutableHashSet<long>?)recordRole;
+        }
+
+        return role;
+    }
+
+    private void SetOneToManyRole(OneToManyRoleTypeHandle roleTypeHandle, IEnumerable<IObject> value)
+    {
+        var objects = value.Where(v => (IObject?)v != null).Distinct().Cast<Object>().ToArray();
+
+        // TODO: Optimize
+        var previousRole = this.GetToManyRole(roleTypeHandle);
+
+        if (previousRole == null)
+        {
+            foreach (var @object in objects)
+            {
+                this.AddOneToManyRole(roleTypeHandle, @object);
+            }
+        }
+        else
+        {
+            var add = objects.Where(v => !previousRole.Contains(v.Id));
+            foreach (var @object in add)
+            {
+                this.AddOneToManyRole(roleTypeHandle, @object);
+            }
+
+            var remove = previousRole.Except(objects.Select(v => v.Id));
+            foreach (var @object in remove.Select(this.Transaction.Instantiate).Cast<Object>())
+            {
+                this.RemoveOneToManyRole(roleTypeHandle, @object);
+            }
+        }
+    }
+
     private void AddOneToManyRole(OneToManyRoleTypeHandle roleTypeHandle, Object role)
     {
         /*  [if exist]        [then remove]        add
@@ -544,7 +561,8 @@ public class Object : IObject
          *                ->                +        -        =       -
          *   A ----- PR         A       PR       A --    PR       A ----- PR
          */
-        var previousRole = this.ToManyRole(roleTypeHandle);
+
+        var previousRole = this.GetToManyRole(roleTypeHandle);
 
         // R in PR
         if (previousRole?.Contains(role.Id) == true)
@@ -576,7 +594,7 @@ public class Object : IObject
          *   A ----- R          A --x-- R       A --      R
          */
 
-        var previousRoleIds = this.ToManyRole(roleTypeHandle);
+        var previousRoleIds = this.GetToManyRole(roleTypeHandle);
 
         // R not in PR
         if (previousRoleIds?.Contains(role.Id) != true)
@@ -603,18 +621,18 @@ public class Object : IObject
         }
     }
 
-    private void SetOneToManyRole(OneToManyRoleTypeHandle roleTypeHandle, IEnumerable<IObject> value)
+    private void SetManyToManyRole(ManyToManyRoleTypeHandle roleTypeHandle, IEnumerable<IObject> value)
     {
         var objects = value.Where(v => (IObject?)v != null).Distinct().Cast<Object>().ToArray();
 
         // TODO: Optimize
-        var previousRole = this.ToManyRole(roleTypeHandle);
+        var previousRole = this.GetToManyRole(roleTypeHandle);
 
         if (previousRole == null)
         {
             foreach (var @object in objects)
             {
-                this.AddOneToManyRole(roleTypeHandle, @object);
+                this.AddManyToManyRole(roleTypeHandle, @object);
             }
         }
         else
@@ -622,13 +640,13 @@ public class Object : IObject
             var remove = previousRole.Except(objects.Select(v => v.Id));
             foreach (var @object in remove.Select(this.Transaction.Instantiate).Cast<Object>())
             {
-                this.RemoveOneToManyRole(roleTypeHandle, @object);
+                this.RemoveManyToManyRole(roleTypeHandle, @object);
             }
 
             var add = objects.Where(v => !previousRole.Contains(v.Id));
             foreach (var @object in add.Cast<Object>())
             {
-                this.AddOneToManyRole(roleTypeHandle, @object);
+                this.AddManyToManyRole(roleTypeHandle, @object);
             }
         }
     }
@@ -641,7 +659,7 @@ public class Object : IObject
          *                ->                +        -        =       -
          *   A ----- PR         A       PR       A --    PR       A ----- PR
          */
-        var previousRole = this.ToManyRole(roleTypeHandle);
+        var previousRole = this.GetToManyRole(roleTypeHandle);
 
         // R in PR
         if (previousRole?.Contains(role.Id) == true)
@@ -671,7 +689,7 @@ public class Object : IObject
          *  A2 -                 A2       R       A2 --
          */
 
-        var previousRole = this.ToManyRole(roleTypeHandle);
+        var previousRole = this.GetToManyRole(roleTypeHandle);
 
         // R not in PR
         if (previousRole?.Contains(role.Id) != true)
@@ -698,34 +716,20 @@ public class Object : IObject
         }
     }
 
-    private void SetManyToManyRole(ManyToManyRoleTypeHandle roleTypeHandle, IEnumerable<IObject> value)
+    private long? OneToAssociation(OneToAssociationTypeHandle associationTypeHandle)
     {
-        var objects = value.Where(v => (IObject?)v != null).Distinct().Cast<Object>().ToArray();
+        long? association = null;
 
-        // TODO: Optimize
-        var previousRole = this.ToManyRole(roleTypeHandle);
-
-        if (previousRole == null)
+        if (this.changedAssociationByAssociationType != null && this.changedAssociationByAssociationType.TryGetValue(associationTypeHandle, out var changedAssociation))
         {
-            foreach (var @object in objects)
-            {
-                this.AddManyToManyRole(roleTypeHandle, @object);
-            }
+            association = (long?)changedAssociation;
         }
-        else
+        else if (this.record != null && this.record.AssociationByAssociationTypeId.TryGetValue(associationTypeHandle, out var recordAssociation))
         {
-            var remove = previousRole.Except(objects.Select(v => v.Id));
-            foreach (var @object in remove.Select(this.Transaction.Instantiate).Cast<Object>())
-            {
-                this.RemoveManyToManyRole(roleTypeHandle, @object);
-            }
-
-            var add = objects.Where(v => !previousRole.Contains(v.Id));
-            foreach (var @object in add.Cast<Object>())
-            {
-                this.AddManyToManyRole(roleTypeHandle, @object);
-            }
+            association = (long?)recordAssociation;
         }
+
+        return association;
     }
 
     private void SetOneToAssociation(OneToAssociationTypeHandle associationTypeHandle, Object value)
@@ -738,6 +742,22 @@ public class Object : IObject
     {
         this.changedAssociationByAssociationType ??= [];
         this.changedAssociationByAssociationType[associationTypeHandle] = null;
+    }
+
+    private ImmutableHashSet<long>? ManyToAssociation(ManyToAssociationTypeHandle associationTypeHandle)
+    {
+        ImmutableHashSet<long>? association = null;
+
+        if (this.changedAssociationByAssociationType != null && this.changedAssociationByAssociationType.TryGetValue(associationTypeHandle, out var changedAssociation))
+        {
+            association = (ImmutableHashSet<long>?)changedAssociation;
+        }
+        else if (this.record != null && this.record.AssociationByAssociationTypeId.TryGetValue(associationTypeHandle, out var recordAssociation))
+        {
+            association = (ImmutableHashSet<long>?)recordAssociation;
+        }
+
+        return association;
     }
 
     private void AddManyToAssociation(ManyToAssociationTypeHandle associationTypeHandle, Object value)
@@ -768,21 +788,5 @@ public class Object : IObject
 
         this.changedAssociationByAssociationType ??= [];
         this.changedAssociationByAssociationType[associationTypeHandle] = newAssociation.Count != 0 ? newAssociation : null;
-    }
-
-    private long? OneToAssociation(OneToAssociationTypeHandle associationTypeHandle)
-    {
-        long? association = null;
-
-        if (this.changedAssociationByAssociationType != null && this.changedAssociationByAssociationType.TryGetValue(associationTypeHandle, out var changedAssociation))
-        {
-            association = (long?)changedAssociation;
-        }
-        else if (this.record != null && this.record.AssociationByAssociationTypeId.TryGetValue(associationTypeHandle, out var recordAssociation))
-        {
-            association = (long?)recordAssociation;
-        }
-
-        return association;
     }
 }

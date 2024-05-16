@@ -9,12 +9,6 @@
     public abstract class OneToManyTests
     {
         [Fact]
-        public void ToDo()
-        {
-            Assert.True(true);
-        }
-
-        [Fact]
         public void C1_C1OneToManies()
         {
             var coreMeta = new CoreMeta();
