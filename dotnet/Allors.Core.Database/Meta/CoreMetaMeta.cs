@@ -1,7 +1,7 @@
 ﻿namespace Allors.Core.Database.Meta
 {
     using System;
-    using Allors.Embedded.Meta;
+    using Allors.Core.Meta.Meta;
 
     /// <summary>
     /// Core Meta Meta.
@@ -10,7 +10,7 @@
     {
         internal CoreMetaMeta()
         {
-            this.EmbeddedMeta = new EmbeddedMeta();
+            this.MetaMeta = new MetaMeta();
 
             // ObjectTypes
             this.AssociationType = this.NewMetaClass("AssociationType");
@@ -44,190 +44,190 @@
             this.Workspace.AddDirectSupertype(this.MetaObject);
 
             // Relations
-            var embeddedMeta = this.EmbeddedMeta;
+            var metaMeta = this.MetaMeta;
 
-            this.AssociationTypeComposite = embeddedMeta.AddManyToOne(this.AssociationType, this.Composite);
+            this.AssociationTypeComposite = metaMeta.AddManyToOne(this.AssociationType, this.Composite);
 
-            this.CompositeDirectSupertypes = embeddedMeta.AddManyToMany(this.Composite, this.Interface, "DirectSupertype");
+            this.CompositeDirectSupertypes = metaMeta.AddManyToMany(this.Composite, this.Interface, "DirectSupertype");
 
-            this.DomainTypes = embeddedMeta.AddManyToMany(this.Domain, this.Type);
+            this.DomainTypes = metaMeta.AddManyToMany(this.Domain, this.Type);
 
-            this.ObjectTypeAssignedPluralName = embeddedMeta.AddUnit<string>(this.ObjectType, "AssignedPluralName");
-            this.ObjectTypeDerivedPluralName = embeddedMeta.AddUnit<string>(this.ObjectType, "DerivedPluralName");
-            this.ObjectTypeSingularName = embeddedMeta.AddUnit<string>(this.ObjectType, "SingularName");
+            this.ObjectTypeAssignedPluralName = metaMeta.AddUnit<string>(this.ObjectType, "AssignedPluralName");
+            this.ObjectTypeDerivedPluralName = metaMeta.AddUnit<string>(this.ObjectType, "DerivedPluralName");
+            this.ObjectTypeSingularName = metaMeta.AddUnit<string>(this.ObjectType, "SingularName");
 
-            this.MetaObjectId = embeddedMeta.AddUnit<Guid>(this.MetaObject, "Id");
+            this.MetaObjectId = metaMeta.AddUnit<Guid>(this.MetaObject, "Id");
 
-            this.RelationEndTypeIsMany = embeddedMeta.AddUnit<bool>(this.RelationEndType, "IsMany");
+            this.RelationEndTypeIsMany = metaMeta.AddUnit<bool>(this.RelationEndType, "IsMany");
 
-            this.RoleTypeAssociationType = embeddedMeta.AddOneToOne(this.RoleType, this.AssociationType);
-            this.RoleTypeAssignedPluralName = embeddedMeta.AddUnit<string>(this.RoleType, "AssignedPluralName");
-            this.RoleTypeDerivedPluralName = embeddedMeta.AddUnit<string>(this.RoleType, "DerivedPluralName");
-            this.RoleTypeObjectType = embeddedMeta.AddManyToOne(this.RoleType, this.ObjectType);
-            this.RoleTypeSingularName = embeddedMeta.AddUnit<string>(this.RoleType, "SingularName");
+            this.RoleTypeAssociationType = metaMeta.AddOneToOne(this.RoleType, this.AssociationType);
+            this.RoleTypeAssignedPluralName = metaMeta.AddUnit<string>(this.RoleType, "AssignedPluralName");
+            this.RoleTypeDerivedPluralName = metaMeta.AddUnit<string>(this.RoleType, "DerivedPluralName");
+            this.RoleTypeObjectType = metaMeta.AddManyToOne(this.RoleType, this.ObjectType);
+            this.RoleTypeSingularName = metaMeta.AddUnit<string>(this.RoleType, "SingularName");
 
-            this.WorkspaceTypes = embeddedMeta.AddManyToMany(this.Workspace, this.Type);
+            this.WorkspaceTypes = metaMeta.AddManyToMany(this.Workspace, this.Type);
         }
 
         /// <summary>
-        /// The embedded meta.
+        /// The meta meta.
         /// </summary>
-        public EmbeddedMeta EmbeddedMeta { get; }
+        public MetaMeta MetaMeta { get; }
 
         /// <summary>
         /// An association type.
         /// </summary>
-        public EmbeddedObjectType AssociationType { get; init; }
+        public MetaObjectType AssociationType { get; init; }
 
         /// <summary>
         /// The composite of an association type.
         /// </summary>
-        public EmbeddedManyToOneRoleType AssociationTypeComposite { get; init; }
+        public MetaManyToOneRoleType AssociationTypeComposite { get; init; }
 
         /// <summary>
         /// A class.
         /// </summary>
-        public EmbeddedObjectType Class { get; init; }
+        public MetaObjectType Class { get; init; }
 
         /// <summary>
         /// A composite.
         /// </summary>
-        public EmbeddedObjectType Composite { get; init; }
+        public MetaObjectType Composite { get; init; }
 
         /// <summary>
         /// The direct supertypes of a composite.
         /// </summary>
-        public EmbeddedManyToManyRoleType CompositeDirectSupertypes { get; init; }
+        public MetaManyToManyRoleType CompositeDirectSupertypes { get; init; }
 
         /// <summary>
         /// A domain.
         /// </summary>
-        public EmbeddedObjectType Domain { get; init; }
+        public MetaObjectType Domain { get; init; }
 
         /// <summary>
         /// The types of a domain.
         /// </summary>
-        public EmbeddedManyToManyRoleType DomainTypes { get; init; }
+        public MetaManyToManyRoleType DomainTypes { get; init; }
 
         /// <summary>
         /// An interface.
         /// </summary>
-        public EmbeddedObjectType Interface { get; init; }
+        public MetaObjectType Interface { get; init; }
 
         /// <summary>
         /// A meta object.
         /// </summary>
-        public EmbeddedObjectType MetaObject { get; init; }
+        public MetaObjectType MetaObject { get; init; }
 
         /// <summary>
         /// The id of a meta object.
         /// </summary>
-        public EmbeddedUnitRoleType MetaObjectId { get; init; }
+        public MetaUnitRoleType MetaObjectId { get; init; }
 
         /// <summary>
         /// A method type.
         /// </summary>
-        public EmbeddedObjectType MethodType { get; init; }
+        public MetaObjectType MethodType { get; init; }
 
         /// <summary>
         /// An object type.
         /// </summary>
-        public EmbeddedObjectType ObjectType { get; init; }
+        public MetaObjectType ObjectType { get; init; }
 
         /// <summary>
         /// The assigned plural name of an object type.
         /// </summary>
-        public EmbeddedUnitRoleType ObjectTypeAssignedPluralName { get; init; }
+        public MetaUnitRoleType ObjectTypeAssignedPluralName { get; init; }
 
         /// <summary>
         /// The derived plural name of an object type.
         /// </summary>
-        public EmbeddedUnitRoleType ObjectTypeDerivedPluralName { get; init; }
+        public MetaUnitRoleType ObjectTypeDerivedPluralName { get; init; }
 
         /// <summary>
         /// The singular name of an object type.
         /// </summary>
-        public EmbeddedUnitRoleType ObjectTypeSingularName { get; init; }
+        public MetaUnitRoleType ObjectTypeSingularName { get; init; }
 
         /// <summary>
         /// An operand type.
-        /// </summary>public EmbeddedObjectType OperandType { get; init; }
-        public EmbeddedObjectType OperandType { get; init; }
+        /// </summary>public MetaObjectType OperandType { get; init; }
+        public MetaObjectType OperandType { get; init; }
 
         /// <summary>
         /// A relation end type.
-        /// </summary>public EmbeddedObjectType OperandType { get; init; }
-        public EmbeddedObjectType RelationEndType { get; init; }
+        /// </summary>public MetaObjectType OperandType { get; init; }
+        public MetaObjectType RelationEndType { get; init; }
 
         /// <summary>
         /// The is many of a role type.
         /// </summary>
-        public EmbeddedUnitRoleType RelationEndTypeIsMany { get; }
+        public MetaUnitRoleType RelationEndTypeIsMany { get; }
 
         /// <summary>
         /// A role type.
         /// </summary>
-        public EmbeddedObjectType RoleType { get; init; }
+        public MetaObjectType RoleType { get; init; }
 
         /// <summary>
         /// The association type a role type.
         /// </summary>
-        public EmbeddedOneToOneRoleType RoleTypeAssociationType { get; init; }
+        public MetaOneToOneRoleType RoleTypeAssociationType { get; init; }
 
         /// <summary>
         /// The assigned plural name of a role type.
         /// </summary>
-        public EmbeddedUnitRoleType RoleTypeAssignedPluralName { get; init; }
+        public MetaUnitRoleType RoleTypeAssignedPluralName { get; init; }
 
         /// <summary>
         /// The derived plural name of a role type.
         /// </summary>
-        public EmbeddedUnitRoleType RoleTypeDerivedPluralName { get; init; }
+        public MetaUnitRoleType RoleTypeDerivedPluralName { get; init; }
 
         /// <summary>
         /// The role type of object type.
         /// </summary>
-        public EmbeddedManyToOneRoleType RoleTypeObjectType { get; init; }
+        public MetaManyToOneRoleType RoleTypeObjectType { get; init; }
 
         /// <summary>
         /// The singular name of object type.
         /// </summary>
-        public EmbeddedUnitRoleType RoleTypeSingularName { get; init; }
+        public MetaUnitRoleType RoleTypeSingularName { get; init; }
 
         /// <summary>
         /// A type.
         /// </summary>
-        public EmbeddedObjectType Type { get; init; }
+        public MetaObjectType Type { get; init; }
 
         /// <summary>
         /// A unit.
         /// </summary>
-        public EmbeddedObjectType Unit { get; init; }
+        public MetaObjectType Unit { get; init; }
 
         /// <summary>
         /// A workspace.
         /// </summary>
-        public EmbeddedObjectType Workspace { get; init; }
+        public MetaObjectType Workspace { get; init; }
 
         /// <summary>
         /// The types of a workspace.
         /// </summary>
-        public EmbeddedManyToManyRoleType WorkspaceTypes { get; init; }
+        public MetaManyToManyRoleType WorkspaceTypes { get; init; }
 
         /// <summary>
         /// Creates a new meta class.
         /// </summary>
-        public EmbeddedObjectType NewMetaClass(string name)
+        public MetaObjectType NewMetaClass(string name)
         {
-            return this.EmbeddedMeta.AddClass(name);
+            return this.MetaMeta.AddClass(name);
         }
 
         /// <summary>
         /// Creates a new meta interface.
         /// </summary>
-        public EmbeddedObjectType NewMetaInterface(string name)
+        public MetaObjectType NewMetaInterface(string name)
         {
-            return this.EmbeddedMeta.AddInterface(name);
+            return this.MetaMeta.AddInterface(name);
         }
     }
 }

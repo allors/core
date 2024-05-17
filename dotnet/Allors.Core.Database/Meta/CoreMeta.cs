@@ -4,18 +4,18 @@
     using System.Collections.Frozen;
     using System.Collections.Generic;
     using Allors.Core.Database.Meta.Handles;
-    using Allors.Embedded.Domain;
+    using Allors.Core.Meta.Domain;
 
     /// <summary>
     /// Core Meta.
     /// </summary>
     public sealed class CoreMeta
     {
-        private IDictionary<EmbeddedObject, MetaHandle> metaHandleByMetaObject;
+        private IDictionary<IMetaObject, MetaHandle> metaHandleByMetaObject;
 
-        private IDictionary<MetaHandle, EmbeddedObject> metaObjectByMetaHandle;
+        private IDictionary<MetaHandle, IMetaObject> metaObjectByMetaHandle;
 
-        private IDictionary<Guid, EmbeddedObject> metaObjectById;
+        private IDictionary<Guid, IMetaObject> metaObjectById;
 
         private MetaHandle[]? metaHandles;
 
@@ -28,12 +28,12 @@
 
             this.Meta = new CoreMetaMeta();
 
-            this.metaHandleByMetaObject = new Dictionary<EmbeddedObject, MetaHandle>();
-            this.metaObjectByMetaHandle = new Dictionary<MetaHandle, EmbeddedObject>();
-            this.metaObjectById = new Dictionary<Guid, EmbeddedObject>();
+            this.metaHandleByMetaObject = new Dictionary<IMetaObject, MetaHandle>();
+            this.metaObjectByMetaHandle = new Dictionary<MetaHandle, IMetaObject>();
+            this.metaObjectById = new Dictionary<Guid, IMetaObject>();
             this.metaHandles = null;
 
-            this.EmbeddedPopulation = new EmbeddedPopulation();
+            this.MetaPopulation = new MetaPopulation(this.Meta.MetaMeta);
 
             this.Object = this.NewInterface(new Guid("8904EE32-CF11-4019-9FD7-FB9631F9ACAC"), "Object");
             this.String = this.NewUnit(new Guid("58BB7632-4724-4F92-869B-B30D7A7BEE9E"), "String");
@@ -50,9 +50,9 @@
         public bool IsFrozen { get; private set; }
 
         /// <summary>
-        /// The embedded population.
+        /// The meta population.
         /// </summary>
-        public EmbeddedPopulation EmbeddedPopulation { get; init; }
+        public MetaPopulation MetaPopulation { get; init; }
 
         /// <summary>
         /// The Object interface.
@@ -72,26 +72,26 @@
         /// <summary>
         /// Gets meta handle by meta object.
         /// </summary>
-        public MetaHandle this[EmbeddedObject metaObject] => this.metaHandleByMetaObject[metaObject];
+        public MetaHandle this[IMetaObject metaObject] => this.metaHandleByMetaObject[metaObject];
 
         /// <summary>
         /// Gets meta object by meta handle.
         /// </summary>
-        public EmbeddedObject this[MetaHandle metaHandle] => this.metaObjectByMetaHandle[metaHandle];
+        public IMetaObject this[MetaHandle metaHandle] => this.metaObjectByMetaHandle[metaHandle];
 
         /// <summary>
         /// Gets meta object by meta handle.
         /// </summary>
-        public EmbeddedObject this[Guid id] => this.metaObjectById[id];
+        public IMetaObject this[Guid id] => this.metaObjectById[id];
 
         /// <summary>
         /// Add a new meta object.
         /// </summary>
-        public void Register(MetaHandle metaHandle, EmbeddedObject embeddedObject)
+        public void Register(MetaHandle metaHandle, IMetaObject metaObject)
         {
-            this.metaHandleByMetaObject.Add(embeddedObject, metaHandle);
-            this.metaObjectByMetaHandle.Add(metaHandle, embeddedObject);
-            this.metaObjectById.Add(metaHandle.Id, embeddedObject);
+            this.metaHandleByMetaObject.Add(metaObject, metaHandle);
+            this.metaObjectByMetaHandle.Add(metaHandle, metaObject);
+            this.metaObjectById.Add(metaHandle.Id, metaObject);
             this.metaHandles = null;
         }
 
@@ -104,9 +104,9 @@
             {
                 this.IsFrozen = true;
 
-                // TODO: Add freeze to Allors.Embedded
-                // this.EmbeddedMeta.Freeze();
-                // this.EmbeddedPopulation.Freeze();
+                // TODO: Add freeze to Allors.Meta
+                // this.MetaMeta.Freeze();
+                // this.MetaPopulation.Freeze();
                 this.metaHandleByMetaObject = this.metaHandleByMetaObject.ToFrozenDictionary();
                 this.metaObjectByMetaHandle = this.metaObjectByMetaHandle.ToFrozenDictionary();
                 this.metaObjectById = this.metaObjectById.ToFrozenDictionary();
@@ -120,7 +120,7 @@
         {
             var m = this.Meta;
 
-            var unit = this.EmbeddedPopulation.Create(m.Unit, v =>
+            var unit = this.MetaPopulation.Build(m.Unit, v =>
             {
                 v[m.MetaObjectId] = id;
                 v[m.ObjectTypeSingularName] = singularName;
@@ -141,7 +141,7 @@
         {
             var m = this.Meta;
 
-            var @interface = this.EmbeddedPopulation.Create(m.Interface, v =>
+            var @interface = this.MetaPopulation.Build(m.Interface, v =>
             {
                 v[m.MetaObjectId] = id;
                 v[m.ObjectTypeSingularName] = singularName;
@@ -162,7 +162,7 @@
         {
             var m = this.Meta;
 
-            var @class = this.EmbeddedPopulation.Create(m.Class, v =>
+            var @class = this.MetaPopulation.Build(m.Class, v =>
             {
                 v[m.MetaObjectId] = id;
                 v[m.ObjectTypeSingularName] = singularName;
@@ -183,7 +183,7 @@
         {
             var m = this.Meta;
 
-            var associationType = this.EmbeddedPopulation.Create(m.AssociationType, v =>
+            var associationType = this.MetaPopulation.Build(m.AssociationType, v =>
             {
                 v[m.MetaObjectId] = associationTypeId;
                 v[m.AssociationTypeComposite] = this[associationCompositeHandle];
@@ -192,7 +192,7 @@
             var unitAssociationTypeHandle = new UnitAssociationTypeHandle(associationTypeId);
             this.Register(unitAssociationTypeHandle, associationType);
 
-            var roleType = this.EmbeddedPopulation.Create(m.RoleType, v =>
+            var roleType = this.MetaPopulation.Build(m.RoleType, v =>
             {
                 v[m.MetaObjectId] = roleTypeId;
                 v[m.RoleTypeAssociationType] = associationType;
@@ -214,7 +214,7 @@
         {
             var m = this.Meta;
 
-            var associationType = this.EmbeddedPopulation.Create(m.AssociationType, v =>
+            var associationType = this.MetaPopulation.Build(m.AssociationType, v =>
             {
                 v[m.MetaObjectId] = associationTypeId;
                 v[m.AssociationTypeComposite] = this[associationCompositeHandle];
@@ -223,7 +223,7 @@
             var manyToOneAssociationTypeHandle = new OneToOneAssociationTypeHandle(associationTypeId);
             this.Register(manyToOneAssociationTypeHandle, associationType);
 
-            var roleType = this.EmbeddedPopulation.Create(m.RoleType, v =>
+            var roleType = this.MetaPopulation.Build(m.RoleType, v =>
             {
                 v[m.MetaObjectId] = roleTypeId;
                 v[m.RoleTypeAssociationType] = associationType;
@@ -245,7 +245,7 @@
         {
             var m = this.Meta;
 
-            var associationType = this.EmbeddedPopulation.Create(m.AssociationType, v =>
+            var associationType = this.MetaPopulation.Build(m.AssociationType, v =>
             {
                 v[m.MetaObjectId] = associationTypeId;
                 v[m.AssociationTypeComposite] = this[associationCompositeHandle];
@@ -254,7 +254,7 @@
             var manyToOneAssociationTypeHandle = new ManyToOneAssociationTypeHandle(associationTypeId);
             this.Register(manyToOneAssociationTypeHandle, associationType);
 
-            var roleType = this.EmbeddedPopulation.Create(m.RoleType, v =>
+            var roleType = this.MetaPopulation.Build(m.RoleType, v =>
             {
                 v[m.MetaObjectId] = roleTypeId;
                 v[m.RoleTypeAssociationType] = associationType;
@@ -276,7 +276,7 @@
         {
             var m = this.Meta;
 
-            var associationType = this.EmbeddedPopulation.Create(m.AssociationType, v =>
+            var associationType = this.MetaPopulation.Build(m.AssociationType, v =>
             {
                 v[m.MetaObjectId] = associationTypeId;
                 v[m.AssociationTypeComposite] = this[associationCompositeHandle];
@@ -285,7 +285,7 @@
             var oneToManyAssociationTypeHandle = new OneToManyAssociationTypeHandle(associationTypeId);
             this.Register(oneToManyAssociationTypeHandle, associationType);
 
-            var roleType = this.EmbeddedPopulation.Create(m.RoleType, v =>
+            var roleType = this.MetaPopulation.Build(m.RoleType, v =>
             {
                 v[m.MetaObjectId] = roleTypeId;
                 v[m.RoleTypeAssociationType] = associationType;
@@ -307,7 +307,7 @@
         {
             var m = this.Meta;
 
-            var associationType = this.EmbeddedPopulation.Create(m.AssociationType, v =>
+            var associationType = this.MetaPopulation.Build(m.AssociationType, v =>
             {
                 v[m.MetaObjectId] = associationTypeId;
                 v[m.AssociationTypeComposite] = this[associationCompositeHandle];
@@ -316,7 +316,7 @@
             var manyToManyAssociationTypeHandle = new ManyToManyAssociationTypeHandle(associationTypeId);
             this.Register(manyToManyAssociationTypeHandle, associationType);
 
-            var roleType = this.EmbeddedPopulation.Create(m.RoleType, v =>
+            var roleType = this.MetaPopulation.Build(m.RoleType, v =>
             {
                 v[m.MetaObjectId] = roleTypeId;
                 v[m.RoleTypeAssociationType] = associationType;

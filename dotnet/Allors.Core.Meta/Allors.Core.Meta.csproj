@@ -4,31 +4,33 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <Title>Allors Core Database</Title>
+    <Title>Allors Meta</Title>
     <Authors>allors</Authors>
     <Company>Allors bv</Company>
     <Copyright>(c) Allors bv</Copyright>
-    <Description>Database implementation for the Core domain.</Description>
-    <PackageProjectUrl>https://github.com/Allors/Core</PackageProjectUrl>
-    <PackageDescription>Database implementation for the Core domain.</PackageDescription>
+    <Description>Meta implementation of Allors.</Description>
+    <PackageProjectUrl>https://github.com/Allors/Meta</PackageProjectUrl>
+    <PackageDescription>Meta reactive domain implementation.</PackageDescription>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>icon.png</PackageIcon>
     <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
     <PackageTags>reactive;domain</PackageTags>
-    <RepositoryUrl>https://github.com/Allors/Core.git</RepositoryUrl>
+    <RepositoryUrl>https://github.com/Allors/Meta.git</RepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>CS1573;CS1591;</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TF_BUILD)' == 'true' Or '$(GITHUB_ACTIONS)' == 'true'">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
-
+    
   <ItemGroup>
     <None Include="icon.png" Pack="true" PackagePath="" />
     <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+    <None Include="..\..\CHANGELOG.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,15 +39,11 @@
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.CodeStyle" Version="4.9.2" PrivateAssets="all" />
     <PackageReference Include="DotNetAnalyzers.DocumentationAnalyzers.Unstable" Version="1.0.0.59" PrivateAssets="all" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556" PrivateAssets="all" />
-    <PackageReference Include="Roslynator.Analyzers" Version="4.12.3" PrivateAssets="all" />
+    <PackageReference Include="Roslynator.Analyzers" Version="4.12.0" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
     <AdditionalFiles Include="../stylecop.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Allors.Core.Meta\Allors.Core.Meta.csproj" />
   </ItemGroup>
 
 </Project>

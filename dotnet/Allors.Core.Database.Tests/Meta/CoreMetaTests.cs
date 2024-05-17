@@ -3,7 +3,7 @@
     using System.Linq;
     using Allors.Core.Database.Meta;
     using Allors.Core.Database.Meta.Handles;
-    using Allors.Embedded.Meta.Diagrams;
+    using Allors.Core.Meta.Meta.Diagrams;
     using Xunit;
 
     public class CoreMetaTests
@@ -12,7 +12,7 @@
         public void Diagram()
         {
             var coreMeta = new CoreMeta();
-            var diagram = new ClassDiagram(coreMeta.Meta.EmbeddedMeta).Render();
+            var diagram = new ClassDiagram(coreMeta.Meta.MetaMeta).Render();
 
             Assert.NotNull(diagram);
         }
