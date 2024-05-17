@@ -29,6 +29,11 @@ public interface IObject
     public long Version { get; }
 
     /// <summary>
+    /// Is new.
+    /// </summary>
+    public bool IsNew { get; }
+
+    /// <summary>
     /// Gets or sets the unit role.
     /// </summary>
     object? this[UnitRoleTypeHandle roleTypeHandle] { get; set; }

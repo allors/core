@@ -1,7 +1,9 @@
 ﻿namespace Allors.Core.Database.Adapters.Memory;
 
 using System;
+using System.Collections.Frozen;
 using System.Collections.Generic;
+using System.Linq;
 using Allors.Core.Database.Meta.Handles;
 
 /// <inheritdoc />
@@ -13,7 +15,36 @@ public class Transaction : ITransaction
     public Transaction(Database database)
     {
         this.Database = database;
-        this.Store = database.Store;
+        this.Store = this.Database.Store;
+
+        this.InstantiatedObjectByObjectId = new Dictionary<long, Object>();
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Transaction"/> class.
+    /// </summary>
+    public Transaction(Transaction transaction)
+    {
+        this.Database = transaction.Database;
+
+        var newObjects = transaction.InstantiatedObjectByObjectId
+            .Select(kvp => kvp.Value)
+            .Where(v => v.IsNew);
+
+        var newRecords = newObjects
+            .Select(v => new KeyValuePair<long, Record>(
+                v.Id,
+                new Record(
+                    v.Class,
+                    v.Id,
+                    0,
+                    FrozenDictionary<RoleTypeHandle, object>.Empty,
+                    FrozenDictionary<AssociationTypeHandle, object>.Empty)));
+
+        this.Store = this.Database.Store with
+        {
+            RecordById = this.Database.Store.RecordById.AddRange(newRecords),
+        };
 
         this.InstantiatedObjectByObjectId = new Dictionary<long, Object>();
     }

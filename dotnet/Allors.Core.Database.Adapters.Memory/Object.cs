@@ -49,57 +49,48 @@ public class Object : IObject
     /// <inheritdoc/>
     public long Version => this.record?.Version ?? 0;
 
+    /// <inheritdoc />
+    public bool IsNew => this.Version == 0;
+
     ITransaction IObject.Transaction => this.Transaction;
 
     internal Record? Record => this.record;
 
-    internal bool HasChangedRoles
+    internal bool ShouldCommit
     {
         get
         {
-            if (this.record == null)
+            if (this.IsNew)
             {
                 return true;
             }
 
-            if (this.changedRoleByRoleType == null)
+            if (this.changedRoleByRoleType == null && this.changedAssociationByAssociationType == null)
             {
                 return false;
             }
 
-            foreach (var (roleType, changedRole) in this.changedRoleByRoleType)
+            if (this.record != null && this.changedRoleByRoleType != null)
             {
-                this.record.RoleByRoleTypeId.TryGetValue(roleType, out var recordRole);
-                if (!Equals(changedRole, recordRole))
+                foreach (var (roleType, changedRole) in this.changedRoleByRoleType)
                 {
-                    return true;
+                    this.record.RoleByRoleTypeId.TryGetValue(roleType, out var recordRole);
+                    if (!Equals(changedRole, recordRole))
+                    {
+                        return true;
+                    }
                 }
             }
 
-            return false;
-        }
-    }
-
-    internal bool HasChangedAssociation
-    {
-        get
-        {
-            if (this.record == null)
+            if (this.record != null && this.changedAssociationByAssociationType != null)
             {
-                return true;
-            }
-
-            if (this.changedAssociationByAssociationType == null)
-            {
-                return false;
-            }
-
-            foreach (var (associationType, changedAssociation) in this.changedAssociationByAssociationType)
-            {
-                this.record.AssociationByAssociationTypeId.TryGetValue(associationType, out var recordAssociation);
-                if (!Equals(changedAssociation, recordAssociation))
+                foreach (var (associationType, changedAssociation) in this.changedAssociationByAssociationType)
                 {
-                    return true;
+                    this.record.AssociationByAssociationTypeId.TryGetValue(associationType, out var recordAssociation);
+                    if (!Equals(changedAssociation, recordAssociation))
+                    {
+                        return true;
+                    }
                 }
             }
 
@@ -320,7 +311,7 @@ public class Object : IObject
 
     internal Record ToRecord()
     {
-        if (this.Record == null)
+        if (this.IsNew)
         {
             var roleByRoleTypeId = this.changedRoleByRoleType?
                 .Where(kvp => kvp.Value != null)
@@ -336,14 +327,14 @@ public class Object : IObject
         }
         else
         {
-            var roleByRoleTypeId = this.changedRoleByRoleType != null ? this.Record.RoleByRoleTypeId
+            var roleByRoleTypeId = this.changedRoleByRoleType != null ? this.Record!.RoleByRoleTypeId
                 .Where(kvp => this.changedRoleByRoleType.ContainsKey(kvp.Key))
                 .Union(this.changedRoleByRoleType!
                     .Where(kvp => kvp.Value != null)
                     .Select(RoleNotNull))
                 .ToFrozenDictionary() : FrozenDictionary<RoleTypeHandle, object>.Empty;
 
-            var associationByAssociationTypeId = this.changedAssociationByAssociationType != null ? this.Record.AssociationByAssociationTypeId
+            var associationByAssociationTypeId = this.changedAssociationByAssociationType != null ? this.Record!.AssociationByAssociationTypeId
                 .Where(kvp => this.changedAssociationByAssociationType.ContainsKey(kvp.Key))
                 .Union(this.changedAssociationByAssociationType!
                     .Where(kvp => kvp.Value != null)
@@ -358,6 +349,23 @@ public class Object : IObject
 
         KeyValuePair<AssociationTypeHandle, object> AssociationNotNull(KeyValuePair<AssociationTypeHandle, object?> kvp) =>
             new(kvp.Key, kvp.Value!);
+    }
+
+    internal void Commit(Transaction commitTransaction)
+    {
+        var commitObject = this.IsNew ? commitTransaction.Instantiate(this.Id) : null;
+
+        if (this.changedRoleByRoleType != null)
+        {
+            foreach (var (roleType, changedRole) in this.changedRoleByRoleType)
+            {
+                if (this.record == null ||
+                    (this.record.RoleByRoleTypeId.TryGetValue(roleType, out var recordRole) && !Equals(changedRole, recordRole)))
+                {
+                    // commitObject[roleType] = changedRole;
+                }
+            }
+        }
     }
 
     internal void Rollback()

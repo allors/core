@@ -1,6 +1,5 @@
 ﻿namespace Allors.Core.Database.Adapters.Memory;
 
-using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -43,44 +42,21 @@ public class Database : IDatabase
     {
         lock (this.commitLock)
         {
-            var recordById = this.Store.RecordById;
+            var commitTransaction = new Transaction(transaction);
 
-            var objectsWithChangedRoles = transaction.InstantiatedObjectByObjectId
-                .Where(kvp => kvp.Value is { HasChangedRoles: true })
+            foreach (var kvp in transaction.InstantiatedObjectByObjectId)
+            {
+                var @object = kvp.Value;
+                @object.Commit(commitTransaction);
+            }
+
+            var objects = commitTransaction.InstantiatedObjectByObjectId
+                .Where(kvp => kvp.Value is { ShouldCommit: true })
                 .Select(kvp => kvp.Value)
                 .ToArray();
 
-            var existingObjectsWithChangedRoles = objectsWithChangedRoles
-                .Where(v => v.Record != null);
-
-            // Assert concurrency with object versions
-            foreach (var existingObject in existingObjectsWithChangedRoles)
-            {
-                if (!recordById.TryGetValue(existingObject.Id, out var record))
-                {
-                    throw new Exception("Concurrency error");
-                }
-
-                if (record.Version != existingObject.Record!.Version)
-                {
-                    throw new Exception("Concurrency error");
-                }
-            }
-
-            var objectWithChangedAssociations = transaction.InstantiatedObjectByObjectId
-                .Where(kvp => kvp.Value is { HasChangedAssociation: true })
-                .Select(kvp => kvp.Value);
-
-            var objects = new HashSet<Object>(objectWithChangedAssociations.Concat(objectsWithChangedRoles));
-
-            var addedObjects = objects
-                .Where(v => v.Record == null);
-
-            var existingObjects = objects
-                .Where(v => v.Record != null);
-
-            recordById = recordById.AddRange(addedObjects.Select(v => new KeyValuePair<long, Record>(v.Id, v.ToRecord())));
-            recordById = recordById.SetItems(existingObjects.Select(v => new KeyValuePair<long, Record>(v.Id, v.ToRecord())));
+            var recordById = commitTransaction.Store.RecordById;
+            recordById = recordById.SetItems(objects.Select(v => new KeyValuePair<long, Record>(v.Id, v.ToRecord())));
 
             this.Store = this.Store with
             {
