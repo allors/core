@@ -1,6 +1,7 @@
 ﻿namespace Allors.Core.Database.Meta
 {
     using System;
+    using Allors.Core.Meta.Domain;
     using Allors.Core.Meta.Meta;
 
     /// <summary>
@@ -217,17 +218,16 @@
         /// <summary>
         /// Creates a new meta class.
         /// </summary>
-        public MetaObjectType NewMetaClass(string name)
-        {
-            return this.MetaMeta.AddClass(name);
-        }
+        public MetaObjectType NewMetaClass(string name) => this.MetaMeta.AddClass(name);
 
         /// <summary>
         /// Creates a new meta interface.
         /// </summary>
-        public MetaObjectType NewMetaInterface(string name)
-        {
-            return this.MetaMeta.AddInterface(name);
-        }
+        public MetaObjectType NewMetaInterface(string name) => this.MetaMeta.AddInterface(name);
+
+        /// <summary>
+        /// Creates a new MetaPopulation
+        /// </summary>
+        public MetaPopulation CreateMetaPopulation() => new(this.MetaMeta);
     }
 }

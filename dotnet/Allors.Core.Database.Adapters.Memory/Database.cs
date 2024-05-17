@@ -45,21 +45,16 @@ public class Database : IDatabase
         {
             var recordById = this.Store.RecordById;
 
-            var objects = transaction.InstantiatedObjectByObjectId
-                .Where(kvp => kvp.Value is { IsChanged: true })
+            var objectsWithChangedRoles = transaction.InstantiatedObjectByObjectId
+                .Where(kvp => kvp.Value is { HasChangedRoles: true })
                 .Select(kvp => kvp.Value)
                 .ToArray();
 
-            var addedObjects = objects
-                .Where(v => v.Record == null)
-                .ToArray();
-
-            var existingObjects = objects
-                .Where(v => v.Record != null)
-                .ToArray();
+            var existingObjectsWithChangedRoles = objectsWithChangedRoles
+                .Where(v => v.Record != null);
 
             // Assert concurrency with object versions
-            foreach (var existingObject in existingObjects)
+            foreach (var existingObject in existingObjectsWithChangedRoles)
             {
                 if (!recordById.TryGetValue(existingObject.Id, out var record))
                 {
@@ -71,6 +66,18 @@ public class Database : IDatabase
                     throw new Exception("Concurrency error");
                 }
             }
+
+            var objectWithChangedAssociations = transaction.InstantiatedObjectByObjectId
+                .Where(kvp => kvp.Value is { HasChangedAssociation: true })
+                .Select(kvp => kvp.Value);
+
+            var objects = new HashSet<Object>(objectWithChangedAssociations.Concat(objectsWithChangedRoles));
+
+            var addedObjects = objects
+                .Where(v => v.Record == null);
+
+            var existingObjects = objects
+                .Where(v => v.Record != null);
 
             recordById = recordById.AddRange(addedObjects.Select(v => new KeyValuePair<long, Record>(v.Id, v.ToRecord())));
             recordById = recordById.SetItems(existingObjects.Select(v => new KeyValuePair<long, Record>(v.Id, v.ToRecord())));

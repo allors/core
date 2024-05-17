@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using Allors.Core.Database.Meta.Handles;
     using MoreLinq;
@@ -27,6 +28,7 @@
                 () =>
                 {
                     // C1 <-> C1
+                    Debugger.Log(0, null, $"C1 <-> C1\n");
                     var association = this.Meta.C1WhereC1OneToOne;
                     var role = this.Meta.C1C1OneToOne;
 
@@ -37,6 +39,7 @@
                 () =>
                 {
                     // C1 <-> I1
+                    Debugger.Log(0, null, $"C1 <-> I1\n");
                     var association = this.Meta.C1WhereI1OneToOne;
                     var role = this.Meta.C1I1OneToOne;
 
@@ -47,6 +50,7 @@
                 () =>
                 {
                     // C1 <-> C2
+                    Debugger.Log(0, null, $"C1 <-> C2\n");
                     var association = this.Meta.C1WhereC2OneToOne;
                     var role = this.Meta.C1C2OneToOne;
 
@@ -58,6 +62,7 @@
                 () =>
                 {
                     // C1 <-> I2
+                    Debugger.Log(0, null, $"C1 <-> I2\n");
                     var association = this.Meta.C1WhereI2OneToOne;
                     var role = this.Meta.C1I2OneToOne;
 
@@ -70,26 +75,41 @@
 
             this.preActs =
             [
-                _ => { },
-                v => v.Checkpoint(),
+                _ =>
+                {
+                    Debugger.Log(0, null, "Nothing\n");
+                },
                 v =>
                 {
+                    Debugger.Log(0, null, "Checkpoint\n");
+                    v.Checkpoint();
+                },
+                v =>
+                {
+                    Debugger.Log(0, null, "Checkpoint Checkpoint\n");
                     v.Checkpoint();
                     v.Checkpoint();
                 },
-                v => v.Commit(),
                 v =>
                 {
+                    Debugger.Log(0, null, "Commit\n");
+                    v.Commit();
+                },
+                v =>
+                {
+                    Debugger.Log(0, null, "Commit Commit\n");
                     v.Commit();
                     v.Commit();
                 },
                 v =>
                 {
+                    Debugger.Log(0, null, "Checkpoint Commit\n");
                     v.Checkpoint();
                     v.Commit();
                 },
                 v =>
                 {
+                    Debugger.Log(0, null, "Commit Checkpoint\n");
                     v.Commit();
                     v.Checkpoint();
                 }
@@ -831,8 +851,7 @@
                 var database = this.CreateDatabase();
                 var transaction = database.CreateTransaction();
 
-                var (association, role, builders, fromBuilder, fromAnotherBuilder, toBuilder, toAnotherBuilder) =
-                    fixture();
+                var (association, role, builders, fromBuilder, fromAnotherBuilder, toBuilder, toAnotherBuilder) = fixture();
 
                 if (builders.Length == 1)
                 {
@@ -870,10 +889,12 @@
             {
                 foreach (var actRepeats in new[] { 1, 2 })
                 {
+                    Debugger.Log(0, null, $"Act Repeats {actRepeats}\n");
                     foreach (var assertPermutation in assertPermutations)
                     {
                         foreach (var assertRepeats in new[] { 1, 2 })
                         {
+                            Debugger.Log(0, null, $"Assert Repeats {assertRepeats}\n");
                             foreach (var fixture in this.fixtures)
                             {
                                 var (association, role, _, fromBuilder, _, toBuilder, _) = fixture();
@@ -917,10 +938,18 @@
             {
                 foreach (var actRepeats in new[] { 1, 2 })
                 {
+                    Debugger.Log(0, null, $"Act Repeats {actRepeats}\n");
+
+                    if (actRepeats == 2)
+                    {
+                        Debugger.Break();
+                    }
+
                     foreach (var assertPermutation in assertPermutations)
                     {
                         foreach (var assertRepeats in new[] { 1, 2 })
                         {
+                            Debugger.Log(0, null, $"Assert Repeats {assertRepeats}\n");
                             foreach (var fixture in this.fixtures)
                             {
                                 var (association, role, _, fromBuilder, fromAnotherBuilder, toBuilder, _) = fixture();
@@ -965,10 +994,12 @@
             {
                 foreach (var actRepeats in new[] { 1, 2 })
                 {
+                    Debugger.Log(0, null, $"Act Repeats {actRepeats}\n");
                     foreach (var assertPermutation in assertPermutations)
                     {
                         foreach (var assertRepeats in new[] { 1, 2 })
                         {
+                            Debugger.Log(0, null, $"Assert Repeats {assertRepeats}\n");
                             foreach (var fixture in this.fixtures)
                             {
                                 var (association, role, _, fromBuilder, _, toBuilder, toAnotherBuilder) = fixture();
@@ -1013,10 +1044,12 @@
             {
                 foreach (var actRepeats in new[] { 1, 2 })
                 {
+                    Debugger.Log(0, null, $"Act Repeats {actRepeats}\n");
                     foreach (var assertPermutation in assertPermutations)
                     {
                         foreach (var assertRepeats in new[] { 1, 2 })
                         {
+                            Debugger.Log(0, null, $"Assert Repeats {assertRepeats}\n");
                             foreach (var fixture in this.fixtures)
                             {
                                 var (association, role, _, fromBuilder, fromAnotherBuilder, toBuilder, toAnotherBuilder) = fixture();

@@ -33,7 +33,7 @@
             this.metaObjectById = new Dictionary<Guid, IMetaObject>();
             this.metaHandles = null;
 
-            this.MetaPopulation = new MetaPopulation(this.Meta.MetaMeta);
+            this.MetaPopulation = this.Meta.CreateMetaPopulation();
 
             this.Object = this.NewInterface(new Guid("8904EE32-CF11-4019-9FD7-FB9631F9ACAC"), "Object");
             this.String = this.NewUnit(new Guid("58BB7632-4724-4F92-869B-B30D7A7BEE9E"), "String");

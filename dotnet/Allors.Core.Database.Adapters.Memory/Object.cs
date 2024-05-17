@@ -53,10 +53,15 @@ public class Object : IObject
 
     internal Record? Record => this.record;
 
-    internal bool IsChanged
+    internal bool HasChangedRoles
     {
         get
         {
+            if (this.record == null)
+            {
+                return true;
+            }
+
             if (this.changedRoleByRoleType == null)
             {
                 return false;
@@ -64,15 +69,35 @@ public class Object : IObject
 
             foreach (var (roleType, changedRole) in this.changedRoleByRoleType)
             {
-                if (this.record != null)
+                this.record.RoleByRoleTypeId.TryGetValue(roleType, out var recordRole);
+                if (!Equals(changedRole, recordRole))
                 {
-                    this.record.RoleByRoleTypeId.TryGetValue(roleType, out var recordRole);
-                    if (!Equals(changedRole, recordRole))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
-                else
+            }
+
+            return false;
+        }
+    }
+
+    internal bool HasChangedAssociation
+    {
+        get
+        {
+            if (this.record == null)
+            {
+                return true;
+            }
+
+            if (this.changedAssociationByAssociationType == null)
+            {
+                return false;
+            }
+
+            foreach (var (associationType, changedAssociation) in this.changedAssociationByAssociationType)
+            {
+                this.record.AssociationByAssociationTypeId.TryGetValue(associationType, out var recordAssociation);
+                if (!Equals(changedAssociation, recordAssociation))
                 {
                     return true;
                 }
@@ -147,7 +172,7 @@ public class Object : IObject
     {
         get
         {
-            var association = this.OneToAssociation(associationTypeHandle);
+            var association = this.GetOneToAssociation(associationTypeHandle);
             return association != null ? this.Transaction.Instantiate(association.Value) : null;
         }
     }
@@ -203,6 +228,15 @@ public class Object : IObject
         }
 
         return this.Record?.AssociationByAssociationTypeId.ContainsKey(associationTypeHandle) == true;
+    }
+
+    /// <inheritdoc/>
+    public override string ToString()
+    {
+        var meta = this.Transaction.Database.Meta;
+        var @class = meta[this.Class];
+        var className = @class[meta.Meta.ObjectTypeSingularName];
+        return $"{className}:{this.Id}";
     }
 
     internal void Checkpoint(ChangeSet changeSet)
@@ -381,7 +415,7 @@ public class Object : IObject
     {
         if (this.changedRoleByRoleType != null && this.changedRoleByRoleType.TryGetValue(roleTypeHandle, out var changedRole))
         {
-            return (IObject?)changedRole;
+            return changedRole != null ? this.Transaction.Instantiate((long)changedRole) : null;
         }
 
         if (this.record != null && this.record.RoleByRoleTypeId.TryGetValue(roleTypeHandle, out var role))
@@ -426,7 +460,7 @@ public class Object : IObject
 
         // A ----> R
         this.changedRoleByRoleType ??= [];
-        this.changedRoleByRoleType[roleTypeHandle] = role;
+        this.changedRoleByRoleType[roleTypeHandle] = role.Id;
     }
 
     private void RemoveOneToOneRole(OneToOneRoleTypeHandle roleTypeHandle)
@@ -479,7 +513,7 @@ public class Object : IObject
 
         // A ----> R
         this.changedRoleByRoleType ??= [];
-        this.changedRoleByRoleType[roleTypeHandle] = role;
+        this.changedRoleByRoleType[roleTypeHandle] = role.Id;
     }
 
     private void RemoveManyToOneRole(ManyToOneRoleTypeHandle roleTypeHandle)
@@ -716,20 +750,19 @@ public class Object : IObject
         }
     }
 
-    private long? OneToAssociation(OneToAssociationTypeHandle associationTypeHandle)
+    private long? GetOneToAssociation(OneToAssociationTypeHandle associationTypeHandle)
     {
-        long? association = null;
-
         if (this.changedAssociationByAssociationType != null && this.changedAssociationByAssociationType.TryGetValue(associationTypeHandle, out var changedAssociation))
         {
-            association = (long?)changedAssociation;
-        }
-        else if (this.record != null && this.record.AssociationByAssociationTypeId.TryGetValue(associationTypeHandle, out var recordAssociation))
-        {
-            association = (long?)recordAssociation;
+            return (long?)changedAssociation;
         }
 
-        return association;
+        if (this.record != null && this.record.AssociationByAssociationTypeId.TryGetValue(associationTypeHandle, out var recordAssociation))
+        {
+            return (long)recordAssociation;
+        }
+
+        return null;
     }
 
     private void SetOneToAssociation(OneToAssociationTypeHandle associationTypeHandle, Object value)
