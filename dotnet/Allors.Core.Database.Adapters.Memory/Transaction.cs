@@ -127,7 +127,7 @@ public class Transaction : ITransaction
 
         foreach (var (_, @object) in this.InstantiatedObjectByObjectId)
         {
-            @object.Rollback();
+            @object.Reset();
         }
     }
 }

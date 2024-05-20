@@ -1,10 +1,12 @@
 ﻿namespace Allors.Core.Database.Adapters.Memory;
 
+using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using Allors.Core.Database.Meta.Handles;
+using Allors.Core.Meta.Meta;
 
 /// <inheritdoc />
 public class Object : IObject
@@ -328,14 +330,14 @@ public class Object : IObject
         else
         {
             var roleByRoleTypeId = this.changedRoleByRoleType != null ? this.Record!.RoleByRoleTypeId
-                .Where(kvp => this.changedRoleByRoleType.ContainsKey(kvp.Key))
+                .Where(kvp => !this.changedRoleByRoleType.ContainsKey(kvp.Key))
                 .Union(this.changedRoleByRoleType!
                     .Where(kvp => kvp.Value != null)
                     .Select(RoleNotNull))
                 .ToFrozenDictionary() : FrozenDictionary<RoleTypeHandle, object>.Empty;
 
             var associationByAssociationTypeId = this.changedAssociationByAssociationType != null ? this.Record!.AssociationByAssociationTypeId
-                .Where(kvp => this.changedAssociationByAssociationType.ContainsKey(kvp.Key))
+                .Where(kvp => !this.changedAssociationByAssociationType.ContainsKey(kvp.Key))
                 .Union(this.changedAssociationByAssociationType!
                     .Where(kvp => kvp.Value != null)
                     .Select(AssociationNotNull))
@@ -353,22 +355,40 @@ public class Object : IObject
 
     internal void Commit(Transaction commitTransaction)
     {
-        var commitObject = this.IsNew ? commitTransaction.Instantiate(this.Id) : null;
+        var commitObject = commitTransaction.Instantiate(this.Id);
 
-        if (this.changedRoleByRoleType != null)
+        if (this.changedRoleByRoleType == null)
         {
-            foreach (var (roleType, changedRole) in this.changedRoleByRoleType)
+            return;
+        }
+
+        foreach (var (roleType, changedRole) in this.changedRoleByRoleType)
+        {
+            switch (roleType)
             {
-                if (this.record == null ||
-                    (this.record.RoleByRoleTypeId.TryGetValue(roleType, out var recordRole) && !Equals(changedRole, recordRole)))
-                {
-                    // commitObject[roleType] = changedRole;
-                }
+                case UnitRoleTypeHandle unitRoleType:
+                    commitObject[unitRoleType] = changedRole;
+                    return;
+
+                case ToOneRoleTypeHandle toOneRoleType:
+                    commitObject[toOneRoleType] = changedRole != null
+                        ? commitTransaction.Instantiate((long)changedRole)
+                        : null;
+                    return;
+
+                case ToManyRoleTypeHandle toManyRoleType:
+                    commitObject[toManyRoleType] = changedRole != null
+                        ? ((IEnumerable<long>)changedRole).Select(commitTransaction.Instantiate)
+                        : [];
+                    return;
+
+                default:
+                    throw new InvalidOperationException();
             }
         }
     }
 
-    internal void Rollback()
+    internal void Reset()
     {
         this.Transaction.Store.RecordById.TryGetValue(this.Id, out this.record);
         this.changedRoleByRoleType = null;

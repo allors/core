@@ -19,7 +19,7 @@
             Func<ITransaction, IObject> ToBuilder,
             Func<ITransaction, IObject> ToAnotherBuilder)>[] fixtures;
 
-        private readonly Action<ITransaction>[] preActs;
+        private readonly (string, Action<ITransaction>)[] preActs;
 
         protected OneToOneTests()
         {
@@ -75,44 +75,29 @@
 
             this.preActs =
             [
-                _ =>
+                ("Nothing", _ => { }),
+                ("Checkpoint", v => v.Checkpoint()),
+                ("Checkpoint Checkpoint", v =>
                 {
-                    Debugger.Log(0, null, "Nothing\n");
-                },
-                v =>
-                {
-                    Debugger.Log(0, null, "Checkpoint\n");
-                    v.Checkpoint();
-                },
-                v =>
-                {
-                    Debugger.Log(0, null, "Checkpoint Checkpoint\n");
                     v.Checkpoint();
                     v.Checkpoint();
-                },
-                v =>
+                }),
+                ("Commit", v => v.Commit()),
+                ("Commit Commit", v =>
                 {
-                    Debugger.Log(0, null, "Commit\n");
-                    v.Commit();
-                },
-                v =>
-                {
-                    Debugger.Log(0, null, "Commit Commit\n");
                     v.Commit();
                     v.Commit();
-                },
-                v =>
+                }),
+                ("Checkpoint Commit", v =>
                 {
-                    Debugger.Log(0, null, "Checkpoint Commit\n");
                     v.Checkpoint();
                     v.Commit();
-                },
-                v =>
+                }),
+                ("Commit Checkpoint", v =>
                 {
-                    Debugger.Log(0, null, "Commit Checkpoint\n");
                     v.Commit();
                     v.Checkpoint();
-                }
+                }),
             ];
         }
 
@@ -885,8 +870,9 @@
         {
             var assertPermutations = asserts().Permutations().ToArray();
 
-            foreach (var preact in this.preActs)
+            foreach (var (preactName, preact) in this.preActs)
             {
+                Debugger.Log(0, null, $"Preact {preactName}\n");
                 foreach (var actRepeats in new[] { 1, 2 })
                 {
                     Debugger.Log(0, null, $"Act Repeats {actRepeats}\n");
@@ -934,13 +920,14 @@
         {
             var assertPermutations = asserts().Permutations().ToArray();
 
-            foreach (var preact in this.preActs)
+            foreach (var (preactName, preact) in this.preActs)
             {
+                Debugger.Log(0, null, $"Preact {preactName}\n");
                 foreach (var actRepeats in new[] { 1, 2 })
                 {
                     Debugger.Log(0, null, $"Act Repeats {actRepeats}\n");
 
-                    if (actRepeats == 2)
+                    if (preactName == "Commit" && actRepeats == 2)
                     {
                         Debugger.Break();
                     }
@@ -990,8 +977,9 @@
         {
             var assertPermutations = asserts().Permutations().ToArray();
 
-            foreach (var preact in this.preActs)
+            foreach (var (preactName, preact) in this.preActs)
             {
+                Debugger.Log(0, null, $"Preact {preactName}\n");
                 foreach (var actRepeats in new[] { 1, 2 })
                 {
                     Debugger.Log(0, null, $"Act Repeats {actRepeats}\n");
@@ -1040,8 +1028,9 @@
         {
             var assertPermutations = asserts().Permutations().ToArray();
 
-            foreach (var preact in this.preActs)
+            foreach (var (preactName, preact) in this.preActs)
             {
+                Debugger.Log(0, null, $"Preact {preactName}\n");
                 foreach (var actRepeats in new[] { 1, 2 })
                 {
                     Debugger.Log(0, null, $"Act Repeats {actRepeats}\n");

@@ -50,9 +50,15 @@ public class Database : IDatabase
                 @object.Commit(commitTransaction);
             }
 
-            var objects = commitTransaction.InstantiatedObjectByObjectId
+            var newObjects = transaction.InstantiatedObjectByObjectId
+                .Where(kvp => kvp.Value.IsNew)
+                .Select(kvp => (Object)commitTransaction.Instantiate(kvp.Value.Id));
+
+            var changedObjects = commitTransaction.InstantiatedObjectByObjectId
                 .Where(kvp => kvp.Value is { ShouldCommit: true })
-                .Select(kvp => kvp.Value)
+                .Select(kvp => kvp.Value);
+
+            var objects = newObjects.Union(changedObjects).Distinct()
                 .ToArray();
 
             var recordById = commitTransaction.Store.RecordById;
