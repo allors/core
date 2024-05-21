@@ -5,6 +5,6 @@
 
     public class ManyToOneTests : Adapters.Tests.ManyToOneTests
     {
-        protected override IDatabase CreateDatabase() => new Database(new AdaptersMeta(new CoreMeta()).CoreMeta);
+        protected override IDatabase CreateDatabase() => new Database(this.Meta.CoreMeta);
     }
 }

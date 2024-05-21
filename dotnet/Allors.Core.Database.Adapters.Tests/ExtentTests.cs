@@ -2,7 +2,7 @@
 {
     using Xunit;
 
-    public abstract class ExtentTests
+    public abstract class ExtentTests : Tests
     {
         [Fact]
         public void ToDo()

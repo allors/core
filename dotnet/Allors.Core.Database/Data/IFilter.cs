@@ -15,7 +15,7 @@ public interface IFilter : IVisitable
     /// <summary>
     /// Of type.
     /// </summary>
-    public CompositeHandle? OfType { get; init; }
+    public IComposite? OfType { get; init; }
 
     /// <summary>
     /// The sorting.

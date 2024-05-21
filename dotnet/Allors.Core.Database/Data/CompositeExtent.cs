@@ -15,7 +15,7 @@ public record CompositeExtent : IPredicateExtent
     /// <summary>
     /// The composite.
     /// </summary>
-    public required CompositeHandle Composite { get; init; }
+    public required IComposite Composite { get; init; }
 
     /// <summary>
     /// The predicate.

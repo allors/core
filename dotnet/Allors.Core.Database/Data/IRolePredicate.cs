@@ -15,5 +15,5 @@ public interface IRolePredicate : IOperandPredicate
     /// <summary>
     /// The role type.
     /// </summary>
-    RoleTypeHandle RoleType { get; }
+    IRoleType RoleType { get; }
 }

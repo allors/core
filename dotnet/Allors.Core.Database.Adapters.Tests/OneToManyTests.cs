@@ -6,30 +6,27 @@
     using Allors.Core.Database.Meta;
     using Xunit;
 
-    public abstract class OneToManyTests
+    public abstract class OneToManyTests : Tests
     {
         [Fact]
         public void C1_C1OneToManies()
         {
-            var coreMeta = new CoreMeta();
-            var adaptersMeta = new AdaptersMeta(coreMeta);
-
             var database = this.CreateDatabase();
             var transaction = database.CreateTransaction();
 
-            var from = transaction.Build(adaptersMeta.C1);
-            var fromAnother = transaction.Build(adaptersMeta.C1);
+            var m = this.Meta;
 
-            var to1 = transaction.Build(adaptersMeta.C1);
-            var to2 = transaction.Build(adaptersMeta.C1);
-            var to3 = transaction.Build(adaptersMeta.C1);
-            var to4 = transaction.Build(adaptersMeta.C1);
+            var from = transaction.Build(m.C1);
+            var fromAnother = transaction.Build(m.C1);
+
+            var to1 = transaction.Build(m.C1);
+            var to2 = transaction.Build(m.C1);
+            var to3 = transaction.Build(m.C1);
+            var to4 = transaction.Build(m.C1);
 
             IObject[] to1Array = [to1];
             IObject[] to2Array = [to2];
             IObject[] to12Array = [to1, to2];
-
-            var m = adaptersMeta;
 
             // To 0-4-0
             // Get
@@ -514,8 +511,8 @@
             Assert.Contains(to2, from[m.C1C1OneToManies]);
 
             // Remove and Add
-            from = transaction.Build(adaptersMeta.C1);
-            var to = transaction.Build(adaptersMeta.C1);
+            from = transaction.Build(m.C1);
+            var to = transaction.Build(m.C1);
 
             from.Add(m.C1C1OneToManies, to);
 
@@ -527,9 +524,9 @@
             transaction.Commit();
 
             // Add and Remove
-            from = transaction.Build(adaptersMeta.C1);
-            to1 = transaction.Build(adaptersMeta.C1);
-            to2 = transaction.Build(adaptersMeta.C1);
+            from = transaction.Build(m.C1);
+            to1 = transaction.Build(m.C1);
+            to2 = transaction.Build(m.C1);
 
             from.Add(m.C1C1OneToManies, to1);
 
@@ -541,9 +538,9 @@
             transaction.Commit();
 
             // New - Middle - To
-            from = transaction.Build(adaptersMeta.C1);
-            var middle = transaction.Build(adaptersMeta.C1);
-            to = transaction.Build(adaptersMeta.C1);
+            from = transaction.Build(m.C1);
+            var middle = transaction.Build(m.C1);
+            to = transaction.Build(m.C1);
 
             from.Add(m.C1C1OneToManies, middle);
             middle.Add(m.C1C1OneToManies, to);
@@ -575,8 +572,8 @@
             Assert.Equal(from, to1Array[0][m.C1WhereC1C1one2many]);
 
             // Extent.ToArray()
-            from = transaction.Build(adaptersMeta.C1);
-            to1 = transaction.Build(adaptersMeta.C1);
+            from = transaction.Build(m.C1);
+            to1 = transaction.Build(m.C1);
 
             from.Add(m.C1C1OneToManies, to1);
 
@@ -584,8 +581,8 @@
             Assert.Equal(to1, from[m.C1C1OneToManies].First());
 
             // Extent<T>.ToArray()
-            from = transaction.Build(adaptersMeta.C1);
-            to1 = transaction.Build(adaptersMeta.C1);
+            from = transaction.Build(m.C1);
+            to1 = transaction.Build(m.C1);
 
             from.Add(m.C1C1OneToManies, to1);
 

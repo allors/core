@@ -5,16 +5,15 @@
 
     public abstract class SandboxTests
     {
+        protected abstract AdaptersMeta Meta { get; }
+
         [Fact]
         public void OneToOne()
         {
-            var coreMeta = new CoreMeta();
-            var adaptersMeta = new AdaptersMeta(coreMeta);
-
             var database = this.CreateDatabase();
             var transaction = database.CreateTransaction();
 
-            var m = adaptersMeta;
+            var m = this.Meta;
 
             var association = m.C1WhereC1OneToOne;
             var role = m.C1C1OneToOne;

@@ -6,11 +6,11 @@
     using Allors.Core.Database.Meta.Handles;
     using Xunit;
 
-    public abstract class LifeCycleTests
+    public abstract class LifeCycleTests : Tests
     {
         private readonly Func<(
-            OneToOneAssociationTypeHandle Association,
-            OneToOneRoleTypeHandle Role,
+            OneToOneAssociationType Association,
+            OneToOneRoleType Role,
             Func<ITransaction, IObject>[] Builders,
             Func<ITransaction, IObject> FromBuilder,
             Func<ITransaction, IObject> FromAnotherBuilder,
@@ -19,9 +19,6 @@
 
         protected LifeCycleTests()
         {
-            var coreMeta = new CoreMeta();
-            this.Meta = new AdaptersMeta(coreMeta);
-
             this.fixtures =
             [
                 () =>
@@ -35,8 +32,6 @@
                 }
             ];
         }
-
-        public AdaptersMeta Meta { get; }
 
         [Fact]
         public void Construction()

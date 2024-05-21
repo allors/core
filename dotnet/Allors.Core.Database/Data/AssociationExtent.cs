@@ -20,7 +20,7 @@ public record AssociationExtent : IPredicateExtent
     /// <summary>
     /// The role type.
     /// </summary>
-    public required AssociationTypeHandle AssociationType { get; init; }
+    public required IAssociationType AssociationType { get; init; }
 
     /// <summary>
     /// The predicate.

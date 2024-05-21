@@ -16,7 +16,7 @@ public interface IObject
     /// <summary>
     /// The class.
     /// </summary>
-    public ClassHandle Class { get; }
+    public Class Class { get; }
 
     /// <summary>
     /// The id.
@@ -36,45 +36,45 @@ public interface IObject
     /// <summary>
     /// Gets or sets the unit role.
     /// </summary>
-    object? this[UnitRoleTypeHandle roleTypeHandle] { get; set; }
+    object? this[UnitRoleType roleTypeHandle] { get; set; }
 
     /// <summary>
     /// Gets or sets the ToOne role.
     /// </summary>
-    IObject? this[ToOneRoleTypeHandle roleTypeHandle] { get; set; }
+    IObject? this[IToOneRoleType roleTypeHandle] { get; set; }
 
     /// <summary>
     /// Gets the ManyTo role.
     /// </summary>
-    IEnumerable<IObject> this[ToManyRoleTypeHandle roleTypeHandle] { get; set; }
+    IEnumerable<IObject> this[IToManyRoleType roleTypeHandle] { get; set; }
 
     /// <summary>
     /// Gets the OneTo role.
     /// </summary>
-    IObject? this[OneToAssociationTypeHandle associationTypeHandle] { get; }
+    IObject? this[IOneToAssociationType associationTypeHandle] { get; }
 
     /// <summary>
     /// Gets the ManyTo role.
     /// </summary>
-    IEnumerable<IObject> this[ManyToAssociationTypeHandle associationTypeHandle] { get; }
+    IEnumerable<IObject> this[IManyToAssociationType associationTypeHandle] { get; }
 
     /// <summary>
     /// Add an object to the role.
     /// </summary>
-    void Add(ToManyRoleTypeHandle roleTypeHandle, IObject value);
+    void Add(IToManyRoleType roleTypeHandle, IObject value);
 
     /// <summary>
     /// Remove an object from the role.
     /// </summary>
-    void Remove(ToManyRoleTypeHandle roleTypeHandle, IObject value);
+    void Remove(IToManyRoleType roleTypeHandle, IObject value);
 
     /// <summary>
     /// Is there a value for this role type.
     /// </summary>
-    bool Exist(RoleTypeHandle roleTypeHandle);
+    bool Exist(IRoleType roleTypeHandle);
 
     /// <summary>
     /// Is there a value for this role type.
     /// </summary>
-    bool Exist(AssociationTypeHandle associationTypeHandle);
+    bool Exist(IAssociationType associationTypeHandle);
 }

@@ -5,6 +5,8 @@
 
     public class SandboxTests : Adapters.Tests.SandboxTests
     {
-        protected override IDatabase CreateDatabase() => new Database(new AdaptersMeta(new CoreMeta()).CoreMeta);
+        protected override AdaptersMeta Meta { get; } = new(new CoreMeta());
+
+        protected override IDatabase CreateDatabase() => new Database(this.Meta.CoreMeta);
     }
 }

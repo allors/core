@@ -49,52 +49,52 @@
 
         public CoreMeta CoreMeta { get; }
 
-        public ClassHandle C1 { get; }
+        public Class C1 { get; }
 
-        public OneToOneRoleTypeHandle C1C1OneToOne { get; }
+        public OneToOneRoleType C1C1OneToOne { get; }
 
-        public OneToOneAssociationTypeHandle C1WhereC1OneToOne { get; }
+        public OneToOneAssociationType C1WhereC1OneToOne { get; }
 
-        public OneToOneRoleTypeHandle C1I1OneToOne { get; }
+        public OneToOneRoleType C1I1OneToOne { get; }
 
-        public OneToOneAssociationTypeHandle C1WhereI1OneToOne { get; }
+        public OneToOneAssociationType C1WhereI1OneToOne { get; }
 
-        public OneToOneRoleTypeHandle C1C2OneToOne { get; }
+        public OneToOneRoleType C1C2OneToOne { get; }
 
-        public OneToOneAssociationTypeHandle C1WhereC2OneToOne { get; }
+        public OneToOneAssociationType C1WhereC2OneToOne { get; }
 
-        public OneToOneRoleTypeHandle C1I2OneToOne { get; }
+        public OneToOneRoleType C1I2OneToOne { get; }
 
-        public OneToOneAssociationTypeHandle C1WhereI2OneToOne { get; }
+        public OneToOneAssociationType C1WhereI2OneToOne { get; }
 
-        public ManyToOneRoleTypeHandle C1C1ManyToOne { get; }
+        public ManyToOneRoleType C1C1ManyToOne { get; }
 
-        public ManyToOneAssociationTypeHandle C1sWhereC1ManyToOne { get; }
+        public ManyToOneAssociationType C1sWhereC1ManyToOne { get; }
 
-        public OneToManyRoleTypeHandle C1C1OneToManies { get; }
+        public OneToManyRoleType C1C1OneToManies { get; }
 
-        public OneToManyAssociationTypeHandle C1WhereC1C1one2many { get; }
+        public OneToManyAssociationType C1WhereC1C1one2many { get; }
 
-        public ClassHandle C2 { get; }
+        public Class C2 { get; }
 
-        public ClassHandle C3 { get; }
+        public Class C3 { get; }
 
-        public ClassHandle C4 { get; }
+        public Class C4 { get; }
 
-        public InterfaceHandle I1 { get; }
+        public Interface I1 { get; }
 
-        public InterfaceHandle I2 { get; }
+        public Interface I2 { get; }
 
-        public InterfaceHandle I12 { get; }
+        public Interface I12 { get; }
 
-        public UnitRoleTypeHandle I1AllorsString { get; }
+        public UnitRoleType I1AllorsString { get; }
 
-        public UnitRoleTypeHandle C1AllorsString { get; }
+        public UnitRoleType C1AllorsString { get; }
 
-        public UnitRoleTypeHandle C2AllorsString { get; }
+        public UnitRoleType C2AllorsString { get; }
 
-        public UnitRoleTypeHandle C3AllorsString { get; }
+        public UnitRoleType C3AllorsString { get; }
 
-        public UnitRoleTypeHandle C4AllorsString { get; }
+        public UnitRoleType C4AllorsString { get; }
     }
 }

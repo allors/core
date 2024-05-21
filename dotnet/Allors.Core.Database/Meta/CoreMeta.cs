@@ -11,13 +11,7 @@
     /// </summary>
     public sealed class CoreMeta
     {
-        private IDictionary<IMetaObject, MetaHandle> metaHandleByMetaObject;
-
-        private IDictionary<MetaHandle, IMetaObject> metaObjectByMetaHandle;
-
         private IDictionary<Guid, IMetaObject> metaObjectById;
-
-        private MetaHandle[]? metaHandles;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CoreMeta"/> class.
@@ -28,10 +22,7 @@
 
             this.Meta = new CoreMetaMeta();
 
-            this.metaHandleByMetaObject = new Dictionary<IMetaObject, MetaHandle>();
-            this.metaObjectByMetaHandle = new Dictionary<MetaHandle, IMetaObject>();
             this.metaObjectById = new Dictionary<Guid, IMetaObject>();
-            this.metaHandles = null;
 
             this.MetaPopulation = this.Meta.CreateMetaPopulation();
 
@@ -57,42 +48,25 @@
         /// <summary>
         /// The Object interface.
         /// </summary>
-        public InterfaceHandle Object { get; init; }
+        public Interface Object { get; init; }
 
         /// <summary>
         /// The String unit.
         /// </summary>
-        public UnitHandle String { get; init; }
+        public Unit String { get; init; }
 
         /// <summary>
         /// Gets meta object by meta handle.
         /// </summary>
-        public IEnumerable<MetaHandle> MetaHandles => this.metaHandles ??= [.. this.metaObjectByMetaHandle.Keys];
-
-        /// <summary>
-        /// Gets meta handle by meta object.
-        /// </summary>
-        public MetaHandle this[IMetaObject metaObject] => this.metaHandleByMetaObject[metaObject];
-
-        /// <summary>
-        /// Gets meta object by meta handle.
-        /// </summary>
-        public IMetaObject this[MetaHandle metaHandle] => this.metaObjectByMetaHandle[metaHandle];
-
-        /// <summary>
-        /// Gets meta object by meta handle.
-        /// </summary>
-        public IMetaObject this[Guid id] => this.metaObjectById[id];
+        public Core.Meta.Domain.IMetaObject this[Guid id] => this.metaObjectById[id];
 
         /// <summary>
         /// Add a new meta object.
         /// </summary>
-        public void Register(MetaHandle metaHandle, IMetaObject metaObject)
+        public void Register(IMetaObject metaObject)
         {
-            this.metaHandleByMetaObject.Add(metaObject, metaHandle);
-            this.metaObjectByMetaHandle.Add(metaHandle, metaObject);
-            this.metaObjectById.Add(metaHandle.Id, metaObject);
-            this.metaHandles = null;
+            var id = (Guid)(metaObject[this.Meta.MetaObjectId] ?? throw new InvalidOperationException());
+            this.metaObjectById.Add(id, metaObject);
         }
 
         /// <summary>
@@ -107,8 +81,6 @@
                 // TODO: Add freeze to Allors.Meta
                 // this.MetaMeta.Freeze();
                 // this.MetaPopulation.Freeze();
-                this.metaHandleByMetaObject = this.metaHandleByMetaObject.ToFrozenDictionary();
-                this.metaObjectByMetaHandle = this.metaObjectByMetaHandle.ToFrozenDictionary();
                 this.metaObjectById = this.metaObjectById.ToFrozenDictionary();
             }
         }
@@ -116,228 +88,212 @@
         /// <summary>
         /// Creates a new unit.
         /// </summary>
-        public UnitHandle NewUnit(Guid id, string singularName, string? assignedPluralName = null)
+        public Unit NewUnit(Guid id, string singularName, string? assignedPluralName = null)
         {
             var m = this.Meta;
 
-            var unit = this.MetaPopulation.Build(m.Unit, v =>
+            var unit = this.MetaPopulation.Build<Unit>(v =>
             {
                 v[m.MetaObjectId] = id;
                 v[m.ObjectTypeSingularName] = singularName;
                 v[m.ObjectTypeAssignedPluralName] = assignedPluralName;
             });
 
-            var unitHandle = new UnitHandle(id);
+            this.Register(unit);
 
-            this.Register(unitHandle, unit);
-
-            return unitHandle;
+            return unit;
         }
 
         /// <summary>
         /// Creates a new interface.
         /// </summary>
-        public InterfaceHandle NewInterface(Guid id, string singularName, string? assignedPluralName = null)
+        public Interface NewInterface(Guid id, string singularName, string? assignedPluralName = null)
         {
             var m = this.Meta;
 
-            var @interface = this.MetaPopulation.Build(m.Interface, v =>
+            var @interface = this.MetaPopulation.Build<Interface>(v =>
             {
                 v[m.MetaObjectId] = id;
                 v[m.ObjectTypeSingularName] = singularName;
                 v[m.ObjectTypeAssignedPluralName] = assignedPluralName;
             });
 
-            var interfaceHandle = new InterfaceHandle(id);
+            this.Register(@interface);
 
-            this.Register(interfaceHandle, @interface);
-
-            return interfaceHandle;
+            return @interface;
         }
 
         /// <summary>
         /// Creates a new class.
         /// </summary>
-        public ClassHandle NewClass(Guid id, string singularName, string? assignedPluralName = null)
+        public Class NewClass(Guid id, string singularName, string? assignedPluralName = null)
         {
             var m = this.Meta;
 
-            var @class = this.MetaPopulation.Build(m.Class, v =>
+            var @class = this.MetaPopulation.Build<Class>(v =>
             {
                 v[m.MetaObjectId] = id;
                 v[m.ObjectTypeSingularName] = singularName;
                 v[m.ObjectTypeAssignedPluralName] = assignedPluralName;
             });
 
-            var classHandle = new ClassHandle(id);
+            this.Register(@class);
 
-            this.Register(classHandle, @class);
-
-            return classHandle;
+            return @class;
         }
 
         /// <summary>
         /// Creates new unit relation end types.
         /// </summary>
-        public (UnitAssociationTypeHandle AssociationType, UnitRoleTypeHandle RoleType) NewUnitRelation(Guid associationTypeId, Guid roleTypeId, CompositeHandle associationCompositeHandle, UnitHandle unitHandle, string singularName, string? assignedPluralName = null)
+        public (UnitAssociationType AssociationType, UnitRoleType RoleType) NewUnitRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationCompositeHandle, Unit unitHandle, string singularName, string? assignedPluralName = null)
         {
             var m = this.Meta;
 
-            var associationType = this.MetaPopulation.Build(m.AssociationType, v =>
+            var associationType = this.MetaPopulation.Build<UnitAssociationType>(v =>
             {
                 v[m.MetaObjectId] = associationTypeId;
-                v[m.AssociationTypeComposite] = this[associationCompositeHandle];
+                v[m.AssociationTypeComposite] = associationCompositeHandle;
             });
 
-            var unitAssociationTypeHandle = new UnitAssociationTypeHandle(associationTypeId);
-            this.Register(unitAssociationTypeHandle, associationType);
+            this.Register(associationType);
 
-            var roleType = this.MetaPopulation.Build(m.RoleType, v =>
+            var roleType = this.MetaPopulation.Build<UnitRoleType>(v =>
             {
                 v[m.MetaObjectId] = roleTypeId;
                 v[m.RoleTypeAssociationType] = associationType;
-                v[m.RoleTypeObjectType] = this[unitHandle];
+                v[m.RoleTypeObjectType] = unitHandle;
                 v[m.RoleTypeSingularName] = singularName;
                 v[m.RoleTypeAssignedPluralName] = assignedPluralName;
             });
 
-            var unitRoleTypeHandle = new UnitRoleTypeHandle(roleTypeId);
-            this.Register(unitRoleTypeHandle, roleType);
+            this.Register(roleType);
 
-            return (unitAssociationTypeHandle, unitRoleTypeHandle);
+            return (associationType, roleType);
         }
 
         /// <summary>
         /// Creates new OneToOne relation end types.
         /// </summary>
-        public (OneToOneAssociationTypeHandle AssociationType, OneToOneRoleTypeHandle RoleType) NewOneToOneRelation(Guid associationTypeId, Guid roleTypeId, CompositeHandle associationCompositeHandle, CompositeHandle roleCompositeHandle, string singularName, string? assignedPluralName = null)
+        public (OneToOneAssociationType AssociationType, OneToOneRoleType RoleType) NewOneToOneRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationCompositeHandle, IComposite roleCompositeHandle, string singularName, string? assignedPluralName = null)
         {
             var m = this.Meta;
 
-            var associationType = this.MetaPopulation.Build(m.AssociationType, v =>
+            var associationType = this.MetaPopulation.Build<OneToOneAssociationType>(v =>
             {
                 v[m.MetaObjectId] = associationTypeId;
-                v[m.AssociationTypeComposite] = this[associationCompositeHandle];
+                v[m.AssociationTypeComposite] = associationCompositeHandle;
             });
 
-            var manyToOneAssociationTypeHandle = new OneToOneAssociationTypeHandle(associationTypeId);
-            this.Register(manyToOneAssociationTypeHandle, associationType);
+            this.Register(associationType);
 
-            var roleType = this.MetaPopulation.Build(m.RoleType, v =>
+            var roleType = this.MetaPopulation.Build<OneToOneRoleType>(v =>
             {
                 v[m.MetaObjectId] = roleTypeId;
                 v[m.RoleTypeAssociationType] = associationType;
-                v[m.RoleTypeObjectType] = this[roleCompositeHandle];
+                v[m.RoleTypeObjectType] = roleCompositeHandle;
                 v[m.RoleTypeSingularName] = singularName;
                 v[m.RoleTypeAssignedPluralName] = assignedPluralName;
             });
 
-            var manyToOneRoleTypeHandle = new OneToOneRoleTypeHandle(roleTypeId);
-            this.Register(manyToOneRoleTypeHandle, roleType);
+            this.Register(roleType);
 
-            return (manyToOneAssociationTypeHandle, manyToOneRoleTypeHandle);
+            return (associationType, roleType);
         }
 
         /// <summary>
         /// Creates new ManyToOne relation end types.
         /// </summary>
-        public (ManyToOneAssociationTypeHandle AssociationType, ManyToOneRoleTypeHandle RoleType) NewManyToOneRelation(Guid associationTypeId, Guid roleTypeId, CompositeHandle associationCompositeHandle, CompositeHandle roleCompositeHandle, string singularName, string? assignedPluralName = null)
+        public (ManyToOneAssociationType AssociationType, ManyToOneRoleType RoleType) NewManyToOneRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationCompositeHandle, IComposite roleCompositeHandle, string singularName, string? assignedPluralName = null)
         {
             var m = this.Meta;
 
-            var associationType = this.MetaPopulation.Build(m.AssociationType, v =>
+            var associationType = this.MetaPopulation.Build<ManyToOneAssociationType>(v =>
             {
                 v[m.MetaObjectId] = associationTypeId;
-                v[m.AssociationTypeComposite] = this[associationCompositeHandle];
+                v[m.AssociationTypeComposite] = associationCompositeHandle;
             });
 
-            var manyToOneAssociationTypeHandle = new ManyToOneAssociationTypeHandle(associationTypeId);
-            this.Register(manyToOneAssociationTypeHandle, associationType);
+            this.Register(associationType);
 
-            var roleType = this.MetaPopulation.Build(m.RoleType, v =>
+            var roleType = this.MetaPopulation.Build<ManyToOneRoleType>(v =>
             {
                 v[m.MetaObjectId] = roleTypeId;
                 v[m.RoleTypeAssociationType] = associationType;
-                v[m.RoleTypeObjectType] = this[roleCompositeHandle];
+                v[m.RoleTypeObjectType] = roleCompositeHandle;
                 v[m.RoleTypeSingularName] = singularName;
                 v[m.RoleTypeAssignedPluralName] = assignedPluralName;
             });
 
-            var manyToOneRoleTypeHandle = new ManyToOneRoleTypeHandle(roleTypeId);
-            this.Register(manyToOneRoleTypeHandle, roleType);
+            this.Register(roleType);
 
-            return (manyToOneAssociationTypeHandle, manyToOneRoleTypeHandle);
+            return (associationType, roleType);
         }
 
         /// <summary>
         /// Creates new OneToMany relation end types.
         /// </summary>
-        public (OneToManyAssociationTypeHandle AssociationType, OneToManyRoleTypeHandle RoleType) NewOneToManyRelation(Guid associationTypeId, Guid roleTypeId, CompositeHandle associationCompositeHandle, CompositeHandle roleCompositeHandle, string singularName, string? assignedPluralName = null)
+        public (OneToManyAssociationType AssociationType, OneToManyRoleType RoleType) NewOneToManyRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationCompositeHandle, IComposite roleCompositeHandle, string singularName, string? assignedPluralName = null)
         {
             var m = this.Meta;
 
-            var associationType = this.MetaPopulation.Build(m.AssociationType, v =>
+            var associationType = this.MetaPopulation.Build<OneToManyAssociationType>(v =>
             {
                 v[m.MetaObjectId] = associationTypeId;
-                v[m.AssociationTypeComposite] = this[associationCompositeHandle];
+                v[m.AssociationTypeComposite] = associationCompositeHandle;
             });
 
-            var oneToManyAssociationTypeHandle = new OneToManyAssociationTypeHandle(associationTypeId);
-            this.Register(oneToManyAssociationTypeHandle, associationType);
+            this.Register(associationType);
 
-            var roleType = this.MetaPopulation.Build(m.RoleType, v =>
+            var roleType = this.MetaPopulation.Build<OneToManyRoleType>(v =>
             {
                 v[m.MetaObjectId] = roleTypeId;
                 v[m.RoleTypeAssociationType] = associationType;
-                v[m.RoleTypeObjectType] = this[roleCompositeHandle];
+                v[m.RoleTypeObjectType] = roleCompositeHandle;
                 v[m.RoleTypeSingularName] = singularName;
                 v[m.RoleTypeAssignedPluralName] = assignedPluralName;
             });
 
-            var oneToManyRoleTypeHandle = new OneToManyRoleTypeHandle(roleTypeId);
-            this.Register(oneToManyRoleTypeHandle, roleType);
+            this.Register(roleType);
 
-            return (oneToManyAssociationTypeHandle, oneToManyRoleTypeHandle);
+            return (associationType, roleType);
         }
 
         /// <summary>
         /// Creates new ManyToMany relation end types.
         /// </summary>
-        public (ManyToManyAssociationTypeHandle AssociationType, ManyToManyRoleTypeHandle RoleType) NewManyToManyRelation(Guid associationTypeId, Guid roleTypeId, CompositeHandle associationCompositeHandle, CompositeHandle roleCompositeHandle, string singularName, string? assignedPluralName = null)
+        public (ManyToManyAssociationType AssociationType, ManyToManyRoleType RoleType) NewManyToManyRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationCompositeHandle, IComposite roleCompositeHandle, string singularName, string? assignedPluralName = null)
         {
             var m = this.Meta;
 
-            var associationType = this.MetaPopulation.Build(m.AssociationType, v =>
+            var associationType = this.MetaPopulation.Build<ManyToManyAssociationType>(v =>
             {
                 v[m.MetaObjectId] = associationTypeId;
-                v[m.AssociationTypeComposite] = this[associationCompositeHandle];
+                v[m.AssociationTypeComposite] = associationCompositeHandle;
             });
 
-            var manyToManyAssociationTypeHandle = new ManyToManyAssociationTypeHandle(associationTypeId);
-            this.Register(manyToManyAssociationTypeHandle, associationType);
+            this.Register(associationType);
 
-            var roleType = this.MetaPopulation.Build(m.RoleType, v =>
+            var roleType = this.MetaPopulation.Build<ManyToManyRoleType>(v =>
             {
                 v[m.MetaObjectId] = roleTypeId;
                 v[m.RoleTypeAssociationType] = associationType;
-                v[m.RoleTypeObjectType] = this[roleCompositeHandle];
+                v[m.RoleTypeObjectType] = roleCompositeHandle;
                 v[m.RoleTypeSingularName] = singularName;
                 v[m.RoleTypeAssignedPluralName] = assignedPluralName;
             });
 
-            var manyToManyRoleTypeHandle = new ManyToManyRoleTypeHandle(roleTypeId);
-            this.Register(manyToManyRoleTypeHandle, roleType);
+            this.Register(roleType);
 
-            return (manyToManyAssociationTypeHandle, manyToManyRoleTypeHandle);
+            return (associationType, roleType);
         }
 
         /// <summary>
         /// Subtype implements supertype.
         /// </summary>
-        public void AddDirectSupertype(CompositeHandle subtypeHandle, InterfaceHandle supertypeHandle)
+        public void AddDirectSupertype(IComposite subtypeHandle, Interface supertypeHandle)
         {
-            var subtype = this[subtypeHandle];
-            var supertype = this[supertypeHandle];
+            var subtype = subtypeHandle;
+            var supertype = supertypeHandle;
             subtype.Add(this.Meta.CompositeDirectSupertypes, supertype);
         }
     }

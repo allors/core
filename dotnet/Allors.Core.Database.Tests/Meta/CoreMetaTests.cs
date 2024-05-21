@@ -22,11 +22,11 @@
         {
             var coreMeta = new CoreMeta();
 
-            var units = coreMeta.MetaHandles.OfType<UnitHandle>().ToArray();
-            var interfaces = coreMeta.MetaHandles.OfType<InterfaceHandle>().ToArray();
-            var classes = coreMeta.MetaHandles.OfType<ClassHandle>().ToArray();
+            var units = coreMeta.MetaPopulation.Objects.OfType<Unit>().ToArray();
+            var interfaces = coreMeta.MetaPopulation.Objects.OfType<Interface>().ToArray();
+            var classes = coreMeta.MetaPopulation.Objects.OfType<Class>().ToArray();
 
-            Assert.Equal(2, coreMeta.MetaHandles.Count());
+            Assert.Equal(2, coreMeta.MetaPopulation.Objects.Count());
             Assert.Single(units);
             Assert.Single(interfaces);
             Assert.Empty(classes);

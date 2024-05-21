@@ -15,7 +15,7 @@ public record GreaterThan : IRolePredicate
     /// <summary>
     /// The role type.
     /// </summary>
-    public required RoleTypeHandle RoleType { get; init; }
+    public required IRoleType RoleType { get; init; }
 
     /// <summary>
     /// The value.
@@ -25,7 +25,7 @@ public record GreaterThan : IRolePredicate
     /// <summary>
     /// The path.
     /// </summary>
-    public RoleTypeHandle? Path { get; init; }
+    public IRoleType? Path { get; init; }
 
     /// <summary>
     /// The parameter.

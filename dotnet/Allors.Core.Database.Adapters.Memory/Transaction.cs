@@ -38,8 +38,8 @@ public class Transaction : ITransaction
                     v.Class,
                     v.Id,
                     0,
-                    FrozenDictionary<RoleTypeHandle, object>.Empty,
-                    FrozenDictionary<AssociationTypeHandle, object>.Empty)));
+                    FrozenDictionary<IRoleType, object>.Empty,
+                    FrozenDictionary<IAssociationType, object>.Empty)));
 
         this.Store = this.Database.Store with
         {
@@ -58,7 +58,7 @@ public class Transaction : ITransaction
     internal Database Database { get; }
 
     /// <inheritdoc/>
-    public IObject Build(ClassHandle @class)
+    public IObject Build(Class @class)
     {
         var newObject = new Object(this, @class, this.Database.NextObjectId());
         this.InstantiatedObjectByObjectId.Add(newObject.Id, newObject);
@@ -66,7 +66,7 @@ public class Transaction : ITransaction
     }
 
     /// <inheritdoc/>
-    public IEnumerable<IObject> Build(ClassHandle @class, int amount)
+    public IEnumerable<IObject> Build(Class @class, int amount)
     {
         var objects = new IObject[amount];
         for (var i = 0; i < amount; i++)

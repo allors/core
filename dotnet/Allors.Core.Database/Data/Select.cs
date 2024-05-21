@@ -15,7 +15,7 @@ public record Select : IFilter
     /// <summary>
     /// The relation end type.
     /// </summary>
-    public required RelationEndTypeHandle RelationEndType { get; init; }
+    public required IRelationEndType RelationEndType { get; init; }
 
     /// <summary>
     /// The next select
@@ -23,7 +23,7 @@ public record Select : IFilter
     public Select? Next { get; init; }
 
     /// <inheritdoc />
-    public CompositeHandle? OfType { get; init; }
+    public IComposite? OfType { get; init; }
 
     /// <inheritdoc />
     public Sort[]? Sorting { get; }

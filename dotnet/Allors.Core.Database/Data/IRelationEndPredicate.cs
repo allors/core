@@ -15,5 +15,5 @@ public interface IRelationEndPredicate : IOperandPredicate
     /// <summary>
     /// The relation end type.
     /// </summary>
-    RelationEndTypeHandle RelationEndType { get; }
+    IRelationEndType RelationEndType { get; }
 }

@@ -16,12 +16,12 @@ public interface ITransaction
     /// <summary>
     /// Builds a new object.
     /// </summary>
-    IObject Build(ClassHandle @class);
+    IObject Build(Class @class);
 
     /// <summary>
     /// Builds amount new objects.
     /// </summary>
-    IEnumerable<IObject> Build(ClassHandle @class, int amount);
+    IEnumerable<IObject> Build(Class @class, int amount);
 
     /// <summary>
     /// Instantiates an object.

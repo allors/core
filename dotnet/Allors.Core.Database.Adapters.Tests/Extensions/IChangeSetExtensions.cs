@@ -5,9 +5,9 @@ using Allors.Core.Database.Meta.Handles;
 
 public static class IChangeSetExtensions
 {
-    public static ISet<RoleTypeHandle> GetRoleTypes(this IChangeSet @this, IObject association) =>
-        @this.RoleTypesByAssociation.TryGetValue(association, out var roleTypes) ? roleTypes : new HashSet<RoleTypeHandle>();
+    public static ISet<IRoleType> GetRoleTypes(this IChangeSet @this, IObject association) =>
+        @this.RoleTypesByAssociation.TryGetValue(association, out var roleTypes) ? roleTypes : new HashSet<IRoleType>();
 
-    public static ISet<AssociationTypeHandle> GetAssociationTypes(this IChangeSet @this, IObject role) =>
-        @this.AssociationTypesByRole.TryGetValue(role, out var associationTypes) ? associationTypes : new HashSet<AssociationTypeHandle>();
+    public static ISet<IAssociationType> GetAssociationTypes(this IChangeSet @this, IObject role) =>
+        @this.AssociationTypesByRole.TryGetValue(role, out var associationTypes) ? associationTypes : new HashSet<IAssociationType>();
 }

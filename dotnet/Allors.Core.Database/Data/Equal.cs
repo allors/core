@@ -15,7 +15,7 @@ public record Equal : IRelationEndPredicate
     /// <summary>
     /// The relation end type.
     /// </summary>
-    public required RelationEndTypeHandle RelationEndType { get; init; }
+    public required IRelationEndType RelationEndType { get; init; }
 
     /// <summary>
     /// The object.
@@ -30,7 +30,7 @@ public record Equal : IRelationEndPredicate
     /// <summary>
     /// The path.
     /// </summary>
-    public RoleTypeHandle? Path { get; init; }
+    public IRoleType? Path { get; init; }
 
     /// <summary>
     /// The parameter.

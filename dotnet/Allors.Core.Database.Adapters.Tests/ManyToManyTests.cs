@@ -2,7 +2,7 @@
 {
     using Xunit;
 
-    public abstract class ManyToManyTests
+    public abstract class ManyToManyTests : Tests
     {
         [Fact]
         public void ToDo()

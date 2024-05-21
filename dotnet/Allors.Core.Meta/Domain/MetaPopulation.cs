@@ -33,10 +33,10 @@
             return @new;
         }
 
-        public IMetaObject Build<T>(params Action<T>[] builders)
+        public T Build<T>(params Action<T>[] builders)
             where T : IMetaObject
         {
-            string className = typeof(T).Name;
+            var className = typeof(T).Name;
             var @class = this.Meta.ObjectTypeByName[className] ?? throw new ArgumentException($"Class with name {className} not found");
 
             if (@class.Type == null)

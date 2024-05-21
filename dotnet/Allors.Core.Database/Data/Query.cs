@@ -27,7 +27,7 @@ public record Query : IFilter
     public Include[]? Includes { get; init; }
 
     /// <inheritdoc />
-    public CompositeHandle? OfType { get; init; }
+    public IComposite? OfType { get; init; }
 
     /// <inheritdoc />
     public Sort[]? Sorting { get; init; }

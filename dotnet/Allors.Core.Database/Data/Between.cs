@@ -15,7 +15,7 @@ public record Between : IRolePredicate
     /// <summary>
     /// The role type.
     /// </summary>
-    public required RoleTypeHandle RoleType { get; init; }
+    public required IRoleType RoleType { get; init; }
 
     /// <summary>
     /// The values.
@@ -25,7 +25,7 @@ public record Between : IRolePredicate
     /// <summary>
     /// The paths.
     /// </summary>
-    public RoleTypeHandle[]? Paths { get; init; }
+    public IRoleType[]? Paths { get; init; }
 
     /// <summary>
     /// The parameter.

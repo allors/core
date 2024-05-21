@@ -31,20 +31,20 @@ public interface IChangeSet
     /// <summary>
     ///     Gets the changed role types by association.
     /// </summary>
-    IDictionary<IObject, ISet<RoleTypeHandle>> RoleTypesByAssociation { get; }
+    IDictionary<IObject, ISet<IRoleType>> RoleTypesByAssociation { get; }
 
     /// <summary>
     ///     Gets the changed association types by role.
     /// </summary>
-    IDictionary<IObject, ISet<AssociationTypeHandle>> AssociationTypesByRole { get; }
+    IDictionary<IObject, ISet<IAssociationType>> AssociationTypesByRole { get; }
 
     /// <summary>
     ///     Gets the changed associations by role type.
     /// </summary>
-    IDictionary<RoleTypeHandle, ISet<IObject>> AssociationsByRoleType { get; }
+    IDictionary<IRoleType, ISet<IObject>> AssociationsByRoleType { get; }
 
     /// <summary>
     ///     Gets the changed roles by association type.
     /// </summary>
-    IDictionary<AssociationTypeHandle, ISet<IObject>> RolesByAssociationType { get; }
+    IDictionary<IAssociationType, ISet<IObject>> RolesByAssociationType { get; }
 }

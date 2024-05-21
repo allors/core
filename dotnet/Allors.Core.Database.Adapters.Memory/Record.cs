@@ -6,6 +6,6 @@ using Allors.Core.Database.Meta.Handles;
 /// <summary>
 /// Contains the immutable state of an object.
 /// </summary>
-public record Record(ClassHandle ClassHandle, long Id, long Version, FrozenDictionary<RoleTypeHandle, object> RoleByRoleTypeId, FrozenDictionary<AssociationTypeHandle, object> AssociationByAssociationTypeId)
+public record Record(Class ClassHandle, long Id, long Version, FrozenDictionary<IRoleType, object> RoleByRoleTypeId, FrozenDictionary<IAssociationType, object> AssociationByAssociationTypeId)
 {
 }

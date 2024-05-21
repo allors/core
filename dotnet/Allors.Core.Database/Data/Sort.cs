@@ -15,7 +15,7 @@ public record Sort : IVisitable
     /// <summary>
     /// The role type.
     /// </summary>
-    public required RoleTypeHandle RoleType { get; init; }
+    public required IRoleType RoleType { get; init; }
 
     /// <summary>
     /// The descending.

@@ -5,18 +5,15 @@
     using Allors.Core.Database.Meta;
     using Xunit;
 
-    public abstract class ChangesTests
+    public abstract class ChangesTests : Tests
     {
         [Fact]
         public void StringRole()
         {
-            var coreMeta = new CoreMeta();
-            var adaptersMeta = new AdaptersMeta(coreMeta);
-
             var database = this.CreateDatabase();
             var transaction = database.CreateTransaction();
 
-            var m = adaptersMeta;
+            var m = this.Meta;
 
             var a = transaction.Build(m.C1);
             var c = transaction.Build(m.C3);

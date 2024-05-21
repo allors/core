@@ -11,8 +11,8 @@
     public abstract class OneToOneTests : Tests
     {
         private readonly Func<(
-            OneToOneAssociationTypeHandle Association,
-            OneToOneRoleTypeHandle Role,
+            OneToOneAssociationType Association,
+            OneToOneRoleType Role,
             Func<ITransaction, IObject>[] Builders,
             Func<ITransaction, IObject> FromBuilder,
             Func<ITransaction, IObject> FromAnotherBuilder,
@@ -865,8 +865,8 @@
         protected abstract IDatabase CreateDatabase();
 
         private void FromTo(
-           Func<IEnumerable<Action<OneToOneAssociationTypeHandle, OneToOneRoleTypeHandle, IObject, IObject>>> acts,
-           Func<IEnumerable<Action<OneToOneAssociationTypeHandle, OneToOneRoleTypeHandle, IObject, IObject>>> asserts)
+           Func<IEnumerable<Action<OneToOneAssociationType, OneToOneRoleType, IObject, IObject>>> acts,
+           Func<IEnumerable<Action<OneToOneAssociationType, OneToOneRoleType, IObject, IObject>>> asserts)
         {
             var assertPermutations = asserts().Permutations().ToArray();
 
@@ -915,8 +915,8 @@
         }
 
         private void FromFromAnotherTo(
-           Func<IEnumerable<Action<OneToOneAssociationTypeHandle, OneToOneRoleTypeHandle, IObject, IObject, IObject>>> acts,
-           Func<IEnumerable<Action<OneToOneAssociationTypeHandle, OneToOneRoleTypeHandle, IObject, IObject, IObject>>> asserts)
+           Func<IEnumerable<Action<OneToOneAssociationType, OneToOneRoleType, IObject, IObject, IObject>>> acts,
+           Func<IEnumerable<Action<OneToOneAssociationType, OneToOneRoleType, IObject, IObject, IObject>>> asserts)
         {
             var assertPermutations = asserts().Permutations().ToArray();
 
@@ -972,8 +972,8 @@
         }
 
         private void FromToToAnother(
-           Func<IEnumerable<Action<OneToOneAssociationTypeHandle, OneToOneRoleTypeHandle, IObject, IObject, IObject>>> acts,
-           Func<IEnumerable<Action<OneToOneAssociationTypeHandle, OneToOneRoleTypeHandle, IObject, IObject, IObject>>> asserts)
+           Func<IEnumerable<Action<OneToOneAssociationType, OneToOneRoleType, IObject, IObject, IObject>>> acts,
+           Func<IEnumerable<Action<OneToOneAssociationType, OneToOneRoleType, IObject, IObject, IObject>>> asserts)
         {
             var assertPermutations = asserts().Permutations().ToArray();
 
@@ -1023,8 +1023,8 @@
         }
 
         private void FromFromAnotherToToAnother(
-           Func<IEnumerable<Action<OneToOneAssociationTypeHandle, OneToOneRoleTypeHandle, IObject, IObject, IObject, IObject>>> acts,
-           Func<IEnumerable<Action<OneToOneAssociationTypeHandle, OneToOneRoleTypeHandle, IObject, IObject, IObject, IObject>>> asserts)
+           Func<IEnumerable<Action<OneToOneAssociationType, OneToOneRoleType, IObject, IObject, IObject, IObject>>> acts,
+           Func<IEnumerable<Action<OneToOneAssociationType, OneToOneRoleType, IObject, IObject, IObject, IObject>>> asserts)
         {
             var assertPermutations = asserts().Permutations().ToArray();
 

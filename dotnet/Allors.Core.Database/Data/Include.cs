@@ -15,7 +15,7 @@ public record Include : IFilter
     /// <summary>
     /// The relation end type.
     /// </summary>
-    public required RelationEndTypeHandle RelationEndType { get; init; }
+    public required IRelationEndType RelationEndType { get; init; }
 
     /// <summary>
     /// The includes.
@@ -23,7 +23,7 @@ public record Include : IFilter
     public Include[]? Children { get; init; }
 
     /// <inheritdoc/>
-    public CompositeHandle? OfType { get; init; }
+    public IComposite? OfType { get; init; }
 
     /// <inheritdoc/>
     public Sort[]? Sorting { get; }

@@ -4,25 +4,22 @@ using System.Linq;
 using Allors.Core.Database.Meta;
 using Xunit;
 
-public abstract class ManyToOneTests
+public abstract class ManyToOneTests : Tests
 {
     [Fact]
     public void C1_C1many2one()
     {
-        var coreMeta = new CoreMeta();
-        var adaptersMeta = new AdaptersMeta(coreMeta);
-
         var database = this.CreateDatabase();
         var transaction = database.CreateTransaction();
 
-        var from1 = transaction.Build(adaptersMeta.C1);
-        var from2 = transaction.Build(adaptersMeta.C1);
-        var from3 = transaction.Build(adaptersMeta.C1);
-        var from4 = transaction.Build(adaptersMeta.C1);
-        var to = transaction.Build(adaptersMeta.C1);
-        var toAnother = transaction.Build(adaptersMeta.C1);
+        var m = this.Meta;
 
-        var m = adaptersMeta;
+        var from1 = transaction.Build(m.C1);
+        var from2 = transaction.Build(m.C1);
+        var from3 = transaction.Build(m.C1);
+        var from4 = transaction.Build(m.C1);
+        var to = transaction.Build(m.C1);
+        var toAnother = transaction.Build(m.C1);
 
         // New 0-4-0
         // Get
@@ -678,20 +675,17 @@ public abstract class ManyToOneTests
     [Fact]
     public void C1_C1many2one_2()
     {
-        var coreMeta = new CoreMeta();
-        var adaptersMeta = new AdaptersMeta(coreMeta);
-
         var database = this.CreateDatabase();
         var transaction = database.CreateTransaction();
 
-        var from1 = transaction.Build(adaptersMeta.C1);
-        var from2 = transaction.Build(adaptersMeta.C1);
-        var from3 = transaction.Build(adaptersMeta.C1);
-        var from4 = transaction.Build(adaptersMeta.C1);
-        var to = transaction.Build(adaptersMeta.C1);
-        var toAnother = transaction.Build(adaptersMeta.C1);
+        var m = this.Meta;
 
-        var m = adaptersMeta;
+        var from1 = transaction.Build(m.C1);
+        var from2 = transaction.Build(m.C1);
+        var from3 = transaction.Build(m.C1);
+        var from4 = transaction.Build(m.C1);
+        var to = transaction.Build(m.C1);
+        var toAnother = transaction.Build(m.C1);
 
         // New 0-4-0
         // Get
