@@ -1,7 +1,7 @@
 ﻿namespace Allors.Core.Database.Adapters.Tests.Extensions;
 
 using System.Collections.Generic;
-using Allors.Core.Database.Meta.Handles;
+using Allors.Core.Database.Meta.Domain;
 
 public static class IChangeSetExtensions
 {

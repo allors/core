@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using Allors.Core.Database.Meta;
-using Allors.Core.Database.Meta.Handles;
+using Allors.Core.Database.Meta.Domain;
 
 /// <inheritdoc />
 public class Database : IDatabase
@@ -71,7 +71,7 @@ public class Database : IDatabase
         }
     }
 
-    internal OneToOneAssociationType AssociationTypeHandle(OneToOneRoleType oneToOneRoleType)
+    internal OneToOneAssociationType AssociationType(OneToOneRoleType oneToOneRoleType)
     {
         var x = oneToOneRoleType["AssociationType"];
 
@@ -79,19 +79,19 @@ public class Database : IDatabase
         return (OneToOneAssociationType)oneToOneAssociationType!;
     }
 
-    internal OneToManyAssociationType AssociationTypeHandle(OneToManyRoleType oneToManyRoleType)
+    internal OneToManyAssociationType AssociationType(OneToManyRoleType oneToManyRoleType)
     {
         var oneToManyAssociationType = oneToManyRoleType[this.Meta.Meta.RoleTypeAssociationType];
         return (OneToManyAssociationType)oneToManyAssociationType!;
     }
 
-    internal ManyToOneAssociationType AssociationTypeHandle(ManyToOneRoleType manyToOneRoleType)
+    internal ManyToOneAssociationType AssociationType(ManyToOneRoleType manyToOneRoleType)
     {
         var manyToOneAssociationType = manyToOneRoleType[this.Meta.Meta.RoleTypeAssociationType];
         return (ManyToOneAssociationType)manyToOneAssociationType!;
     }
 
-    internal ManyToManyAssociationType AssociationTypeHandle(ManyToManyRoleType manyToOneRoleType)
+    internal ManyToManyAssociationType AssociationType(ManyToManyRoleType manyToOneRoleType)
     {
         var manyToOneAssociationType = manyToOneRoleType[this.Meta.Meta.RoleTypeAssociationType];
         return (ManyToManyAssociationType)manyToOneAssociationType!;

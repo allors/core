@@ -1,7 +1,7 @@
 ﻿namespace Allors.Core.Database;
 
 using System.Collections.Generic;
-using Allors.Core.Database.Meta.Handles;
+using Allors.Core.Database.Meta.Domain;
 
 /// <summary>
 /// The change set.

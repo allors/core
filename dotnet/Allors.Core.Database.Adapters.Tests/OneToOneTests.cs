@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
-    using Allors.Core.Database.Meta.Handles;
+    using Allors.Core.Database.Meta.Domain;
     using MoreLinq;
     using Xunit;
 

@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Allors.Core.Database.Meta.Handles;
+using Allors.Core.Database.Meta.Domain;
 
 /// <inheritdoc />
 public class ChangeSet : IChangeSet
@@ -57,7 +57,7 @@ public class ChangeSet : IChangeSet
          group kvp.Key by value)
         .ToDictionary(grp => grp.Key, grp => new HashSet<IObject>(grp) as ISet<IObject>);
 
-    internal void AddChangedRoleByRoleTypeId(IObject @object, IRoleType roleTypeHandleId)
+    internal void AddChangedRoleByRoleTypeId(IObject @object, IRoleType roleTypeId)
     {
         if (!this.roleTypesByAssociation.TryGetValue(@object, out var roleTypes))
         {
@@ -65,10 +65,10 @@ public class ChangeSet : IChangeSet
             this.roleTypesByAssociation.Add(@object, roleTypes);
         }
 
-        roleTypes.Add(roleTypeHandleId);
+        roleTypes.Add(roleTypeId);
     }
 
-    internal void AddChangedAssociationByAssociationTypeId(IObject @object, IAssociationType associationTypeHandleId)
+    internal void AddChangedAssociationByAssociationTypeId(IObject @object, IAssociationType associationTypeId)
     {
         if (!this.associationTypesByRole.TryGetValue(@object, out var associationTypes))
         {
@@ -76,6 +76,6 @@ public class ChangeSet : IChangeSet
             this.associationTypesByRole.Add(@object, associationTypes);
         }
 
-        associationTypes.Add(associationTypeHandleId);
+        associationTypes.Add(associationTypeId);
     }
 }

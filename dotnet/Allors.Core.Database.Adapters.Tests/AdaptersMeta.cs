@@ -2,7 +2,7 @@
 {
     using System;
     using Allors.Core.Database.Meta;
-    using Allors.Core.Database.Meta.Handles;
+    using Allors.Core.Database.Meta.Domain;
 
     /// <summary>
     /// Meta for Tests.

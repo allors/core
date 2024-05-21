@@ -5,7 +5,7 @@
 
 namespace Allors.Core.Database.Data;
 
-using Allors.Core.Database.Meta.Handles;
+using Allors.Core.Database.Meta.Domain;
 
 /// <summary>
 /// An exists predicate.

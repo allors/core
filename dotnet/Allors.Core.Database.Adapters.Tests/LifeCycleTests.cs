@@ -3,7 +3,7 @@
     using System;
     using System.Linq;
     using Allors.Core.Database.Meta;
-    using Allors.Core.Database.Meta.Handles;
+    using Allors.Core.Database.Meta.Domain;
     using Xunit;
 
     public abstract class LifeCycleTests : Tests

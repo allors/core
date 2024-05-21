@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Frozen;
     using System.Collections.Generic;
-    using Allors.Core.Database.Meta.Handles;
+    using Allors.Core.Database.Meta.Domain;
     using Allors.Core.Meta.Domain;
 
     /// <summary>
@@ -145,14 +145,14 @@
         /// <summary>
         /// Creates new unit relation end types.
         /// </summary>
-        public (UnitAssociationType AssociationType, UnitRoleType RoleType) NewUnitRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationCompositeHandle, Unit unitHandle, string singularName, string? assignedPluralName = null)
+        public (UnitAssociationType AssociationType, UnitRoleType RoleType) NewUnitRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, Unit unit, string singularName, string? assignedPluralName = null)
         {
             var m = this.Meta;
 
             var associationType = this.MetaPopulation.Build<UnitAssociationType>(v =>
             {
                 v[m.MetaObjectId] = associationTypeId;
-                v[m.AssociationTypeComposite] = associationCompositeHandle;
+                v[m.AssociationTypeComposite] = associationComposite;
             });
 
             this.Register(associationType);
@@ -161,7 +161,7 @@
             {
                 v[m.MetaObjectId] = roleTypeId;
                 v[m.RoleTypeAssociationType] = associationType;
-                v[m.RoleTypeObjectType] = unitHandle;
+                v[m.RoleTypeObjectType] = unit;
                 v[m.RoleTypeSingularName] = singularName;
                 v[m.RoleTypeAssignedPluralName] = assignedPluralName;
             });
@@ -174,14 +174,14 @@
         /// <summary>
         /// Creates new OneToOne relation end types.
         /// </summary>
-        public (OneToOneAssociationType AssociationType, OneToOneRoleType RoleType) NewOneToOneRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationCompositeHandle, IComposite roleCompositeHandle, string singularName, string? assignedPluralName = null)
+        public (OneToOneAssociationType AssociationType, OneToOneRoleType RoleType) NewOneToOneRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, IComposite roleComposite, string singularName, string? assignedPluralName = null)
         {
             var m = this.Meta;
 
             var associationType = this.MetaPopulation.Build<OneToOneAssociationType>(v =>
             {
                 v[m.MetaObjectId] = associationTypeId;
-                v[m.AssociationTypeComposite] = associationCompositeHandle;
+                v[m.AssociationTypeComposite] = associationComposite;
             });
 
             this.Register(associationType);
@@ -190,7 +190,7 @@
             {
                 v[m.MetaObjectId] = roleTypeId;
                 v[m.RoleTypeAssociationType] = associationType;
-                v[m.RoleTypeObjectType] = roleCompositeHandle;
+                v[m.RoleTypeObjectType] = roleComposite;
                 v[m.RoleTypeSingularName] = singularName;
                 v[m.RoleTypeAssignedPluralName] = assignedPluralName;
             });
@@ -203,14 +203,14 @@
         /// <summary>
         /// Creates new ManyToOne relation end types.
         /// </summary>
-        public (ManyToOneAssociationType AssociationType, ManyToOneRoleType RoleType) NewManyToOneRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationCompositeHandle, IComposite roleCompositeHandle, string singularName, string? assignedPluralName = null)
+        public (ManyToOneAssociationType AssociationType, ManyToOneRoleType RoleType) NewManyToOneRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, IComposite roleComposite, string singularName, string? assignedPluralName = null)
         {
             var m = this.Meta;
 
             var associationType = this.MetaPopulation.Build<ManyToOneAssociationType>(v =>
             {
                 v[m.MetaObjectId] = associationTypeId;
-                v[m.AssociationTypeComposite] = associationCompositeHandle;
+                v[m.AssociationTypeComposite] = associationComposite;
             });
 
             this.Register(associationType);
@@ -219,7 +219,7 @@
             {
                 v[m.MetaObjectId] = roleTypeId;
                 v[m.RoleTypeAssociationType] = associationType;
-                v[m.RoleTypeObjectType] = roleCompositeHandle;
+                v[m.RoleTypeObjectType] = roleComposite;
                 v[m.RoleTypeSingularName] = singularName;
                 v[m.RoleTypeAssignedPluralName] = assignedPluralName;
             });
@@ -232,14 +232,14 @@
         /// <summary>
         /// Creates new OneToMany relation end types.
         /// </summary>
-        public (OneToManyAssociationType AssociationType, OneToManyRoleType RoleType) NewOneToManyRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationCompositeHandle, IComposite roleCompositeHandle, string singularName, string? assignedPluralName = null)
+        public (OneToManyAssociationType AssociationType, OneToManyRoleType RoleType) NewOneToManyRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, IComposite roleComposite, string singularName, string? assignedPluralName = null)
         {
             var m = this.Meta;
 
             var associationType = this.MetaPopulation.Build<OneToManyAssociationType>(v =>
             {
                 v[m.MetaObjectId] = associationTypeId;
-                v[m.AssociationTypeComposite] = associationCompositeHandle;
+                v[m.AssociationTypeComposite] = associationComposite;
             });
 
             this.Register(associationType);
@@ -248,7 +248,7 @@
             {
                 v[m.MetaObjectId] = roleTypeId;
                 v[m.RoleTypeAssociationType] = associationType;
-                v[m.RoleTypeObjectType] = roleCompositeHandle;
+                v[m.RoleTypeObjectType] = roleComposite;
                 v[m.RoleTypeSingularName] = singularName;
                 v[m.RoleTypeAssignedPluralName] = assignedPluralName;
             });
@@ -261,14 +261,14 @@
         /// <summary>
         /// Creates new ManyToMany relation end types.
         /// </summary>
-        public (ManyToManyAssociationType AssociationType, ManyToManyRoleType RoleType) NewManyToManyRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationCompositeHandle, IComposite roleCompositeHandle, string singularName, string? assignedPluralName = null)
+        public (ManyToManyAssociationType AssociationType, ManyToManyRoleType RoleType) NewManyToManyRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, IComposite roleComposite, string singularName, string? assignedPluralName = null)
         {
             var m = this.Meta;
 
             var associationType = this.MetaPopulation.Build<ManyToManyAssociationType>(v =>
             {
                 v[m.MetaObjectId] = associationTypeId;
-                v[m.AssociationTypeComposite] = associationCompositeHandle;
+                v[m.AssociationTypeComposite] = associationComposite;
             });
 
             this.Register(associationType);
@@ -277,7 +277,7 @@
             {
                 v[m.MetaObjectId] = roleTypeId;
                 v[m.RoleTypeAssociationType] = associationType;
-                v[m.RoleTypeObjectType] = roleCompositeHandle;
+                v[m.RoleTypeObjectType] = roleComposite;
                 v[m.RoleTypeSingularName] = singularName;
                 v[m.RoleTypeAssignedPluralName] = assignedPluralName;
             });
@@ -290,10 +290,8 @@
         /// <summary>
         /// Subtype implements supertype.
         /// </summary>
-        public void AddDirectSupertype(IComposite subtypeHandle, Interface supertypeHandle)
+        public void AddDirectSupertype(IComposite subtype, Interface supertype)
         {
-            var subtype = subtypeHandle;
-            var supertype = supertypeHandle;
             subtype.Add(this.Meta.CompositeDirectSupertypes, supertype);
         }
     }

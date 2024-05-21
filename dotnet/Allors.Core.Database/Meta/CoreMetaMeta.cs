@@ -1,7 +1,7 @@
 ﻿namespace Allors.Core.Database.Meta
 {
     using System;
-    using Allors.Core.Database.Meta.Handles;
+    using Allors.Core.Database.Meta.Domain;
     using Allors.Core.Meta.Domain;
     using Allors.Core.Meta.Meta;
 
@@ -20,7 +20,7 @@
             this.Composite = this.NewMetaInterface("Composite");
             this.CompositeAssociationType = this.NewMetaInterface("CompositeRoleType");
             this.CompositeRoleType = this.NewMetaInterface("CompositeAssociationType");
-            this.Domain = this.NewMetaClass(typeof(Domain));
+            this.Domain = this.NewMetaClass(typeof(Domain.Domain));
             this.Interface = this.NewMetaClass(typeof(Interface));
             this.ManyToAssociationType = this.NewMetaInterface("ManyToAssociationType");
             this.ManyToManyAssociationType = this.NewMetaClass(typeof(ManyToManyAssociationType));

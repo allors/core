@@ -2,7 +2,7 @@
 {
     using System.Linq;
     using Allors.Core.Database.Meta;
-    using Allors.Core.Database.Meta.Handles;
+    using Allors.Core.Database.Meta.Domain;
     using Allors.Core.Meta.Meta.Diagrams;
     using Xunit;
 
