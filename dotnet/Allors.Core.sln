@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Allors.Core.Database", "All
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Allors.Core.Database.Tests", "Allors.Core.Database.Tests\Allors.Core.Database.Tests.csproj", "{8D3B0ACE-466F-483F-8CE2-95DA87E287CD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Allors.Custom.Database", "Allors.Custom.Database\Allors.Custom.Database.csproj", "{AC8F48AD-9827-463D-8D6B-A3B6947B1C6B}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Allors.Core.Database.Adapters", "Allors.Core.Database.Adapters\Allors.Core.Database.Adapters.csproj", "{801BB68F-F3A4-4EB0-8200-6228E1FFBD2A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Allors.Core.Database.Adapters.Memory", "Allors.Core.Database.Adapters.Memory\Allors.Core.Database.Adapters.Memory.csproj", "{9AD8E583-036B-4E15-A7A3-27DB6ECD6D48}"
@@ -39,10 +37,6 @@ Global
 		{8D3B0ACE-466F-483F-8CE2-95DA87E287CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D3B0ACE-466F-483F-8CE2-95DA87E287CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D3B0ACE-466F-483F-8CE2-95DA87E287CD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AC8F48AD-9827-463D-8D6B-A3B6947B1C6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AC8F48AD-9827-463D-8D6B-A3B6947B1C6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AC8F48AD-9827-463D-8D6B-A3B6947B1C6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AC8F48AD-9827-463D-8D6B-A3B6947B1C6B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{801BB68F-F3A4-4EB0-8200-6228E1FFBD2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{801BB68F-F3A4-4EB0-8200-6228E1FFBD2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{801BB68F-F3A4-4EB0-8200-6228E1FFBD2A}.Release|Any CPU.ActiveCfg = Release|Any CPU

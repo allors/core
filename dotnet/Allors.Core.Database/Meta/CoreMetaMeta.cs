@@ -1,6 +1,7 @@
 ﻿namespace Allors.Core.Database.Meta
 {
     using System;
+    using Allors.Core.Database.Meta.Derivations;
     using Allors.Core.Database.Meta.Domain;
     using Allors.Core.Meta.Domain;
     using Allors.Core.Meta.Meta;
@@ -15,36 +16,36 @@
             this.MetaMeta = new MetaMeta();
 
             // ObjectTypes
-            this.AssociationType = this.NewMetaInterface("AssociationType");
-            this.Class = this.NewMetaClass(typeof(Class));
-            this.Composite = this.NewMetaInterface("Composite");
-            this.CompositeAssociationType = this.NewMetaInterface("CompositeRoleType");
-            this.CompositeRoleType = this.NewMetaInterface("CompositeAssociationType");
-            this.Domain = this.NewMetaClass(typeof(Domain.Domain));
-            this.Interface = this.NewMetaClass(typeof(Interface));
-            this.ManyToAssociationType = this.NewMetaInterface("ManyToAssociationType");
-            this.ManyToManyAssociationType = this.NewMetaClass(typeof(ManyToManyAssociationType));
-            this.ManyToManyRoleType = this.NewMetaClass(typeof(ManyToManyRoleType));
-            this.ManyToOneAssociationType = this.NewMetaClass(typeof(ManyToOneAssociationType));
-            this.ManyToOneRoleType = this.NewMetaClass(typeof(ManyToOneRoleType));
-            this.MetaObject = this.NewMetaInterface("MetaObject");
-            this.MethodType = this.NewMetaClass(typeof(MethodType));
-            this.ObjectType = this.NewMetaInterface("ObjectType");
-            this.OneToAssociationType = this.NewMetaInterface("OneToAssociationType");
-            this.OneToManyAssociationType = this.NewMetaClass(typeof(OneToManyAssociationType));
-            this.OneToManyRoleType = this.NewMetaClass(typeof(OneToManyRoleType));
-            this.OneToOneAssociationType = this.NewMetaClass(typeof(OneToOneAssociationType));
-            this.OneToOneRoleType = this.NewMetaClass(typeof(OneToOneRoleType));
-            this.OperandType = this.NewMetaInterface("OperandType");
-            this.RelationEndType = this.NewMetaInterface("RelationEndType");
-            this.RoleType = this.NewMetaInterface("RoleType");
-            this.ToManyRoleType = this.NewMetaInterface("ToManyRoleType ");
-            this.ToOneRoleType = this.NewMetaInterface("ToOneRoleType");
-            this.Type = this.NewMetaInterface("Type");
-            this.Unit = this.NewMetaClass(typeof(Unit));
-            this.UnitAssociationType = this.NewMetaClass(typeof(UnitAssociationType));
-            this.UnitRoleType = this.NewMetaClass(typeof(UnitRoleType));
-            this.Workspace = this.NewMetaClass(typeof(Workspace));
+            this.AssociationType = this.AddMetaInterface("AssociationType");
+            this.Class = this.AddMetaClass(typeof(Class));
+            this.Composite = this.AddMetaInterface("Composite");
+            this.CompositeAssociationType = this.AddMetaInterface("CompositeRoleType");
+            this.CompositeRoleType = this.AddMetaInterface("CompositeAssociationType");
+            this.Domain = this.AddMetaClass(typeof(Domain.Domain));
+            this.Interface = this.AddMetaClass(typeof(Interface));
+            this.ManyToAssociationType = this.AddMetaInterface("ManyToAssociationType");
+            this.ManyToManyAssociationType = this.AddMetaClass(typeof(ManyToManyAssociationType));
+            this.ManyToManyRoleType = this.AddMetaClass(typeof(ManyToManyRoleType));
+            this.ManyToOneAssociationType = this.AddMetaClass(typeof(ManyToOneAssociationType));
+            this.ManyToOneRoleType = this.AddMetaClass(typeof(ManyToOneRoleType));
+            this.MetaObject = this.AddMetaInterface("MetaObject");
+            this.MethodType = this.AddMetaClass(typeof(MethodType));
+            this.ObjectType = this.AddMetaInterface("ObjectType");
+            this.OneToAssociationType = this.AddMetaInterface("OneToAssociationType");
+            this.OneToManyAssociationType = this.AddMetaClass(typeof(OneToManyAssociationType));
+            this.OneToManyRoleType = this.AddMetaClass(typeof(OneToManyRoleType));
+            this.OneToOneAssociationType = this.AddMetaClass(typeof(OneToOneAssociationType));
+            this.OneToOneRoleType = this.AddMetaClass(typeof(OneToOneRoleType));
+            this.OperandType = this.AddMetaInterface("OperandType");
+            this.RelationEndType = this.AddMetaInterface("RelationEndType");
+            this.RoleType = this.AddMetaInterface("RoleType");
+            this.ToManyRoleType = this.AddMetaInterface("ToManyRoleType ");
+            this.ToOneRoleType = this.AddMetaInterface("ToOneRoleType");
+            this.Type = this.AddMetaInterface("Type");
+            this.Unit = this.AddMetaClass(typeof(Unit));
+            this.UnitAssociationType = this.AddMetaClass(typeof(UnitAssociationType));
+            this.UnitRoleType = this.AddMetaClass(typeof(UnitRoleType));
+            this.Workspace = this.AddMetaClass(typeof(Workspace));
 
             // Inheritance
             this.AssociationType.AddDirectSupertype(this.RelationEndType);
@@ -83,6 +84,7 @@
             this.AssociationTypeComposite = metaMeta.AddManyToOne(this.AssociationType, this.Composite);
 
             this.CompositeDirectSupertypes = metaMeta.AddManyToMany(this.Composite, this.Interface, "DirectSupertype");
+            this.CompositeSupertypes = metaMeta.AddManyToMany(this.Composite, this.Interface, "Supertype");
 
             this.DomainTypes = metaMeta.AddManyToMany(this.Domain, this.Type);
 
@@ -137,6 +139,11 @@
         /// Composite role type.
         /// </summary>
         public MetaObjectType CompositeRoleType { get; set; }
+
+        /// <summary>
+        /// The supertypes of a composite.
+        /// </summary>
+        public MetaManyToManyRoleType CompositeSupertypes { get; init; }
 
         /// <summary>
         /// The direct supertypes of a composite.
@@ -331,16 +338,23 @@
         /// <summary>
         /// Creates a new meta class.
         /// </summary>
-        public MetaObjectType NewMetaClass(Type type) => this.MetaMeta.AddClass(type);
+        public MetaObjectType AddMetaClass(Type type) => this.MetaMeta.AddClass(type);
 
         /// <summary>
         /// Creates a new meta interface.
         /// </summary>
-        public MetaObjectType NewMetaInterface(string name) => this.MetaMeta.AddInterface(name);
+        public MetaObjectType AddMetaInterface(string name) => this.MetaMeta.AddInterface(name);
 
         /// <summary>
         /// Creates a new MetaPopulation
         /// </summary>
-        public MetaPopulation CreateMetaPopulation() => new(this.MetaMeta);
+        public MetaPopulation CreateMetaPopulation()
+        {
+            var metaPopulation = new MetaPopulation(this.MetaMeta);
+
+            metaPopulation.DerivationById[nameof(this.CompositeSupertypes)] = new CompositeSupertypes(metaPopulation, this);
+
+            return metaPopulation;
+        }
     }
 }

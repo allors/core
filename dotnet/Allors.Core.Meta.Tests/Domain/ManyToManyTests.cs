@@ -59,7 +59,7 @@
             var organization = meta.AddClass("Organization");
             var person = meta.AddClass("Person");
             var name = meta.AddUnit<string>(organization, "Name");
-            MetaManyToManyRoleType employees = meta.AddManyToMany(organization, person, "Employee");
+            var employees = meta.AddManyToMany(organization, person, "Employee");
 
             var population = new MetaPopulation(meta);
 
@@ -135,7 +135,7 @@
             var organization = meta.AddClass("Organization");
             var person = meta.AddClass("Person");
             meta.AddUnit<string>(organization, "Name");
-            MetaManyToManyRoleType employees = meta.AddManyToMany(organization, person, "Employee");
+            var employees = meta.AddManyToMany(organization, person, "Employee");
 
             var population = new MetaPopulation(meta);
 
@@ -195,7 +195,7 @@
             var organization = meta.AddClass("Organization");
             var person = meta.AddClass("Person");
             meta.AddUnit<string>(organization, "Name");
-            MetaManyToManyRoleType employees = meta.AddManyToMany(organization, person, "Employee");
+            var employees = meta.AddManyToMany(organization, person, "Employee");
 
             var population = new MetaPopulation(meta);
 
@@ -284,7 +284,7 @@
             var organization = meta.AddClass("Organization");
             var person = meta.AddClass("Person");
             meta.AddUnit<string>(organization, "Name");
-            MetaManyToManyRoleType people = meta.AddManyToMany(organization, person);
+            var people = meta.AddManyToMany(organization, person);
 
             var population = new MetaPopulation(meta);
 

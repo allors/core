@@ -172,30 +172,6 @@
             }
         }
 
-        internal void AddToManyRole(IMetaObject association, IMetaToManyRoleType roleType, IEnumerable<IMetaObject> items)
-        {
-            var values = items.Distinct().ToArray();
-
-            if (values.Length == 0)
-            {
-                return;
-            }
-
-            switch (roleType)
-            {
-                case MetaOneToManyRoleType toManyRoleType:
-                    this.AddOneToManyRole(association, toManyRoleType, values);
-                    return;
-
-                case MetaManyToManyRoleType toManyRoleType:
-                    this.AddManyToManyRole(association, toManyRoleType, values);
-                    return;
-
-                default:
-                    throw new InvalidOperationException();
-            }
-        }
-
         internal void RemoveToManyRole(IMetaObject association, IMetaToManyRoleType roleType, IMetaObject item)
         {
             switch (roleType)
@@ -206,30 +182,6 @@
 
                 case MetaManyToManyRoleType toManyRoleType:
                     this.RemoveManyToManyRole(association, toManyRoleType, item);
-                    return;
-
-                default:
-                    throw new InvalidOperationException();
-            }
-        }
-
-        internal void RemoveToManyRole(IMetaObject association, IMetaToManyRoleType roleType, IEnumerable<IMetaObject> items)
-        {
-            var values = items.Distinct().ToArray();
-
-            if (values.Length == 0)
-            {
-                return;
-            }
-
-            switch (roleType)
-            {
-                case MetaOneToManyRoleType toManyRoleType:
-                    this.RemoveOneToManyRole(association, toManyRoleType, values);
-                    return;
-
-                case MetaManyToManyRoleType toManyRoleType:
-                    this.RemoveManyToManyRole(association, toManyRoleType, values);
                     return;
 
                 default:

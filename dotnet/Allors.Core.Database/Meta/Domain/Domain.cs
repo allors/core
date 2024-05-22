@@ -15,5 +15,8 @@
             : base(population, objectType)
         {
         }
+
+        /// <inheritdoc/>
+        public override string ToString() => (string)this["Name"]!;
     }
 }

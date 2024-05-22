@@ -52,20 +52,20 @@
             {
                 switch (roleType)
                 {
-                case MetaUnitRoleType unitRoleType:
-                    this[unitRoleType] = value;
-                    return;
+                    case MetaUnitRoleType unitRoleType:
+                        this[unitRoleType] = value;
+                        return;
 
-                case IMetaToOneRoleType toOneRoleType:
-                    this[toOneRoleType] = (IMetaObject?)value;
-                    return;
+                    case IMetaToOneRoleType toOneRoleType:
+                        this[toOneRoleType] = (IMetaObject?)value;
+                        return;
 
-                case IMetaToManyRoleType toManyRoleType:
-                    this[toManyRoleType] = (IEnumerable<IMetaObject>)(value ?? Array.Empty<IMetaObject>());
-                    return;
+                    case IMetaToManyRoleType toManyRoleType:
+                        this[toManyRoleType] = (IEnumerable<IMetaObject>)(value ?? Array.Empty<IMetaObject>());
+                        return;
 
-                default:
-                    throw new InvalidOperationException();
+                    default:
+                        throw new InvalidOperationException();
                 }
             }
         }
@@ -79,10 +79,7 @@
         public IMetaObject? this[IMetaToOneRoleType roleType]
         {
             get => this.Population.GetToOneRole(this, roleType);
-            set
-            {
-                this.Population.SetToOneRole(this, roleType, value);
-            }
+            set => this.Population.SetToOneRole(this, roleType, value);
         }
 
         public IEnumerable<IMetaObject> this[IMetaToManyRoleType roleType]
@@ -104,10 +101,6 @@
 
         public void Add(IMetaToManyRoleType roleType, IMetaObject item) => this.Population.AddToManyRole(this, roleType, item);
 
-        public void Add(IMetaToManyRoleType roleType, IEnumerable<IMetaObject> items) => this.Population.AddToManyRole(this, roleType, items);
-
         public void Remove(IMetaToManyRoleType roleType, IMetaObject item) => this.Population.RemoveToManyRole(this, roleType, item);
-
-        public void Remove(IMetaToManyRoleType roleType, IEnumerable<IMetaObject> items) => this.Population.RemoveToManyRole(this, roleType, items);
     }
 }

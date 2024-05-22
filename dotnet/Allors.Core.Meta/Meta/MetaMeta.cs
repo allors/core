@@ -111,7 +111,7 @@
 
         internal void ResetDerivations()
         {
-            foreach ((_, MetaObjectType? objectType) in this.ObjectTypeByName)
+            foreach ((_, var objectType) in this.ObjectTypeByName)
             {
                 objectType.ResetDerivations();
             }

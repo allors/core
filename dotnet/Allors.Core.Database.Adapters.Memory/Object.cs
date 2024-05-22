@@ -452,8 +452,10 @@ public class Object : IObject
         return null;
     }
 
-    private void SetOneToOneRole(OneToOneRoleType roleType, Object role)
+    private void SetOneToOneRole(OneToOneRoleType roleType, Object value)
     {
+        value = this.Normalize(roleType, value);
+
         /*  [if exist]        [then remove]        set
          *
          *  RA ----- R         RA --x-- R       RA    -- R       RA    -- R
@@ -463,7 +465,7 @@ public class Object : IObject
         var previousRole = (Object?)this[roleType];
 
         // R = PR
-        if (Equals(role, previousRole))
+        if (Equals(value, previousRole))
         {
             return;
         }
@@ -476,17 +478,17 @@ public class Object : IObject
             this.RemoveOneToOneRole(roleType);
         }
 
-        var roleAssociation = (Object?)role[associationType];
+        var roleAssociation = (Object?)value[associationType];
 
         // RA --x-- R
         roleAssociation?.RemoveOneToOneRole(roleType);
 
         // A <---- R
-        role.SetOneToAssociation(associationType, this);
+        value.SetOneToAssociation(associationType, this);
 
         // A ----> R
         this.changedRoleByRoleType ??= [];
-        this.changedRoleByRoleType[roleType] = role.Id;
+        this.changedRoleByRoleType[roleType] = value.Id;
     }
 
     private void RemoveOneToOneRole(OneToOneRoleType roleType)
@@ -830,5 +832,19 @@ public class Object : IObject
 
         this.changedAssociationByAssociationType ??= [];
         this.changedAssociationByAssociationType[associationType] = newAssociation.Count != 0 ? newAssociation : null;
+    }
+
+    private Object Normalize(IToOneRoleType roleType, Object value)
+    {
+        var m = this.Transaction.Database.Meta;
+
+        var objectType = roleType[m.Meta.RoleTypeObjectType]!;
+
+        if (!m.IsAssignableFrom(objectType, value.Class))
+        {
+            throw new ArgumentException($"{roleType} should be assignable to {roleType.ObjectType.Name} but was a {objectType}");
+        }
+
+        return value;
     }
 }

@@ -15,7 +15,7 @@
             var meta = new MetaMeta();
             var organization = meta.AddClass("Organization");
             var person = meta.AddClass("Person");
-            MetaOneToManyRoleType employees = meta.AddOneToMany(organization, person, "Employee");
+            var employees = meta.AddOneToMany(organization, person, "Employee");
 
             var population = new MetaPopulation(meta);
 
@@ -43,7 +43,7 @@
             var meta = new MetaMeta();
             var organization = meta.AddClass("Organization");
             var person = meta.AddClass("Person");
-            MetaOneToManyRoleType employees = meta.AddOneToMany(organization, person, "Employee");
+            var employees = meta.AddOneToMany(organization, person, "Employee");
 
             var population = new MetaPopulation(meta);
 
@@ -52,7 +52,9 @@
             var john = population.Build(person);
             var jenny = population.Build(person);
 
-            acme.Add(employees, [jane, john, jenny]);
+            acme.Add(employees, jane);
+            acme.Add(employees, john);
+            acme.Add(employees, jenny);
 
             Assert.Contains(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
             Assert.Contains(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
@@ -69,7 +71,7 @@
             var meta = new MetaMeta();
             var organization = meta.AddClass("Organization");
             var person = meta.AddClass("Person");
-            MetaOneToManyRoleType employees = meta.AddOneToMany(organization, person, "Employee");
+            var employees = meta.AddOneToMany(organization, person, "Employee");
 
             var population = new MetaPopulation(meta);
 
@@ -78,7 +80,9 @@
             var john = population.Build(person);
             var jenny = population.Build(person);
 
-            acme.Add(employees, [jane, john, jenny]);
+            acme.Add(employees, jane);
+            acme.Add(employees, john);
+            acme.Add(employees, jenny);
 
             Assert.Contains(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
             Assert.Contains(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
@@ -96,7 +100,7 @@
             var named = meta.AddInterface("Named");
             var organization = meta.AddClass("Organization", named);
             var person = meta.AddClass("Person", named);
-            MetaOneToManyRoleType employees = meta.AddOneToMany(organization, person, "Employee");
+            var employees = meta.AddOneToMany(organization, person, "Employee");
 
             var population = new MetaPopulation(meta);
 
@@ -133,7 +137,7 @@
             var meta = new MetaMeta();
             var organization = meta.AddClass("Organization");
             var person = meta.AddClass("Person");
-            MetaOneToManyRoleType employees = meta.AddOneToMany(organization, person, "Employee");
+            var employees = meta.AddOneToMany(organization, person, "Employee");
 
             var population = new MetaPopulation(meta);
 
@@ -183,7 +187,7 @@
             var meta = new MetaMeta();
             var organization = meta.AddClass("Organization");
             var person = meta.AddClass("Person");
-            MetaOneToManyRoleType employees = meta.AddOneToMany(organization, person, "Employee");
+            var employees = meta.AddOneToMany(organization, person, "Employee");
 
             var population = new MetaPopulation(meta);
 
@@ -196,7 +200,8 @@
             acme.Add(employees, john);
             acme.Add(employees, jenny);
 
-            acme.Remove(employees, [jane, john]);
+            acme.Remove(employees, jane);
+            acme.Remove(employees, john);
 
             Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
             Assert.DoesNotContain(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
@@ -213,7 +218,7 @@
             var meta = new MetaMeta();
             var organization = meta.AddClass("Organization");
             var person = meta.AddClass("Person");
-            MetaOneToManyRoleType employees = meta.AddOneToMany(organization, person, "Employee");
+            var employees = meta.AddOneToMany(organization, person, "Employee");
 
             var population = new MetaPopulation(meta);
 
@@ -226,7 +231,8 @@
             acme.Add(employees, john);
             acme.Add(employees, jenny);
 
-            acme.Remove(employees, [jane, john]);
+            acme.Remove(employees, jane);
+            acme.Remove(employees, john);
 
             Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
             Assert.DoesNotContain(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
@@ -243,7 +249,7 @@
             var meta = new MetaMeta();
             var organization = meta.AddClass("Organization");
             var person = meta.AddClass("Person");
-            MetaOneToManyRoleType employees = meta.AddOneToMany(organization, person, "Employee");
+            var employees = meta.AddOneToMany(organization, person, "Employee");
 
             var population = new MetaPopulation(meta);
 

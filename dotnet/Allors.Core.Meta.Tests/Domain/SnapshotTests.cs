@@ -56,7 +56,7 @@
             meta.AddUnit<string>(person, "FirstName");
             meta.AddUnit<string>(person, "LastName");
             meta.AddUnit<string>(organization, "Name");
-            MetaManyToManyRoleType employees = meta.AddManyToMany(organization, person, "Employee");
+            var employees = meta.AddManyToMany(organization, person, "Employee");
 
             var population = new MetaPopulation(meta);
 

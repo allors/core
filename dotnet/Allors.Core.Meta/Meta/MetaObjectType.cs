@@ -116,7 +116,7 @@
         internal MetaUnitRoleType AddUnit(MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
         {
             roleSingularName ??= objectType.Name;
-            string rolePluralName = this.Meta.Pluralize(roleSingularName);
+            var rolePluralName = this.Meta.Pluralize(roleSingularName);
 
             var roleType = new MetaUnitRoleType(
                 objectType,
@@ -153,7 +153,7 @@
         internal MetaOneToOneRoleType AddOneToOne(MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
         {
             roleSingularName ??= objectType.Name;
-            string rolePluralName = this.Meta.Pluralize(roleSingularName);
+            var rolePluralName = this.Meta.Pluralize(roleSingularName);
 
             var roleType = new MetaOneToOneRoleType(
                 objectType,
@@ -190,7 +190,7 @@
         internal MetaManyToOneRoleType AddManyToOne(MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
         {
             roleSingularName ??= objectType.Name;
-            string rolePluralName = this.Meta.Pluralize(roleSingularName);
+            var rolePluralName = this.Meta.Pluralize(roleSingularName);
 
             var roleType = new MetaManyToOneRoleType(
                 objectType,
@@ -227,7 +227,7 @@
         internal MetaOneToManyRoleType AddOneToMany(MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
         {
             roleSingularName ??= objectType.Name;
-            string rolePluralName = this.Meta.Pluralize(roleSingularName);
+            var rolePluralName = this.Meta.Pluralize(roleSingularName);
 
             var roleType = new MetaOneToManyRoleType(
                 objectType,
@@ -264,7 +264,7 @@
         internal MetaManyToManyRoleType AddManyToMany(MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
         {
             roleSingularName ??= objectType.Name;
-            string rolePluralName = this.Meta.Pluralize(roleSingularName);
+            var rolePluralName = this.Meta.Pluralize(roleSingularName);
 
             var roleType = new MetaManyToManyRoleType(
                 objectType,
