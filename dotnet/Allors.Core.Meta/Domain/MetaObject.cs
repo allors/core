@@ -104,10 +104,10 @@
 
         public void Add(IMetaToManyRoleType roleType, IMetaObject item) => this.Population.AddToManyRole(this, roleType, item);
 
-        public void Add(IMetaToManyRoleType roleType, params IMetaObject[] items) => this.Population.AddToManyRole(this, roleType, items);
+        public void Add(IMetaToManyRoleType roleType, IEnumerable<IMetaObject> items) => this.Population.AddToManyRole(this, roleType, items);
 
         public void Remove(IMetaToManyRoleType roleType, IMetaObject item) => this.Population.RemoveToManyRole(this, roleType, item);
 
-        public void Remove(IMetaToManyRoleType roleType, params IMetaObject[] items) => this.Population.RemoveToManyRole(this, roleType, items);
+        public void Remove(IMetaToManyRoleType roleType, IEnumerable<IMetaObject> items) => this.Population.RemoveToManyRole(this, roleType, items);
     }
 }

@@ -294,5 +294,13 @@
         {
             subtype.Add(this.Meta.CompositeDirectSupertypes, supertype);
         }
+
+        /// <summary>
+        /// Subtype implements supertype.
+        /// </summary>
+        public void AddDirectSupertypes(IComposite subtype, params Interface[] supertypes)
+        {
+            subtype.Add(this.Meta.CompositeDirectSupertypes, supertypes);
+        }
     }
 }

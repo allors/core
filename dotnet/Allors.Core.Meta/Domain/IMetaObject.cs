@@ -27,10 +27,10 @@
 
         void Add(IMetaToManyRoleType roleType, IMetaObject item);
 
-        void Add(IMetaToManyRoleType roleType, params IMetaObject[] items);
+        void Add(IMetaToManyRoleType roleType, IEnumerable<IMetaObject> items);
 
         void Remove(IMetaToManyRoleType roleType, IMetaObject item);
 
-        void Remove(IMetaToManyRoleType roleType, params IMetaObject[] items);
+        void Remove(IMetaToManyRoleType roleType, IEnumerable<IMetaObject> items);
     }
 }

@@ -755,16 +755,8 @@ public class Object : IObject
 
         // A ----> R
         var newRole = previousRole.Remove(role.Id);
-        if (newRole.Count == 0)
-        {
-            this.changedRoleByRoleType ??= [];
-            this.changedRoleByRoleType.Remove(roleType);
-        }
-        else
-        {
-            this.changedRoleByRoleType ??= [];
-            this.changedRoleByRoleType[roleType] = newRole;
-        }
+        this.changedRoleByRoleType ??= [];
+        this.changedRoleByRoleType[roleType] = newRole.Count == 0 ? null : newRole;
     }
 
     private long? GetOneToAssociation(IOneToAssociationType associationType)

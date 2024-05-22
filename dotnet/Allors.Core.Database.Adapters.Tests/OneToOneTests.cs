@@ -5,6 +5,7 @@
     using System.Diagnostics;
     using System.Linq;
     using Allors.Core.Database.Meta.Domain;
+    using FluentAssertions;
     using MoreLinq;
     using Xunit;
 
@@ -859,6 +860,48 @@
                     Assert.Equal(end, middle[role]);
                     Assert.Equal(begin, end[role]);
                 }
+            }
+        }
+
+        [Fact]
+        public void RelationChecks()
+        {
+            foreach (var (preactName, preact) in this.preActs)
+            {
+                var database = this.CreateDatabase();
+                var transaction = database.CreateTransaction();
+
+                var m = this.Meta;
+
+                var c1a = transaction.Build(m.C1);
+                var c1b = transaction.Build(m.C1);
+                var c2a = transaction.Build(m.C2);
+
+                // Illegal Role
+                preact(transaction);
+
+                c1a.Invoking(v => v[m.C1C2OneToOne] = c1b)
+                   .Should().Throw<InvalidOperationException>();
+
+                preact(transaction);
+
+                c1a.Invoking(v => v[m.C1I2OneToOne] = c1b)
+                    .Should().Throw<InvalidOperationException>();
+
+                preact(transaction);
+
+                c1a.Invoking(v => v[m.C1S2OneToOne] = c1b)
+                    .Should().Throw<InvalidOperationException>();
+
+                preact(transaction);
+
+                c1a.Invoking(v => v[m.C2C1OneToOne] = c1b)
+                    .Should().Throw<InvalidOperationException>();
+
+                preact(transaction);
+
+                c1a.Invoking(v => v[m.C2C2OneToOne] = c2a)
+                    .Should().Throw<InvalidOperationException>();
             }
         }
 

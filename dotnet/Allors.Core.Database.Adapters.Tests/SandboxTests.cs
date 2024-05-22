@@ -15,26 +15,20 @@
 
             var m = this.Meta;
 
-            var association = m.C1WhereC1C1one2manies;
-            var role = m.C1C1OneToManies;
+            var association = m.C1sWhereC1ManyToMany;
+            var role = m.C1C1ManyToMany;
 
             var from = transaction.Build(m.C1);
-            var fromAnother = transaction.Build(m.C1);
             var to = transaction.Build(m.C1);
 
             from[role] = [to];
 
             transaction.Commit();
 
-            to[association].Should().BeSameAs(from);
-            from[role].Should().BeEquivalentTo([to]);
-            fromAnother[role].Should().BeEmpty();
+            from[role] = [];
 
-            fromAnother[role] = [to];
-
-            to[association].Should().BeSameAs(fromAnother);
+            to[association].Should().BeEmpty();
             from[role].Should().BeEmpty();
-            fromAnother[role].Should().BeEquivalentTo([to]);
         }
 
         protected abstract IDatabase CreateDatabase();

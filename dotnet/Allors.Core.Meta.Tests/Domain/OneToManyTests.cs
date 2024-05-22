@@ -52,7 +52,7 @@
             var john = population.Build(person);
             var jenny = population.Build(person);
 
-            acme.Add(employees, jane, john, jenny);
+            acme.Add(employees, [jane, john, jenny]);
 
             Assert.Contains(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
             Assert.Contains(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
@@ -196,7 +196,7 @@
             acme.Add(employees, john);
             acme.Add(employees, jenny);
 
-            acme.Remove(employees, jane, john);
+            acme.Remove(employees, [jane, john]);
 
             Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
             Assert.DoesNotContain(john, (IEnumerable<IMetaObject>)acme["Employees"]!);

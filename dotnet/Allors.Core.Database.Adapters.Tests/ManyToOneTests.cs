@@ -1,10 +1,74 @@
 ﻿namespace Allors.Core.Database.Adapters.Tests;
 
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using Allors.Core.Database.Meta.Domain;
+using FluentAssertions;
+using MoreLinq;
 using Xunit;
 
 public abstract class ManyToOneTests : Tests
 {
+    private readonly Func<(
+    ManyToOneAssociationType Association,
+    ManyToOneRoleType Role,
+    Func<ITransaction, IObject>[] Builders,
+    Func<ITransaction, IObject> FromBuilder,
+    Func<ITransaction, IObject> FromAnotherBuilder,
+    Func<ITransaction, IObject> From3Builder,
+    Func<ITransaction, IObject> From4Builder,
+    Func<ITransaction, IObject> ToBuilder,
+    Func<ITransaction, IObject> ToAnotherBuilder)>[] fixtures;
+
+    private readonly (string, Action<ITransaction>)[] preActs;
+
+    protected ManyToOneTests()
+    {
+        this.fixtures =
+        [
+            () =>
+                {
+                    // C1 <-> C1
+                    Debugger.Log(0, null, $"C1 <-> C1\n");
+                    var association = this.Meta.C1sWhereC1ManyToOne;
+                    var role = this.Meta.C1C1ManyToOne;
+
+                    return (association, role, [C1Builder], C1Builder, C1Builder, C1Builder, C1Builder, C1Builder, C1Builder);
+
+                    IObject C1Builder(ITransaction transaction) => transaction.Build(this.Meta.C1);
+                },
+            ];
+
+        this.preActs =
+        [
+            ("Nothing", _ => { }),
+                ("Checkpoint", v => v.Checkpoint()),
+                ("Checkpoint Checkpoint", v =>
+                {
+                    v.Checkpoint();
+                    v.Checkpoint();
+                }),
+                ("Commit", v => v.Commit()),
+                ("Commit Commit", v =>
+                {
+                    v.Commit();
+                    v.Commit();
+                }),
+                ("Checkpoint Commit", v =>
+                {
+                    v.Checkpoint();
+                    v.Commit();
+                }),
+                ("Commit Checkpoint", v =>
+                {
+                    v.Commit();
+                    v.Checkpoint();
+                }),
+            ];
+    }
+
     [Fact]
     public void C1_C1many2one()
     {
@@ -1386,5 +1450,152 @@ public abstract class ManyToOneTests : Tests
         Assert.False(from1.Exist(m.C1C1ManyToOne));
     }
 
+    [Fact]
+    public void FromToInitial()
+    {
+        this.FromTo(
+            () =>
+            [
+            ],
+            () =>
+            [
+                (association, _, _, to) => to[association].Should().BeEmpty(),
+                (_, role, from, _) => from[role].Should().BeNull()
+            ]);
+    }
+
+    [Fact]
+    public void FromToSet()
+    {
+        this.FromTo(
+            () =>
+            [
+                (_, role, from, to) => from[role] = to
+            ],
+            () =>
+            [
+                (association, _, from, to) => to[association].Should().BeEquivalentTo([from]),
+                (_, role, from, to) => from[role].Should().BeSameAs(to)
+            ]);
+    }
+
+    [Fact]
+    public void FromToSetFromAnotherToSet()
+    {
+        this.FromToToAnother(
+            () =>
+            [
+                (_, role, from, to, toAnother) => from[role] = to,
+                (_, role, from, to, toAnother) => from[role] = toAnother
+            ],
+            () =>
+            [
+                (association, _, from, to, toAnother) => to[association].Should().BeEmpty(),
+                (association, _, from, to, toAnother) => toAnother[association].Should().BeEquivalentTo([from]),
+                (_, role, from, to, toAnother) => from[role].Should().BeSameAs(toAnother),
+            ]);
+    }
+
     protected abstract IDatabase CreateDatabase();
+
+    private void FromTo(
+       Func<IEnumerable<Action<ManyToOneAssociationType, ManyToOneRoleType, IObject, IObject>>> acts,
+       Func<IEnumerable<Action<ManyToOneAssociationType, ManyToOneRoleType, IObject, IObject>>> asserts)
+    {
+        var assertPermutations = asserts().Permutations().ToArray();
+
+        foreach (var (preactName, preact) in this.preActs)
+        {
+            Debugger.Log(0, null, $"Preact {preactName}\n");
+            foreach (var actRepeats in new[] { 1, 2 })
+            {
+                Debugger.Log(0, null, $"Act Repeats {actRepeats}\n");
+                foreach (var assertPermutation in assertPermutations)
+                {
+                    foreach (var assertRepeats in new[] { 1, 2 })
+                    {
+                        Debugger.Log(0, null, $"Assert Repeats {assertRepeats}\n");
+                        foreach (var fixture in this.fixtures)
+                        {
+                            var (association, role, _, fromBuilder, _, toBuilder, _, _, _) = fixture();
+
+                            var database = this.CreateDatabase();
+                            var transaction = database.CreateTransaction();
+
+                            var from = fromBuilder(transaction);
+                            var to = toBuilder(transaction);
+
+                            foreach (var act in acts())
+                            {
+                                for (var actRepeat = 0; actRepeat < actRepeats; actRepeat++)
+                                {
+                                    preact(transaction);
+                                    act(association, role, from, to);
+                                }
+                            }
+
+                            foreach (var assert in assertPermutation)
+                            {
+                                for (var assertRepeat = 0; assertRepeat < assertRepeats; assertRepeat++)
+                                {
+                                    assert(association, role, from, to);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void FromToToAnother(
+       Func<IEnumerable<Action<ManyToOneAssociationType, ManyToOneRoleType, IObject, IObject, IObject>>> acts,
+       Func<IEnumerable<Action<ManyToOneAssociationType, ManyToOneRoleType, IObject, IObject, IObject>>> asserts)
+    {
+        var assertPermutations = asserts().Permutations().ToArray();
+
+        foreach (var (preactName, preact) in this.preActs)
+        {
+            Debugger.Log(0, null, $"Preact {preactName}\n");
+            foreach (var actRepeats in new[] { 1, 2 })
+            {
+                Debugger.Log(0, null, $"Act Repeats {actRepeats}\n");
+                foreach (var assertPermutation in assertPermutations)
+                {
+                    foreach (var assertRepeats in new[] { 1, 2 })
+                    {
+                        Debugger.Log(0, null, $"Assert Repeats {assertRepeats}\n");
+                        foreach (var fixture in this.fixtures)
+                        {
+                            var (association, role, _, fromBuilder, _, toBuilder, toAnotherBuilder, _, _) = fixture();
+
+                            var database = this.CreateDatabase();
+                            var transaction = database.CreateTransaction();
+
+                            var from = fromBuilder(transaction);
+                            var to = toBuilder(transaction);
+                            var toAnother = toAnotherBuilder(transaction);
+
+                            foreach (var act in acts())
+                            {
+                                for (var actRepeat = 0; actRepeat < actRepeats; actRepeat++)
+                                {
+                                    preact(transaction);
+                                    act(association, role, from, to, toAnother);
+                                }
+                            }
+
+                            foreach (var assert in assertPermutation)
+                            {
+                                for (var assertRepeat = 0; assertRepeat < assertRepeats; assertRepeat++)
+                                {
+                                    assert(association, role, from, to, toAnother);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
