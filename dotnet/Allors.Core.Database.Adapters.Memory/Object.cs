@@ -574,8 +574,7 @@ public class Object : IObject
         {
             role = (ImmutableHashSet<long>?)changedRole;
         }
-
-        if (this.record != null && this.record.RoleByRoleTypeId.TryGetValue(roleType, out var recordRole))
+        else if (this.record != null && this.record.RoleByRoleTypeId.TryGetValue(roleType, out var recordRole))
         {
             role = (ImmutableHashSet<long>?)recordRole;
         }
@@ -669,16 +668,8 @@ public class Object : IObject
 
         // A ----> R
         var newRole = previousRoleIds.Remove(role.Id);
-        if (newRole.Count == 0)
-        {
-            this.changedRoleByRoleType ??= [];
-            this.changedRoleByRoleType.Remove(roleType);
-        }
-        else
-        {
-            this.changedRoleByRoleType ??= [];
-            this.changedRoleByRoleType[roleType] = newRole;
-        }
+        this.changedRoleByRoleType ??= [];
+        this.changedRoleByRoleType[roleType] = newRole.Count == 0 ? null : newRole;
     }
 
     private void SetManyToManyRole(ManyToManyRoleType roleType, IEnumerable<IObject> value)

@@ -44,7 +44,7 @@
             (this.C1WhereC2OneToOne, this.C1C2OneToOne) = m.NewOneToOneRelation(new Guid("CC911BE0-EA31-4192-9E4F-269A1B2051C9"), new Guid("9CE1875E-B8F3-4A0C-A4FC-B3AE439CBE1F"), this.C1, this.C2, "C2OneToOne", null);
             (this.C1WhereI2OneToOne, this.C1I2OneToOne) = m.NewOneToOneRelation(new Guid("84A18359-0BA3-4074-B111-CBD00069B657"), new Guid("B520451B-7055-49AF-9BA1-3A07CC1BD257"), this.C1, this.I2, "I2OneToOne", null);
             (this.C1sWhereC1ManyToOne, this.C1C1ManyToOne) = m.NewManyToOneRelation(new Guid("ECC71685-4003-4A85-BFD3-2A90BE7DA2AA"), new Guid("67912ABF-9A24-47B4-8C22-E2BE15FE94B3"), this.C1, this.C1, "C1ManyToOne", null);
-            (this.C1WhereC1C1one2many, this.C1C1OneToManies) = m.NewOneToManyRelation(new Guid("3650DE27-3D66-49FB-B471-E05B2D3DFC9F"), new Guid("10251B8B-A877-4397-9192-0B09583FB350"), this.C1, this.C1, "C1OneToMany", null);
+            (this.C1WhereC1C1one2manies, this.C1C1OneToManies) = m.NewOneToManyRelation(new Guid("3650DE27-3D66-49FB-B471-E05B2D3DFC9F"), new Guid("10251B8B-A877-4397-9192-0B09583FB350"), this.C1, this.C1, "C1OneToMany", null);
         }
 
         public CoreMeta CoreMeta { get; }
@@ -73,7 +73,7 @@
 
         public OneToManyRoleType C1C1OneToManies { get; }
 
-        public OneToManyAssociationType C1WhereC1C1one2many { get; }
+        public OneToManyAssociationType C1WhereC1C1one2manies { get; }
 
         public Class C2 { get; }
 

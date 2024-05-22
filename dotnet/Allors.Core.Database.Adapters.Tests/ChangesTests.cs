@@ -2,7 +2,6 @@
 {
     using System.Linq;
     using Allors.Core.Database.Adapters.Tests.Extensions;
-    using Allors.Core.Database.Meta;
     using Xunit;
 
     public abstract class ChangesTests : Tests

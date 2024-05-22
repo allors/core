@@ -1,7 +1,6 @@
 ﻿namespace Allors.Core.Database.Adapters.Tests;
 
 using System.Linq;
-using Allors.Core.Database.Meta;
 using Xunit;
 
 public abstract class ManyToOneTests : Tests

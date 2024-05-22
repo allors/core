@@ -1,6 +1,6 @@
 ﻿namespace Allors.Core.Database.Adapters.Tests
 {
-    using Allors.Core.Database.Meta;
+    using FluentAssertions;
     using Xunit;
 
     public abstract class SandboxTests
@@ -15,24 +15,26 @@
 
             var m = this.Meta;
 
-            var association = m.C1WhereC1OneToOne;
-            var role = m.C1C1OneToOne;
+            var association = m.C1WhereC1C1one2manies;
+            var role = m.C1C1OneToManies;
 
             var from = transaction.Build(m.C1);
             var fromAnother = transaction.Build(m.C1);
             var to = transaction.Build(m.C1);
 
-            from[role] = to;
+            from[role] = [to];
 
             transaction.Commit();
 
-            fromAnother[role] = to;
+            to[association].Should().BeSameAs(from);
+            from[role].Should().BeEquivalentTo([to]);
+            fromAnother[role].Should().BeEmpty();
 
-            transaction.Commit();
+            fromAnother[role] = [to];
 
-            Assert.Equal(fromAnother, to[association]);
-            Assert.Null(from[role]);
-            Assert.Equal(to, fromAnother[role]);
+            to[association].Should().BeSameAs(fromAnother);
+            from[role].Should().BeEmpty();
+            fromAnother[role].Should().BeEquivalentTo([to]);
         }
 
         protected abstract IDatabase CreateDatabase();
