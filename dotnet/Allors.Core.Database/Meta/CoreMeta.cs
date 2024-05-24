@@ -20,6 +20,10 @@
             this.MetaPopulation = this.Meta.CreateMetaPopulation();
 
             this.Object = this.AddInterface(new Guid("8904EE32-CF11-4019-9FD7-FB9631F9ACAC"), "Object");
+            this.Boolean = this.AddUnit(new Guid("8906C53F-62CF-41C8-B95D-2084A74AC233"), "Boolean");
+            this.Decimal = this.AddUnit(new Guid("083579BF-2E72-48CD-B491-37D776C70F44"), "Decimal");
+            this.Double = this.AddUnit(new Guid("D81420B6-6773-4D94-8BA0-805418327612"), "Double");
+            this.Integer = this.AddUnit(new Guid("66E81092-0903-4DE4-9741-9968BC94D68E"), "Integer");
             this.String = this.AddUnit(new Guid("58BB7632-4724-4F92-869B-B30D7A7BEE9E"), "String");
         }
 
@@ -42,6 +46,26 @@
         /// The Object interface.
         /// </summary>
         public Interface Object { get; init; }
+
+        /// <summary>
+        /// The Boolean unit.
+        /// </summary>
+        public Unit Boolean { get; init; }
+
+        /// <summary>
+        /// The Decimal unit.
+        /// </summary>
+        public Unit Decimal { get; init; }
+
+        /// <summary>
+        /// The Double unit.
+        /// </summary>
+        public Unit Double { get; init; }
+
+        /// <summary>
+        /// The Integer unit.
+        /// </summary>
+        public Unit Integer { get; init; }
 
         /// <summary>
         /// The String unit.

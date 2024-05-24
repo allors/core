@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using Allors.Core.Database.Meta.Domain;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 /// <inheritdoc />
 public class Object : IObject

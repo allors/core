@@ -26,8 +26,8 @@
             var interfaces = coreMeta.MetaPopulation.Objects.OfType<Interface>().ToArray();
             var classes = coreMeta.MetaPopulation.Objects.OfType<Class>().ToArray();
 
-            Assert.Equal(2, coreMeta.MetaPopulation.Objects.Count());
-            Assert.Single(units);
+            Assert.Equal(6, coreMeta.MetaPopulation.Objects.Count());
+            Assert.Equal(5, units.Length);
             Assert.Single(interfaces);
             Assert.Empty(classes);
         }

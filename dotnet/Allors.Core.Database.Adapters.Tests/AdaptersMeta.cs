@@ -33,6 +33,30 @@
             m.AddDirectSupertype(this.C1, this.I1);
             m.AddDirectSupertype(this.C2, this.I2);
 
+            (_, this.I1AllorsBoolean) = m.AddUnitRelation(new Guid("1CCF5BAC-3ED4-490B-9B09-822E045FB0CE"), new Guid("F6D47ECD-453A-45C7-B681-9DAFB0983867"), this.I1, m.Boolean, "I1AllorsBoolean");
+            (_, this.C1AllorsBoolean) = m.AddUnitRelation(new Guid("B9434972-9B14-403F-91D3-EE2A0866A5D4"), new Guid("F8C575CE-286F-45A4-BA90-B6FAFA282D66"), this.C1, m.Boolean, "C1AllorsBoolean");
+            (_, this.C2AllorsBoolean) = m.AddUnitRelation(new Guid("F86DC318-AEB0-4311-B26D-DC74003281F1"), new Guid("DB1F153D-65C2-4D05-A69D-601FD92CAD05"), this.C2, m.Boolean, "C2AllorsBoolean");
+            (_, this.C3AllorsBoolean) = m.AddUnitRelation(new Guid("5B9E7A1B-4CA2-45D4-8FEB-829CF2115F33"), new Guid("F5EF2461-ED10-496B-A5C1-3AFFB4C29A8E"), this.C3, m.Boolean, "C3AllorsBoolean");
+            (_, this.C4AllorsBoolean) = m.AddUnitRelation(new Guid("2B0B3AAE-0F9E-43CF-BF0C-2CD38C3D08F6"), new Guid("50FE6867-2E78-4D37-B3F7-CD04135B1230"), this.C4, m.Boolean, "C4AllorsBoolean");
+
+            (_, this.I1AllorsDecimal) = m.AddUnitRelation(new Guid("1CCF5BAC-3ED4-490B-9B09-822E045FB0CE"), new Guid("F6D47ECD-453A-45C7-B681-9DAFB0983867"), this.I1, m.Decimal, "I1AllorsDecimal");
+            (_, this.C1AllorsDecimal) = m.AddUnitRelation(new Guid("B9434972-9B14-403F-91D3-EE2A0866A5D4"), new Guid("F8C575CE-286F-45A4-BA90-B6FAFA282D66"), this.C1, m.Decimal, "C1AllorsDecimal");
+            (_, this.C2AllorsDecimal) = m.AddUnitRelation(new Guid("F86DC318-AEB0-4311-B26D-DC74003281F1"), new Guid("DB1F153D-65C2-4D05-A69D-601FD92CAD05"), this.C2, m.Decimal, "C2AllorsDecimal");
+            (_, this.C3AllorsDecimal) = m.AddUnitRelation(new Guid("5B9E7A1B-4CA2-45D4-8FEB-829CF2115F33"), new Guid("F5EF2461-ED10-496B-A5C1-3AFFB4C29A8E"), this.C3, m.Decimal, "C3AllorsDecimal");
+            (_, this.C4AllorsDecimal) = m.AddUnitRelation(new Guid("2B0B3AAE-0F9E-43CF-BF0C-2CD38C3D08F6"), new Guid("50FE6867-2E78-4D37-B3F7-CD04135B1230"), this.C4, m.Decimal, "C4AllorsDecimal");
+
+            (_, this.I1AllorsDouble) = m.AddUnitRelation(new Guid("1CCF5BAC-3ED4-490B-9B09-822E045FB0CE"), new Guid("F6D47ECD-453A-45C7-B681-9DAFB0983867"), this.I1, m.Double, "I1AllorsDouble");
+            (_, this.C1AllorsDouble) = m.AddUnitRelation(new Guid("B9434972-9B14-403F-91D3-EE2A0866A5D4"), new Guid("F8C575CE-286F-45A4-BA90-B6FAFA282D66"), this.C1, m.Double, "C1AllorsDouble");
+            (_, this.C2AllorsDouble) = m.AddUnitRelation(new Guid("F86DC318-AEB0-4311-B26D-DC74003281F1"), new Guid("DB1F153D-65C2-4D05-A69D-601FD92CAD05"), this.C2, m.Double, "C2AllorsDouble");
+            (_, this.C3AllorsDouble) = m.AddUnitRelation(new Guid("5B9E7A1B-4CA2-45D4-8FEB-829CF2115F33"), new Guid("F5EF2461-ED10-496B-A5C1-3AFFB4C29A8E"), this.C3, m.Double, "C3AllorsDouble");
+            (_, this.C4AllorsDouble) = m.AddUnitRelation(new Guid("2B0B3AAE-0F9E-43CF-BF0C-2CD38C3D08F6"), new Guid("50FE6867-2E78-4D37-B3F7-CD04135B1230"), this.C4, m.Double, "C4AllorsDouble");
+
+            (_, this.I1AllorsInteger) = m.AddUnitRelation(new Guid("1CCF5BAC-3ED4-490B-9B09-822E045FB0CE"), new Guid("F6D47ECD-453A-45C7-B681-9DAFB0983867"), this.I1, m.Integer, "I1AllorsInteger");
+            (_, this.C1AllorsInteger) = m.AddUnitRelation(new Guid("B9434972-9B14-403F-91D3-EE2A0866A5D4"), new Guid("F8C575CE-286F-45A4-BA90-B6FAFA282D66"), this.C1, m.Integer, "C1AllorsInteger");
+            (_, this.C2AllorsInteger) = m.AddUnitRelation(new Guid("F86DC318-AEB0-4311-B26D-DC74003281F1"), new Guid("DB1F153D-65C2-4D05-A69D-601FD92CAD05"), this.C2, m.Integer, "C2AllorsInteger");
+            (_, this.C3AllorsInteger) = m.AddUnitRelation(new Guid("5B9E7A1B-4CA2-45D4-8FEB-829CF2115F33"), new Guid("F5EF2461-ED10-496B-A5C1-3AFFB4C29A8E"), this.C3, m.Integer, "C3AllorsInteger");
+            (_, this.C4AllorsInteger) = m.AddUnitRelation(new Guid("2B0B3AAE-0F9E-43CF-BF0C-2CD38C3D08F6"), new Guid("50FE6867-2E78-4D37-B3F7-CD04135B1230"), this.C4, m.Integer, "C4AllorsInteger");
+
             (_, this.I1AllorsString) = m.AddUnitRelation(new Guid("1CCF5BAC-3ED4-490B-9B09-822E045FB0CE"), new Guid("F6D47ECD-453A-45C7-B681-9DAFB0983867"), this.I1, m.String, "I1AllorsString");
             (_, this.C1AllorsString) = m.AddUnitRelation(new Guid("B9434972-9B14-403F-91D3-EE2A0866A5D4"), new Guid("F8C575CE-286F-45A4-BA90-B6FAFA282D66"), this.C1, m.String, "C1AllorsString");
             (_, this.C2AllorsString) = m.AddUnitRelation(new Guid("F86DC318-AEB0-4311-B26D-DC74003281F1"), new Guid("DB1F153D-65C2-4D05-A69D-601FD92CAD05"), this.C2, m.String, "C2AllorsString");
@@ -165,6 +189,46 @@
         public Interface S2 { get; }
 
         public Interface I12 { get; }
+
+        public UnitRoleType I1AllorsBoolean { get; }
+
+        public UnitRoleType C1AllorsBoolean { get; }
+
+        public UnitRoleType C2AllorsBoolean { get; }
+
+        public UnitRoleType C3AllorsBoolean { get; }
+
+        public UnitRoleType C4AllorsBoolean { get; }
+
+        public UnitRoleType I1AllorsDecimal { get; }
+
+        public UnitRoleType C1AllorsDecimal { get; }
+
+        public UnitRoleType C2AllorsDecimal { get; }
+
+        public UnitRoleType C3AllorsDecimal { get; }
+
+        public UnitRoleType C4AllorsDecimal { get; }
+
+        public UnitRoleType I1AllorsDouble { get; }
+
+        public UnitRoleType C1AllorsDouble { get; }
+
+        public UnitRoleType C2AllorsDouble { get; }
+
+        public UnitRoleType C3AllorsDouble { get; }
+
+        public UnitRoleType C4AllorsDouble { get; }
+
+        public UnitRoleType I1AllorsInteger { get; }
+
+        public UnitRoleType C1AllorsInteger { get; }
+
+        public UnitRoleType C2AllorsInteger { get; }
+
+        public UnitRoleType C3AllorsInteger { get; }
+
+        public UnitRoleType C4AllorsInteger { get; }
 
         public UnitRoleType I1AllorsString { get; }
 
