@@ -5,6 +5,7 @@ using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using Allors.Core.Database.Engines.Meta;
 using Allors.Core.Database.Meta.Domain;
 
 /// <inheritdoc />
@@ -12,16 +13,16 @@ public class Object : IObject
 {
     private Record? record;
 
-    private Dictionary<IRoleType, object?>? changedRoleByRoleType;
-    private Dictionary<IRoleType, object?>? checkpointRoleByRoleType;
+    private Dictionary<EngineRoleType, object?>? changedRoleByRoleType;
+    private Dictionary<EngineRoleType, object?>? checkpointRoleByRoleType;
 
-    private Dictionary<IAssociationType, object?>? changedAssociationByAssociationType;
-    private Dictionary<IAssociationType, object?>? checkpointAssociationByAssociationType;
+    private Dictionary<EngineAssociationType, object?>? changedAssociationByAssociationType;
+    private Dictionary<EngineAssociationType, object?>? checkpointAssociationByAssociationType;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Object"/> class.
     /// </summary>
-    internal Object(Transaction transaction, Class @class, long id)
+    internal Object(Transaction transaction, EngineClass @class, long id)
     {
         this.Transaction = transaction;
         this.Class = @class;
@@ -42,7 +43,17 @@ public class Object : IObject
     }
 
     /// <inheritdoc />
-    public Class Class { get; }
+    Class IObject.Class => (Class)this.Class.MetaObject;
+
+    /// <summary>
+    /// The class.
+    /// </summary>
+    public EngineClass Class { get; }
+
+    /// <summary>
+    /// The meta.
+    /// </summary>
+    public EngineMeta Meta => this.Transaction.Database.Meta;
 
     /// <inheritdoc/>
     public long Id { get; }
@@ -102,15 +113,39 @@ public class Object : IObject
     internal Transaction Transaction { get; }
 
     /// <inheritdoc />
-    public object? this[UnitRoleType roleType]
+    object? IObject.this[UnitRoleType roleType]
     {
-        get => this.GetUnitRole(roleType);
-
-        set => this.SetUnitRole(roleType, value);
+        get => this[this.Meta[roleType]];
+        set => this[this.Meta[roleType]] = value;
     }
 
     /// <inheritdoc />
-    public IObject? this[IToOneRoleType roleType]
+    IObject? IObject.this[IToOneRoleType roleType]
+    {
+        get => this[this.Meta[roleType]];
+        set => this[this.Meta[roleType]] = value;
+    }
+
+    /// <inheritdoc />
+    IEnumerable<IObject> IObject.this[IToManyRoleType roleType]
+    {
+        get => this[this.Meta[roleType]];
+        set => this[this.Meta[roleType]] = value;
+    }
+
+    /// <inheritdoc />
+    IObject? IObject.this[IOneToAssociationType associationType] => this[this.Meta[associationType]];
+
+    /// <inheritdoc />
+    IEnumerable<IObject> IObject.this[IManyToAssociationType associationType] => this[this.Meta[associationType]];
+
+    private object? this[EngineUnitRoleType roleType]
+    {
+        get => this.GetUnitRole(roleType);
+        set => this.SetUnitRole(roleType, value);
+    }
+
+    private IObject? this[EngineToOneRoleType roleType]
     {
         get => this.GetToOneRole(roleType);
 
@@ -118,7 +153,7 @@ public class Object : IObject
         {
             this.AssertIsAssignable(roleType, value);
 
-            if (roleType is OneToOneRoleType oneToOneRoleType)
+            if (roleType is EngineOneToOneRoleType oneToOneRoleType)
             {
                 if (value == null)
                 {
@@ -130,7 +165,7 @@ public class Object : IObject
             }
             else
             {
-                var manyToOneRoleType = (ManyToOneRoleType)roleType;
+                var manyToOneRoleType = (EngineManyToOneRoleType)roleType;
 
                 if (value == null)
                 {
@@ -143,8 +178,7 @@ public class Object : IObject
         }
     }
 
-    /// <inheritdoc />
-    public IEnumerable<IObject> this[IToManyRoleType roleType]
+    private IEnumerable<IObject> this[EngineToManyRoleType roleType]
     {
         get => this.GetToManyRole(roleType)?.Select(this.Transaction.Instantiate) ?? [];
         set
@@ -153,20 +187,19 @@ public class Object : IObject
 
             this.AssertIsAssignable(roleType, objects);
 
-            if (roleType is OneToManyRoleType oneToManyRoleType)
+            if (roleType is EngineOneToManyRoleType oneToManyRoleType)
             {
                 this.SetOneToManyRole(oneToManyRoleType, objects);
             }
             else
             {
-                var manyToManyRoleType = (ManyToManyRoleType)roleType;
+                var manyToManyRoleType = (EngineManyToManyRoleType)roleType;
                 this.SetManyToManyRole(manyToManyRoleType, objects);
             }
         }
     }
 
-    /// <inheritdoc />
-    public IObject? this[IOneToAssociationType associationType]
+    private IObject? this[EngineOneToAssociationType associationType]
     {
         get
         {
@@ -175,70 +208,22 @@ public class Object : IObject
         }
     }
 
-    /// <inheritdoc />
-    public IEnumerable<IObject> this[IManyToAssociationType associationType] => this.ManyToAssociation(associationType)?.Select(this.Transaction.Instantiate) ?? [];
+    private IEnumerable<IObject> this[EngineManyToAssociationType associationType] => this.ManyToAssociation(associationType)?.Select(this.Transaction.Instantiate) ?? [];
 
     /// <inheritdoc />
-    public void Add(IToManyRoleType roleType, IObject value)
-    {
-        this.AssertIsAssignable(roleType, value);
-
-        if (roleType is OneToManyRoleType oneToManyRoleType)
-        {
-            this.AddOneToManyRole(oneToManyRoleType, (Object)value);
-        }
-        else
-        {
-            var manyToManyRoleType = (ManyToManyRoleType)roleType;
-            this.AddManyToManyRole(manyToManyRoleType, (Object)value);
-        }
-    }
+    void IObject.Add(IToManyRoleType roleType, IObject value) => this.Add(this.Meta[roleType], value);
 
     /// <inheritdoc />
-    public void Remove(IToManyRoleType roleType, IObject value)
-    {
-        this.AssertIsAssignable(roleType, value);
-
-        if (roleType is OneToManyRoleType oneToManyRoleType)
-        {
-            this.RemoveOneToManyRole(oneToManyRoleType, (Object)value);
-        }
-        else
-        {
-            var manyToManyRoleType = (ManyToManyRoleType)roleType;
-            this.RemoveManyToManyRole(manyToManyRoleType, (Object)value);
-        }
-    }
+    void IObject.Remove(IToManyRoleType roleType, IObject value) => this.Remove(this.Meta[roleType], value);
 
     /// <inheritdoc />
-    public bool Exist(IRoleType roleType)
-    {
-        if (this.changedRoleByRoleType != null && this.changedRoleByRoleType.TryGetValue(roleType, out var changedRole))
-        {
-            return changedRole != null;
-        }
-
-        return this.Record?.RoleByRoleTypeId.ContainsKey(roleType) == true;
-    }
+    bool IObject.Exist(IRoleType roleType) => this.Exist(this.Meta[roleType]);
 
     /// <inheritdoc />
-    public bool Exist(IAssociationType associationType)
-    {
-        if (this.changedAssociationByAssociationType != null && this.changedAssociationByAssociationType.TryGetValue(associationType, out var changedAssociation))
-        {
-            return changedAssociation != null;
-        }
-
-        return this.Record?.AssociationByAssociationTypeId.ContainsKey(associationType) == true;
-    }
+    bool IObject.Exist(IAssociationType associationType) => this.Exist(this.Meta[associationType]);
 
     /// <inheritdoc/>
-    public override string ToString()
-    {
-        var meta = this.Transaction.Database.Meta;
-        var className = this.Class[meta.Meta.ObjectTypeSingularName];
-        return $"{className}:{this.Id}";
-    }
+    public override string ToString() => $"{this.Class.SingularName}:{this.Id}";
 
     internal void Checkpoint(ChangeSet changeSet)
     {
@@ -249,7 +234,7 @@ public class Object : IObject
                 if (this.checkpointRoleByRoleType != null &&
                     this.checkpointRoleByRoleType.TryGetValue(roleType, out var checkpointRole))
                 {
-                    if (roleType is IToManyRoleType ?
+                    if (roleType is EngineToManyRoleType ?
                             SetEquals((ImmutableHashSet<long>?)changedRole, (ImmutableHashSet<long>?)checkpointRole) :
                             Equals(changedRole, checkpointRole))
                     {
@@ -262,7 +247,7 @@ public class Object : IObject
                 {
                     this.record.RoleByRoleTypeId.TryGetValue(roleType, out var recordRole);
 
-                    if (roleType is IToManyRoleType ?
+                    if (roleType is EngineToManyRoleType ?
                             SetEquals((ImmutableHashSet<long>?)changedRole, (ImmutableHashSet<long>?)recordRole) :
                             Equals(changedRole, recordRole))
                     {
@@ -277,7 +262,7 @@ public class Object : IObject
                 }
             }
 
-            this.checkpointRoleByRoleType = new Dictionary<IRoleType, object?>(this.changedRoleByRoleType);
+            this.checkpointRoleByRoleType = new Dictionary<EngineRoleType, object?>(this.changedRoleByRoleType);
         }
 
         if (this.changedAssociationByAssociationType != null)
@@ -287,7 +272,7 @@ public class Object : IObject
                 if (this.checkpointAssociationByAssociationType != null &&
                     this.checkpointAssociationByAssociationType.TryGetValue(associationType, out var checkpointAssociation))
                 {
-                    if (associationType is IManyToAssociationType ?
+                    if (associationType is EngineManyToAssociationType ?
                             SetEquals((ImmutableHashSet<long>?)changedAssociation, (ImmutableHashSet<long>?)checkpointAssociation) :
                             Equals(changedAssociation, checkpointAssociation))
                     {
@@ -300,7 +285,7 @@ public class Object : IObject
                 {
                     this.record.AssociationByAssociationTypeId.TryGetValue(associationType, out var recordAssociation);
 
-                    if (associationType is IManyToAssociationType ?
+                    if (associationType is EngineManyToAssociationType ?
                             SetEquals((ImmutableHashSet<long>?)changedAssociation, (ImmutableHashSet<long>?)recordAssociation) :
                             Equals(changedAssociation, recordAssociation))
                     {
@@ -315,7 +300,7 @@ public class Object : IObject
                 }
             }
 
-            this.checkpointAssociationByAssociationType = new Dictionary<IAssociationType, object?>(this.changedAssociationByAssociationType);
+            this.checkpointAssociationByAssociationType = new Dictionary<EngineAssociationType, object?>(this.changedAssociationByAssociationType);
         }
     }
 
@@ -326,12 +311,12 @@ public class Object : IObject
             var roleByRoleTypeId = this.changedRoleByRoleType?
                 .Where(kvp => kvp.Value != null)
                 .Select(RoleNotNull)
-                .ToFrozenDictionary() ?? FrozenDictionary<IRoleType, object>.Empty;
+                .ToFrozenDictionary() ?? FrozenDictionary<EngineRoleType, object>.Empty;
 
             var associationByAssociationTypeId = this.changedAssociationByAssociationType?
                 .Where(kvp => kvp.Value != null)
                 .Select(AssociationNotNull)
-                .ToFrozenDictionary() ?? FrozenDictionary<IAssociationType, object>.Empty;
+                .ToFrozenDictionary() ?? FrozenDictionary<EngineAssociationType, object>.Empty;
 
             return new Record(this.Class, this.Id, this.Version + 1, roleByRoleTypeId, associationByAssociationTypeId);
         }
@@ -342,28 +327,28 @@ public class Object : IObject
                 .Union(this.changedRoleByRoleType!
                     .Where(kvp => kvp.Value != null)
                     .Select(RoleNotNull))
-                .ToFrozenDictionary() : FrozenDictionary<IRoleType, object>.Empty;
+                .ToFrozenDictionary() : FrozenDictionary<EngineRoleType, object>.Empty;
 
             var associationByAssociationTypeId = this.changedAssociationByAssociationType != null ? this.Record!.AssociationByAssociationTypeId
                 .Where(kvp => !this.changedAssociationByAssociationType.ContainsKey(kvp.Key))
                 .Union(this.changedAssociationByAssociationType!
                     .Where(kvp => kvp.Value != null)
                     .Select(AssociationNotNull))
-                .ToFrozenDictionary() : FrozenDictionary<IAssociationType, object>.Empty;
+                .ToFrozenDictionary() : FrozenDictionary<EngineAssociationType, object>.Empty;
 
             return new Record(this.Class, this.Id, this.Version + 1, roleByRoleTypeId, associationByAssociationTypeId);
         }
 
-        KeyValuePair<IRoleType, object> RoleNotNull(KeyValuePair<IRoleType, object?> kvp) =>
+        KeyValuePair<EngineRoleType, object> RoleNotNull(KeyValuePair<EngineRoleType, object?> kvp) =>
             new(kvp.Key, kvp.Value!);
 
-        KeyValuePair<IAssociationType, object> AssociationNotNull(KeyValuePair<IAssociationType, object?> kvp) =>
+        KeyValuePair<EngineAssociationType, object> AssociationNotNull(KeyValuePair<EngineAssociationType, object?> kvp) =>
             new(kvp.Key, kvp.Value!);
     }
 
     internal void Commit(Transaction commitTransaction)
     {
-        var commitObject = commitTransaction.Instantiate(this.Id);
+        var commitObject = (Object)commitTransaction.Instantiate(this.Id);
 
         if (this.changedRoleByRoleType == null)
         {
@@ -374,17 +359,17 @@ public class Object : IObject
         {
             switch (roleType)
             {
-                case UnitRoleType unitRoleType:
+                case EngineUnitRoleType unitRoleType:
                     commitObject[unitRoleType] = changedRole;
                     return;
 
-                case IToOneRoleType toOneRoleType:
+                case EngineToOneRoleType toOneRoleType:
                     commitObject[toOneRoleType] = changedRole != null
                         ? commitTransaction.Instantiate((long)changedRole)
                         : null;
                     return;
 
-                case IToManyRoleType toManyRoleType:
+                case EngineToManyRoleType toManyRoleType:
                     commitObject[toManyRoleType] = changedRole != null
                         ? ((IEnumerable<long>)changedRole).Select(commitTransaction.Instantiate)
                         : [];
@@ -420,7 +405,57 @@ public class Object : IObject
         return objA.SetEquals(objB);
     }
 
-    private object? GetUnitRole(UnitRoleType roleType)
+    private void Add(EngineToManyRoleType roleType, IObject value)
+    {
+        this.AssertIsAssignable(roleType, value);
+
+        if (roleType is EngineOneToManyRoleType oneToManyRoleType)
+        {
+            this.AddOneToManyRole(oneToManyRoleType, (Object)value);
+        }
+        else
+        {
+            var manyToManyRoleType = (EngineManyToManyRoleType)roleType;
+            this.AddManyToManyRole(manyToManyRoleType, (Object)value);
+        }
+    }
+
+    private void Remove(EngineToManyRoleType roleType, IObject value)
+    {
+        this.AssertIsAssignable(roleType, value);
+
+        if (roleType is EngineOneToManyRoleType oneToManyRoleType)
+        {
+            this.RemoveOneToManyRole(oneToManyRoleType, (Object)value);
+        }
+        else
+        {
+            var manyToManyRoleType = (EngineManyToManyRoleType)roleType;
+            this.RemoveManyToManyRole(manyToManyRoleType, (Object)value);
+        }
+    }
+
+    private bool Exist(EngineRoleType roleType)
+    {
+        if (this.changedRoleByRoleType != null && this.changedRoleByRoleType.TryGetValue(roleType, out var changedRole))
+        {
+            return changedRole != null;
+        }
+
+        return this.Record?.RoleByRoleTypeId.ContainsKey(roleType) == true;
+    }
+
+    private bool Exist(EngineAssociationType associationType)
+    {
+        if (this.changedAssociationByAssociationType != null && this.changedAssociationByAssociationType.TryGetValue(associationType, out var changedAssociation))
+        {
+            return changedAssociation != null;
+        }
+
+        return this.Record?.AssociationByAssociationTypeId.ContainsKey(associationType) == true;
+    }
+
+    private object? GetUnitRole(EngineUnitRoleType roleType)
     {
         if (this.changedRoleByRoleType != null && this.changedRoleByRoleType.TryGetValue(roleType, out var changedRole))
         {
@@ -435,7 +470,7 @@ public class Object : IObject
         return null;
     }
 
-    private void SetUnitRole(UnitRoleType roleType, object? value)
+    private void SetUnitRole(EngineUnitRoleType roleType, object? value)
     {
         var currentRole = this[roleType];
         if (Equals(currentRole, value))
@@ -447,7 +482,7 @@ public class Object : IObject
         this.changedRoleByRoleType[roleType] = value;
     }
 
-    private IObject? GetToOneRole(IToOneRoleType roleType)
+    private IObject? GetToOneRole(EngineToOneRoleType roleType)
     {
         if (this.changedRoleByRoleType != null && this.changedRoleByRoleType.TryGetValue(roleType, out var changedRole))
         {
@@ -462,7 +497,7 @@ public class Object : IObject
         return null;
     }
 
-    private void SetOneToOneRole(OneToOneRoleType roleType, Object value)
+    private void SetOneToOneRole(EngineOneToOneRoleType roleType, Object value)
     {
         /*  [if exist]        [then remove]        set
              *
@@ -478,7 +513,7 @@ public class Object : IObject
             return;
         }
 
-        var associationType = this.Transaction.Database.AssociationType(roleType);
+        var associationType = roleType.AssociationType;
 
         // A --x-- PR
         if (previousRole != null)
@@ -499,7 +534,7 @@ public class Object : IObject
         this.changedRoleByRoleType[roleType] = value.Id;
     }
 
-    private void RemoveOneToOneRole(OneToOneRoleType roleType)
+    private void RemoveOneToOneRole(EngineOneToOneRoleType roleType)
     {
         /*                        delete
          *
@@ -523,7 +558,7 @@ public class Object : IObject
         this.changedRoleByRoleType[roleType] = null;
     }
 
-    private void SetManyToOneRole(ManyToOneRoleType roleType, Object role)
+    private void SetManyToOneRole(EngineManyToOneRoleType roleType, Object role)
     {
         /*  [if exist]        [then remove]        set
          *
@@ -552,7 +587,7 @@ public class Object : IObject
         this.changedRoleByRoleType[roleType] = role.Id;
     }
 
-    private void RemoveManyToOneRole(ManyToOneRoleType roleType)
+    private void RemoveManyToOneRole(EngineManyToOneRoleType roleType)
     {
         /*                        delete
          *  RA --                                RA --
@@ -576,7 +611,7 @@ public class Object : IObject
         this.changedRoleByRoleType[roleType] = null;
     }
 
-    private ImmutableHashSet<long>? GetToManyRole(IToManyRoleType roleType)
+    private ImmutableHashSet<long>? GetToManyRole(EngineToManyRoleType roleType)
     {
         ImmutableHashSet<long>? role = null;
 
@@ -592,7 +627,7 @@ public class Object : IObject
         return role;
     }
 
-    private void SetOneToManyRole(OneToManyRoleType roleType, Object[] objects)
+    private void SetOneToManyRole(EngineOneToManyRoleType roleType, Object[] objects)
     {
         // TODO: Optimize
         var previousRole = this.GetToManyRole(roleType);
@@ -620,7 +655,7 @@ public class Object : IObject
         }
     }
 
-    private void AddOneToManyRole(OneToManyRoleType roleType, Object role)
+    private void AddOneToManyRole(EngineOneToManyRoleType roleType, Object role)
     {
         /*  [if exist]        [then remove]        add
          *
@@ -652,7 +687,7 @@ public class Object : IObject
         this.changedRoleByRoleType[roleType] = newRole;
     }
 
-    private void RemoveOneToManyRole(OneToManyRoleType roleType, Object role)
+    private void RemoveOneToManyRole(EngineOneToManyRoleType roleType, Object role)
     {
         /*  [if exist]            remove
          *
@@ -680,7 +715,7 @@ public class Object : IObject
         this.changedRoleByRoleType[roleType] = newRole.Count == 0 ? null : newRole;
     }
 
-    private void SetManyToManyRole(ManyToManyRoleType roleType, Object[] objects)
+    private void SetManyToManyRole(EngineManyToManyRoleType roleType, Object[] objects)
     {
         // TODO: Optimize
         var previousRole = this.GetToManyRole(roleType);
@@ -708,7 +743,7 @@ public class Object : IObject
         }
     }
 
-    private void AddManyToManyRole(ManyToManyRoleType roleType, Object role)
+    private void AddManyToManyRole(EngineManyToManyRoleType roleType, Object role)
     {
         /*  [if exist]        [no remove]         set
          *
@@ -735,7 +770,7 @@ public class Object : IObject
         this.changedRoleByRoleType[roleType] = newRole;
     }
 
-    private void RemoveManyToManyRole(ManyToManyRoleType roleType, Object role)
+    private void RemoveManyToManyRole(EngineManyToManyRoleType roleType, Object role)
     {
         /*  [if exist]            remove
          *
@@ -765,7 +800,7 @@ public class Object : IObject
         this.changedRoleByRoleType[roleType] = newRole.Count == 0 ? null : newRole;
     }
 
-    private long? GetOneToAssociation(IOneToAssociationType associationType)
+    private long? GetOneToAssociation(EngineOneToAssociationType associationType)
     {
         if (this.changedAssociationByAssociationType != null && this.changedAssociationByAssociationType.TryGetValue(associationType, out var changedAssociation))
         {
@@ -780,19 +815,19 @@ public class Object : IObject
         return null;
     }
 
-    private void SetOneToAssociation(IOneToAssociationType associationType, Object value)
+    private void SetOneToAssociation(EngineOneToAssociationType associationType, Object value)
     {
         this.changedAssociationByAssociationType ??= [];
         this.changedAssociationByAssociationType[associationType] = value.Id;
     }
 
-    private void RemoveOneToAssociation(IOneToAssociationType associationType)
+    private void RemoveOneToAssociation(EngineOneToAssociationType associationType)
     {
         this.changedAssociationByAssociationType ??= [];
         this.changedAssociationByAssociationType[associationType] = null;
     }
 
-    private ImmutableHashSet<long>? ManyToAssociation(IManyToAssociationType associationType)
+    private ImmutableHashSet<long>? ManyToAssociation(EngineManyToAssociationType associationType)
     {
         ImmutableHashSet<long>? association = null;
 
@@ -808,7 +843,7 @@ public class Object : IObject
         return association;
     }
 
-    private void AddManyToAssociation(IManyToAssociationType associationType, Object value)
+    private void AddManyToAssociation(EngineManyToAssociationType associationType, Object value)
     {
         var previousAssociation = this.ManyToAssociation(associationType);
 
@@ -823,7 +858,7 @@ public class Object : IObject
             previousAssociation.Add(value.Id);
     }
 
-    private void RemoveManyToAssociation(IManyToAssociationType associationType, Object value)
+    private void RemoveManyToAssociation(EngineManyToAssociationType associationType, Object value)
     {
         var previousAssociation = this.ManyToAssociation(associationType);
 
@@ -838,7 +873,7 @@ public class Object : IObject
         this.changedAssociationByAssociationType[associationType] = newAssociation.Count != 0 ? newAssociation : null;
     }
 
-    private void AssertIsAssignable(ICompositeRoleType roleType, Object[] objects)
+    private void AssertIsAssignable(EngineCompositeRoleType roleType, Object[] objects)
     {
         var m = this.Transaction.Database.Meta;
         var objectType = roleType[m.Meta.RoleTypeObjectType]!;
@@ -849,7 +884,7 @@ public class Object : IObject
         }
     }
 
-    private void AssertIsAssignable(ICompositeRoleType roleType, IObject? @object)
+    private void AssertIsAssignable(EngineCompositeRoleType roleType, IObject? @object)
     {
         if (@object == null)
         {

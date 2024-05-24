@@ -4,7 +4,8 @@ using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Linq;
-using Allors.Core.Database.Meta.Domain;
+using Allors.Core.Database.Engines.Meta;
+
 
 /// <inheritdoc />
 public class Transaction : ITransaction
@@ -58,7 +59,7 @@ public class Transaction : ITransaction
     internal Database Database { get; }
 
     /// <inheritdoc/>
-    public IObject Build(Class @class)
+    public IObject Build(EngineClass @class)
     {
         var newObject = new Object(this, @class, this.Database.NextObjectId());
         this.InstantiatedObjectByObjectId.Add(newObject.Id, newObject);
@@ -66,7 +67,7 @@ public class Transaction : ITransaction
     }
 
     /// <inheritdoc/>
-    public IEnumerable<IObject> Build(Class @class, int amount)
+    public IEnumerable<IObject> Build(EngineClass @class, int amount)
     {
         var objects = new IObject[amount];
         for (var i = 0; i < amount; i++)
