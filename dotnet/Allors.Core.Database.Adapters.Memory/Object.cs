@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using Allors.Core.Database.Meta.Domain;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 /// <inheritdoc />
 public class Object : IObject
@@ -116,6 +117,8 @@ public class Object : IObject
 
         set
         {
+            this.AssertIsAssignable(roleType, value);
+
             if (roleType is OneToOneRoleType oneToOneRoleType)
             {
                 if (value == null)
@@ -147,14 +150,18 @@ public class Object : IObject
         get => this.GetToManyRole(roleType)?.Select(this.Transaction.Instantiate) ?? [];
         set
         {
+            var objects = value.Where(v => (IObject?)v != null).Distinct().Cast<Object>().ToArray();
+
+            this.AssertIsAssignable(roleType, objects);
+
             if (roleType is OneToManyRoleType oneToManyRoleType)
             {
-                this.SetOneToManyRole(oneToManyRoleType, value);
+                this.SetOneToManyRole(oneToManyRoleType, objects);
             }
             else
             {
                 var manyToManyRoleType = (ManyToManyRoleType)roleType;
-                this.SetManyToManyRole(manyToManyRoleType, value);
+                this.SetManyToManyRole(manyToManyRoleType, objects);
             }
         }
     }
@@ -175,6 +182,8 @@ public class Object : IObject
     /// <inheritdoc />
     public void Add(IToManyRoleType roleType, IObject value)
     {
+        this.AssertIsAssignable(roleType, value);
+
         if (roleType is OneToManyRoleType oneToManyRoleType)
         {
             this.AddOneToManyRole(oneToManyRoleType, (Object)value);
@@ -189,6 +198,8 @@ public class Object : IObject
     /// <inheritdoc />
     public void Remove(IToManyRoleType roleType, IObject value)
     {
+        this.AssertIsAssignable(roleType, value);
+
         if (roleType is OneToManyRoleType oneToManyRoleType)
         {
             this.RemoveOneToManyRole(oneToManyRoleType, (Object)value);
@@ -454,14 +465,12 @@ public class Object : IObject
 
     private void SetOneToOneRole(OneToOneRoleType roleType, Object value)
     {
-        value = this.Normalize(roleType, value);
-
         /*  [if exist]        [then remove]        set
-         *
-         *  RA ----- R         RA --x-- R       RA    -- R       RA    -- R
-         *                ->                +        -        =       -
-         *   A ----- PR         A --x-- PR       A --    PR       A --    PR
-         */
+             *
+             *  RA ----- R         RA --x-- R       RA    -- R       RA    -- R
+             *                ->                +        -        =       -
+             *   A ----- PR         A --x-- PR       A --    PR       A --    PR
+             */
         var previousRole = (Object?)this[roleType];
 
         // R = PR
@@ -584,10 +593,8 @@ public class Object : IObject
         return role;
     }
 
-    private void SetOneToManyRole(OneToManyRoleType roleType, IEnumerable<IObject> value)
+    private void SetOneToManyRole(OneToManyRoleType roleType, Object[] objects)
     {
-        var objects = value.Where(v => (IObject?)v != null).Distinct().Cast<Object>().ToArray();
-
         // TODO: Optimize
         var previousRole = this.GetToManyRole(roleType);
 
@@ -674,10 +681,8 @@ public class Object : IObject
         this.changedRoleByRoleType[roleType] = newRole.Count == 0 ? null : newRole;
     }
 
-    private void SetManyToManyRole(ManyToManyRoleType roleType, IEnumerable<IObject> value)
+    private void SetManyToManyRole(ManyToManyRoleType roleType, Object[] objects)
     {
-        var objects = value.Where(v => (IObject?)v != null).Distinct().Cast<Object>().ToArray();
-
         // TODO: Optimize
         var previousRole = this.GetToManyRole(roleType);
 
@@ -834,17 +839,30 @@ public class Object : IObject
         this.changedAssociationByAssociationType[associationType] = newAssociation.Count != 0 ? newAssociation : null;
     }
 
-    private Object Normalize(IToOneRoleType roleType, Object value)
+    private void AssertIsAssignable(ICompositeRoleType roleType, Object[] objects)
     {
         var m = this.Transaction.Database.Meta;
-
         var objectType = roleType[m.Meta.RoleTypeObjectType]!;
 
-        if (!m.IsAssignableFrom(objectType, value.Class))
+        if (objects.Any(@object => !m.IsAssignableFrom(objectType, @object.Class)))
         {
             throw new ArgumentException($"{roleType} should be assignable to {roleType.ObjectType.Name} but was a {objectType}");
         }
+    }
 
-        return value;
+    private void AssertIsAssignable(ICompositeRoleType roleType, IObject? @object)
+    {
+        if (@object == null)
+        {
+            return;
+        }
+
+        var m = this.Transaction.Database.Meta;
+        var objectType = roleType[m.Meta.RoleTypeObjectType]!;
+
+        if (!m.IsAssignableFrom(objectType, @object.Class))
+        {
+            throw new ArgumentException($"{roleType} should be assignable to {roleType.ObjectType.Name} but was a {objectType}");
+        }
     }
 }

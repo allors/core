@@ -864,7 +864,7 @@
         }
 
         [Fact]
-        public void RelationChecks()
+        public void CheckRoleIsAssignable()
         {
             foreach (var (_, preact) in this.preActs)
             {
@@ -875,6 +875,8 @@
 
                 var c1a = transaction.Build(m.C1);
                 var c1b = transaction.Build(m.C1);
+
+                var c2a = transaction.Build(m.C2);
 
                 // Illegal Role
                 preact(transaction);
@@ -890,6 +892,11 @@
                 preact(transaction);
 
                 c1a.Invoking(v => v[m.C1S2OneToOne] = c1b)
+                    .Should().Throw<ArgumentException>();
+
+                preact(transaction);
+
+                c1a.Invoking(v => v[m.C2C1OneToOne] = c2a)
                     .Should().Throw<ArgumentException>();
             }
         }

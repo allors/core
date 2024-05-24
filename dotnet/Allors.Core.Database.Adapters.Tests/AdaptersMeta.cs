@@ -28,8 +28,8 @@
             this.C4 = m.AddClass(new Guid("FBADE605-8CC2-4590-87E4-7CBCDF3F78D6"), "C4");
 
             m.AddDirectSupertype(this.I12, m.Object);
-            m.AddDirectSupertype(this.I1, this.I12, this.S2);
-            m.AddDirectSupertype(this.I2, this.I12, this.S2);
+            m.AddDirectSupertype(this.I1, this.S1, this.I12);
+            m.AddDirectSupertype(this.I2, this.S2, this.I12);
             m.AddDirectSupertype(this.C1, this.I1);
             m.AddDirectSupertype(this.C2, this.I2);
 
@@ -48,11 +48,22 @@
             (this.C2WhereC2OneToOne, this.C2C2OneToOne) = m.AddOneToOneRelation(new Guid("A69E6BD3-A621-4A39-A271-66D8BB188604"), new Guid("4C40A2D1-EA3D-43DD-A0E1-44E162E1CBCB"), this.C2, this.C2, "C2OneToOne");
 
             (this.C1sWhereC1ManyToOne, this.C1C1ManyToOne) = m.AddManyToOneRelation(new Guid("ECC71685-4003-4A85-BFD3-2A90BE7DA2AA"), new Guid("67912ABF-9A24-47B4-8C22-E2BE15FE94B3"), this.C1, this.C1, "C1ManyToOne");
+            (this.C1sWhereC2ManyToOne, this.C1C2ManyToOne) = m.AddManyToOneRelation(new Guid("111A55E0-84F9-4A55-8004-536CB9773F58"), new Guid("2C8334EF-A8CD-4C11-BD4F-E12A9E45F062"), this.C1, this.C2, "C2ManyToOne");
+            (this.C1sWhereI2ManyToOne, this.C1I2ManyToOne) = m.AddManyToOneRelation(new Guid("AA9BC541-96C4-4EE8-8701-DAC5243C1CB4"), new Guid("E843ABB9-2A0E-4254-B198-83D4303DA99A"), this.C1, this.I2, "I2ManyToOne");
+            (this.C1sWhereS2ManyToOne, this.C1S2ManyToOne) = m.AddManyToOneRelation(new Guid("D46333C0-18F6-4A69-A08B-49994CA9BD21"), new Guid("0EA6BD81-0B24-4108-9BD8-050460252FA9"), this.C1, this.S2, "I2ManyToOne");
+            (this.C2sWhereC1ManyToOne, this.C2C1ManyToOne) = m.AddManyToOneRelation(new Guid("BD7399C4-DBC4-4633-9368-36405F9CF43D"), new Guid("C8E3F31B-1DF6-49E4-A990-E580A69AB506"), this.C2, this.C1, "I2ManyToOne");
 
             (this.C1WhereC1OneToMany, this.C1C1OneToMany) = m.AddOneToManyRelation(new Guid("3650DE27-3D66-49FB-B471-E05B2D3DFC9F"), new Guid("10251B8B-A877-4397-9192-0B09583FB350"), this.C1, this.C1, "C1OneToMany");
             (this.C1WhereC2OneToMany, this.C1C2OneToMany) = m.AddOneToManyRelation(new Guid("74BE82C7-1E74-4D72-9D78-38BD9C0E2A38"), new Guid("D0396485-4000-4061-B4AA-B7319C94E83C"), this.C1, this.C2, "C2OneToMany");
+            (this.C1WhereI2OneToMany, this.C1I2OneToMany) = m.AddOneToManyRelation(new Guid("73849043-6873-4D35-91C4-3D629E2DA3E9"), new Guid("BB0CE828-1C4F-42F7-B54C-72994B32BEE8"), this.C1, this.I2, "I2OneToMany");
+            (this.C2WhereC1OneToMany, this.C2C1OneToMany) = m.AddOneToManyRelation(new Guid("1D063D30-F277-4E04-BDA9-5A3086C9B5B7"), new Guid("ED195F8A-E0A8-489F-B735-7E3889537669"), this.C2, this.C1, "C1OneToMany");
 
             (this.C1sWhereC1ManyToMany, this.C1C1ManyToMany) = m.AddManyToManyRelation(new Guid("8DF1A750-42DC-486E-B1E3-D904BAC254FD"), new Guid("FF0EC2D0-8F95-47D1-A0C3-B4B43632E718"), this.C1, this.C1, "C1ManyToMany");
+            (this.C1sWhereC2ManyToMany, this.C1C2ManyToMany) = m.AddManyToManyRelation(new Guid("86BA3009-2CB2-41A3-BACE-16730853C04E"), new Guid("5D697E8C-73B5-4D0C-9150-167782FCD817"), this.C1, this.C2, "C2ManyToMany");
+            (this.C1sWhereI2ManyToMany, this.C1I2ManyToMany) = m.AddManyToManyRelation(new Guid("88135E97-2D7A-480D-90BA-AB1DEE5BAE2C"), new Guid("0CF41359-9AB9-4EFA-98DF-4D8C513ED853"), this.C1, this.I2, "I2ManyToMany");
+            (this.C2sWhereC1ManyToMany, this.C2C1ManyToMany) = m.AddManyToManyRelation(new Guid("135F8E64-A62D-4167-B0ED-2C0A97FCAF2E"), new Guid("20B66206-4404-4B2C-8246-912B54413620"), this.C2, this.C1, "C1ManyToMany");
+
+            this.CoreMeta.Freeze();
         }
 
         public CoreMeta CoreMeta { get; }
@@ -91,6 +102,22 @@
 
         public ManyToOneAssociationType C1sWhereC1ManyToOne { get; }
 
+        public ManyToOneRoleType C1C2ManyToOne { get; }
+
+        public ManyToOneAssociationType C1sWhereC2ManyToOne { get; }
+
+        public ManyToOneRoleType C1I2ManyToOne { get; }
+
+        public ManyToOneAssociationType C1sWhereI2ManyToOne { get; }
+
+        public ManyToOneRoleType C1S2ManyToOne { get; }
+
+        public ManyToOneAssociationType C1sWhereS2ManyToOne { get; }
+
+        public ManyToOneRoleType C2C1ManyToOne { get; }
+
+        public ManyToOneAssociationType C2sWhereC1ManyToOne { get; }
+
         public OneToManyRoleType C1C1OneToMany { get; }
 
         public OneToManyAssociationType C1WhereC1OneToMany { get; }
@@ -99,9 +126,29 @@
 
         public OneToManyAssociationType C1WhereC2OneToMany { get; }
 
+        public OneToManyRoleType C1I2OneToMany { get; }
+
+        public OneToManyAssociationType C1WhereI2OneToMany { get; }
+
+        public OneToManyRoleType C2C1OneToMany { get; }
+
+        public OneToManyAssociationType C2WhereC1OneToMany { get; }
+
         public ManyToManyRoleType C1C1ManyToMany { get; }
 
         public ManyToManyAssociationType C1sWhereC1ManyToMany { get; }
+
+        public ManyToManyRoleType C1C2ManyToMany { get; }
+
+        public ManyToManyAssociationType C1sWhereC2ManyToMany { get; }
+
+        public ManyToManyRoleType C1I2ManyToMany { get; }
+
+        public ManyToManyAssociationType C1sWhereI2ManyToMany { get; }
+
+        public ManyToManyRoleType C2C1ManyToMany { get; }
+
+        public ManyToManyAssociationType C2sWhereC1ManyToMany { get; }
 
         public Class C2 { get; }
 

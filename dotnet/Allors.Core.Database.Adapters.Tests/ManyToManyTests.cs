@@ -164,6 +164,69 @@
                 ]);
         }
 
+        [Fact]
+        public void CheckRoleIsAssignable()
+        {
+            foreach (var (_, preact) in this.preActs)
+            {
+                var database = this.CreateDatabase();
+                var transaction = database.CreateTransaction();
+
+                var m = this.Meta;
+
+                var c1a = transaction.Build(m.C1);
+                var c1b = transaction.Build(m.C1);
+
+                var c2a = transaction.Build(m.C2);
+
+                // Illegal Role
+                preact(transaction);
+
+                c1a.Invoking(v => v.Add(m.C1C2ManyToMany, c1b))
+                    .Should().Throw<ArgumentException>();
+
+                preact(transaction);
+
+                c1a.Invoking(v => v.Remove(m.C1C2ManyToMany, c1b))
+                    .Should().Throw<ArgumentException>();
+
+                preact(transaction);
+
+                c1a.Invoking(v => v[m.C1C2ManyToMany] = [c1b])
+                    .Should().Throw<ArgumentException>();
+
+                preact(transaction);
+
+                c1a.Invoking(v => v.Add(m.C1I2ManyToMany, c1b))
+                    .Should().Throw<ArgumentException>();
+
+                preact(transaction);
+
+                c1a.Invoking(v => v.Remove(m.C1I2ManyToMany, c1b))
+                    .Should().Throw<ArgumentException>();
+
+                preact(transaction);
+
+                c1a.Invoking(v => v[m.C1I2ManyToMany] = [c1b])
+                    .Should().Throw<ArgumentException>();
+
+                preact(transaction);
+
+                c1a.Invoking(v => v.Add(m.C2C1ManyToMany, c2a))
+                    .Should().Throw<ArgumentException>();
+
+                preact(transaction);
+
+                c1a.Invoking(v => v.Remove(m.C2C1ManyToMany, c2a))
+                    .Should().Throw<ArgumentException>();
+
+                preact(transaction);
+
+                c1a.Invoking(v => v[m.C2C1ManyToMany] = [c2a])
+                    .Should().Throw<ArgumentException>();
+            }
+        }
+
         protected abstract IDatabase CreateDatabase();
 
         private void FromTo(
