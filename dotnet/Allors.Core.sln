@@ -9,17 +9,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Allors.Core.Database", "All
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Allors.Core.Database.Tests", "Allors.Core.Database.Tests\Allors.Core.Database.Tests.csproj", "{8D3B0ACE-466F-483F-8CE2-95DA87E287CD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Allors.Core.Database.Adapters", "Allors.Core.Database.Adapters\Allors.Core.Database.Adapters.csproj", "{801BB68F-F3A4-4EB0-8200-6228E1FFBD2A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Allors.Core.Database.Adapters.Memory", "Allors.Core.Database.Adapters.Memory\Allors.Core.Database.Adapters.Memory.csproj", "{9AD8E583-036B-4E15-A7A3-27DB6ECD6D48}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Allors.Core.Database.Adapters.Tests", "Allors.Core.Database.Adapters.Tests\Allors.Core.Database.Adapters.Tests.csproj", "{40D91337-C019-4525-B8C9-05A53BE3DE0B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Allors.Core.Database.Adapters.Memory.Tests", "Allors.Core.Database.Adapters.Memory.Tests\Allors.Core.Database.Adapters.Memory.Tests.csproj", "{7A59C317-6DE0-48CD-974A-B307E874F915}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Allors.Core.Meta", "Allors.Core.Meta\Allors.Core.Meta.csproj", "{457FA89C-3986-42C8-AD92-3F27A4690912}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Allors.Core.Meta.Tests", "Allors.Core.Meta.Tests\Allors.Core.Meta.Tests.csproj", "{8B61C8B2-74DA-40B2-9F7A-E739E0C38A78}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Allors.Core.Database.Engines", "Allors.Core.Database.Engines\Allors.Core.Database.Engines.csproj", "{6992D7D6-EA0E-495A-B5A0-F3EC1705B183}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Allors.Core.Database.Engines.Memory", "Allors.Core.Database.Engines.Memory\Allors.Core.Database.Engines.Memory.csproj", "{503D7A19-1888-485C-B19A-4AAE69B04D6D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Allors.Core.Database.Engines.Memory.Tests", "Allors.Core.Database.Engines.Memory.Tests\Allors.Core.Database.Engines.Memory.Tests.csproj", "{464A0D78-9243-46EA-937D-EF4EDE058578}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Allors.Core.Database.Engines.Tests", "Allors.Core.Database.Engines.Tests\Allors.Core.Database.Engines.Tests.csproj", "{E901F3EC-7DDD-449C-B3CA-E4DAF383F777}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,22 +37,6 @@ Global
 		{8D3B0ACE-466F-483F-8CE2-95DA87E287CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D3B0ACE-466F-483F-8CE2-95DA87E287CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D3B0ACE-466F-483F-8CE2-95DA87E287CD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{801BB68F-F3A4-4EB0-8200-6228E1FFBD2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{801BB68F-F3A4-4EB0-8200-6228E1FFBD2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{801BB68F-F3A4-4EB0-8200-6228E1FFBD2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{801BB68F-F3A4-4EB0-8200-6228E1FFBD2A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9AD8E583-036B-4E15-A7A3-27DB6ECD6D48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9AD8E583-036B-4E15-A7A3-27DB6ECD6D48}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9AD8E583-036B-4E15-A7A3-27DB6ECD6D48}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9AD8E583-036B-4E15-A7A3-27DB6ECD6D48}.Release|Any CPU.Build.0 = Release|Any CPU
-		{40D91337-C019-4525-B8C9-05A53BE3DE0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{40D91337-C019-4525-B8C9-05A53BE3DE0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{40D91337-C019-4525-B8C9-05A53BE3DE0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{40D91337-C019-4525-B8C9-05A53BE3DE0B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7A59C317-6DE0-48CD-974A-B307E874F915}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A59C317-6DE0-48CD-974A-B307E874F915}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7A59C317-6DE0-48CD-974A-B307E874F915}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7A59C317-6DE0-48CD-974A-B307E874F915}.Release|Any CPU.Build.0 = Release|Any CPU
 		{457FA89C-3986-42C8-AD92-3F27A4690912}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{457FA89C-3986-42C8-AD92-3F27A4690912}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{457FA89C-3986-42C8-AD92-3F27A4690912}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -61,6 +45,22 @@ Global
 		{8B61C8B2-74DA-40B2-9F7A-E739E0C38A78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B61C8B2-74DA-40B2-9F7A-E739E0C38A78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B61C8B2-74DA-40B2-9F7A-E739E0C38A78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6992D7D6-EA0E-495A-B5A0-F3EC1705B183}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6992D7D6-EA0E-495A-B5A0-F3EC1705B183}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6992D7D6-EA0E-495A-B5A0-F3EC1705B183}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6992D7D6-EA0E-495A-B5A0-F3EC1705B183}.Release|Any CPU.Build.0 = Release|Any CPU
+		{503D7A19-1888-485C-B19A-4AAE69B04D6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{503D7A19-1888-485C-B19A-4AAE69B04D6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{503D7A19-1888-485C-B19A-4AAE69B04D6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{503D7A19-1888-485C-B19A-4AAE69B04D6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{464A0D78-9243-46EA-937D-EF4EDE058578}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{464A0D78-9243-46EA-937D-EF4EDE058578}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{464A0D78-9243-46EA-937D-EF4EDE058578}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{464A0D78-9243-46EA-937D-EF4EDE058578}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E901F3EC-7DDD-449C-B3CA-E4DAF383F777}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E901F3EC-7DDD-449C-B3CA-E4DAF383F777}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E901F3EC-7DDD-449C-B3CA-E4DAF383F777}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E901F3EC-7DDD-449C-B3CA-E4DAF383F777}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
