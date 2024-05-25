@@ -42,17 +42,14 @@
         [Fact]
         public void String()
         {
-            var coreMeta = new CoreMeta();
-            var enginesMeta = new EnginesMeta(coreMeta);
-
             var database = this.CreateDatabase();
             var transaction = database.CreateTransaction();
 
-            var c1a = transaction.Build(enginesMeta.C1);
+            var c1a = transaction.Build(this.Meta.C1);
 
-            c1a[enginesMeta.I1AllorsString] = "A string";
+            c1a[this.Meta.I1AllorsString] = "A string";
 
-            Assert.Equal("A string", c1a[enginesMeta.I1AllorsString]);
+            Assert.Equal("A string", c1a[this.Meta.I1AllorsString]);
         }
 
         [Fact]

@@ -1,12 +1,11 @@
-﻿using Allors.Core.Database.Meta.Domain;
-
-namespace Allors.Core.Database.Engines.Memory;
+﻿namespace Allors.Core.Database.Engines.Memory;
 
 using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Linq;
 using Allors.Core.Database.Engines.Meta;
+using Allors.Core.Database.Meta.Domain;
 
 /// <inheritdoc />
 public class Transaction : ITransaction

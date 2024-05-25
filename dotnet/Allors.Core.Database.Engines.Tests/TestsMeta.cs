@@ -7,12 +7,12 @@
     /// <summary>
     /// Meta for Tests.
     /// </summary>
-    public sealed class EnginesMeta
+    public sealed class TestsMeta
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EnginesMeta"/> class.
+        /// Initializes a new instance of the <see cref="TestsMeta"/> class.
         /// </summary>
-        public EnginesMeta(CoreMeta m)
+        public TestsMeta(CoreMeta m)
         {
             this.CoreMeta = m;
 

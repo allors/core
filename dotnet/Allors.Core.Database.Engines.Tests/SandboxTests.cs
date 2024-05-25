@@ -5,7 +5,7 @@
 
     public abstract class SandboxTests
     {
-        protected abstract EnginesMeta Meta { get; }
+        protected abstract TestsMeta Meta { get; }
 
         [Fact]
         public void OneToOne()

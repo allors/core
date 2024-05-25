@@ -61,6 +61,21 @@
         public EnginesMetaObject this[IMetaObject key] => this.mapping[key];
 
         /// <summary>
+        /// Lookup engines composite.
+        /// </summary>
+        public EnginesComposite this[IComposite key] => (EnginesComposite)this.mapping[key];
+
+        /// <summary>
+        /// Lookup engines unit.
+        /// </summary>
+        public EnginesUnit this[Unit key] => (EnginesUnit)this.mapping[key];
+
+        /// <summary>
+        /// Lookup engines interface.
+        /// </summary>
+        public EnginesInterface this[Interface key] => (EnginesInterface)this.mapping[key];
+
+        /// <summary>
         /// Lookup engines class.
         /// </summary>
         public EnginesClass this[Class key] => (EnginesClass)this.mapping[key];

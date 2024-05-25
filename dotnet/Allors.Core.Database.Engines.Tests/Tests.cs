@@ -7,9 +7,9 @@
         protected Tests()
         {
             var coreMeta = new CoreMeta();
-            this.Meta = new EnginesMeta(coreMeta);
+            this.Meta = new TestsMeta(coreMeta);
         }
 
-        public EnginesMeta Meta { get; }
+        public TestsMeta Meta { get; }
     }
 }

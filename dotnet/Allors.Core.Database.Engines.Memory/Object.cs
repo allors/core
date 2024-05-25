@@ -151,7 +151,7 @@ public class Object : IObject
 
         set
         {
-            this.AssertIsAssignable(roleType, value);
+            this.AssertIsAssignable(roleType, (Object?)value);
 
             if (roleType is EnginesOneToOneRoleType oneToOneRoleType)
             {
@@ -407,7 +407,7 @@ public class Object : IObject
 
     private void Add(EnginesToManyRoleType roleType, IObject value)
     {
-        this.AssertIsAssignable(roleType, value);
+        this.AssertIsAssignable(roleType, (Object?)value);
 
         if (roleType is EnginesOneToManyRoleType oneToManyRoleType)
         {
@@ -422,7 +422,7 @@ public class Object : IObject
 
     private void Remove(EnginesToManyRoleType roleType, IObject value)
     {
-        this.AssertIsAssignable(roleType, value);
+        this.AssertIsAssignable(roleType, (Object?)value);
 
         if (roleType is EnginesOneToManyRoleType oneToManyRoleType)
         {
@@ -736,7 +736,7 @@ public class Object : IObject
             }
 
             var add = objects.Where(v => !previousRole.Contains(v.Id));
-            foreach (var @object in add.Cast<Object>())
+            foreach (var @object in add)
             {
                 this.AddManyToManyRole(roleType, @object);
             }
@@ -875,27 +875,26 @@ public class Object : IObject
 
     private void AssertIsAssignable(EnginesCompositeRoleType roleType, Object[] objects)
     {
-        var objectType = roleType.Composite;
+        var composite = roleType.Composite;
 
-        if (objects.Any(@object => !m.IsAssignableFrom(objectType, @object.Class)))
+        if (objects.Any(@object => !composite.IsAssignableFrom(@object.Class)))
         {
-            throw new ArgumentException($"{roleType} should be assignable to {roleType.ObjectType.Name} but was a {objectType}");
+            throw new ArgumentException($"{roleType} should be assignable to {composite.SingularName}");
         }
     }
 
-    private void AssertIsAssignable(EnginesCompositeRoleType roleType, IObject? @object)
+    private void AssertIsAssignable(EnginesCompositeRoleType roleType, Object? @object)
     {
         if (@object == null)
         {
             return;
         }
 
-        var m = this.Transaction.Database.Meta;
-        var objectType = roleType[m.Meta.RoleTypeObjectType]!;
+        var composite = roleType.Composite;
 
-        if (!m.IsAssignableFrom(objectType, @object.Class))
+        if (!composite.IsAssignableFrom(@object.Class))
         {
-            throw new ArgumentException($"{roleType} should be assignable to {roleType.ObjectType.Name} but was a {objectType}");
+            throw new ArgumentException($"{roleType} should be assignable to {composite.SingularName}");
         }
     }
 }

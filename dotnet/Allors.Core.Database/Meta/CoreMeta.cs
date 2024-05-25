@@ -1,7 +1,6 @@
 ﻿namespace Allors.Core.Database.Meta
 {
     using System;
-    using System.Linq;
     using Allors.Core.Database.Meta.Domain;
     using Allors.Core.Meta.Domain;
 
@@ -274,10 +273,5 @@
                 subtype.Add(this.Meta.CompositeDirectSupertypes, supertype);
             }
         }
-
-        /// <summary>
-        /// Determines whether an instance of the other type can be assigned to a variable of the current type.
-        /// </summary>
-        public bool IsAssignableFrom(IMetaObject current, Class other) => current == other || other[this.Meta.CompositeSupertypes].Contains(current);
     }
 }
