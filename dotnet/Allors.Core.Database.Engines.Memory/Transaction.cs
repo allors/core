@@ -1,11 +1,12 @@
-﻿namespace Allors.Core.Database.Engines.Memory;
+﻿using Allors.Core.Database.Meta.Domain;
+
+namespace Allors.Core.Database.Engines.Memory;
 
 using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Linq;
 using Allors.Core.Database.Engines.Meta;
-
 
 /// <inheritdoc />
 public class Transaction : ITransaction
@@ -16,6 +17,7 @@ public class Transaction : ITransaction
     public Transaction(Database database)
     {
         this.Database = database;
+        this.Meta = this.Database.Meta;
         this.Store = this.Database.Store;
 
         this.InstantiatedObjectByObjectId = new Dictionary<long, Object>();
@@ -27,6 +29,7 @@ public class Transaction : ITransaction
     public Transaction(Transaction transaction)
     {
         this.Database = transaction.Database;
+        this.Meta = this.Database.Meta;
 
         var newObjects = transaction.InstantiatedObjectByObjectId
             .Select(kvp => kvp.Value)
@@ -39,8 +42,8 @@ public class Transaction : ITransaction
                     v.Class,
                     v.Id,
                     0,
-                    FrozenDictionary<IRoleType, object>.Empty,
-                    FrozenDictionary<IAssociationType, object>.Empty)));
+                    FrozenDictionary<EnginesRoleType, object>.Empty,
+                    FrozenDictionary<EnginesAssociationType, object>.Empty)));
 
         this.Store = this.Database.Store with
         {
@@ -52,6 +55,8 @@ public class Transaction : ITransaction
 
     IDatabase ITransaction.Database => this.Database;
 
+    internal EnginesMeta Meta { get; }
+
     internal Store Store { get; private set; }
 
     internal IDictionary<long, Object> InstantiatedObjectByObjectId { get; }
@@ -59,15 +64,15 @@ public class Transaction : ITransaction
     internal Database Database { get; }
 
     /// <inheritdoc/>
-    public IObject Build(EngineClass @class)
+    public IObject Build(Class @class)
     {
-        var newObject = new Object(this, @class, this.Database.NextObjectId());
+        var newObject = new Object(this, this.Meta[@class], this.Database.NextObjectId());
         this.InstantiatedObjectByObjectId.Add(newObject.Id, newObject);
         return newObject;
     }
 
     /// <inheritdoc/>
-    public IEnumerable<IObject> Build(EngineClass @class, int amount)
+    public IEnumerable<IObject> Build(Class @class, int amount)
     {
         var objects = new IObject[amount];
         for (var i = 0; i < amount; i++)

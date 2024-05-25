@@ -58,7 +58,7 @@ public class ChangeSet : IChangeSet
          group kvp.Key by value)
         .ToDictionary(grp => grp.Key, grp => new HashSet<IObject>(grp) as ISet<IObject>);
 
-    internal void AddChangedRoleByRoleTypeId(IObject @object, EngineRoleType roleType)
+    internal void AddChangedRoleByRoleTypeId(IObject @object, EnginesRoleType roleType)
     {
         if (!this.roleTypesByAssociation.TryGetValue(@object, out var roleTypes))
         {
@@ -69,7 +69,7 @@ public class ChangeSet : IChangeSet
         roleTypes.Add((IRoleType)roleType.MetaObject);
     }
 
-    internal void AddChangedAssociationByAssociationTypeId(IObject @object, EngineAssociationType associationType)
+    internal void AddChangedAssociationByAssociationTypeId(IObject @object, EnginesAssociationType associationType)
     {
         if (!this.associationTypesByRole.TryGetValue(@object, out var associationTypes))
         {

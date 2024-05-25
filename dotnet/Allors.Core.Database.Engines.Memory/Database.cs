@@ -15,14 +15,14 @@ public class Database : IDatabase
     /// <summary>
     /// Initializes a new instance of the <see cref="Database"/> class.
     /// </summary>
-    public Database(EngineMeta meta)
+    public Database(EnginesMeta meta)
     {
         this.Meta = meta;
         this.Store = new Store(ImmutableDictionary<long, Record>.Empty);
         this.nextObjectId = 0;
     }
 
-    internal EngineMeta Meta { get; }
+    internal EnginesMeta Meta { get; }
 
     internal Store Store { get; private set; }
 
