@@ -3,6 +3,4 @@
 /// <summary>
 /// An operand type handle.
 /// </summary>
-public interface IOperandType : IType
-{
-}
+public interface IOperandType : IType;

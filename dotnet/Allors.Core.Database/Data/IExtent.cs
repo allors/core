@@ -8,6 +8,4 @@ namespace Allors.Core.Database.Data;
 /// <summary>
 /// An extent.
 /// </summary>
-public interface IExtent : IVisitable
-{
-}
+public interface IExtent : IVisitable;

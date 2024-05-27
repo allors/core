@@ -3,6 +3,4 @@
 /// <summary>
 /// A role type handle.
 /// </summary>
-public interface IRoleType : IRelationEndType
-{
-}
+public interface IRoleType : IRelationEndType;

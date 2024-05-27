@@ -6,12 +6,12 @@ using Allors.Core.Meta.Meta;
 /// <summary>
 /// An association type handle for a unit role.
 /// </summary>
-public sealed class UnitAssociationType : MetaObject, IAssociationType
+public sealed class StringAssociationType : MetaObject, IUnitAssociationType
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="UnitAssociationType"/> class.
+    /// Initializes a new instance of the <see cref="StringAssociationType"/> class.
     /// </summary>
-    public UnitAssociationType(MetaPopulation population, MetaObjectType objectType)
+    public StringAssociationType(MetaPopulation population, MetaObjectType objectType)
         : base(population, objectType)
     {
     }

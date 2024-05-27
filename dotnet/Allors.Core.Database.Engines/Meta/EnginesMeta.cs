@@ -33,12 +33,12 @@ public sealed class EnginesMeta
                     Interface @interface => new EnginesInterface(this, @interface),
                     Unit unit => new EnginesUnit(this, unit),
                     MethodType methodType => new EnginesMethodType(this, methodType),
-                    UnitRoleType unitRoleType => new EnginesUnitRoleType(this, unitRoleType),
+                    StringRoleType stringRoleType => new EnginesStringRoleType(this, stringRoleType),
                     OneToOneRoleType oneToOneRoleType => new EnginesOneToOneRoleType(this, oneToOneRoleType),
                     ManyToOneRoleType manyToOneRoleType => new EnginesManyToOneRoleType(this, manyToOneRoleType),
                     OneToManyRoleType oneToManyRoleType => new EnginesOneToManyRoleType(this, oneToManyRoleType),
                     ManyToManyRoleType manyToManyRoleType => new EnginesManyToManyRoleType(this, manyToManyRoleType),
-                    UnitAssociationType unitAssociationType => new EnginesUnitAssociationType(this, unitAssociationType),
+                    StringAssociationType stringAssociationType => new EnginesStringAssociationType(this, stringAssociationType),
                     OneToOneAssociationType oneToOneAssociationType => new EnginesOneToOneAssociationType(this, oneToOneAssociationType),
                     OneToManyAssociationType oneToManyAssociationType => new EnginesOneToManyAssociationType(this, oneToManyAssociationType),
                     ManyToOneAssociationType manyToOneAssociationType => new EnginesManyToOneAssociationType(this, manyToOneAssociationType),
@@ -89,7 +89,7 @@ public sealed class EnginesMeta
     /// <summary>
     /// Lookup engines unit role type.
     /// </summary>
-    public EnginesUnitRoleType this[UnitRoleType key] => (EnginesUnitRoleType)this.mapping[key];
+    public EnginesStringRoleType this[StringRoleType key] => (EnginesStringRoleType)this.mapping[key];
 
     /// <summary>
     /// Lookup engines to one role type.

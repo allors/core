@@ -3,6 +3,4 @@
 /// <summary>
 /// An association type handle.
 /// </summary>
-public interface IAssociationType : IRelationEndType
-{
-}
+public interface IAssociationType : IRelationEndType;

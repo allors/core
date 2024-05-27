@@ -36,7 +36,7 @@ public interface IObject
     /// <summary>
     /// Gets or sets the unit role.
     /// </summary>
-    object? this[UnitRoleType roleType] { get; set; }
+    string? this[StringRoleType roleType] { get; set; }
 
     /// <summary>
     /// Gets or sets the ToOne role.

@@ -141,17 +141,17 @@ public sealed class CoreMeta
     /// <summary>
     /// Creates new unit relation end types.
     /// </summary>
-    public (UnitAssociationType AssociationType, UnitRoleType RoleType) AddUnitRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, Unit unit, string singularName, string? assignedPluralName = null)
+    public (StringAssociationType AssociationType, StringRoleType RoleType) AddStringRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, Unit unit, string singularName, string? assignedPluralName = null)
     {
         var m = this.Meta;
 
-        var associationType = this.MetaPopulation.Build<UnitAssociationType>(v =>
+        var associationType = this.MetaPopulation.Build<StringAssociationType>(v =>
         {
             v[m.MetaObjectId] = associationTypeId;
             v[m.AssociationTypeComposite] = associationComposite;
         });
 
-        var roleType = this.MetaPopulation.Build<UnitRoleType>(v =>
+        var roleType = this.MetaPopulation.Build<StringRoleType>(v =>
         {
             v[m.MetaObjectId] = roleTypeId;
             v[m.RoleTypeAssociationType] = associationType;

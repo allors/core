@@ -6,12 +6,12 @@ using Allors.Core.Meta.Meta;
 /// <summary>
 /// A unit role type handle.
 /// </summary>
-public sealed class UnitRoleType : MetaObject, IRoleType
+public sealed class StringRoleType : MetaObject, IUnitRoleType
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="UnitRoleType"/> class.
+    /// Initializes a new instance of the <see cref="StringRoleType"/> class.
     /// </summary>
-    public UnitRoleType(MetaPopulation population, MetaObjectType objectType)
+    public StringRoleType(MetaPopulation population, MetaObjectType objectType)
         : base(population, objectType)
     {
     }

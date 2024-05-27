@@ -1,5 +1,3 @@
 ﻿namespace Allors.Core.Meta.Tests.Domain;
 
-public class ManyToOneTests
-{
-}
+public class ManyToOneTests;

@@ -5,6 +5,4 @@ using Allors.Core.Meta.Domain;
 /// <summary>
 /// An engine association type handle with multiplicity many.
 /// </summary>
-public abstract class EnginesManyToAssociationType(EnginesMeta enginesMeta, MetaObject metaObject) : EnginesCompositeAssociationType(enginesMeta, metaObject)
-{
-}
+public abstract class EnginesManyToAssociationType(EnginesMeta enginesMeta, MetaObject metaObject) : EnginesCompositeAssociationType(enginesMeta, metaObject);

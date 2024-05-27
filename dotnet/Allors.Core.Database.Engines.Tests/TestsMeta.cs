@@ -33,6 +33,7 @@ public sealed class TestsMeta
         m.AddDirectSupertype(this.C1, this.I1);
         m.AddDirectSupertype(this.C2, this.I2);
 
+        /*
         (_, this.I1AllorsBoolean) = m.AddUnitRelation(new Guid("1CCF5BAC-3ED4-490B-9B09-822E045FB0CE"), new Guid("F6D47ECD-453A-45C7-B681-9DAFB0983867"), this.I1, m.Boolean, "I1AllorsBoolean");
         (_, this.C1AllorsBoolean) = m.AddUnitRelation(new Guid("B9434972-9B14-403F-91D3-EE2A0866A5D4"), new Guid("F8C575CE-286F-45A4-BA90-B6FAFA282D66"), this.C1, m.Boolean, "C1AllorsBoolean");
         (_, this.C2AllorsBoolean) = m.AddUnitRelation(new Guid("F86DC318-AEB0-4311-B26D-DC74003281F1"), new Guid("DB1F153D-65C2-4D05-A69D-601FD92CAD05"), this.C2, m.Boolean, "C2AllorsBoolean");
@@ -56,12 +57,13 @@ public sealed class TestsMeta
         (_, this.C2AllorsInteger) = m.AddUnitRelation(new Guid("F86DC318-AEB0-4311-B26D-DC74003281F1"), new Guid("DB1F153D-65C2-4D05-A69D-601FD92CAD05"), this.C2, m.Integer, "C2AllorsInteger");
         (_, this.C3AllorsInteger) = m.AddUnitRelation(new Guid("5B9E7A1B-4CA2-45D4-8FEB-829CF2115F33"), new Guid("F5EF2461-ED10-496B-A5C1-3AFFB4C29A8E"), this.C3, m.Integer, "C3AllorsInteger");
         (_, this.C4AllorsInteger) = m.AddUnitRelation(new Guid("2B0B3AAE-0F9E-43CF-BF0C-2CD38C3D08F6"), new Guid("50FE6867-2E78-4D37-B3F7-CD04135B1230"), this.C4, m.Integer, "C4AllorsInteger");
+        */
 
-        (_, this.I1AllorsString) = m.AddUnitRelation(new Guid("1CCF5BAC-3ED4-490B-9B09-822E045FB0CE"), new Guid("F6D47ECD-453A-45C7-B681-9DAFB0983867"), this.I1, m.String, "I1AllorsString");
-        (_, this.C1AllorsString) = m.AddUnitRelation(new Guid("B9434972-9B14-403F-91D3-EE2A0866A5D4"), new Guid("F8C575CE-286F-45A4-BA90-B6FAFA282D66"), this.C1, m.String, "C1AllorsString");
-        (_, this.C2AllorsString) = m.AddUnitRelation(new Guid("F86DC318-AEB0-4311-B26D-DC74003281F1"), new Guid("DB1F153D-65C2-4D05-A69D-601FD92CAD05"), this.C2, m.String, "C2AllorsString");
-        (_, this.C3AllorsString) = m.AddUnitRelation(new Guid("5B9E7A1B-4CA2-45D4-8FEB-829CF2115F33"), new Guid("F5EF2461-ED10-496B-A5C1-3AFFB4C29A8E"), this.C3, m.String, "C3AllorsString");
-        (_, this.C4AllorsString) = m.AddUnitRelation(new Guid("2B0B3AAE-0F9E-43CF-BF0C-2CD38C3D08F6"), new Guid("50FE6867-2E78-4D37-B3F7-CD04135B1230"), this.C4, m.String, "C4AllorsString");
+        (_, this.I1AllorsString) = m.AddStringRelation(new Guid("1CCF5BAC-3ED4-490B-9B09-822E045FB0CE"), new Guid("F6D47ECD-453A-45C7-B681-9DAFB0983867"), this.I1, m.String, "I1AllorsString");
+        (_, this.C1AllorsString) = m.AddStringRelation(new Guid("B9434972-9B14-403F-91D3-EE2A0866A5D4"), new Guid("F8C575CE-286F-45A4-BA90-B6FAFA282D66"), this.C1, m.String, "C1AllorsString");
+        (_, this.C2AllorsString) = m.AddStringRelation(new Guid("F86DC318-AEB0-4311-B26D-DC74003281F1"), new Guid("DB1F153D-65C2-4D05-A69D-601FD92CAD05"), this.C2, m.String, "C2AllorsString");
+        (_, this.C3AllorsString) = m.AddStringRelation(new Guid("5B9E7A1B-4CA2-45D4-8FEB-829CF2115F33"), new Guid("F5EF2461-ED10-496B-A5C1-3AFFB4C29A8E"), this.C3, m.String, "C3AllorsString");
+        (_, this.C4AllorsString) = m.AddStringRelation(new Guid("2B0B3AAE-0F9E-43CF-BF0C-2CD38C3D08F6"), new Guid("50FE6867-2E78-4D37-B3F7-CD04135B1230"), this.C4, m.String, "C4AllorsString");
 
         (this.C1WhereC1OneToOne, this.C1C1OneToOne) = m.AddOneToOneRelation(new Guid("3C696258-F21A-4A01-8791-6C978173CC0E"), new Guid("7497C880-94D3-464A-B15B-402AE4444533"), this.C1, this.C1, "C1OneToOne");
         (this.C1WhereI1OneToOne, this.C1I1OneToOne) = m.AddOneToOneRelation(new Guid("BFB9C78A-55C4-433D-9A19-F848CBE30254"), new Guid("105397E3-150F-4FAD-9D7F-95A497ECF812"), this.C1, this.I1, "I1OneToOne");
@@ -190,6 +192,7 @@ public sealed class TestsMeta
 
     public Interface I12 { get; }
 
+    /*
     public UnitRoleType I1AllorsBoolean { get; }
 
     public UnitRoleType C1AllorsBoolean { get; }
@@ -229,14 +232,15 @@ public sealed class TestsMeta
     public UnitRoleType C3AllorsInteger { get; }
 
     public UnitRoleType C4AllorsInteger { get; }
+    */
 
-    public UnitRoleType I1AllorsString { get; }
+    public StringRoleType I1AllorsString { get; }
 
-    public UnitRoleType C1AllorsString { get; }
+    public StringRoleType C1AllorsString { get; }
 
-    public UnitRoleType C2AllorsString { get; }
+    public StringRoleType C2AllorsString { get; }
 
-    public UnitRoleType C3AllorsString { get; }
+    public StringRoleType C3AllorsString { get; }
 
-    public UnitRoleType C4AllorsString { get; }
+    public StringRoleType C4AllorsString { get; }
 }

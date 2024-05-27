@@ -5,6 +5,4 @@ using Allors.Core.Meta.Domain;
 /// <summary>
 /// An engine association type handle with multiplicity one to one.
 /// </summary>
-public sealed class EnginesOneToOneAssociationType(EnginesMeta enginesMeta, MetaObject metaObject) : EnginesOneToAssociationType(enginesMeta, metaObject)
-{
-}
+public sealed class EnginesOneToOneAssociationType(EnginesMeta enginesMeta, MetaObject metaObject) : EnginesOneToAssociationType(enginesMeta, metaObject);

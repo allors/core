@@ -8,6 +8,4 @@ namespace Allors.Core.Database.Data;
 /// <summary>
 /// A predicate operator.
 /// </summary>
-public interface IOperatorPredicate : IPredicate
-{
-}
+public interface IOperatorPredicate : IPredicate;

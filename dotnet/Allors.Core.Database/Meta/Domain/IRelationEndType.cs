@@ -3,6 +3,4 @@
 /// <summary>
 /// A relation type handle.
 /// </summary>
-public interface IRelationEndType : IOperandType
-{
-}
+public interface IRelationEndType : IOperandType;

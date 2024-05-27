@@ -3,6 +3,4 @@
 /// <summary>
 /// An association type handle with multiplicity one.
 /// </summary>
-public interface IOneToAssociationType : ICompositeAssociationType
-{
-}
+public interface IOneToAssociationType : ICompositeAssociationType;

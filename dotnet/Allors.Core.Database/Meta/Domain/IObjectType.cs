@@ -3,6 +3,4 @@
 /// <summary>
 /// An object type handle.
 /// </summary>
-public interface IObjectType : IType
-{
-}
+public interface IObjectType : IType;

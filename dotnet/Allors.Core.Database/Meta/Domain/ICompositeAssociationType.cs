@@ -3,6 +3,4 @@
 /// <summary>
 /// An association type handle for a composite role.
 /// </summary>
-public interface ICompositeAssociationType : IAssociationType
-{
-}
+public interface ICompositeAssociationType : IAssociationType;

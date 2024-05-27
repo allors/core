@@ -5,6 +5,4 @@ using Allors.Core.Meta.Domain;
 /// <summary>
 /// An engine role type handle with a multiplicity one.
 /// </summary>
-public abstract class EnginesToOneRoleType(EnginesMeta enginesMeta, MetaObject metaObject) : EnginesCompositeRoleType(enginesMeta, metaObject)
-{
-}
+public abstract class EnginesToOneRoleType(EnginesMeta enginesMeta, MetaObject metaObject) : EnginesCompositeRoleType(enginesMeta, metaObject);

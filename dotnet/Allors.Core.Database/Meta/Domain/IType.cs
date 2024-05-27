@@ -5,6 +5,4 @@ using Allors.Core.Meta.Domain;
 /// <summary>
 /// A type handle.
 /// </summary>
-public interface IType : IMetaObject
-{
-}
+public interface IType : IMetaObject;

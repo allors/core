@@ -113,7 +113,7 @@ public class Object : IObject
     private EnginesMeta Meta => this.Transaction.Meta;
 
     /// <inheritdoc />
-    object? IObject.this[UnitRoleType roleType]
+    string? IObject.this[StringRoleType roleType]
     {
         get => this[this.Meta[roleType]];
         set => this[this.Meta[roleType]] = value;
@@ -139,9 +139,9 @@ public class Object : IObject
     /// <inheritdoc />
     IEnumerable<IObject> IObject.this[IManyToAssociationType associationType] => this[this.Meta[associationType]];
 
-    private object? this[EnginesUnitRoleType roleType]
+    private string? this[EnginesStringRoleType roleType]
     {
-        get => this.GetUnitRole(roleType);
+        get => (string?)this.GetUnitRole(roleType);
         set
         {
             this.Assert(roleType);
@@ -365,8 +365,8 @@ public class Object : IObject
         {
             switch (roleType)
             {
-                case EnginesUnitRoleType unitRoleType:
-                    commitObject[unitRoleType] = changedRole;
+                case EnginesStringRoleType unitRoleType:
+                    commitObject[unitRoleType] = (string?)changedRole;
                     return;
 
                 case EnginesToOneRoleType toOneRoleType:
@@ -476,7 +476,7 @@ public class Object : IObject
         return null;
     }
 
-    private void SetUnitRole(EnginesUnitRoleType roleType, object? value)
+    private void SetUnitRole(EnginesStringRoleType roleType, string? value)
     {
         var currentRole = this[roleType];
         if (Equals(currentRole, value))

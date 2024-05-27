@@ -65,6 +65,7 @@ public abstract class UnitTests : Tests
             var c1b = transaction.Build(m.C1);
 
             // Illegal Role
+            /*
             preact(transaction);
 
             c1a.Invoking(v => v[m.C1AllorsBoolean] = "Oops")
@@ -114,16 +115,7 @@ public abstract class UnitTests : Tests
 
             c1a.Invoking(v => v[m.C1AllorsInteger] = c1b)
                 .Should().Throw<ArgumentException>();
-
-            preact(transaction);
-
-            c1a.Invoking(v => v[m.C1AllorsString] = 0)
-                .Should().Throw<ArgumentException>();
-
-            preact(transaction);
-
-            c1a.Invoking(v => v[m.C1AllorsString] = c1b)
-                .Should().Throw<ArgumentException>();
+            */
         }
     }
 

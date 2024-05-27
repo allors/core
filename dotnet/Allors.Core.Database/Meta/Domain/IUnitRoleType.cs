@@ -1,6 +1,6 @@
 ﻿namespace Allors.Core.Database.Meta.Domain;
 
 /// <summary>
-/// An object type handle.
+/// A unit role type handle.
 /// </summary>
-public interface IComposite : IObjectType;
+public interface IUnitRoleType : IRoleType;

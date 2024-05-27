@@ -39,12 +39,14 @@ public sealed class CoreMetaMeta
         this.OperandType = this.AddMetaInterface("OperandType");
         this.RelationEndType = this.AddMetaInterface("RelationEndType");
         this.RoleType = this.AddMetaInterface("RoleType");
+        this.StringAssociationType = this.AddMetaClass(typeof(StringAssociationType));
+        this.StringRoleType = this.AddMetaClass(typeof(StringRoleType));
         this.ToManyRoleType = this.AddMetaInterface("ToManyRoleType ");
         this.ToOneRoleType = this.AddMetaInterface("ToOneRoleType");
         this.Type = this.AddMetaInterface("Type");
         this.Unit = this.AddMetaClass(typeof(Unit));
-        this.UnitAssociationType = this.AddMetaClass(typeof(UnitAssociationType));
-        this.UnitRoleType = this.AddMetaClass(typeof(UnitRoleType));
+        this.UnitAssociationType = this.AddMetaInterface("UnitAssociationType");
+        this.UnitRoleType = this.AddMetaInterface("UnitRoleType");
         this.Workspace = this.AddMetaClass(typeof(Workspace));
 
         // Inheritance
@@ -70,6 +72,8 @@ public sealed class CoreMetaMeta
         this.OperandType.AddDirectSupertype(this.Type);
         this.RelationEndType.AddDirectSupertype(this.OperandType);
         this.RoleType.AddDirectSupertype(this.RelationEndType);
+        this.StringAssociationType.AddDirectSupertype(this.UnitAssociationType);
+        this.StringRoleType.AddDirectSupertype(this.UnitRoleType);
         this.ToManyRoleType.AddDirectSupertype(this.CompositeRoleType);
         this.ToOneRoleType.AddDirectSupertype(this.CompositeRoleType);
         this.Type.AddDirectSupertype(this.MetaObject);
@@ -294,6 +298,16 @@ public sealed class CoreMetaMeta
     /// The singular name of object type.
     /// </summary>
     public MetaUnitRoleType RoleTypeSingularName { get; init; }
+
+    /// <summary>
+    /// The string association type.
+    /// </summary>
+    public MetaObjectType StringAssociationType { get; set; }
+
+    /// <summary>
+    /// The string role type.
+    /// </summary>
+    public MetaObjectType StringRoleType { get; set; }
 
     /// <summary>
     /// To many role type.

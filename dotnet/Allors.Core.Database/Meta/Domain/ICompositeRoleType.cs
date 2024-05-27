@@ -3,6 +3,4 @@
 /// <summary>
 /// A composite role type handle.
 /// </summary>
-public interface ICompositeRoleType : IRoleType
-{
-}
+public interface ICompositeRoleType : IRoleType;
