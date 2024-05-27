@@ -4,7 +4,7 @@ using Allors.Core.Meta.Domain;
 using Allors.Core.Meta.Meta;
 
 /// <summary>
-/// An association type handle for a unit role.
+/// An association type handle for a string role.
 /// </summary>
 public sealed class StringAssociationType : MetaObject, IUnitAssociationType
 {

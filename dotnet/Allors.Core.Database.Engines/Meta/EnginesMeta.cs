@@ -33,7 +33,14 @@ public sealed class EnginesMeta
                     Interface @interface => new EnginesInterface(this, @interface),
                     Unit unit => new EnginesUnit(this, unit),
                     MethodType methodType => new EnginesMethodType(this, methodType),
+                    BinaryRoleType binaryRoleType => new EnginesBinaryRoleType(this, binaryRoleType),
+                    BooleanRoleType booleanRoleType => new EnginesBooleanRoleType(this, booleanRoleType),
+                    DateTimeRoleType dateTimeRoleType => new EnginesDateTimeRoleType(this, dateTimeRoleType),
+                    DecimalRoleType decimalRoleType => new EnginesDecimalRoleType(this, decimalRoleType),
+                    FloatRoleType floatRoleType => new EnginesFloatRoleType(this, floatRoleType),
+                    IntegerRoleType integerRoleType => new EnginesIntegerRoleType(this, integerRoleType),
                     StringRoleType stringRoleType => new EnginesStringRoleType(this, stringRoleType),
+                    UniqueRoleType uniqueRoleType => new EnginesUniqueRoleType(this, uniqueRoleType),
                     OneToOneRoleType oneToOneRoleType => new EnginesOneToOneRoleType(this, oneToOneRoleType),
                     ManyToOneRoleType manyToOneRoleType => new EnginesManyToOneRoleType(this, manyToOneRoleType),
                     OneToManyRoleType oneToManyRoleType => new EnginesOneToManyRoleType(this, oneToManyRoleType),
@@ -87,9 +94,44 @@ public sealed class EnginesMeta
     public EnginesRoleType this[IRoleType key] => (EnginesRoleType)this.mapping[key];
 
     /// <summary>
-    /// Lookup engines unit role type.
+    /// Lookup engines binary role type.
+    /// </summary>
+    public EnginesBinaryRoleType this[BinaryRoleType key] => (EnginesBinaryRoleType)this.mapping[key];
+
+    /// <summary>
+    /// Lookup engines boolean role type.
+    /// </summary>
+    public EnginesBooleanRoleType this[BooleanRoleType key] => (EnginesBooleanRoleType)this.mapping[key];
+
+    /// <summary>
+    /// Lookup engines datetime role type.
+    /// </summary>
+    public EnginesDateTimeRoleType this[DateTimeRoleType key] => (EnginesDateTimeRoleType)this.mapping[key];
+
+    /// <summary>
+    /// Lookup engines decimal role type.
+    /// </summary>
+    public EnginesDecimalRoleType this[DecimalRoleType key] => (EnginesDecimalRoleType)this.mapping[key];
+
+    /// <summary>
+    /// Lookup engines float role type.
+    /// </summary>
+    public EnginesFloatRoleType this[FloatRoleType key] => (EnginesFloatRoleType)this.mapping[key];
+
+    /// <summary>
+    /// Lookup engines integer role type.
+    /// </summary>
+    public EnginesIntegerRoleType this[IntegerRoleType key] => (EnginesIntegerRoleType)this.mapping[key];
+
+    /// <summary>
+    /// Lookup engines string role type.
     /// </summary>
     public EnginesStringRoleType this[StringRoleType key] => (EnginesStringRoleType)this.mapping[key];
+
+    /// <summary>
+    /// Lookup engines unique role type.
+    /// </summary>
+    public EnginesUniqueRoleType this[UniqueRoleType key] => (EnginesUniqueRoleType)this.mapping[key];
 
     /// <summary>
     /// Lookup engines to one role type.

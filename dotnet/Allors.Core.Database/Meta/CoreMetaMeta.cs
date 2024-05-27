@@ -39,8 +39,22 @@ public sealed class CoreMetaMeta
         this.OperandType = this.AddMetaInterface("OperandType");
         this.RelationEndType = this.AddMetaInterface("RelationEndType");
         this.RoleType = this.AddMetaInterface("RoleType");
+        this.BinaryAssociationType = this.AddMetaClass(typeof(BinaryAssociationType));
+        this.BinaryRoleType = this.AddMetaClass(typeof(BinaryRoleType));
+        this.BooleanAssociationType = this.AddMetaClass(typeof(BooleanAssociationType));
+        this.BooleanRoleType = this.AddMetaClass(typeof(BooleanRoleType));
+        this.DateTimeAssociationType = this.AddMetaClass(typeof(DateTimeAssociationType));
+        this.DateTimeRoleType = this.AddMetaClass(typeof(DateTimeRoleType));
+        this.DecimalAssociationType = this.AddMetaClass(typeof(DecimalAssociationType));
+        this.DecimalRoleType = this.AddMetaClass(typeof(DecimalRoleType));
+        this.FloatAssociationType = this.AddMetaClass(typeof(FloatAssociationType));
+        this.FloatRoleType = this.AddMetaClass(typeof(FloatRoleType));
+        this.IntegerAssociationType = this.AddMetaClass(typeof(IntegerAssociationType));
+        this.IntegerRoleType = this.AddMetaClass(typeof(IntegerRoleType));
         this.StringAssociationType = this.AddMetaClass(typeof(StringAssociationType));
         this.StringRoleType = this.AddMetaClass(typeof(StringRoleType));
+        this.UniqueAssociationType = this.AddMetaClass(typeof(UniqueAssociationType));
+        this.UniqueRoleType = this.AddMetaClass(typeof(UniqueRoleType));
         this.ToManyRoleType = this.AddMetaInterface("ToManyRoleType ");
         this.ToOneRoleType = this.AddMetaInterface("ToOneRoleType");
         this.Type = this.AddMetaInterface("Type");
@@ -72,8 +86,22 @@ public sealed class CoreMetaMeta
         this.OperandType.AddDirectSupertype(this.Type);
         this.RelationEndType.AddDirectSupertype(this.OperandType);
         this.RoleType.AddDirectSupertype(this.RelationEndType);
+        this.BinaryAssociationType.AddDirectSupertype(this.UnitAssociationType);
+        this.BinaryRoleType.AddDirectSupertype(this.UnitRoleType);
+        this.BooleanAssociationType.AddDirectSupertype(this.UnitAssociationType);
+        this.BooleanRoleType.AddDirectSupertype(this.UnitRoleType);
+        this.DateTimeAssociationType.AddDirectSupertype(this.UnitAssociationType);
+        this.DateTimeRoleType.AddDirectSupertype(this.UnitRoleType);
+        this.DecimalAssociationType.AddDirectSupertype(this.UnitAssociationType);
+        this.DecimalRoleType.AddDirectSupertype(this.UnitRoleType);
+        this.FloatAssociationType.AddDirectSupertype(this.UnitAssociationType);
+        this.FloatRoleType.AddDirectSupertype(this.UnitRoleType);
+        this.IntegerAssociationType.AddDirectSupertype(this.UnitAssociationType);
+        this.IntegerRoleType.AddDirectSupertype(this.UnitRoleType);
         this.StringAssociationType.AddDirectSupertype(this.UnitAssociationType);
         this.StringRoleType.AddDirectSupertype(this.UnitRoleType);
+        this.UniqueAssociationType.AddDirectSupertype(this.UnitAssociationType);
+        this.UniqueRoleType.AddDirectSupertype(this.UnitRoleType);
         this.ToManyRoleType.AddDirectSupertype(this.CompositeRoleType);
         this.ToOneRoleType.AddDirectSupertype(this.CompositeRoleType);
         this.Type.AddDirectSupertype(this.MetaObject);
@@ -300,6 +328,66 @@ public sealed class CoreMetaMeta
     public MetaUnitRoleType RoleTypeSingularName { get; init; }
 
     /// <summary>
+    /// The binary association type.
+    /// </summary>
+    public MetaObjectType BinaryAssociationType { get; set; }
+
+    /// <summary>
+    /// The binary role type.
+    /// </summary>
+    public MetaObjectType BinaryRoleType { get; set; }
+
+    /// <summary>
+    /// The boolean association type.
+    /// </summary>
+    public MetaObjectType BooleanAssociationType { get; set; }
+
+    /// <summary>
+    /// The boolean role type.
+    /// </summary>
+    public MetaObjectType BooleanRoleType { get; set; }
+
+    /// <summary>
+    /// The dateTime association type.
+    /// </summary>
+    public MetaObjectType DateTimeAssociationType { get; set; }
+
+    /// <summary>
+    /// The dateTime role type.
+    /// </summary>
+    public MetaObjectType DateTimeRoleType { get; set; }
+
+    /// <summary>
+    /// The decimal association type.
+    /// </summary>
+    public MetaObjectType DecimalAssociationType { get; set; }
+
+    /// <summary>
+    /// The decimal role type.
+    /// </summary>
+    public MetaObjectType DecimalRoleType { get; set; }
+
+    /// <summary>
+    /// The float association type.
+    /// </summary>
+    public MetaObjectType FloatAssociationType { get; set; }
+
+    /// <summary>
+    /// The float role type.
+    /// </summary>
+    public MetaObjectType FloatRoleType { get; set; }
+
+    /// <summary>
+    /// The integer association type.
+    /// </summary>
+    public MetaObjectType IntegerAssociationType { get; set; }
+
+    /// <summary>
+    /// The integer role type.
+    /// </summary>
+    public MetaObjectType IntegerRoleType { get; set; }
+
+    /// <summary>
     /// The string association type.
     /// </summary>
     public MetaObjectType StringAssociationType { get; set; }
@@ -308,6 +396,16 @@ public sealed class CoreMetaMeta
     /// The string role type.
     /// </summary>
     public MetaObjectType StringRoleType { get; set; }
+
+    /// <summary>
+    /// The unique association type.
+    /// </summary>
+    public MetaObjectType UniqueAssociationType { get; set; }
+
+    /// <summary>
+    /// The unique role type.
+    /// </summary>
+    public MetaObjectType UniqueRoleType { get; set; }
 
     /// <summary>
     /// To many role type.

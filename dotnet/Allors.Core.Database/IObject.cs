@@ -1,5 +1,6 @@
 ﻿namespace Allors.Core.Database;
 
+using System;
 using System.Collections.Generic;
 using Allors.Core.Database.Meta.Domain;
 
@@ -34,9 +35,44 @@ public interface IObject
     public bool IsNew { get; }
 
     /// <summary>
-    /// Gets or sets the unit role.
+    /// Gets or sets the binary role.
+    /// </summary>
+    byte[]? this[BinaryRoleType roleType] { get; set; }
+
+    /// <summary>
+    /// Gets or sets the boolean role.
+    /// </summary>
+    bool? this[BooleanRoleType roleType] { get; set; }
+
+    /// <summary>
+    /// Gets or sets the datetime role.
+    /// </summary>
+    DateTime? this[DateTimeRoleType roleType] { get; set; }
+
+    /// <summary>
+    /// Gets or sets the decimal role.
+    /// </summary>
+    decimal? this[DecimalRoleType roleType] { get; set; }
+
+    /// <summary>
+    /// Gets or sets the float role.
+    /// </summary>
+    double? this[FloatRoleType roleType] { get; set; }
+
+    /// <summary>
+    /// Gets or sets the integer role.
+    /// </summary>
+    int? this[IntegerRoleType roleType] { get; set; }
+
+    /// <summary>
+    /// Gets or sets the string role.
     /// </summary>
     string? this[StringRoleType roleType] { get; set; }
+
+    /// <summary>
+    /// Gets or sets the unique role.
+    /// </summary>
+    Guid? this[UniqueRoleType roleType] { get; set; }
 
     /// <summary>
     /// Gets or sets the ToOne role.

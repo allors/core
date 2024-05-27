@@ -113,7 +113,56 @@ public class Object : IObject
     private EnginesMeta Meta => this.Transaction.Meta;
 
     /// <inheritdoc />
+    byte[]? IObject.this[BinaryRoleType roleType]
+    {
+        get => this[this.Meta[roleType]];
+        set => this[this.Meta[roleType]] = value;
+    }
+
+    /// <inheritdoc />
+    bool? IObject.this[BooleanRoleType roleType]
+    {
+        get => this[this.Meta[roleType]];
+        set => this[this.Meta[roleType]] = value;
+    }
+
+    /// <inheritdoc />
+    DateTime? IObject.this[DateTimeRoleType roleType]
+    {
+        get => this[this.Meta[roleType]];
+        set => this[this.Meta[roleType]] = value;
+    }
+
+    /// <inheritdoc />
+    decimal? IObject.this[DecimalRoleType roleType]
+    {
+        get => this[this.Meta[roleType]];
+        set => this[this.Meta[roleType]] = value;
+    }
+
+    /// <inheritdoc />
+    double? IObject.this[FloatRoleType roleType]
+    {
+        get => this[this.Meta[roleType]];
+        set => this[this.Meta[roleType]] = value;
+    }
+
+    /// <inheritdoc />
+    int? IObject.this[IntegerRoleType roleType]
+    {
+        get => this[this.Meta[roleType]];
+        set => this[this.Meta[roleType]] = value;
+    }
+
+    /// <inheritdoc />
     string? IObject.this[StringRoleType roleType]
+    {
+        get => this[this.Meta[roleType]];
+        set => this[this.Meta[roleType]] = value;
+    }
+
+    /// <inheritdoc />
+    Guid? IObject.this[UniqueRoleType roleType]
     {
         get => this[this.Meta[roleType]];
         set => this[this.Meta[roleType]] = value;
@@ -139,6 +188,110 @@ public class Object : IObject
     /// <inheritdoc />
     IEnumerable<IObject> IObject.this[IManyToAssociationType associationType] => this[this.Meta[associationType]];
 
+    private byte[]? this[EnginesBinaryRoleType roleType]
+    {
+        get => (byte[]?)this.GetUnitRole(roleType);
+        set
+        {
+            this.Assert(roleType);
+
+            var currentRole = this[roleType];
+            if (Equals(currentRole, value))
+            {
+                return;
+            }
+
+            this.SetUnitRole(roleType, value);
+        }
+    }
+
+    private bool? this[EnginesBooleanRoleType roleType]
+    {
+        get => (bool?)this.GetUnitRole(roleType);
+        set
+        {
+            this.Assert(roleType);
+
+            var currentRole = this[roleType];
+            if (Equals(currentRole, value))
+            {
+                return;
+            }
+
+            this.SetUnitRole(roleType, value);
+        }
+    }
+
+    private DateTime? this[EnginesDateTimeRoleType roleType]
+    {
+        get => (DateTime?)this.GetUnitRole(roleType);
+        set
+        {
+            this.Assert(roleType);
+            var normalizedValue = this.Normalize(roleType, value);
+
+            var currentRole = this[roleType];
+            if (Equals(currentRole, value))
+            {
+                return;
+            }
+
+            this.SetUnitRole(roleType, value);
+        }
+    }
+
+    private decimal? this[EnginesDecimalRoleType roleType]
+    {
+        get => (decimal?)this.GetUnitRole(roleType);
+        set
+        {
+            this.Assert(roleType);
+            var normalizedValue = this.Normalize(roleType, value);
+
+            var currentRole = this[roleType];
+            if (Equals(currentRole, value))
+            {
+                return;
+            }
+
+            this.SetUnitRole(roleType, value);
+        }
+    }
+
+    private double? this[EnginesFloatRoleType roleType]
+    {
+        get => (double?)this.GetUnitRole(roleType);
+        set
+        {
+            this.Assert(roleType);
+
+            var currentRole = this[roleType];
+            if (Equals(currentRole, value))
+            {
+                return;
+            }
+
+            this.SetUnitRole(roleType, value);
+        }
+    }
+
+    private int? this[EnginesIntegerRoleType roleType]
+    {
+        get => (int?)this.GetUnitRole(roleType);
+        set
+        {
+            this.Assert(roleType);
+
+            var currentRole = this[roleType];
+            if (Equals(currentRole, value))
+            {
+                return;
+            }
+
+            this.SetUnitRole(roleType, value);
+        }
+    }
+
     private string? this[EnginesStringRoleType roleType]
     {
         get => (string?)this.GetUnitRole(roleType);
@@ -146,6 +299,29 @@ public class Object : IObject
         {
             this.Assert(roleType);
             var normalizedValue = this.Normalize(roleType, value);
+
+            var currentRole = this[roleType];
+            if (Equals(currentRole, value))
+            {
+                return;
+            }
+
+            this.SetUnitRole(roleType, value);
+        }
+    }
+
+    private Guid? this[EnginesUniqueRoleType roleType]
+    {
+        get => (Guid?)this.GetUnitRole(roleType);
+        set
+        {
+            this.Assert(roleType);
+
+            var currentRole = this[roleType];
+            if (Equals(currentRole, value))
+            {
+                return;
+            }
 
             this.SetUnitRole(roleType, value);
         }
@@ -476,14 +652,8 @@ public class Object : IObject
         return null;
     }
 
-    private void SetUnitRole(EnginesStringRoleType roleType, string? value)
+    private void SetUnitRole(EnginesUnitRoleType roleType, object? value)
     {
-        var currentRole = this[roleType];
-        if (Equals(currentRole, value))
-        {
-            return;
-        }
-
         this.changedRoleByRoleType ??= [];
         this.changedRoleByRoleType[roleType] = value;
     }

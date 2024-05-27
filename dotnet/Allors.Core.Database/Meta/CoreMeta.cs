@@ -139,7 +139,157 @@ public sealed class CoreMeta
     }
 
     /// <summary>
-    /// Creates new unit relation end types.
+    /// Creates new binary relation end types.
+    /// </summary>
+    public (BinaryAssociationType AssociationType, BinaryRoleType RoleType) AddBinaryRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, Unit unit, string singularName, string? assignedPluralName = null)
+    {
+        var m = this.Meta;
+
+        var associationType = this.MetaPopulation.Build<BinaryAssociationType>(v =>
+        {
+            v[m.MetaObjectId] = associationTypeId;
+            v[m.AssociationTypeComposite] = associationComposite;
+        });
+
+        var roleType = this.MetaPopulation.Build<BinaryRoleType>(v =>
+        {
+            v[m.MetaObjectId] = roleTypeId;
+            v[m.RoleTypeAssociationType] = associationType;
+            v[m.RoleTypeObjectType] = unit;
+            v[m.RoleTypeSingularName] = singularName;
+            v[m.RoleTypeAssignedPluralName] = assignedPluralName;
+        });
+
+        return (associationType, roleType);
+    }
+
+    /// <summary>
+    /// Creates new boolean relation end types.
+    /// </summary>
+    public (BooleanAssociationType AssociationType, BooleanRoleType RoleType) AddBooleanRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, Unit unit, string singularName, string? assignedPluralName = null)
+    {
+        var m = this.Meta;
+
+        var associationType = this.MetaPopulation.Build<BooleanAssociationType>(v =>
+        {
+            v[m.MetaObjectId] = associationTypeId;
+            v[m.AssociationTypeComposite] = associationComposite;
+        });
+
+        var roleType = this.MetaPopulation.Build<BooleanRoleType>(v =>
+        {
+            v[m.MetaObjectId] = roleTypeId;
+            v[m.RoleTypeAssociationType] = associationType;
+            v[m.RoleTypeObjectType] = unit;
+            v[m.RoleTypeSingularName] = singularName;
+            v[m.RoleTypeAssignedPluralName] = assignedPluralName;
+        });
+
+        return (associationType, roleType);
+    }
+
+    /// <summary>
+    /// Creates new datetime relation end types.
+    /// </summary>
+    public (DateTimeAssociationType AssociationType, DateTimeRoleType RoleType) AddDateTimeRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, Unit unit, string singularName, string? assignedPluralName = null)
+    {
+        var m = this.Meta;
+
+        var associationType = this.MetaPopulation.Build<DateTimeAssociationType>(v =>
+        {
+            v[m.MetaObjectId] = associationTypeId;
+            v[m.AssociationTypeComposite] = associationComposite;
+        });
+
+        var roleType = this.MetaPopulation.Build<DateTimeRoleType>(v =>
+        {
+            v[m.MetaObjectId] = roleTypeId;
+            v[m.RoleTypeAssociationType] = associationType;
+            v[m.RoleTypeObjectType] = unit;
+            v[m.RoleTypeSingularName] = singularName;
+            v[m.RoleTypeAssignedPluralName] = assignedPluralName;
+        });
+
+        return (associationType, roleType);
+    }
+
+    /// <summary>
+    /// Creates new decimal relation end types.
+    /// </summary>
+    public (DecimalAssociationType AssociationType, DecimalRoleType RoleType) AddDecimalRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, Unit unit, string singularName, string? assignedPluralName = null)
+    {
+        var m = this.Meta;
+
+        var associationType = this.MetaPopulation.Build<DecimalAssociationType>(v =>
+        {
+            v[m.MetaObjectId] = associationTypeId;
+            v[m.AssociationTypeComposite] = associationComposite;
+        });
+
+        var roleType = this.MetaPopulation.Build<DecimalRoleType>(v =>
+        {
+            v[m.MetaObjectId] = roleTypeId;
+            v[m.RoleTypeAssociationType] = associationType;
+            v[m.RoleTypeObjectType] = unit;
+            v[m.RoleTypeSingularName] = singularName;
+            v[m.RoleTypeAssignedPluralName] = assignedPluralName;
+        });
+
+        return (associationType, roleType);
+    }
+
+    /// <summary>
+    /// Creates new float relation end types.
+    /// </summary>
+    public (FloatAssociationType AssociationType, FloatRoleType RoleType) AddFloatRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, Unit unit, string singularName, string? assignedPluralName = null)
+    {
+        var m = this.Meta;
+
+        var associationType = this.MetaPopulation.Build<FloatAssociationType>(v =>
+        {
+            v[m.MetaObjectId] = associationTypeId;
+            v[m.AssociationTypeComposite] = associationComposite;
+        });
+
+        var roleType = this.MetaPopulation.Build<FloatRoleType>(v =>
+        {
+            v[m.MetaObjectId] = roleTypeId;
+            v[m.RoleTypeAssociationType] = associationType;
+            v[m.RoleTypeObjectType] = unit;
+            v[m.RoleTypeSingularName] = singularName;
+            v[m.RoleTypeAssignedPluralName] = assignedPluralName;
+        });
+
+        return (associationType, roleType);
+    }
+
+    /// <summary>
+    /// Creates new integer relation end types.
+    /// </summary>
+    public (IntegerAssociationType AssociationType, IntegerRoleType RoleType) AddIntegerRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, Unit unit, string singularName, string? assignedPluralName = null)
+    {
+        var m = this.Meta;
+
+        var associationType = this.MetaPopulation.Build<IntegerAssociationType>(v =>
+        {
+            v[m.MetaObjectId] = associationTypeId;
+            v[m.AssociationTypeComposite] = associationComposite;
+        });
+
+        var roleType = this.MetaPopulation.Build<IntegerRoleType>(v =>
+        {
+            v[m.MetaObjectId] = roleTypeId;
+            v[m.RoleTypeAssociationType] = associationType;
+            v[m.RoleTypeObjectType] = unit;
+            v[m.RoleTypeSingularName] = singularName;
+            v[m.RoleTypeAssignedPluralName] = assignedPluralName;
+        });
+
+        return (associationType, roleType);
+    }
+
+    /// <summary>
+    /// Creates new string relation end types.
     /// </summary>
     public (StringAssociationType AssociationType, StringRoleType RoleType) AddStringRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, Unit unit, string singularName, string? assignedPluralName = null)
     {
@@ -152,6 +302,31 @@ public sealed class CoreMeta
         });
 
         var roleType = this.MetaPopulation.Build<StringRoleType>(v =>
+        {
+            v[m.MetaObjectId] = roleTypeId;
+            v[m.RoleTypeAssociationType] = associationType;
+            v[m.RoleTypeObjectType] = unit;
+            v[m.RoleTypeSingularName] = singularName;
+            v[m.RoleTypeAssignedPluralName] = assignedPluralName;
+        });
+
+        return (associationType, roleType);
+    }
+
+    /// <summary>
+    /// Creates new unique relation end types.
+    /// </summary>
+    public (UniqueAssociationType AssociationType, UniqueRoleType RoleType) AddUniqueRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, Unit unit, string singularName, string? assignedPluralName = null)
+    {
+        var m = this.Meta;
+
+        var associationType = this.MetaPopulation.Build<UniqueAssociationType>(v =>
+        {
+            v[m.MetaObjectId] = associationTypeId;
+            v[m.AssociationTypeComposite] = associationComposite;
+        });
+
+        var roleType = this.MetaPopulation.Build<UniqueRoleType>(v =>
         {
             v[m.MetaObjectId] = roleTypeId;
             v[m.RoleTypeAssociationType] = associationType;
