@@ -1,9 +1,8 @@
-﻿namespace Allors.Core.Database.Meta.Domain
+﻿namespace Allors.Core.Database.Meta.Domain;
+
+/// <summary>
+/// A role type handle.
+/// </summary>
+public interface IRoleType : IRelationEndType
 {
-    /// <summary>
-    /// A role type handle.
-    /// </summary>
-    public interface IRoleType : IRelationEndType
-    {
-    }
 }

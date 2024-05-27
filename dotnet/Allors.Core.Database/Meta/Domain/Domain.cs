@@ -1,22 +1,21 @@
-﻿namespace Allors.Core.Database.Meta.Domain
+﻿namespace Allors.Core.Database.Meta.Domain;
+
+using Allors.Core.Meta.Domain;
+using Allors.Core.Meta.Meta;
+
+/// <summary>
+/// A domain handle.
+/// </summary>
+public class Domain : MetaObject
 {
-    using Allors.Core.Meta.Domain;
-    using Allors.Core.Meta.Meta;
-
     /// <summary>
-    /// A domain handle.
+    /// Initializes a new instance of the <see cref="Domain"/> class.
     /// </summary>
-    public class Domain : MetaObject
+    public Domain(MetaPopulation population, MetaObjectType objectType)
+        : base(population, objectType)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Domain"/> class.
-        /// </summary>
-        public Domain(MetaPopulation population, MetaObjectType objectType)
-            : base(population, objectType)
-        {
-        }
-
-        /// <inheritdoc/>
-        public override string ToString() => (string)this["Name"]!;
     }
+
+    /// <inheritdoc/>
+    public override string ToString() => (string)this["Name"]!;
 }

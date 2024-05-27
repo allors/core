@@ -1,11 +1,10 @@
-﻿namespace Allors.Core.Meta.Meta
+﻿namespace Allors.Core.Meta.Meta;
+
+public interface IMetaCompositeAssociationType : IMetaAssociationType
 {
-    public interface IMetaCompositeAssociationType : IMetaAssociationType
-    {
-        new IMetaCompositeRoleType RoleType { get; }
+    new IMetaCompositeRoleType RoleType { get; }
 
-        bool IsOne { get; }
+    bool IsOne { get; }
 
-        bool IsMany { get; }
-    }
+    bool IsMany { get; }
 }

@@ -1,15 +1,14 @@
-﻿namespace Allors.Core.Database.Engines.Tests
+﻿namespace Allors.Core.Database.Engines.Tests;
+
+using Xunit;
+
+public abstract class ExtentTests : Tests
 {
-    using Xunit;
-
-    public abstract class ExtentTests : Tests
+    [Fact]
+    public void ToDo()
     {
-        [Fact]
-        public void ToDo()
-        {
-            Assert.True(true);
-        }
-
-        protected abstract IDatabase CreateDatabase();
+        Assert.True(true);
     }
+
+    protected abstract IDatabase CreateDatabase();
 }

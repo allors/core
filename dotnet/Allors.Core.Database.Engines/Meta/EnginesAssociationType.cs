@@ -1,11 +1,17 @@
-﻿namespace Allors.Core.Database.Engines.Meta
+﻿namespace Allors.Core.Database.Engines.Meta;
+
+using Allors.Core.Database.Meta.Domain;
+using Allors.Core.Meta.Domain;
+
+/// <summary>
+/// An engine association type.
+/// </summary>
+public abstract class EnginesAssociationType(EnginesMeta enginesMeta, MetaObject metaObject) : EnginesRelationEndType(enginesMeta, metaObject)
 {
-    using Allors.Core.Meta.Domain;
+    private EnginesComposite? composite;
 
     /// <summary>
-    /// An engine association type.
+    /// The composite.
     /// </summary>
-    public abstract class EnginesAssociationType(EnginesMeta enginesMeta, MetaObject metaObject) : EnginesRelationEndType(enginesMeta, metaObject)
-    {
-    }
+    public EnginesComposite Composite => this.composite ??= this.EnginesMeta[(IComposite)this.MetaObject[this.M.AssociationTypeComposite]!];
 }

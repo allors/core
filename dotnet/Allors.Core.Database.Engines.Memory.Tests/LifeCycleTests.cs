@@ -1,9 +1,8 @@
-﻿namespace Allors.Core.Database.Engines.Memory.Tests
-{
-    using Allors.Core.Database.Engines.Meta;
+﻿namespace Allors.Core.Database.Engines.Memory.Tests;
 
-    public class LifeCycleTests : Engines.Tests.LifeCycleTests
-    {
-        protected override IDatabase CreateDatabase() => new Database(new EnginesMeta(this.Meta.CoreMeta));
-    }
+using Allors.Core.Database.Engines.Meta;
+
+public class LifeCycleTests : Engines.Tests.LifeCycleTests
+{
+    protected override IDatabase CreateDatabase() => new Database(new EnginesMeta(this.Meta.CoreMeta));
 }

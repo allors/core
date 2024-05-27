@@ -1,22 +1,21 @@
-﻿namespace Allors.Core.Database.Meta.Domain
+﻿namespace Allors.Core.Database.Meta.Domain;
+
+using Allors.Core.Meta.Domain;
+using Allors.Core.Meta.Meta;
+
+/// <summary>
+/// A class handle.
+/// </summary>
+public sealed class Class : MetaObject, IComposite
 {
-    using Allors.Core.Meta.Domain;
-    using Allors.Core.Meta.Meta;
-
     /// <summary>
-    /// A class handle.
+    /// Initializes a new instance of the <see cref="Class"/> class.
     /// </summary>
-    public sealed class Class : MetaObject, IComposite
+    public Class(MetaPopulation population, MetaObjectType objectType)
+        : base(population, objectType)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Class"/> class.
-        /// </summary>
-        public Class(MetaPopulation population, MetaObjectType objectType)
-            : base(population, objectType)
-        {
-        }
-
-        /// <inheritdoc/>
-        public override string ToString() => (string)this["SingularName"]!;
     }
+
+    /// <inheritdoc/>
+    public override string ToString() => (string)this["SingularName"]!;
 }

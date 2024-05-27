@@ -1,7 +1,6 @@
-﻿namespace Allors.Core.Meta.Domain
+﻿namespace Allors.Core.Meta.Domain;
+
+public interface IMetaDerivation
 {
-    public interface IMetaDerivation
-    {
-        void Derive(MetaChangeSet changeSet);
-    }
+    void Derive(MetaChangeSet changeSet);
 }

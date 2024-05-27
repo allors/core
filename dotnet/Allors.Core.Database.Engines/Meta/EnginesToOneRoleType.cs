@@ -1,11 +1,10 @@
-﻿namespace Allors.Core.Database.Engines.Meta
-{
-    using Allors.Core.Meta.Domain;
+﻿namespace Allors.Core.Database.Engines.Meta;
 
-    /// <summary>
-    /// An engine role type handle with a multiplicity one.
-    /// </summary>
-    public abstract class EnginesToOneRoleType(EnginesMeta enginesMeta, MetaObject metaObject) : EnginesCompositeRoleType(enginesMeta, metaObject)
-    {
-    }
+using Allors.Core.Meta.Domain;
+
+/// <summary>
+/// An engine role type handle with a multiplicity one.
+/// </summary>
+public abstract class EnginesToOneRoleType(EnginesMeta enginesMeta, MetaObject metaObject) : EnginesCompositeRoleType(enginesMeta, metaObject)
+{
 }

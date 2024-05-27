@@ -1,19 +1,18 @@
-﻿namespace Allors.Core.Database.Meta.Domain
-{
-    using Allors.Core.Meta.Domain;
-    using Allors.Core.Meta.Meta;
+﻿namespace Allors.Core.Database.Meta.Domain;
 
+using Allors.Core.Meta.Domain;
+using Allors.Core.Meta.Meta;
+
+/// <summary>
+/// A method type handle.
+/// </summary>
+public sealed class MethodType : MetaObject, IOperandType
+{
     /// <summary>
-    /// A method type handle.
+    /// Initializes a new instance of the <see cref="MethodType"/> class.
     /// </summary>
-    public sealed class MethodType : MetaObject, IOperandType
+    public MethodType(MetaPopulation population, MetaObjectType objectType)
+        : base(population, objectType)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MethodType"/> class.
-        /// </summary>
-        public MethodType(MetaPopulation population, MetaObjectType objectType)
-            : base(population, objectType)
-        {
-        }
     }
 }

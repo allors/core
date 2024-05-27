@@ -1,23 +1,20 @@
-﻿namespace Allors.Core.Database.Engines.Meta
+﻿namespace Allors.Core.Database.Engines.Meta;
+
+using Allors.Core.Database.Meta.Domain;
+using Allors.Core.Meta.Domain;
+
+/// <summary>
+/// An engine composite role type.
+/// </summary>
+public abstract class EnginesCompositeRoleType(EnginesMeta enginesMeta, MetaObject metaObject) : EnginesRoleType(enginesMeta, metaObject)
 {
-    using Allors.Core.Database.Meta.Domain;
-    using Allors.Core.Meta.Domain;
+    private EnginesComposite? composite;
+
+    /// <inheritdoc />
+    public override EnginesObjectType ObjectType => this.Composite;
 
     /// <summary>
-    /// An engine composite role type.
+    /// The composite.
     /// </summary>
-    public abstract class EnginesCompositeRoleType(EnginesMeta enginesMeta, MetaObject metaObject) : EnginesRoleType(enginesMeta, metaObject)
-    {
-        private EnginesComposite? composite;
-
-        /// <summary>
-        /// The association type.
-        /// </summary>
-        public abstract EnginesCompositeAssociationType CompositeAssociationType { get; }
-
-        /// <summary>
-        /// The composite.
-        /// </summary>
-        public EnginesComposite Composite => this.composite ??= this.EnginesMeta[(IComposite)this.MetaObject[this.M.RoleTypeObjectType]!];
-    }
+    public EnginesComposite Composite => this.composite ??= this.EnginesMeta[(IComposite)this.MetaObject[this.M.RoleTypeObjectType]!];
 }

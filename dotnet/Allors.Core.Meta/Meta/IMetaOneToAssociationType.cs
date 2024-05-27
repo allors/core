@@ -1,4 +1,3 @@
-﻿namespace Allors.Core.Meta.Meta
-{
-    public interface IMetaOneToAssociationType : IMetaCompositeAssociationType;
-}
+﻿namespace Allors.Core.Meta.Meta;
+
+public interface IMetaOneToAssociationType : IMetaCompositeAssociationType;

@@ -1,304 +1,303 @@
-﻿namespace Allors.Core.Meta.Tests.Domain
+﻿namespace Allors.Core.Meta.Tests.Domain;
+
+using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using Allors.Core.Meta.Domain;
+using Allors.Core.Meta.Meta;
+using Xunit;
+
+public class OneToManyTests
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.Immutable;
-    using Allors.Core.Meta.Domain;
-    using Allors.Core.Meta.Meta;
-    using Xunit;
-
-    public class OneToManyTests
+    [Fact]
+    public void AddSameAssociation()
     {
-        [Fact]
-        public void AddSameAssociation()
-        {
-            var meta = new MetaMeta();
-            var organization = meta.AddClass("Organization");
-            var person = meta.AddClass("Person");
-            var employees = meta.AddOneToMany(organization, person, "Employee");
-
-            var population = new MetaPopulation(meta);
-
-            var acme = population.Build(organization);
-            var jane = population.Build(person);
-            var john = population.Build(person);
-            var jenny = population.Build(person);
-
-            acme.Add(employees, jane);
-            acme.Add(employees, john);
-            acme.Add(employees, jenny);
-
-            Assert.Contains(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-            Assert.Contains(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-            Assert.Contains(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
-
-            Assert.Equal(acme, jane["OrganizationWhereEmployee"]);
-            Assert.Equal(acme, john["OrganizationWhereEmployee"]);
-            Assert.Equal(acme, jenny["OrganizationWhereEmployee"]);
-        }
-
-        [Fact]
-        public void AddSameAssociationParams()
-        {
-            var meta = new MetaMeta();
-            var organization = meta.AddClass("Organization");
-            var person = meta.AddClass("Person");
-            var employees = meta.AddOneToMany(organization, person, "Employee");
-
-            var population = new MetaPopulation(meta);
-
-            var acme = population.Build(organization);
-            var jane = population.Build(person);
-            var john = population.Build(person);
-            var jenny = population.Build(person);
-
-            acme.Add(employees, jane);
-            acme.Add(employees, john);
-            acme.Add(employees, jenny);
-
-            Assert.Contains(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-            Assert.Contains(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-            Assert.Contains(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
-
-            Assert.Equal(acme, jane["OrganizationWhereEmployee"]);
-            Assert.Equal(acme, john["OrganizationWhereEmployee"]);
-            Assert.Equal(acme, jenny["OrganizationWhereEmployee"]);
-        }
-
-        [Fact]
-        public void AddSameAssociationArray()
-        {
-            var meta = new MetaMeta();
-            var organization = meta.AddClass("Organization");
-            var person = meta.AddClass("Person");
-            var employees = meta.AddOneToMany(organization, person, "Employee");
-
-            var population = new MetaPopulation(meta);
-
-            var acme = population.Build(organization);
-            var jane = population.Build(person);
-            var john = population.Build(person);
-            var jenny = population.Build(person);
-
-            acme.Add(employees, jane);
-            acme.Add(employees, john);
-            acme.Add(employees, jenny);
-
-            Assert.Contains(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-            Assert.Contains(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-            Assert.Contains(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
-
-            Assert.Equal(acme, jane["OrganizationWhereEmployee"]);
-            Assert.Equal(acme, john["OrganizationWhereEmployee"]);
-            Assert.Equal(acme, jenny["OrganizationWhereEmployee"]);
-        }
-
-        [Fact]
-        public void AddDifferentAssociation()
-        {
-            var meta = new MetaMeta();
-            var named = meta.AddInterface("Named");
-            var organization = meta.AddClass("Organization", named);
-            var person = meta.AddClass("Person", named);
-            var employees = meta.AddOneToMany(organization, person, "Employee");
-
-            var population = new MetaPopulation(meta);
-
-            var acme = population.Build(organization);
-
-            var jane = population.Build(person);
-            var john = population.Build(person);
-            var jenny = population.Build(person);
-
-            acme.Add(employees, jane);
-            acme.Add(employees, john);
-            acme.Add(employees, jenny);
+        var meta = new MetaMeta();
+        var organization = meta.AddClass("Organization");
+        var person = meta.AddClass("Person");
+        var employees = meta.AddOneToMany(organization, person, "Employee");
+
+        var population = new MetaPopulation(meta);
+
+        var acme = population.Build(organization);
+        var jane = population.Build(person);
+        var john = population.Build(person);
+        var jenny = population.Build(person);
+
+        acme.Add(employees, jane);
+        acme.Add(employees, john);
+        acme.Add(employees, jenny);
+
+        Assert.Contains(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.Contains(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.Contains(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
+
+        Assert.Equal(acme, jane["OrganizationWhereEmployee"]);
+        Assert.Equal(acme, john["OrganizationWhereEmployee"]);
+        Assert.Equal(acme, jenny["OrganizationWhereEmployee"]);
+    }
+
+    [Fact]
+    public void AddSameAssociationParams()
+    {
+        var meta = new MetaMeta();
+        var organization = meta.AddClass("Organization");
+        var person = meta.AddClass("Person");
+        var employees = meta.AddOneToMany(organization, person, "Employee");
+
+        var population = new MetaPopulation(meta);
+
+        var acme = population.Build(organization);
+        var jane = population.Build(person);
+        var john = population.Build(person);
+        var jenny = population.Build(person);
+
+        acme.Add(employees, jane);
+        acme.Add(employees, john);
+        acme.Add(employees, jenny);
+
+        Assert.Contains(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.Contains(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.Contains(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
+
+        Assert.Equal(acme, jane["OrganizationWhereEmployee"]);
+        Assert.Equal(acme, john["OrganizationWhereEmployee"]);
+        Assert.Equal(acme, jenny["OrganizationWhereEmployee"]);
+    }
+
+    [Fact]
+    public void AddSameAssociationArray()
+    {
+        var meta = new MetaMeta();
+        var organization = meta.AddClass("Organization");
+        var person = meta.AddClass("Person");
+        var employees = meta.AddOneToMany(organization, person, "Employee");
 
-            var hooli = population.Build(organization);
+        var population = new MetaPopulation(meta);
+
+        var acme = population.Build(organization);
+        var jane = population.Build(person);
+        var john = population.Build(person);
+        var jenny = population.Build(person);
+
+        acme.Add(employees, jane);
+        acme.Add(employees, john);
+        acme.Add(employees, jenny);
+
+        Assert.Contains(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.Contains(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.Contains(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
+
+        Assert.Equal(acme, jane["OrganizationWhereEmployee"]);
+        Assert.Equal(acme, john["OrganizationWhereEmployee"]);
+        Assert.Equal(acme, jenny["OrganizationWhereEmployee"]);
+    }
+
+    [Fact]
+    public void AddDifferentAssociation()
+    {
+        var meta = new MetaMeta();
+        var named = meta.AddInterface("Named");
+        var organization = meta.AddClass("Organization", named);
+        var person = meta.AddClass("Person", named);
+        var employees = meta.AddOneToMany(organization, person, "Employee");
+
+        var population = new MetaPopulation(meta);
+
+        var acme = population.Build(organization);
+
+        var jane = population.Build(person);
+        var john = population.Build(person);
+        var jenny = population.Build(person);
+
+        acme.Add(employees, jane);
+        acme.Add(employees, john);
+        acme.Add(employees, jenny);
 
-            hooli.Add(employees, jane);
+        var hooli = population.Build(organization);
 
-            Assert.Contains(jane, (IEnumerable<IMetaObject>)hooli["Employees"]!);
+        hooli.Add(employees, jane);
 
-            Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-            Assert.Contains(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-            Assert.Contains(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.Contains(jane, (IEnumerable<IMetaObject>)hooli["Employees"]!);
 
-            Assert.Equal(hooli, jane["OrganizationWhereEmployee"]);
+        Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.Contains(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.Contains(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
 
-            Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
-            Assert.Equal(acme, john["OrganizationWhereEmployee"]);
-            Assert.Equal(acme, jenny["OrganizationWhereEmployee"]);
-        }
+        Assert.Equal(hooli, jane["OrganizationWhereEmployee"]);
 
-        [Fact]
-        public void Remove()
-        {
-            var meta = new MetaMeta();
-            var organization = meta.AddClass("Organization");
-            var person = meta.AddClass("Person");
-            var employees = meta.AddOneToMany(organization, person, "Employee");
+        Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
+        Assert.Equal(acme, john["OrganizationWhereEmployee"]);
+        Assert.Equal(acme, jenny["OrganizationWhereEmployee"]);
+    }
 
-            var population = new MetaPopulation(meta);
+    [Fact]
+    public void Remove()
+    {
+        var meta = new MetaMeta();
+        var organization = meta.AddClass("Organization");
+        var person = meta.AddClass("Person");
+        var employees = meta.AddOneToMany(organization, person, "Employee");
 
-            var acme = population.Build(organization);
-            var jane = population.Build(person);
-            var john = population.Build(person);
-            var jenny = population.Build(person);
+        var population = new MetaPopulation(meta);
 
-            acme.Add(employees, jane);
-            acme.Add(employees, john);
-            acme.Add(employees, jenny);
+        var acme = population.Build(organization);
+        var jane = population.Build(person);
+        var john = population.Build(person);
+        var jenny = population.Build(person);
 
-            acme.Remove(employees, jane);
+        acme.Add(employees, jane);
+        acme.Add(employees, john);
+        acme.Add(employees, jenny);
+
+        acme.Remove(employees, jane);
 
-            Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-            Assert.Contains(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-            Assert.Contains(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.Contains(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.Contains(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
 
-            Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
-            Assert.Equal(acme, john["OrganizationWhereEmployee"]);
-            Assert.Equal(acme, jenny["OrganizationWhereEmployee"]);
+        Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
+        Assert.Equal(acme, john["OrganizationWhereEmployee"]);
+        Assert.Equal(acme, jenny["OrganizationWhereEmployee"]);
 
-            acme.Remove(employees, john);
+        acme.Remove(employees, john);
+
+        Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.DoesNotContain(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.Contains(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
 
-            Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-            Assert.DoesNotContain(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-            Assert.Contains(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
+        Assert.NotEqual(acme, john["OrganizationWhereEmployee"]);
+        Assert.Equal(acme, jenny["OrganizationWhereEmployee"]);
 
-            Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
-            Assert.NotEqual(acme, john["OrganizationWhereEmployee"]);
-            Assert.Equal(acme, jenny["OrganizationWhereEmployee"]);
+        acme.Remove(employees, jenny);
 
-            acme.Remove(employees, jenny);
+        Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.DoesNotContain(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.DoesNotContain(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
 
-            Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-            Assert.DoesNotContain(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-            Assert.DoesNotContain(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
+        Assert.NotEqual(acme, john["OrganizationWhereEmployee"]);
+        Assert.NotEqual(acme, jenny["OrganizationWhereEmployee"]);
+    }
 
-            Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
-            Assert.NotEqual(acme, john["OrganizationWhereEmployee"]);
-            Assert.NotEqual(acme, jenny["OrganizationWhereEmployee"]);
-        }
+    [Fact]
+    public void RemoveParams()
+    {
+        var meta = new MetaMeta();
+        var organization = meta.AddClass("Organization");
+        var person = meta.AddClass("Person");
+        var employees = meta.AddOneToMany(organization, person, "Employee");
 
-        [Fact]
-        public void RemoveParams()
-        {
-            var meta = new MetaMeta();
-            var organization = meta.AddClass("Organization");
-            var person = meta.AddClass("Person");
-            var employees = meta.AddOneToMany(organization, person, "Employee");
+        var population = new MetaPopulation(meta);
 
-            var population = new MetaPopulation(meta);
+        var acme = population.Build(organization);
+        var jane = population.Build(person);
+        var john = population.Build(person);
+        var jenny = population.Build(person);
 
-            var acme = population.Build(organization);
-            var jane = population.Build(person);
-            var john = population.Build(person);
-            var jenny = population.Build(person);
+        acme.Add(employees, jane);
+        acme.Add(employees, john);
+        acme.Add(employees, jenny);
 
-            acme.Add(employees, jane);
-            acme.Add(employees, john);
-            acme.Add(employees, jenny);
+        acme.Remove(employees, jane);
+        acme.Remove(employees, john);
 
-            acme.Remove(employees, jane);
-            acme.Remove(employees, john);
+        Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.DoesNotContain(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.Contains(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
 
-            Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-            Assert.DoesNotContain(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-            Assert.Contains(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
+        Assert.NotEqual(acme, john["OrganizationWhereEmployee"]);
+        Assert.Equal(acme, jenny["OrganizationWhereEmployee"]);
+    }
 
-            Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
-            Assert.NotEqual(acme, john["OrganizationWhereEmployee"]);
-            Assert.Equal(acme, jenny["OrganizationWhereEmployee"]);
-        }
+    [Fact]
+    public void RemoveArray()
+    {
+        var meta = new MetaMeta();
+        var organization = meta.AddClass("Organization");
+        var person = meta.AddClass("Person");
+        var employees = meta.AddOneToMany(organization, person, "Employee");
 
-        [Fact]
-        public void RemoveArray()
-        {
-            var meta = new MetaMeta();
-            var organization = meta.AddClass("Organization");
-            var person = meta.AddClass("Person");
-            var employees = meta.AddOneToMany(organization, person, "Employee");
+        var population = new MetaPopulation(meta);
 
-            var population = new MetaPopulation(meta);
+        var acme = population.Build(organization);
+        var jane = population.Build(person);
+        var john = population.Build(person);
+        var jenny = population.Build(person);
 
-            var acme = population.Build(organization);
-            var jane = population.Build(person);
-            var john = population.Build(person);
-            var jenny = population.Build(person);
+        acme.Add(employees, jane);
+        acme.Add(employees, john);
+        acme.Add(employees, jenny);
 
-            acme.Add(employees, jane);
-            acme.Add(employees, john);
-            acme.Add(employees, jenny);
+        acme.Remove(employees, jane);
+        acme.Remove(employees, john);
 
-            acme.Remove(employees, jane);
-            acme.Remove(employees, john);
+        Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.DoesNotContain(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.Contains(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
 
-            Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-            Assert.DoesNotContain(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-            Assert.Contains(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
+        Assert.NotEqual(acme, john["OrganizationWhereEmployee"]);
+        Assert.Equal(acme, jenny["OrganizationWhereEmployee"]);
+    }
 
-            Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
-            Assert.NotEqual(acme, john["OrganizationWhereEmployee"]);
-            Assert.Equal(acme, jenny["OrganizationWhereEmployee"]);
-        }
+    [Fact]
+    public void RemoveAll()
+    {
+        var meta = new MetaMeta();
+        var organization = meta.AddClass("Organization");
+        var person = meta.AddClass("Person");
+        var employees = meta.AddOneToMany(organization, person, "Employee");
 
-        [Fact]
-        public void RemoveAll()
-        {
-            var meta = new MetaMeta();
-            var organization = meta.AddClass("Organization");
-            var person = meta.AddClass("Person");
-            var employees = meta.AddOneToMany(organization, person, "Employee");
+        var population = new MetaPopulation(meta);
 
-            var population = new MetaPopulation(meta);
+        var acme = population.Build(organization);
+        var jane = population.Build(person);
+        var john = population.Build(person);
+        var jenny = population.Build(person);
 
-            var acme = population.Build(organization);
-            var jane = population.Build(person);
-            var john = population.Build(person);
-            var jenny = population.Build(person);
+        acme.Add(employees, jane);
+        acme.Add(employees, john);
+        acme.Add(employees, jenny);
 
-            acme.Add(employees, jane);
-            acme.Add(employees, john);
-            acme.Add(employees, jenny);
+        acme["Employees"] = null;
 
-            acme["Employees"] = null;
+        Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.DoesNotContain(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.DoesNotContain(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
 
-            Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-            Assert.DoesNotContain(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-            Assert.DoesNotContain(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
+        Assert.NotEqual(acme, john["OrganizationWhereEmployee"]);
+        Assert.NotEqual(acme, jenny["OrganizationWhereEmployee"]);
 
-            Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
-            Assert.NotEqual(acme, john["OrganizationWhereEmployee"]);
-            Assert.NotEqual(acme, jenny["OrganizationWhereEmployee"]);
+        acme.Add(employees, jane);
+        acme.Add(employees, john);
+        acme.Add(employees, jenny);
 
-            acme.Add(employees, jane);
-            acme.Add(employees, john);
-            acme.Add(employees, jenny);
+        acme["Employees"] = Array.Empty<IMetaObject>();
 
-            acme["Employees"] = Array.Empty<IMetaObject>();
+        Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.DoesNotContain(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.DoesNotContain(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
 
-            Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-            Assert.DoesNotContain(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-            Assert.DoesNotContain(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
+        Assert.NotEqual(acme, john["OrganizationWhereEmployee"]);
+        Assert.NotEqual(acme, jenny["OrganizationWhereEmployee"]);
 
-            Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
-            Assert.NotEqual(acme, john["OrganizationWhereEmployee"]);
-            Assert.NotEqual(acme, jenny["OrganizationWhereEmployee"]);
+        acme.Add(employees, jane);
+        acme.Add(employees, john);
+        acme.Add(employees, jenny);
 
-            acme.Add(employees, jane);
-            acme.Add(employees, john);
-            acme.Add(employees, jenny);
+        acme["Employees"] = ImmutableHashSet<IMetaObject>.Empty;
 
-            acme["Employees"] = ImmutableHashSet<IMetaObject>.Empty;
+        Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.DoesNotContain(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        Assert.DoesNotContain(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
 
-            Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-            Assert.DoesNotContain(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-            Assert.DoesNotContain(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
-
-            Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
-            Assert.NotEqual(acme, john["OrganizationWhereEmployee"]);
-            Assert.NotEqual(acme, jenny["OrganizationWhereEmployee"]);
-        }
+        Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
+        Assert.NotEqual(acme, john["OrganizationWhereEmployee"]);
+        Assert.NotEqual(acme, jenny["OrganizationWhereEmployee"]);
     }
 }

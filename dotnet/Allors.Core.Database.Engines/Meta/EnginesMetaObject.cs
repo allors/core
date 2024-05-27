@@ -1,34 +1,33 @@
-﻿namespace Allors.Core.Database.Engines.Meta
+﻿namespace Allors.Core.Database.Engines.Meta;
+
+using System;
+using Allors.Core.Database.Meta;
+using Allors.Core.Meta.Domain;
+
+/// <summary>
+/// An engine meta object.
+/// </summary>
+public abstract class EnginesMetaObject(EnginesMeta enginesMeta, MetaObject metaObject)
 {
-    using System;
-    using Allors.Core.Database.Meta;
-    using Allors.Core.Meta.Domain;
+    private Guid? id;
 
     /// <summary>
-    /// An engine meta object.
+    /// The engines meta.
     /// </summary>
-    public abstract class EnginesMetaObject(EnginesMeta enginesMeta, MetaObject metaObject)
-    {
-        private Guid? id;
+    public EnginesMeta EnginesMeta { get; } = enginesMeta;
 
-        /// <summary>
-        /// The engines meta.
-        /// </summary>
-        public EnginesMeta EnginesMeta { get; } = enginesMeta;
+    /// <summary>
+    /// The core meta meta.
+    /// </summary>
+    public CoreMetaMeta M => this.EnginesMeta.CoreMeta.Meta;
 
-        /// <summary>
-        /// The core meta meta.
-        /// </summary>
-        public CoreMetaMeta M => this.EnginesMeta.CoreMeta.Meta;
+    /// <summary>
+    /// The meta object.
+    /// </summary>
+    public MetaObject MetaObject { get; } = metaObject;
 
-        /// <summary>
-        /// The meta object.
-        /// </summary>
-        public MetaObject MetaObject { get; } = metaObject;
-
-        /// <summary>
-        /// The id.
-        /// </summary>
-        public Guid Id => this.id ??= (Guid)this.MetaObject[this.M.MetaObjectId]!;
-    }
+    /// <summary>
+    /// The id.
+    /// </summary>
+    public Guid Id => this.id ??= (Guid)this.MetaObject[this.M.MetaObjectId]!;
 }

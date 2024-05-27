@@ -1,36 +1,35 @@
-﻿namespace Allors.Core.Database.Engines.Tests
+﻿namespace Allors.Core.Database.Engines.Tests;
+
+using FluentAssertions;
+using Xunit;
+
+public abstract class SandboxTests
 {
-    using FluentAssertions;
-    using Xunit;
+    protected abstract TestsMeta Meta { get; }
 
-    public abstract class SandboxTests
+    [Fact]
+    public void OneToOne()
     {
-        protected abstract TestsMeta Meta { get; }
+        var database = this.CreateDatabase();
+        var transaction = database.CreateTransaction();
 
-        [Fact]
-        public void OneToOne()
-        {
-            var database = this.CreateDatabase();
-            var transaction = database.CreateTransaction();
+        var m = this.Meta;
 
-            var m = this.Meta;
+        var association = m.C1sWhereC1ManyToMany;
+        var role = m.C1C1ManyToMany;
 
-            var association = m.C1sWhereC1ManyToMany;
-            var role = m.C1C1ManyToMany;
+        var from = transaction.Build(m.C1);
+        var to = transaction.Build(m.C1);
 
-            var from = transaction.Build(m.C1);
-            var to = transaction.Build(m.C1);
+        from[role] = [to];
 
-            from[role] = [to];
+        transaction.Commit();
 
-            transaction.Commit();
+        from[role] = [];
 
-            from[role] = [];
-
-            to[association].Should().BeEmpty();
-            from[role].Should().BeEmpty();
-        }
-
-        protected abstract IDatabase CreateDatabase();
+        to[association].Should().BeEmpty();
+        from[role].Should().BeEmpty();
     }
+
+    protected abstract IDatabase CreateDatabase();
 }

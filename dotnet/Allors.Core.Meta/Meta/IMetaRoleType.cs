@@ -1,17 +1,16 @@
-﻿namespace Allors.Core.Meta.Meta
+﻿namespace Allors.Core.Meta.Meta;
+
+public interface IMetaRoleType
 {
-    public interface IMetaRoleType
-    {
-        IMetaAssociationType AssociationType { get; }
+    IMetaAssociationType AssociationType { get; }
 
-        MetaObjectType ObjectType { get; }
+    MetaObjectType ObjectType { get; }
 
-        string SingularName { get; }
+    string SingularName { get; }
 
-        string PluralName { get; }
+    string PluralName { get; }
 
-        string Name { get; }
+    string Name { get; }
 
-        void Deconstruct(out IMetaAssociationType associationType, out IMetaRoleType roleType);
-    }
+    void Deconstruct(out IMetaAssociationType associationType, out IMetaRoleType roleType);
 }

@@ -1,22 +1,21 @@
-﻿namespace Allors.Core.Database.Meta.Domain
+﻿namespace Allors.Core.Database.Meta.Domain;
+
+using Allors.Core.Meta.Domain;
+using Allors.Core.Meta.Meta;
+
+/// <summary>
+/// A role type handle with multiplicity one to one.
+/// </summary>
+public sealed class OneToOneRoleType : MetaObject, IToOneRoleType
 {
-    using Allors.Core.Meta.Domain;
-    using Allors.Core.Meta.Meta;
-
     /// <summary>
-    /// A role type handle with multiplicity one to one.
+    /// Initializes a new instance of the <see cref="OneToOneRoleType"/> class.
     /// </summary>
-    public sealed class OneToOneRoleType : MetaObject, IToOneRoleType
+    public OneToOneRoleType(MetaPopulation population, MetaObjectType objectType)
+        : base(population, objectType)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OneToOneRoleType"/> class.
-        /// </summary>
-        public OneToOneRoleType(MetaPopulation population, MetaObjectType objectType)
-            : base(population, objectType)
-        {
-        }
-
-        /// <inheritdoc/>
-        public override string ToString() => (string)this["SingularName"]!;
     }
+
+    /// <inheritdoc/>
+    public override string ToString() => (string)this["SingularName"]!;
 }

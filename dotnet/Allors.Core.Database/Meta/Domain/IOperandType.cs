@@ -1,9 +1,8 @@
-﻿namespace Allors.Core.Database.Meta.Domain
+﻿namespace Allors.Core.Database.Meta.Domain;
+
+/// <summary>
+/// An operand type handle.
+/// </summary>
+public interface IOperandType : IType
 {
-    /// <summary>
-    /// An operand type handle.
-    /// </summary>
-    public interface IOperandType : IType
-    {
-    }
 }

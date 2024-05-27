@@ -1,11 +1,10 @@
-﻿namespace Allors.Core.Database.Meta.Domain
-{
-    using Allors.Core.Meta.Domain;
+﻿namespace Allors.Core.Database.Meta.Domain;
 
-    /// <summary>
-    /// A type handle.
-    /// </summary>
-    public interface IType : IMetaObject
-    {
-    }
+using Allors.Core.Meta.Domain;
+
+/// <summary>
+/// A type handle.
+/// </summary>
+public interface IType : IMetaObject
+{
 }

@@ -1,90 +1,89 @@
-﻿namespace Allors.Core.Meta.Tests.Domain
+﻿namespace Allors.Core.Meta.Tests.Domain;
+
+using Allors.Core.Meta.Domain;
+using Allors.Core.Meta.Meta;
+using Xunit;
+
+public class UnitTests
 {
-    using Allors.Core.Meta.Domain;
-    using Allors.Core.Meta.Meta;
-    using Xunit;
-
-    public class UnitTests
+    [Fact]
+    public void SameRoleTypeName()
     {
-        [Fact]
-        public void SameRoleTypeName()
+        var meta = new MetaMeta();
+        var c1 = meta.AddClass("C1");
+        var c2 = meta.AddClass("C2");
+        meta.AddUnit<string>(c1, "Same");
+        meta.AddUnit<string>(c2, "Same");
+
+        var population = new MetaPopulation(meta);
+
+        var c1a = population.Build(c1, v =>
         {
-            var meta = new MetaMeta();
-            var c1 = meta.AddClass("C1");
-            var c2 = meta.AddClass("C2");
-            meta.AddUnit<string>(c1, "Same");
-            meta.AddUnit<string>(c2, "Same");
+            v["Same"] = "c1";
+        });
 
-            var population = new MetaPopulation(meta);
-
-            var c1a = population.Build(c1, v =>
-            {
-                v["Same"] = "c1";
-            });
-
-            var c2a = population.Build(c2, v =>
-            {
-                v["Same"] = "c2";
-            });
-
-            Assert.Equal("c1", c1a["Same"]);
-            Assert.Equal("c2", c2a["Same"]);
-        }
-
-        [Fact]
-        public void PropertySetByString()
+        var c2a = population.Build(c2, v =>
         {
-            var meta = new MetaMeta();
-            var person = meta.AddClass("Person");
-            var unitRoleType = meta.AddUnit<string>(person, "FirstName");
+            v["Same"] = "c2";
+        });
 
-            var population = new MetaPopulation(meta);
+        Assert.Equal("c1", c1a["Same"]);
+        Assert.Equal("c2", c2a["Same"]);
+    }
 
-            var john = population.Build(person);
-            var jane = population.Build(person);
+    [Fact]
+    public void PropertySetByString()
+    {
+        var meta = new MetaMeta();
+        var person = meta.AddClass("Person");
+        var unitRoleType = meta.AddUnit<string>(person, "FirstName");
 
-            john["FirstName"] = "John";
-            jane["FirstName"] = "Jane";
+        var population = new MetaPopulation(meta);
 
-            Assert.Equal("John", john["FirstName"]);
-            Assert.Equal("Jane", jane["FirstName"]);
-            Assert.Equal("John", john[unitRoleType]);
-            Assert.Equal("Jane", jane[unitRoleType]);
+        var john = population.Build(person);
+        var jane = population.Build(person);
 
-            jane["FirstName"] = null;
+        john["FirstName"] = "John";
+        jane["FirstName"] = "Jane";
 
-            Assert.Equal("John", john["FirstName"]);
-            Assert.Null(jane["FirstName"]);
-            Assert.Equal("John", john[unitRoleType]);
-            Assert.Null(jane[unitRoleType]);
-        }
+        Assert.Equal("John", john["FirstName"]);
+        Assert.Equal("Jane", jane["FirstName"]);
+        Assert.Equal("John", john[unitRoleType]);
+        Assert.Equal("Jane", jane[unitRoleType]);
 
-        [Fact]
-        public void PropertySetByUnitRoleType()
-        {
-            var meta = new MetaMeta();
-            var person = meta.AddClass("Person");
-            var unitRoleType = meta.AddUnit<string>(person, "FirstName");
+        jane["FirstName"] = null;
 
-            var population = new MetaPopulation(meta);
+        Assert.Equal("John", john["FirstName"]);
+        Assert.Null(jane["FirstName"]);
+        Assert.Equal("John", john[unitRoleType]);
+        Assert.Null(jane[unitRoleType]);
+    }
 
-            var john = population.Build(person);
-            var jane = population.Build(person);
+    [Fact]
+    public void PropertySetByUnitRoleType()
+    {
+        var meta = new MetaMeta();
+        var person = meta.AddClass("Person");
+        var unitRoleType = meta.AddUnit<string>(person, "FirstName");
 
-            john[unitRoleType] = "John";
-            jane[unitRoleType] = "Jane";
+        var population = new MetaPopulation(meta);
 
-            Assert.Equal("John", john["FirstName"]);
-            Assert.Equal("Jane", jane["FirstName"]);
-            Assert.Equal("John", john[unitRoleType]);
-            Assert.Equal("Jane", jane[unitRoleType]);
+        var john = population.Build(person);
+        var jane = population.Build(person);
 
-            jane[unitRoleType] = null;
+        john[unitRoleType] = "John";
+        jane[unitRoleType] = "Jane";
 
-            Assert.Equal("John", john["FirstName"]);
-            Assert.Null(jane["FirstName"]);
-            Assert.Equal("John", john[unitRoleType]);
-            Assert.Null(jane[unitRoleType]);
-        }
+        Assert.Equal("John", john["FirstName"]);
+        Assert.Equal("Jane", jane["FirstName"]);
+        Assert.Equal("John", john[unitRoleType]);
+        Assert.Equal("Jane", jane[unitRoleType]);
+
+        jane[unitRoleType] = null;
+
+        Assert.Equal("John", john["FirstName"]);
+        Assert.Null(jane["FirstName"]);
+        Assert.Equal("John", john[unitRoleType]);
+        Assert.Null(jane[unitRoleType]);
     }
 }

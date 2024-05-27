@@ -1,11 +1,19 @@
-﻿namespace Allors.Core.Database.Engines.Meta
+﻿namespace Allors.Core.Database.Engines.Meta;
+
+using Allors.Core.Meta.Domain;
+
+/// <summary>
+/// An engine role type.
+/// </summary>
+public abstract class EnginesRoleType(EnginesMeta enginesMeta, MetaObject metaObject) : EnginesRelationEndType(enginesMeta, metaObject)
 {
-    using Allors.Core.Meta.Domain;
+    /// <summary>
+    /// The association type.
+    /// </summary>
+    public abstract EnginesAssociationType AssociationType { get; }
 
     /// <summary>
-    /// An engine role type.
+    /// The object type.
     /// </summary>
-    public abstract class EnginesRoleType(EnginesMeta enginesMeta, MetaObject metaObject) : EnginesRelationEndType(enginesMeta, metaObject)
-    {
-    }
+    public abstract EnginesObjectType ObjectType { get; }
 }

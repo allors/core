@@ -142,7 +142,13 @@ public class Object : IObject
     private object? this[EnginesUnitRoleType roleType]
     {
         get => this.GetUnitRole(roleType);
-        set => this.SetUnitRole(roleType, value);
+        set
+        {
+            this.Assert(roleType);
+            var normalizedValue = this.Normalize(roleType, value);
+
+            this.SetUnitRole(roleType, value);
+        }
     }
 
     private IObject? this[EnginesToOneRoleType roleType]
@@ -151,7 +157,7 @@ public class Object : IObject
 
         set
         {
-            this.AssertIsAssignable(roleType, (Object?)value);
+            this.Assert(roleType, (Object?)value);
 
             if (roleType is EnginesOneToOneRoleType oneToOneRoleType)
             {
@@ -185,7 +191,7 @@ public class Object : IObject
         {
             var objects = value.Where(v => (IObject?)v != null).Distinct().Cast<Object>().ToArray();
 
-            this.AssertIsAssignable(roleType, objects);
+            this.Assert(roleType, objects);
 
             if (roleType is EnginesOneToManyRoleType oneToManyRoleType)
             {
@@ -407,7 +413,7 @@ public class Object : IObject
 
     private void Add(EnginesToManyRoleType roleType, IObject value)
     {
-        this.AssertIsAssignable(roleType, (Object?)value);
+        this.Assert(roleType, (Object?)value);
 
         if (roleType is EnginesOneToManyRoleType oneToManyRoleType)
         {
@@ -422,7 +428,7 @@ public class Object : IObject
 
     private void Remove(EnginesToManyRoleType roleType, IObject value)
     {
-        this.AssertIsAssignable(roleType, (Object?)value);
+        this.Assert(roleType, (Object?)value);
 
         if (roleType is EnginesOneToManyRoleType oneToManyRoleType)
         {
@@ -873,7 +879,32 @@ public class Object : IObject
         this.changedAssociationByAssociationType[associationType] = newAssociation.Count != 0 ? newAssociation : null;
     }
 
-    private void AssertIsAssignable(EnginesCompositeRoleType roleType, Object[] objects)
+    private void Assert(EnginesUnitRoleType roleType)
+    {
+        this.AssertAssociationTypeIsAssignableFrom(roleType.AssociationType);
+    }
+
+    private void Assert(EnginesCompositeRoleType roleType, Object[] objects)
+    {
+        this.AssertAssociationTypeIsAssignableFrom(roleType.AssociationType);
+        this.AssertRoleTypeIsAssignableFrom(roleType, objects);
+    }
+
+    private void Assert(EnginesCompositeRoleType roleType, Object? @object)
+    {
+        this.AssertAssociationTypeIsAssignableFrom(roleType.AssociationType);
+        this.AssertRoleTypeIsAssignableFrom(roleType, @object);
+    }
+
+    private void AssertAssociationTypeIsAssignableFrom(EnginesAssociationType associationType)
+    {
+        if (!associationType.Composite.IsAssignableFrom(this.Class))
+        {
+            throw new ArgumentException($"{associationType.Composite} is not assignable from {this.Class}");
+        }
+    }
+
+    private void AssertRoleTypeIsAssignableFrom(EnginesCompositeRoleType roleType, Object[] objects)
     {
         var composite = roleType.Composite;
 
@@ -883,7 +914,7 @@ public class Object : IObject
         }
     }
 
-    private void AssertIsAssignable(EnginesCompositeRoleType roleType, Object? @object)
+    private void AssertRoleTypeIsAssignableFrom(EnginesCompositeRoleType roleType, Object? @object)
     {
         if (@object == null)
         {
@@ -896,5 +927,17 @@ public class Object : IObject
         {
             throw new ArgumentException($"{roleType} should be assignable to {composite.SingularName}");
         }
+    }
+
+    private object? Normalize(EnginesUnitRoleType roleType, object? unit)
+    {
+        if (unit == null)
+        {
+            return null;
+        }
+
+        var normalizedUnit = unit;
+
+        return normalizedUnit;
     }
 }

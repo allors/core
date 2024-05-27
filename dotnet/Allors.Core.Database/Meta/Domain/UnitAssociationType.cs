@@ -1,19 +1,18 @@
-﻿namespace Allors.Core.Database.Meta.Domain
-{
-    using Allors.Core.Meta.Domain;
-    using Allors.Core.Meta.Meta;
+﻿namespace Allors.Core.Database.Meta.Domain;
 
+using Allors.Core.Meta.Domain;
+using Allors.Core.Meta.Meta;
+
+/// <summary>
+/// An association type handle for a unit role.
+/// </summary>
+public sealed class UnitAssociationType : MetaObject, IAssociationType
+{
     /// <summary>
-    /// An association type handle for a unit role.
+    /// Initializes a new instance of the <see cref="UnitAssociationType"/> class.
     /// </summary>
-    public sealed class UnitAssociationType : MetaObject, IAssociationType
+    public UnitAssociationType(MetaPopulation population, MetaObjectType objectType)
+        : base(population, objectType)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UnitAssociationType"/> class.
-        /// </summary>
-        public UnitAssociationType(MetaPopulation population, MetaObjectType objectType)
-            : base(population, objectType)
-        {
-        }
     }
 }

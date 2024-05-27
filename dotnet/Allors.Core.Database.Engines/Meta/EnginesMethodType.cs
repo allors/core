@@ -1,11 +1,10 @@
-﻿namespace Allors.Core.Database.Engines.Meta
-{
-    using Allors.Core.Meta.Domain;
+﻿namespace Allors.Core.Database.Engines.Meta;
 
-    /// <summary>
-    /// An engine method type.
-    /// </summary>
-    public sealed class EnginesMethodType(EnginesMeta enginesMeta, MetaObject metaObject) : EnginesOperandType(enginesMeta, metaObject)
-    {
-    }
+using Allors.Core.Meta.Domain;
+
+/// <summary>
+/// An engine method type.
+/// </summary>
+public sealed class EnginesMethodType(EnginesMeta enginesMeta, MetaObject metaObject) : EnginesOperandType(enginesMeta, metaObject)
+{
 }
