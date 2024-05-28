@@ -32,7 +32,7 @@ internal sealed class MetaRelations
         return roleByAssociation;
     }
 
-    internal MetaChangeSet Snapshot(MetaRelations relations)
+    internal MetaChangeSet Snapshot(MetaRelations relations, IReadOnlySet<IMetaObject> newObjects)
     {
         foreach (var roleType in this.roleByAssociationByRoleType.Keys.ToArray())
         {
@@ -94,7 +94,7 @@ internal sealed class MetaRelations
             }
         }
 
-        var snapshot = new MetaChangeSet(this.roleByAssociationByRoleType, this.associationByRoleByAssociationType);
+        var snapshot = new MetaChangeSet(newObjects, this.roleByAssociationByRoleType, this.associationByRoleByAssociationType);
 
         foreach (var kvp in this.roleByAssociationByRoleType)
         {

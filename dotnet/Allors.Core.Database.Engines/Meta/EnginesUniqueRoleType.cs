@@ -1,5 +1,6 @@
 ﻿namespace Allors.Core.Database.Engines.Meta;
 
+using System;
 using Allors.Core.Database.Meta.Domain;
 using Allors.Core.Meta.Domain;
 
@@ -28,4 +29,12 @@ public sealed class EnginesUniqueRoleType(EnginesMeta enginesMeta, MetaObject me
     /// The composite.
     /// </summary>
     public EnginesUnit Unit => this.unit ??= this.EnginesMeta[(Unit)this.MetaObject[this.M.RoleTypeObjectType]!];
+
+    /// <summary>
+    /// Normalize the value.
+    /// </summary>
+    public Guid? Normalize(Guid? value)
+    {
+        return Guid.Empty.Equals(value) ? null : value;
+    }
 }

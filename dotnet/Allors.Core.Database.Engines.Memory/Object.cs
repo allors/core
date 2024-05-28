@@ -228,7 +228,7 @@ public class Object : IObject
         set
         {
             this.Assert(roleType);
-            var normalizedValue = this.Normalize(roleType, value);
+            value = roleType.Normalize(value);
 
             var currentRole = this[roleType];
             if (Equals(currentRole, value))
@@ -246,7 +246,7 @@ public class Object : IObject
         set
         {
             this.Assert(roleType);
-            var normalizedValue = this.Normalize(roleType, value);
+            value = roleType.Normalize(value);
 
             var currentRole = this[roleType];
             if (Equals(currentRole, value))
@@ -298,7 +298,7 @@ public class Object : IObject
         set
         {
             this.Assert(roleType);
-            var normalizedValue = this.Normalize(roleType, value);
+            value = roleType.Normalize(value);
 
             var currentRole = this[roleType];
             if (Equals(currentRole, value))
@@ -316,6 +316,7 @@ public class Object : IObject
         set
         {
             this.Assert(roleType);
+            value = roleType.Normalize(value);
 
             var currentRole = this[roleType];
             if (Equals(currentRole, value))
@@ -1097,17 +1098,5 @@ public class Object : IObject
         {
             throw new ArgumentException($"{roleType} should be assignable to {composite.SingularName}");
         }
-    }
-
-    private object? Normalize(EnginesUnitRoleType roleType, object? unit)
-    {
-        if (unit == null)
-        {
-            return null;
-        }
-
-        var normalizedUnit = unit;
-
-        return normalizedUnit;
     }
 }

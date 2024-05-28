@@ -6,14 +6,19 @@ using System.Linq;
 using Allors.Core.Meta.Meta;
 
 public sealed class MetaChangeSet(
+    IReadOnlySet<IMetaObject> newObjects,
     IReadOnlyDictionary<IMetaRoleType, Dictionary<IMetaObject, object?>> roleByAssociationByRoleType,
-    IReadOnlyDictionary<IMetaCompositeAssociationType, Dictionary<IMetaObject, object?>> associationByRoleByAssociationType)
+    IReadOnlyDictionary<IMetaCompositeAssociationType, Dictionary<IMetaObject, object?>>
+        associationByRoleByAssociationType)
 {
     private static readonly IReadOnlyDictionary<IMetaObject, object?> Empty = ReadOnlyDictionary<IMetaObject, object?>.Empty;
 
     public bool HasChanges =>
+        newObjects.Count > 0 ||
         roleByAssociationByRoleType.Any(v => v.Value.Count > 0) ||
         associationByRoleByAssociationType.Any(v => v.Value.Count > 0);
+
+    public IReadOnlySet<IMetaObject> NewObjects => newObjects;
 
     public IReadOnlyDictionary<IMetaObject, object?> ChangedRoles(MetaObjectType objectType, string name)
     {

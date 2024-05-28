@@ -118,6 +118,11 @@ public sealed class CoreMetaMeta
         this.CompositeDirectSupertypes = metaMeta.AddManyToMany(this.Composite, this.Interface, "DirectSupertype");
         this.CompositeSupertypes = metaMeta.AddManyToMany(this.Composite, this.Interface, "Supertype");
 
+        this.DecimalRoleTypeAssignedPrecision = metaMeta.AddUnit<int>(this.DecimalRoleType, "AssignedPrecision");
+        this.DecimalRoleTypeDerivedPrecision = metaMeta.AddUnit<int>(this.DecimalRoleType, "DerivedPrecision");
+        this.DecimalRoleTypeAssignedScale = metaMeta.AddUnit<int>(this.DecimalRoleType, "AssignedScale");
+        this.DecimalRoleTypeDerivedScale = metaMeta.AddUnit<int>(this.DecimalRoleType, "DerivedScale");
+
         this.DomainTypes = metaMeta.AddManyToMany(this.Domain, this.Type);
 
         this.ObjectTypeAssignedPluralName = metaMeta.AddUnit<string>(this.ObjectType, "AssignedPluralName");
@@ -132,7 +137,11 @@ public sealed class CoreMetaMeta
         this.RoleTypeAssignedPluralName = metaMeta.AddUnit<string>(this.RoleType, "AssignedPluralName");
         this.RoleTypeDerivedPluralName = metaMeta.AddUnit<string>(this.RoleType, "DerivedPluralName");
         this.RoleTypeObjectType = metaMeta.AddManyToOne(this.RoleType, this.ObjectType);
+        this.RoleTypeName = metaMeta.AddUnit<string>(this.RoleType, "Name");
         this.RoleTypeSingularName = metaMeta.AddUnit<string>(this.RoleType, "SingularName");
+
+        this.StringRoleTypeAssignedSize = metaMeta.AddUnit<int>(this.StringRoleType, "AssignedSize");
+        this.StringRoleTypeDerivedSize = metaMeta.AddUnit<int>(this.StringRoleType, "DerivedSize");
 
         this.WorkspaceTypes = metaMeta.AddManyToMany(this.Workspace, this.Type);
     }
@@ -323,7 +332,12 @@ public sealed class CoreMetaMeta
     public MetaManyToOneRoleType RoleTypeObjectType { get; init; }
 
     /// <summary>
-    /// The singular name of object type.
+    /// The name of role type.
+    /// </summary>
+    public MetaUnitRoleType RoleTypeName { get; init; }
+
+    /// <summary>
+    /// The singular name of role type.
     /// </summary>
     public MetaUnitRoleType RoleTypeSingularName { get; init; }
 
@@ -368,6 +382,26 @@ public sealed class CoreMetaMeta
     public MetaObjectType DecimalRoleType { get; set; }
 
     /// <summary>
+    /// The precision of the decimal role type.
+    /// </summary>
+    public MetaUnitRoleType DecimalRoleTypeAssignedPrecision { get; init; }
+
+    /// <summary>
+    /// The derived precision of the decimal role type.
+    /// </summary>
+    public MetaUnitRoleType DecimalRoleTypeDerivedPrecision { get; init; }
+
+    /// <summary>
+    /// The assigned scale of the decimal role type.
+    /// </summary>
+    public MetaUnitRoleType DecimalRoleTypeAssignedScale { get; init; }
+
+    /// <summary>
+    /// The derived scale of the decimal role type.
+    /// </summary>
+    public MetaUnitRoleType DecimalRoleTypeDerivedScale { get; init; }
+
+    /// <summary>
     /// The float association type.
     /// </summary>
     public MetaObjectType FloatAssociationType { get; set; }
@@ -396,6 +430,16 @@ public sealed class CoreMetaMeta
     /// The string role type.
     /// </summary>
     public MetaObjectType StringRoleType { get; set; }
+
+    /// <summary>
+    /// The assigned size of the string role type.
+    /// </summary>
+    public MetaUnitRoleType StringRoleTypeAssignedSize { get; init; }
+
+    /// <summary>
+    /// The derived size of the string role type.
+    /// </summary>
+    public MetaUnitRoleType StringRoleTypeDerivedSize { get; init; }
 
     /// <summary>
     /// The unique association type.
@@ -465,6 +509,10 @@ public sealed class CoreMetaMeta
         var metaPopulation = new MetaPopulation(this.MetaMeta);
 
         metaPopulation.DerivationById[nameof(this.CompositeSupertypes)] = new CompositeSupertypes(metaPopulation, this);
+        metaPopulation.DerivationById[nameof(this.DecimalRoleTypeDerivedPrecision)] = new DecimalRoleTypeDerivedPrecision(this);
+        metaPopulation.DerivationById[nameof(this.DecimalRoleTypeDerivedScale)] = new DecimalRoleTypeDerivedScale(this);
+        metaPopulation.DerivationById[nameof(this.RoleTypeName)] = new RoleTypeName(this);
+        metaPopulation.DerivationById[nameof(this.StringRoleTypeDerivedSize)] = new StringRoleTypeDerivedSize(this);
 
         return metaPopulation;
     }

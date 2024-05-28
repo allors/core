@@ -5,7 +5,7 @@ using System.Linq;
 using Allors.Core.Meta.Domain;
 
 /// <summary>
-/// Derives the Composite Supertypes.
+/// Derive the supertypes of the composite.
 /// </summary>
 public sealed class CompositeSupertypes(MetaPopulation population, CoreMetaMeta m) : IMetaDerivation
 {

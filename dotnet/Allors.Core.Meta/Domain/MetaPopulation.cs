@@ -1,6 +1,7 @@
 ﻿namespace Allors.Core.Meta.Domain;
 
 using System;
+using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Globalization;
@@ -12,6 +13,7 @@ public sealed class MetaPopulation(MetaMeta meta)
     private readonly MetaRelations relations = new();
     private readonly MetaRelations changedRelations = new();
 
+    private IList<IMetaObject>? newObjects = null;
     private IImmutableList<IMetaObject> objects = ImmutableArray<IMetaObject>.Empty;
 
     public MetaMeta Meta { get; } = meta;
@@ -45,6 +47,9 @@ public sealed class MetaPopulation(MetaMeta meta)
         }
 
         var @new = (T)Activator.CreateInstance(@class.Type, this, @class)!;
+
+        this.newObjects ??= new List<IMetaObject>();
+        this.newObjects.Add(@new);
         this.objects = this.objects.Add(@new);
 
         foreach (var builder in builders)
@@ -57,7 +62,9 @@ public sealed class MetaPopulation(MetaMeta meta)
 
     public MetaChangeSet Checkpoint()
     {
-        return this.changedRelations.Snapshot(this.relations);
+        var newObjectSet = this.newObjects != null ? this.newObjects.ToFrozenSet() : FrozenSet<IMetaObject>.Empty;
+        this.newObjects = null;
+        return this.changedRelations.Snapshot(this.relations, newObjectSet);
     }
 
     public void Derive()
