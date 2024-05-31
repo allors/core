@@ -11,8 +11,8 @@ public class SnapshotTests
     public void Unit()
     {
         var meta = new MetaMeta();
-        var @string = meta.AddUnit("String");
-        var person = meta.AddClass("Person");
+        var @string = meta.AddUnit(Guid.NewGuid(), "String");
+        var person = meta.AddClass(Guid.NewGuid(), "Person");
         var firstName = meta.AddUnit(person, @string, "FirstName");
         var lastName = meta.AddUnit(person, @string, "LastName");
 
@@ -52,9 +52,9 @@ public class SnapshotTests
     public void Composites()
     {
         var meta = new MetaMeta();
-        var @string = meta.AddUnit("String");
-        var person = meta.AddClass("Person");
-        var organization = meta.AddClass("Organization");
+        var @string = meta.AddUnit(Guid.NewGuid(), "String");
+        var person = meta.AddClass(Guid.NewGuid(), "Person");
+        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
         meta.AddUnit(person, @string, "FirstName");
         meta.AddUnit(person, @string, "LastName");
         meta.AddUnit(organization, @string, "Name");

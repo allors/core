@@ -1,5 +1,6 @@
 ﻿namespace Allors.Core.Meta.Tests.Domain;
 
+using System;
 using Allors.Core.Meta.Domain;
 using Allors.Core.Meta.Meta;
 using Xunit;
@@ -10,9 +11,9 @@ public class UnitTests
     public void SameRoleTypeName()
     {
         var meta = new MetaMeta();
-        var @string = meta.AddUnit("String");
-        var c1 = meta.AddClass("C1");
-        var c2 = meta.AddClass("C2");
+        var @string = meta.AddUnit(Guid.NewGuid(), "String");
+        var c1 = meta.AddClass(Guid.NewGuid(), "C1");
+        var c2 = meta.AddClass(Guid.NewGuid(), "C2");
         meta.AddUnit(c1, @string, "Same");
         meta.AddUnit(c2, @string, "Same");
 
@@ -36,8 +37,8 @@ public class UnitTests
     public void PropertySetByString()
     {
         var meta = new MetaMeta();
-        var @string = meta.AddUnit("String");
-        var person = meta.AddClass("Person");
+        var @string = meta.AddUnit(Guid.NewGuid(), "String");
+        var person = meta.AddClass(Guid.NewGuid(), "Person");
         var unitRoleType = meta.AddUnit(person, @string, "FirstName");
 
         var population = new MetaPopulation(meta);
@@ -65,8 +66,8 @@ public class UnitTests
     public void PropertySetByUnitRoleType()
     {
         var meta = new MetaMeta();
-        var @string = meta.AddUnit("String");
-        var person = meta.AddClass("Person");
+        var @string = meta.AddUnit(Guid.NewGuid(), "String");
+        var person = meta.AddClass(Guid.NewGuid(), "Person");
         var unitRoleType = meta.AddUnit(person, @string, "FirstName");
 
         var population = new MetaPopulation(meta);

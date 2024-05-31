@@ -1,5 +1,6 @@
-namespace Allors.Core.Meta.Tests.Meta;
+﻿namespace Allors.Core.Meta.Tests.Meta;
 
+using System;
 using Allors.Core.Meta.Meta;
 using Xunit;
 
@@ -9,9 +10,9 @@ public class MetaObjectTypeTests
     public void Supertypes()
     {
         var meta = new MetaMeta();
-        var s1 = meta.AddInterface("S1");
-        var i1 = meta.AddInterface("I1", s1);
-        var c1 = meta.AddClass("C1", i1);
+        var s1 = meta.AddInterface(Guid.NewGuid(), "S1");
+        var i1 = meta.AddInterface(Guid.NewGuid(), "I1", s1);
+        var c1 = meta.AddClass(Guid.NewGuid(), "C1", i1);
 
         Assert.Equal(2, c1.Supertypes.Count);
         Assert.Contains(i1, c1.Supertypes);
@@ -27,9 +28,9 @@ public class MetaObjectTypeTests
     public void IsAssignableFrom()
     {
         var meta = new MetaMeta();
-        var s1 = meta.AddInterface("S1");
-        var i1 = meta.AddInterface("I1", s1);
-        var c1 = meta.AddClass("C1", i1);
+        var s1 = meta.AddInterface(Guid.NewGuid(), "S1");
+        var i1 = meta.AddInterface(Guid.NewGuid(), "I1", s1);
+        var c1 = meta.AddClass(Guid.NewGuid(), "C1", i1);
 
         Assert.True(c1.IsAssignableFrom(c1));
         Assert.True(i1.IsAssignableFrom(c1));

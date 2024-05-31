@@ -1,5 +1,6 @@
 ﻿namespace Allors.Core.Meta.Tests.Domain;
 
+using System;
 using System.Linq;
 using Allors.Core.Meta.Domain;
 using Allors.Core.Meta.Meta;
@@ -11,8 +12,8 @@ public class ObjectsTests
     public void Filter()
     {
         var meta = new MetaMeta();
-        var @string = meta.AddUnit("String");
-        var person = meta.AddClass("Person");
+        var @string = meta.AddUnit(Guid.NewGuid(), "String");
+        var person = meta.AddClass(Guid.NewGuid(), "Person");
         meta.AddUnit(person, @string, "FirstName");
         meta.AddUnit(person, @string, "LastName");
 

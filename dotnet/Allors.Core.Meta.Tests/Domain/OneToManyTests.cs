@@ -13,8 +13,8 @@ public class OneToManyTests
     public void AddSameAssociation()
     {
         var meta = new MetaMeta();
-        var organization = meta.AddClass("Organization");
-        var person = meta.AddClass("Person");
+        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
+        var person = meta.AddClass(Guid.NewGuid(), "Person");
         var employees = meta.AddOneToMany(organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
@@ -41,8 +41,8 @@ public class OneToManyTests
     public void AddSameAssociationParams()
     {
         var meta = new MetaMeta();
-        var organization = meta.AddClass("Organization");
-        var person = meta.AddClass("Person");
+        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
+        var person = meta.AddClass(Guid.NewGuid(), "Person");
         var employees = meta.AddOneToMany(organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
@@ -69,8 +69,8 @@ public class OneToManyTests
     public void AddSameAssociationArray()
     {
         var meta = new MetaMeta();
-        var organization = meta.AddClass("Organization");
-        var person = meta.AddClass("Person");
+        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
+        var person = meta.AddClass(Guid.NewGuid(), "Person");
         var employees = meta.AddOneToMany(organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
@@ -97,9 +97,9 @@ public class OneToManyTests
     public void AddDifferentAssociation()
     {
         var meta = new MetaMeta();
-        var named = meta.AddInterface("Named");
-        var organization = meta.AddClass("Organization", named);
-        var person = meta.AddClass("Person", named);
+        var named = meta.AddInterface(Guid.NewGuid(), "Named");
+        var organization = meta.AddClass(Guid.NewGuid(), "Organization", named);
+        var person = meta.AddClass(Guid.NewGuid(), "Person", named);
         var employees = meta.AddOneToMany(organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
@@ -135,8 +135,8 @@ public class OneToManyTests
     public void Remove()
     {
         var meta = new MetaMeta();
-        var organization = meta.AddClass("Organization");
-        var person = meta.AddClass("Person");
+        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
+        var person = meta.AddClass(Guid.NewGuid(), "Person");
         var employees = meta.AddOneToMany(organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
@@ -185,8 +185,8 @@ public class OneToManyTests
     public void RemoveParams()
     {
         var meta = new MetaMeta();
-        var organization = meta.AddClass("Organization");
-        var person = meta.AddClass("Person");
+        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
+        var person = meta.AddClass(Guid.NewGuid(), "Person");
         var employees = meta.AddOneToMany(organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
@@ -216,8 +216,8 @@ public class OneToManyTests
     public void RemoveArray()
     {
         var meta = new MetaMeta();
-        var organization = meta.AddClass("Organization");
-        var person = meta.AddClass("Person");
+        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
+        var person = meta.AddClass(Guid.NewGuid(), "Person");
         var employees = meta.AddOneToMany(organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
@@ -247,8 +247,8 @@ public class OneToManyTests
     public void RemoveAll()
     {
         var meta = new MetaMeta();
-        var organization = meta.AddClass("Organization");
-        var person = meta.AddClass("Person");
+        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
+        var person = meta.AddClass(Guid.NewGuid(), "Person");
         var employees = meta.AddOneToMany(organization, person, "Employee");
 
         var population = new MetaPopulation(meta);

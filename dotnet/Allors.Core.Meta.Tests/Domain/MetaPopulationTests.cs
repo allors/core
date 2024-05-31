@@ -1,5 +1,6 @@
 ﻿namespace Allors.Core.Meta.Tests.Domain;
 
+using System;
 using Allors.Core.Meta.Domain;
 using Allors.Core.Meta.Meta;
 using Xunit;
@@ -10,10 +11,10 @@ public class MetaPopulationTests
     public void New()
     {
         var meta = new MetaMeta();
-        var @string = meta.AddUnit("String");
-        var named = meta.AddInterface("Named");
-        var organization = meta.AddClass("Organization", named);
-        var person = meta.AddClass("Person", named);
+        var @string = meta.AddUnit(Guid.NewGuid(), "String");
+        var named = meta.AddInterface(Guid.NewGuid(), "Named");
+        var organization = meta.AddClass(Guid.NewGuid(), "Organization", named);
+        var person = meta.AddClass(Guid.NewGuid(), "Person", named);
         meta.AddUnit(named, @string, "Name");
         meta.AddOneToOne(organization, person, "Owner");
 

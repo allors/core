@@ -16,56 +16,56 @@ public sealed class CoreMetaMeta
         this.MetaMeta = new MetaMeta();
 
         // ObjectTypes
-        this.Boolean = this.AddMetaUnit("Boolean");
-        this.Integer = this.AddMetaUnit("Integer");
-        this.String = this.AddMetaUnit("String");
-        this.Unique = this.AddMetaUnit("Unique");
-        this.AssociationType = this.AddMetaInterface("AssociationType");
-        this.Class = this.AddMetaClass(typeof(Class));
-        this.Composite = this.AddMetaInterface("Composite");
-        this.CompositeAssociationType = this.AddMetaInterface("CompositeRoleType");
-        this.CompositeRoleType = this.AddMetaInterface("CompositeAssociationType");
-        this.Domain = this.AddMetaClass(typeof(Domain.Domain));
-        this.Interface = this.AddMetaClass(typeof(Interface));
-        this.ManyToAssociationType = this.AddMetaInterface("ManyToAssociationType");
-        this.ManyToManyAssociationType = this.AddMetaClass(typeof(ManyToManyAssociationType));
-        this.ManyToManyRoleType = this.AddMetaClass(typeof(ManyToManyRoleType));
-        this.ManyToOneAssociationType = this.AddMetaClass(typeof(ManyToOneAssociationType));
-        this.ManyToOneRoleType = this.AddMetaClass(typeof(ManyToOneRoleType));
-        this.MetaObject = this.AddMetaInterface("MetaObject");
-        this.MethodType = this.AddMetaClass(typeof(MethodType));
-        this.ObjectType = this.AddMetaInterface("ObjectType");
-        this.OneToAssociationType = this.AddMetaInterface("OneToAssociationType");
-        this.OneToManyAssociationType = this.AddMetaClass(typeof(OneToManyAssociationType));
-        this.OneToManyRoleType = this.AddMetaClass(typeof(OneToManyRoleType));
-        this.OneToOneAssociationType = this.AddMetaClass(typeof(OneToOneAssociationType));
-        this.OneToOneRoleType = this.AddMetaClass(typeof(OneToOneRoleType));
-        this.OperandType = this.AddMetaInterface("OperandType");
-        this.RelationEndType = this.AddMetaInterface("RelationEndType");
-        this.RoleType = this.AddMetaInterface("RoleType");
-        this.BinaryAssociationType = this.AddMetaClass(typeof(BinaryAssociationType));
-        this.BinaryRoleType = this.AddMetaClass(typeof(BinaryRoleType));
-        this.BooleanAssociationType = this.AddMetaClass(typeof(BooleanAssociationType));
-        this.BooleanRoleType = this.AddMetaClass(typeof(BooleanRoleType));
-        this.DateTimeAssociationType = this.AddMetaClass(typeof(DateTimeAssociationType));
-        this.DateTimeRoleType = this.AddMetaClass(typeof(DateTimeRoleType));
-        this.DecimalAssociationType = this.AddMetaClass(typeof(DecimalAssociationType));
-        this.DecimalRoleType = this.AddMetaClass(typeof(DecimalRoleType));
-        this.FloatAssociationType = this.AddMetaClass(typeof(FloatAssociationType));
-        this.FloatRoleType = this.AddMetaClass(typeof(FloatRoleType));
-        this.IntegerAssociationType = this.AddMetaClass(typeof(IntegerAssociationType));
-        this.IntegerRoleType = this.AddMetaClass(typeof(IntegerRoleType));
-        this.StringAssociationType = this.AddMetaClass(typeof(StringAssociationType));
-        this.StringRoleType = this.AddMetaClass(typeof(StringRoleType));
-        this.UniqueAssociationType = this.AddMetaClass(typeof(UniqueAssociationType));
-        this.UniqueRoleType = this.AddMetaClass(typeof(UniqueRoleType));
-        this.ToManyRoleType = this.AddMetaInterface("ToManyRoleType ");
-        this.ToOneRoleType = this.AddMetaInterface("ToOneRoleType");
-        this.Type = this.AddMetaInterface("Type");
-        this.Unit = this.AddMetaClass(typeof(Unit));
-        this.UnitAssociationType = this.AddMetaInterface("UnitAssociationType");
-        this.UnitRoleType = this.AddMetaInterface("UnitRoleType");
-        this.Workspace = this.AddMetaClass(typeof(Workspace));
+        this.Boolean = this.AddMetaUnit(new Guid("a5e75543-08e0-4fdc-a804-e3681ba5eae5"), "Boolean");
+        this.Integer = this.AddMetaUnit(new Guid("bb6c48ad-0ae3-4788-ba80-18d8ffdf7018"), "Integer");
+        this.String = this.AddMetaUnit(new Guid("be72ed5d-508c-4b7c-b385-90b74700f1c8"), "String");
+        this.Unique = this.AddMetaUnit(new Guid("f60a1552-58a0-40b0-87b5-be468e4a256d"), "Unique");
+        this.AssociationType = this.AddMetaInterface(new Guid("e19973f8-ad9a-46f4-97e5-3e9640dee1b6"), "AssociationType");
+        this.Class = this.AddMetaClass(new Guid("258ef66a-55d8-4aeb-96df-4651e8fc7d3a"), typeof(Class));
+        this.Composite = this.AddMetaInterface(new Guid("b4b17450-9377-4b5c-9e34-9d27a35947c9"), "Composite");
+        this.CompositeAssociationType = this.AddMetaInterface(new Guid("742e3899-a779-4c82-9166-9561ae15b734"), "CompositeRoleType");
+        this.CompositeRoleType = this.AddMetaInterface(new Guid("eb7830e0-eead-4655-a76c-6b8b8724fa1c"), "CompositeAssociationType");
+        this.Domain = this.AddMetaClass(new Guid("4e0633f5-c563-4034-be9c-ad8346a4a5c8"), typeof(Domain.Domain));
+        this.Interface = this.AddMetaClass(new Guid("f22451ac-fafb-4465-9b32-0f6a3abe50d3"), typeof(Interface));
+        this.ManyToAssociationType = this.AddMetaInterface(new Guid("bebcf6ef-ff0f-486a-a58d-135e60710bb5"), "ManyToAssociationType");
+        this.ManyToManyAssociationType = this.AddMetaClass(new Guid("6caed1de-18ed-4ed8-85ff-92512affb077"), typeof(ManyToManyAssociationType));
+        this.ManyToManyRoleType = this.AddMetaClass(new Guid("fc8945fc-9441-4fc8-a295-76a4af282e05"), typeof(ManyToManyRoleType));
+        this.ManyToOneAssociationType = this.AddMetaClass(new Guid("b0c7762d-7638-4d18-87e4-48eb9053b156"), typeof(ManyToOneAssociationType));
+        this.ManyToOneRoleType = this.AddMetaClass(new Guid("3900a114-55b6-42f8-aea9-b7937e38bc07"), typeof(ManyToOneRoleType));
+        this.MetaObject = this.AddMetaInterface(new Guid("258b338e-a76f-4022-a431-6732ef7fc021"), "MetaObject");
+        this.MethodType = this.AddMetaClass(new Guid("d21ffb87-afd8-4cbf-879a-c44d9decf01d"), typeof(MethodType));
+        this.ObjectType = this.AddMetaInterface(new Guid("20088de8-27b2-4fe7-a016-502e7e096f4f"), "ObjectType");
+        this.OneToAssociationType = this.AddMetaInterface(new Guid("0fd0f52e-9e79-440d-81a2-45513044aad4"), "OneToAssociationType");
+        this.OneToManyAssociationType = this.AddMetaClass(new Guid("eb2e311d-b736-44e0-a283-05bc195a46be"), typeof(OneToManyAssociationType));
+        this.OneToManyRoleType = this.AddMetaClass(new Guid("a4eb8af3-8d52-4e46-8b49-646a8a25e293"), typeof(OneToManyRoleType));
+        this.OneToOneAssociationType = this.AddMetaClass(new Guid("8d081c3b-47bd-49aa-911d-3d537399383d"), typeof(OneToOneAssociationType));
+        this.OneToOneRoleType = this.AddMetaClass(new Guid("fe392f1c-2674-4a1e-9e74-d0fb2afe0d95"), typeof(OneToOneRoleType));
+        this.OperandType = this.AddMetaInterface(new Guid("ee1e80cf-7e36-46c4-9b8b-1fbcb2173299"), "OperandType");
+        this.RelationEndType = this.AddMetaInterface(new Guid("a159dd87-bf9d-468d-9629-d345d8f59242"), "RelationEndType");
+        this.RoleType = this.AddMetaInterface(new Guid("6b811301-cddc-456d-8614-ca9302f91e55"), "RoleType");
+        this.BinaryAssociationType = this.AddMetaClass(new Guid("0ad616a3-aa2a-4851-9dd3-ebc58a11c0a1"), typeof(BinaryAssociationType));
+        this.BinaryRoleType = this.AddMetaClass(new Guid("2a417adc-b471-408e-ab93-08f6a649a489"), typeof(BinaryRoleType));
+        this.BooleanAssociationType = this.AddMetaClass(new Guid("e2ea3982-1548-4f0f-ae94-d555bf8f318e"), typeof(BooleanAssociationType));
+        this.BooleanRoleType = this.AddMetaClass(new Guid("5c688a7a-0123-42ad-a642-45351382e213"), typeof(BooleanRoleType));
+        this.DateTimeAssociationType = this.AddMetaClass(new Guid("03320d09-5062-403f-be64-1e09a856580c"), typeof(DateTimeAssociationType));
+        this.DateTimeRoleType = this.AddMetaClass(new Guid("71533eaf-3894-45f9-b47d-1f6d8c8b61bc"), typeof(DateTimeRoleType));
+        this.DecimalAssociationType = this.AddMetaClass(new Guid("3e50b873-4de6-46a3-9f9e-497285a77719"), typeof(DecimalAssociationType));
+        this.DecimalRoleType = this.AddMetaClass(new Guid("8991761d-be85-4601-a67d-f85bcd5432e1"), typeof(DecimalRoleType));
+        this.FloatAssociationType = this.AddMetaClass(new Guid("11c199c1-c2ba-4933-9455-643eebcb96f5"), typeof(FloatAssociationType));
+        this.FloatRoleType = this.AddMetaClass(new Guid("2eada119-a35c-4076-b9ba-6b731684c2af"), typeof(FloatRoleType));
+        this.IntegerAssociationType = this.AddMetaClass(new Guid("1e62c68e-d9ba-4169-add4-865b53136108"), typeof(IntegerAssociationType));
+        this.IntegerRoleType = this.AddMetaClass(new Guid("65f77b86-5a2a-4961-b7e4-0eaa42b2a157"), typeof(IntegerRoleType));
+        this.StringAssociationType = this.AddMetaClass(new Guid("0368b7c4-73f8-4f9b-8182-60e09771b62c"), typeof(StringAssociationType));
+        this.StringRoleType = this.AddMetaClass(new Guid("b8d12288-b5aa-4b1a-9226-c8902cd684c1"), typeof(StringRoleType));
+        this.UniqueAssociationType = this.AddMetaClass(new Guid("1e674346-ccff-43e5-a31d-842803e30957"), typeof(UniqueAssociationType));
+        this.UniqueRoleType = this.AddMetaClass(new Guid("849fd4fa-951a-404e-b481-66db3dd43fd4"), typeof(UniqueRoleType));
+        this.ToManyRoleType = this.AddMetaInterface(new Guid("7480bb35-30ad-47a6-8a70-e29d11b76539"), "ToManyRoleType ");
+        this.ToOneRoleType = this.AddMetaInterface(new Guid("774a1bce-c414-423f-84a0-450be5eba46d"), "ToOneRoleType");
+        this.Type = this.AddMetaInterface(new Guid("08768b55-1d35-427b-8209-9ad7c3c77d18"), "Type");
+        this.Unit = this.AddMetaClass(new Guid("32c01fd7-9002-4a3a-b364-1b2ecae870a0"), typeof(Unit));
+        this.UnitAssociationType = this.AddMetaInterface(new Guid("76e3b379-86c0-4015-b279-dfc8b272a128"), "UnitAssociationType");
+        this.UnitRoleType = this.AddMetaInterface(new Guid("d295663a-1731-4c05-930b-a51002c25453"), "UnitRoleType");
+        this.Workspace = this.AddMetaClass(new Guid("80473529-985e-4b70-a17f-9cc63276dca6"), typeof(Workspace));
 
         // Inheritance
         this.AssociationType.AddDirectSupertype(this.RelationEndType);
@@ -518,17 +518,17 @@ public sealed class CoreMetaMeta
     /// <summary>
     /// Creates a new meta class.
     /// </summary>
-    public MetaObjectType AddMetaClass(Type type) => this.MetaMeta.AddClass(type);
+    public MetaObjectType AddMetaClass(Guid id, Type type) => this.MetaMeta.AddClass(id, type);
 
     /// <summary>
     /// Creates a new meta interface.
     /// </summary>
-    public MetaObjectType AddMetaInterface(string name) => this.MetaMeta.AddInterface(name);
+    public MetaObjectType AddMetaInterface(Guid id, string name) => this.MetaMeta.AddInterface(id, name);
 
     /// <summary>
     /// Creates a new meta interface.
     /// </summary>
-    public MetaObjectType AddMetaUnit(string name) => this.MetaMeta.AddUnit(name);
+    public MetaObjectType AddMetaUnit(Guid id, string name) => this.MetaMeta.AddUnit(id, name);
 
     /// <summary>
     /// Creates a new MetaPopulation

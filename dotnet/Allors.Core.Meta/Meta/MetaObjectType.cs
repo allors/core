@@ -14,10 +14,11 @@ public sealed class MetaObjectType
     private IDictionary<string, IMetaRoleType>? derivedRoleTypeByName;
     private HashSet<MetaObjectType>? derivedSupertypes;
 
-    internal MetaObjectType(MetaMeta meta, MetaObjectTypeKind kind, string name)
+    internal MetaObjectType(MetaMeta meta, MetaObjectTypeKind kind, Guid id, string name)
     {
         this.Meta = meta;
         this.Kind = kind;
+        this.Id = id;
         this.Name = name;
         this.directSupertypes = [];
         this.declaredAssociationTypeByName = [];
@@ -26,8 +27,8 @@ public sealed class MetaObjectType
         this.Meta.ResetDerivations();
     }
 
-    internal MetaObjectType(MetaMeta meta, MetaObjectTypeKind kind, Type type)
-        : this(meta, kind, type.Name)
+    internal MetaObjectType(MetaMeta meta, MetaObjectTypeKind kind, Guid id, Type type)
+        : this(meta, kind, id, type.Name)
     {
         this.Type = type;
         this.TypeCode = Type.GetTypeCode(type);
@@ -36,6 +37,8 @@ public sealed class MetaObjectType
     public MetaMeta Meta { get; }
 
     public MetaObjectTypeKind Kind { get; set; }
+
+    public Guid Id { get; set; }
 
     public string Name { get; }
 

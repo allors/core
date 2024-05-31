@@ -1,5 +1,6 @@
 ﻿namespace Allors.Core.Meta.Tests.Domain.Static;
 
+using System;
 using Allors.Core.Meta.Meta;
 
 public class Meta
@@ -10,16 +11,16 @@ public class Meta
 
         var m = this.MetaMeta;
 
-        this.String = m.AddUnit("String");
+        this.String = m.AddUnit(Guid.NewGuid(), "String");
 
-        this.I1 = m.AddInterface("I1");
-        this.I2 = m.AddInterface("I2");
-        this.I12 = m.AddInterface("I12");
+        this.I1 = m.AddInterface(Guid.NewGuid(), "I1");
+        this.I2 = m.AddInterface(Guid.NewGuid(), "I2");
+        this.I12 = m.AddInterface(Guid.NewGuid(), "I12");
 
-        this.C1 = m.AddClass("C1");
-        this.C2 = m.AddClass("C2");
-        this.C3 = m.AddClass("C3");
-        this.C4 = m.AddClass("C4");
+        this.C1 = m.AddClass(Guid.NewGuid(), "C1");
+        this.C2 = m.AddClass(Guid.NewGuid(), "C2");
+        this.C3 = m.AddClass(Guid.NewGuid(), "C3");
+        this.C4 = m.AddClass(Guid.NewGuid(), "C4");
 
         this.I1.AddDirectSupertype(this.I12);
         this.I2.AddDirectSupertype(this.I12);

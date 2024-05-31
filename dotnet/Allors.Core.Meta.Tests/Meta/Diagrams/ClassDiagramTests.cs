@@ -1,5 +1,6 @@
 ﻿namespace Allors.Core.Meta.Tests.Meta.Diagrams;
 
+using System;
 using Allors.Core.Meta.Meta;
 using Allors.Core.Meta.Meta.Diagrams;
 using Xunit;
@@ -10,9 +11,9 @@ public class ClassDiagramTests
     public void Inheritance()
     {
         var meta = new MetaMeta();
-        var s1 = meta.AddInterface("S1");
-        var i1 = meta.AddInterface("I1", s1);
-        var c1 = meta.AddClass("C1", i1);
+        var s1 = meta.AddInterface(Guid.NewGuid(), "S1");
+        var i1 = meta.AddInterface(Guid.NewGuid(), "I1", s1);
+        var c1 = meta.AddClass(Guid.NewGuid(), "C1", i1);
 
         var diagram = new ClassDiagram(meta).Render();
 
@@ -31,8 +32,8 @@ public class ClassDiagramTests
     public void Roles()
     {
         var meta = new MetaMeta();
-        var organization = meta.AddClass("Organization");
-        var person = meta.AddClass("Person");
+        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
+        var person = meta.AddClass(Guid.NewGuid(), "Person");
         meta.AddOneToMany(organization, person, "Employee");
 
         var diagram = new ClassDiagram(meta).Render();
@@ -52,9 +53,9 @@ public class ClassDiagramTests
     public void InheritedRoles()
     {
         var meta = new MetaMeta();
-        var internalOrganization = meta.AddClass("InternalOrganization");
-        var organization = meta.AddClass("Organization");
-        var person = meta.AddClass("Person");
+        var internalOrganization = meta.AddClass(Guid.NewGuid(), "InternalOrganization");
+        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
+        var person = meta.AddClass(Guid.NewGuid(), "Person");
 
         organization.AddDirectSupertype(internalOrganization);
 
@@ -100,8 +101,8 @@ public class ClassDiagramTests
     public void Multiplicity()
     {
         var meta = new MetaMeta();
-        var organization = meta.AddClass("Organization");
-        var person = meta.AddClass("Person");
+        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
+        var person = meta.AddClass(Guid.NewGuid(), "Person");
         meta.AddOneToMany(organization, person, "Employee");
 
         var config = new ClassDiagram.Config { OneMultiplicity = "1", ManyMultiplicity = "1..*" };
@@ -122,8 +123,8 @@ public class ClassDiagramTests
     public void MultiplicityOne()
     {
         var meta = new MetaMeta();
-        var organization = meta.AddClass("Organization");
-        var person = meta.AddClass("Person");
+        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
+        var person = meta.AddClass(Guid.NewGuid(), "Person");
         meta.AddOneToMany(organization, person, "Employee");
 
         var config = new ClassDiagram.Config { OneMultiplicity = "one" };
@@ -144,8 +145,8 @@ public class ClassDiagramTests
     public void MultiplicityMany()
     {
         var meta = new MetaMeta();
-        var organization = meta.AddClass("Organization");
-        var person = meta.AddClass("Person");
+        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
+        var person = meta.AddClass(Guid.NewGuid(), "Person");
         meta.AddOneToMany(organization, person, "Employee");
 
         var config = new ClassDiagram.Config { ManyMultiplicity = "many" };

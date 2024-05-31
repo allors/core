@@ -27,28 +27,16 @@ public sealed class MetaMeta
 
     public MetaManyToManyRoleType AddManyToMany(MetaObjectType associationObjectType, MetaObjectType roleObjectType, string? roleName = null, string? associationName = null) => associationObjectType.AddManyToMany(roleObjectType, roleName, associationName);
 
-    public MetaObjectType AddUnit(string name)
+    public MetaObjectType AddUnit(Guid id, string name)
     {
-        var objectType = new MetaObjectType(this, MetaObjectTypeKind.Unit, name);
+        var objectType = new MetaObjectType(this, MetaObjectTypeKind.Unit, id, name);
         this.objectTypeByName.Add(objectType.Name, objectType);
         return objectType;
     }
 
-    public MetaObjectType AddInterface(string name, params MetaObjectType[] directSupertypes)
+    public MetaObjectType AddInterface(Guid id, string name, params MetaObjectType[] directSupertypes)
     {
-        var objectType = new MetaObjectType(this, MetaObjectTypeKind.Interface, name);
-        this.objectTypeByName.Add(objectType.Name, objectType);
-        foreach (var superType in directSupertypes)
-        {
-            objectType.AddDirectSupertype(superType);
-        }
-
-        return objectType;
-    }
-
-    public MetaObjectType AddClass(string name, params MetaObjectType[] directSupertypes)
-    {
-        var objectType = new MetaObjectType(this, MetaObjectTypeKind.Class, name);
+        var objectType = new MetaObjectType(this, MetaObjectTypeKind.Interface, id, name);
         this.objectTypeByName.Add(objectType.Name, objectType);
         foreach (var superType in directSupertypes)
         {
@@ -58,11 +46,23 @@ public sealed class MetaMeta
         return objectType;
     }
 
-    public MetaObjectType AddClass<T>(params MetaObjectType[] directSupertypes) => this.AddClass(typeof(T), directSupertypes);
-
-    public MetaObjectType AddClass(Type type, params MetaObjectType[] directSupertypes)
+    public MetaObjectType AddClass(Guid id, string name, params MetaObjectType[] directSupertypes)
     {
-        var objectType = new MetaObjectType(this, MetaObjectTypeKind.Class, type);
+        var objectType = new MetaObjectType(this, MetaObjectTypeKind.Class, id, name);
+        this.objectTypeByName.Add(objectType.Name, objectType);
+        foreach (var superType in directSupertypes)
+        {
+            objectType.AddDirectSupertype(superType);
+        }
+
+        return objectType;
+    }
+
+    public MetaObjectType AddClass<T>(Guid id, params MetaObjectType[] directSupertypes) => this.AddClass(id, typeof(T), directSupertypes);
+
+    public MetaObjectType AddClass(Guid id, Type type, params MetaObjectType[] directSupertypes)
+    {
+        var objectType = new MetaObjectType(this, MetaObjectTypeKind.Class, id, type);
         this.objectTypeByName.Add(objectType.Name, objectType);
         foreach (var superType in directSupertypes)
         {

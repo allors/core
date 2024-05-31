@@ -12,9 +12,9 @@ public class DerivationTests
     public void Derivation()
     {
         var meta = new MetaMeta();
-        var @string = meta.AddUnit("String");
-        var @dateTime = meta.AddUnit("DateTime");
-        var person = meta.AddClass("Person");
+        var @string = meta.AddUnit(Guid.NewGuid(), "String");
+        var @dateTime = meta.AddUnit(Guid.NewGuid(), "DateTime");
+        var person = meta.AddClass(Guid.NewGuid(), "Person");
         var firstName = meta.AddUnit(person, @string, "FirstName");
         var lastName = meta.AddUnit(person, @string, "LastName");
         var fullName = meta.AddUnit(person, @string, "FullName");

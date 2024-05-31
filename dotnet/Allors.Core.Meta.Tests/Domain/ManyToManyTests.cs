@@ -15,9 +15,9 @@ public class ManyToManyTests
     public void AddSingleActiveLink()
     {
         var meta = new MetaMeta();
-        var @string = meta.AddUnit("String");
-        var organization = meta.AddClass("Organization");
-        var person = meta.AddClass("Person");
+        var @string = meta.AddUnit(Guid.NewGuid(), "String");
+        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
+        var person = meta.AddClass(Guid.NewGuid(), "Person");
         var name = meta.AddUnit(organization, @string, "Name");
         var (organizationWhereEmployee, employees) = meta.AddManyToMany(organization, person, "Employee");
 
@@ -57,9 +57,9 @@ public class ManyToManyTests
     public void SetSingleActiveLink()
     {
         var meta = new MetaMeta();
-        var @string = meta.AddUnit("String");
-        var organization = meta.AddClass("Organization");
-        var person = meta.AddClass("Person");
+        var @string = meta.AddUnit(Guid.NewGuid(), "String");
+        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
+        var person = meta.AddClass(Guid.NewGuid(), "Person");
         var name = meta.AddUnit(organization, @string, "Name");
         var employees = meta.AddManyToMany(organization, person, "Employee");
 
@@ -134,9 +134,9 @@ public class ManyToManyTests
     public void RemoveSingleActiveLink()
     {
         var meta = new MetaMeta();
-        var @string = meta.AddUnit("String");
-        var organization = meta.AddClass("Organization");
-        var person = meta.AddClass("Person");
+        var @string = meta.AddUnit(Guid.NewGuid(), "String");
+        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
+        var person = meta.AddClass(Guid.NewGuid(), "Person");
         meta.AddUnit(organization, @string, "Name");
         var employees = meta.AddManyToMany(organization, person, "Employee");
 
@@ -195,9 +195,9 @@ public class ManyToManyTests
     public void MultipleActiveLinks()
     {
         var meta = new MetaMeta();
-        var @string = meta.AddUnit("String");
-        var organization = meta.AddClass("Organization");
-        var person = meta.AddClass("Person");
+        var @string = meta.AddUnit(Guid.NewGuid(), "String");
+        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
+        var person = meta.AddClass(Guid.NewGuid(), "Person");
         meta.AddUnit(organization, @string, "Name");
         var employees = meta.AddManyToMany(organization, person, "Employee");
 
@@ -285,9 +285,9 @@ public class ManyToManyTests
     public void DefaultRoleName()
     {
         var meta = new MetaMeta();
-        var @string = meta.AddUnit("String");
-        var organization = meta.AddClass("Organization");
-        var person = meta.AddClass("Person");
+        var @string = meta.AddUnit(Guid.NewGuid(), "String");
+        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
+        var person = meta.AddClass(Guid.NewGuid(), "Person");
         meta.AddUnit(organization, @string, "Name");
         var people = meta.AddManyToMany(organization, person);
 

@@ -1,5 +1,6 @@
 ﻿namespace Allors.Core.Meta.Tests.Domain;
 
+using System;
 using Allors.Core.Meta.Domain;
 using Allors.Core.Meta.Meta;
 using Allors.Core.Meta.Tests.Domain.Static;
@@ -11,8 +12,8 @@ public class StaticTests
     public void C1C2OneToOne()
     {
         var meta = new MetaMeta();
-        var c1 = meta.AddClass<C1>();
-        var c2 = meta.AddClass<C2>();
+        var c1 = meta.AddClass<C1>(Guid.NewGuid());
+        var c2 = meta.AddClass<C2>(Guid.NewGuid());
         var c1C2OneToOne = meta.AddOneToOne(c1, c2, "C2OneToOne");
 
         var population = new MetaPopulation(meta);
