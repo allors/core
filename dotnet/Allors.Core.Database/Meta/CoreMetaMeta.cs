@@ -16,6 +16,10 @@ public sealed class CoreMetaMeta
         this.MetaMeta = new MetaMeta();
 
         // ObjectTypes
+        this.Boolean = this.AddMetaUnit("Boolean");
+        this.Integer = this.AddMetaUnit("Integer");
+        this.String = this.AddMetaUnit("String");
+        this.Unique = this.AddMetaUnit("Unique");
         this.AssociationType = this.AddMetaInterface("AssociationType");
         this.Class = this.AddMetaClass(typeof(Class));
         this.Composite = this.AddMetaInterface("Composite");
@@ -118,30 +122,30 @@ public sealed class CoreMetaMeta
         this.CompositeDirectSupertypes = metaMeta.AddManyToMany(this.Composite, this.Interface, "DirectSupertype");
         this.CompositeSupertypes = metaMeta.AddManyToMany(this.Composite, this.Interface, "Supertype");
 
-        this.DecimalRoleTypeAssignedPrecision = metaMeta.AddUnit<int>(this.DecimalRoleType, "AssignedPrecision");
-        this.DecimalRoleTypeDerivedPrecision = metaMeta.AddUnit<int>(this.DecimalRoleType, "DerivedPrecision");
-        this.DecimalRoleTypeAssignedScale = metaMeta.AddUnit<int>(this.DecimalRoleType, "AssignedScale");
-        this.DecimalRoleTypeDerivedScale = metaMeta.AddUnit<int>(this.DecimalRoleType, "DerivedScale");
+        this.DecimalRoleTypeAssignedPrecision = metaMeta.AddUnit(this.DecimalRoleType, this.Integer, "AssignedPrecision");
+        this.DecimalRoleTypeDerivedPrecision = metaMeta.AddUnit(this.DecimalRoleType, this.Integer, "DerivedPrecision");
+        this.DecimalRoleTypeAssignedScale = metaMeta.AddUnit(this.DecimalRoleType, this.Integer, "AssignedScale");
+        this.DecimalRoleTypeDerivedScale = metaMeta.AddUnit(this.DecimalRoleType, this.Integer, "DerivedScale");
 
         this.DomainTypes = metaMeta.AddManyToMany(this.Domain, this.Type);
 
-        this.ObjectTypeAssignedPluralName = metaMeta.AddUnit<string>(this.ObjectType, "AssignedPluralName");
-        this.ObjectTypeDerivedPluralName = metaMeta.AddUnit<string>(this.ObjectType, "DerivedPluralName");
-        this.ObjectTypeSingularName = metaMeta.AddUnit<string>(this.ObjectType, "SingularName");
+        this.ObjectTypeAssignedPluralName = metaMeta.AddUnit(this.ObjectType, this.String, "AssignedPluralName");
+        this.ObjectTypeDerivedPluralName = metaMeta.AddUnit(this.ObjectType, this.String, "DerivedPluralName");
+        this.ObjectTypeSingularName = metaMeta.AddUnit(this.ObjectType, this.String, "SingularName");
 
-        this.MetaObjectId = metaMeta.AddUnit<Guid>(this.MetaObject, "Id");
+        this.MetaObjectId = metaMeta.AddUnit(this.MetaObject, this.Unique, "Id");
 
-        this.RelationEndTypeIsMany = metaMeta.AddUnit<bool>(this.RelationEndType, "IsMany");
+        this.RelationEndTypeIsMany = metaMeta.AddUnit(this.RelationEndType, this.Boolean, "IsMany");
 
         this.RoleTypeAssociationType = metaMeta.AddOneToOne(this.RoleType, this.AssociationType);
-        this.RoleTypeAssignedPluralName = metaMeta.AddUnit<string>(this.RoleType, "AssignedPluralName");
-        this.RoleTypeDerivedPluralName = metaMeta.AddUnit<string>(this.RoleType, "DerivedPluralName");
+        this.RoleTypeAssignedPluralName = metaMeta.AddUnit(this.RoleType, this.String, "AssignedPluralName");
+        this.RoleTypeDerivedPluralName = metaMeta.AddUnit(this.RoleType, this.String, "DerivedPluralName");
         this.RoleTypeObjectType = metaMeta.AddManyToOne(this.RoleType, this.ObjectType);
-        this.RoleTypeName = metaMeta.AddUnit<string>(this.RoleType, "Name");
-        this.RoleTypeSingularName = metaMeta.AddUnit<string>(this.RoleType, "SingularName");
+        this.RoleTypeName = metaMeta.AddUnit(this.RoleType, this.String, "Name");
+        this.RoleTypeSingularName = metaMeta.AddUnit(this.RoleType, this.String, "SingularName");
 
-        this.StringRoleTypeAssignedSize = metaMeta.AddUnit<int>(this.StringRoleType, "AssignedSize");
-        this.StringRoleTypeDerivedSize = metaMeta.AddUnit<int>(this.StringRoleType, "DerivedSize");
+        this.StringRoleTypeAssignedSize = metaMeta.AddUnit(this.StringRoleType, this.Integer, "AssignedSize");
+        this.StringRoleTypeDerivedSize = metaMeta.AddUnit(this.StringRoleType, this.Integer, "DerivedSize");
 
         this.WorkspaceTypes = metaMeta.AddManyToMany(this.Workspace, this.Type);
     }
@@ -205,6 +209,26 @@ public sealed class CoreMetaMeta
     /// An interface.
     /// </summary>
     public MetaObjectType Interface { get; init; }
+
+    /// <summary>
+    /// An boolean.
+    /// </summary>
+    public MetaObjectType Boolean { get; init; }
+
+    /// <summary>
+    /// An string.
+    /// </summary>
+    public MetaObjectType Integer { get; init; }
+
+    /// <summary>
+    /// An string.
+    /// </summary>
+    public MetaObjectType String { get; init; }
+
+    /// <summary>
+    /// A unique.
+    /// </summary>
+    public MetaObjectType Unique { get; init; }
 
     /// <summary>
     /// Many to association type
@@ -500,6 +524,11 @@ public sealed class CoreMetaMeta
     /// Creates a new meta interface.
     /// </summary>
     public MetaObjectType AddMetaInterface(string name) => this.MetaMeta.AddInterface(name);
+
+    /// <summary>
+    /// Creates a new meta interface.
+    /// </summary>
+    public MetaObjectType AddMetaUnit(string name) => this.MetaMeta.AddUnit(name);
 
     /// <summary>
     /// Creates a new MetaPopulation

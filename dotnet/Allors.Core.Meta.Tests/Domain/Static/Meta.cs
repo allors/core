@@ -10,6 +10,8 @@ public class Meta
 
         var m = this.MetaMeta;
 
+        this.String = m.AddUnit("String");
+
         this.I1 = m.AddInterface("I1");
         this.I2 = m.AddInterface("I2");
         this.I12 = m.AddInterface("I12");
@@ -25,11 +27,11 @@ public class Meta
         this.C1.AddDirectSupertype(this.I1);
         this.C2.AddDirectSupertype(this.I2);
 
-        (_, this.I1AllorsString) = m.AddUnit<string>(this.I1, "I1AllorsString");
-        (_, this.C1AllorsString) = m.AddUnit<string>(this.C1, "C1AllorsString");
-        (_, this.C2AllorsString) = m.AddUnit<string>(this.C2, "C2AllorsString");
-        (_, this.C3AllorsString) = m.AddUnit<string>(this.C3, "C3AllorsString");
-        (_, this.C4AllorsString) = m.AddUnit<string>(this.C4, "C4AllorsString");
+        (_, this.I1AllorsString) = m.AddUnit(this.I1, this.String, "I1AllorsString");
+        (_, this.C1AllorsString) = m.AddUnit(this.C1, this.String, "C1AllorsString");
+        (_, this.C2AllorsString) = m.AddUnit(this.C2, this.String, "C2AllorsString");
+        (_, this.C3AllorsString) = m.AddUnit(this.C3, this.String, "C3AllorsString");
+        (_, this.C4AllorsString) = m.AddUnit(this.C4, this.String, "C4AllorsString");
 
         (this.C1WhereC1OneToOne, this.C1C1OneToOne) = m.AddOneToOne(this.C1, this.C1, "C1OneToOne");
         (this.C1WhereI1OneToOne, this.C1I1OneToOne) = m.AddOneToOne(this.C1, this.I1, "I1OneToOne");
@@ -40,6 +42,8 @@ public class Meta
     }
 
     public MetaMeta MetaMeta { get; }
+
+    public MetaObjectType String { get; }
 
     public MetaObjectType C1 { get; }
 

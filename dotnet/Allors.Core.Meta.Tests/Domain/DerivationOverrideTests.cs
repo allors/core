@@ -12,12 +12,14 @@ public class DerivationOverrideTests
     public void Derivation()
     {
         var meta = new MetaMeta();
+        var @string = meta.AddUnit("String");
+        var @dateTime = meta.AddUnit("DateTime");
         var person = meta.AddClass("Person");
-        var firstName = meta.AddUnit<string>(person, "FirstName");
-        var lastName = meta.AddUnit<string>(person, "LastName");
-        var fullName = meta.AddUnit<string>(person, "FullName");
-        meta.AddUnit<DateTime>(person, "DerivedAt");
-        meta.AddUnit<string>(person, "Greeting");
+        var firstName = meta.AddUnit(person, @string, "FirstName");
+        var lastName = meta.AddUnit(person, @string, "LastName");
+        var fullName = meta.AddUnit(person, @string, "FullName");
+        meta.AddUnit(person, dateTime, "DerivedAt");
+        meta.AddUnit(person, @string, "Greeting");
 
         var population = new MetaPopulation(meta)
         {

@@ -11,9 +11,10 @@ public class ObjectsTests
     public void Filter()
     {
         var meta = new MetaMeta();
+        var @string = meta.AddUnit("String");
         var person = meta.AddClass("Person");
-        meta.AddUnit<string>(person, "FirstName");
-        meta.AddUnit<string>(person, "LastName");
+        meta.AddUnit(person, @string, "FirstName");
+        meta.AddUnit(person, @string, "LastName");
 
         var population = new MetaPopulation(meta);
 

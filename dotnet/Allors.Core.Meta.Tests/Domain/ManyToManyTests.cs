@@ -15,9 +15,10 @@ public class ManyToManyTests
     public void AddSingleActiveLink()
     {
         var meta = new MetaMeta();
+        var @string = meta.AddUnit("String");
         var organization = meta.AddClass("Organization");
         var person = meta.AddClass("Person");
-        var name = meta.AddUnit<string>(organization, "Name");
+        var name = meta.AddUnit(organization, @string, "Name");
         var (organizationWhereEmployee, employees) = meta.AddManyToMany(organization, person, "Employee");
 
         var diagram = new ClassDiagram(meta).Render();
@@ -56,9 +57,10 @@ public class ManyToManyTests
     public void SetSingleActiveLink()
     {
         var meta = new MetaMeta();
+        var @string = meta.AddUnit("String");
         var organization = meta.AddClass("Organization");
         var person = meta.AddClass("Person");
-        var name = meta.AddUnit<string>(organization, "Name");
+        var name = meta.AddUnit(organization, @string, "Name");
         var employees = meta.AddManyToMany(organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
@@ -132,9 +134,10 @@ public class ManyToManyTests
     public void RemoveSingleActiveLink()
     {
         var meta = new MetaMeta();
+        var @string = meta.AddUnit("String");
         var organization = meta.AddClass("Organization");
         var person = meta.AddClass("Person");
-        meta.AddUnit<string>(organization, "Name");
+        meta.AddUnit(organization, @string, "Name");
         var employees = meta.AddManyToMany(organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
@@ -192,9 +195,10 @@ public class ManyToManyTests
     public void MultipleActiveLinks()
     {
         var meta = new MetaMeta();
+        var @string = meta.AddUnit("String");
         var organization = meta.AddClass("Organization");
         var person = meta.AddClass("Person");
-        meta.AddUnit<string>(organization, "Name");
+        meta.AddUnit(organization, @string, "Name");
         var employees = meta.AddManyToMany(organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
@@ -281,9 +285,10 @@ public class ManyToManyTests
     public void DefaultRoleName()
     {
         var meta = new MetaMeta();
+        var @string = meta.AddUnit("String");
         var organization = meta.AddClass("Organization");
         var person = meta.AddClass("Person");
-        meta.AddUnit<string>(organization, "Name");
+        meta.AddUnit(organization, @string, "Name");
         var people = meta.AddManyToMany(organization, person);
 
         var population = new MetaPopulation(meta);

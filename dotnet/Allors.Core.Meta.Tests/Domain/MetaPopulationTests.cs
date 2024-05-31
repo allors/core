@@ -10,10 +10,11 @@ public class MetaPopulationTests
     public void New()
     {
         var meta = new MetaMeta();
+        var @string = meta.AddUnit("String");
         var named = meta.AddInterface("Named");
         var organization = meta.AddClass("Organization", named);
         var person = meta.AddClass("Person", named);
-        meta.AddUnit<string>(named, "Name");
+        meta.AddUnit(named, @string, "Name");
         meta.AddOneToOne(organization, person, "Owner");
 
         var population = new MetaPopulation(meta);

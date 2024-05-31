@@ -17,7 +17,7 @@ public sealed class MetaMeta
 
     public IReadOnlyDictionary<string, MetaObjectType> ObjectTypeByName { get; }
 
-    public MetaUnitRoleType AddUnit<TRole>(MetaObjectType associationObjectType, string roleName, string? associationName = null) => associationObjectType.AddUnit(this.Unit(typeof(TRole)), roleName, associationName);
+    public MetaUnitRoleType AddUnit(MetaObjectType associationObjectType, MetaObjectType roleObjectType, string roleName, string? associationName = null) => associationObjectType.AddUnit(roleObjectType, roleName, associationName);
 
     public MetaOneToOneRoleType AddOneToOne(MetaObjectType associationObjectType, MetaObjectType roleObjectType, string? roleName = null, string? associationName = null) => associationObjectType.AddOneToOne(roleObjectType, roleName, associationName);
 
@@ -26,6 +26,13 @@ public sealed class MetaMeta
     public MetaOneToManyRoleType AddOneToMany(MetaObjectType associationObjectType, MetaObjectType roleObjectType, string? roleName = null, string? associationName = null) => associationObjectType.AddOneToMany(roleObjectType, roleName, associationName);
 
     public MetaManyToManyRoleType AddManyToMany(MetaObjectType associationObjectType, MetaObjectType roleObjectType, string? roleName = null, string? associationName = null) => associationObjectType.AddManyToMany(roleObjectType, roleName, associationName);
+
+    public MetaObjectType AddUnit(string name)
+    {
+        var objectType = new MetaObjectType(this, MetaObjectTypeKind.Unit, name);
+        this.objectTypeByName.Add(objectType.Name, objectType);
+        return objectType;
+    }
 
     public MetaObjectType AddInterface(string name, params MetaObjectType[] directSupertypes)
     {
@@ -115,16 +122,5 @@ public sealed class MetaMeta
         {
             objectType.ResetDerivations();
         }
-    }
-
-    private MetaObjectType Unit(Type type)
-    {
-        if (!this.ObjectTypeByName.TryGetValue(type.Name, out var objectType))
-        {
-            objectType = new MetaObjectType(this, MetaObjectTypeKind.Unit, type);
-            this.objectTypeByName.Add(objectType.Name, objectType);
-        }
-
-        return objectType;
     }
 }

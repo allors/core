@@ -10,10 +10,11 @@ public class UnitTests
     public void SameRoleTypeName()
     {
         var meta = new MetaMeta();
+        var @string = meta.AddUnit("String");
         var c1 = meta.AddClass("C1");
         var c2 = meta.AddClass("C2");
-        meta.AddUnit<string>(c1, "Same");
-        meta.AddUnit<string>(c2, "Same");
+        meta.AddUnit(c1, @string, "Same");
+        meta.AddUnit(c2, @string, "Same");
 
         var population = new MetaPopulation(meta);
 
@@ -35,8 +36,9 @@ public class UnitTests
     public void PropertySetByString()
     {
         var meta = new MetaMeta();
+        var @string = meta.AddUnit("String");
         var person = meta.AddClass("Person");
-        var unitRoleType = meta.AddUnit<string>(person, "FirstName");
+        var unitRoleType = meta.AddUnit(person, @string, "FirstName");
 
         var population = new MetaPopulation(meta);
 
@@ -63,8 +65,9 @@ public class UnitTests
     public void PropertySetByUnitRoleType()
     {
         var meta = new MetaMeta();
+        var @string = meta.AddUnit("String");
         var person = meta.AddClass("Person");
-        var unitRoleType = meta.AddUnit<string>(person, "FirstName");
+        var unitRoleType = meta.AddUnit(person, @string, "FirstName");
 
         var population = new MetaPopulation(meta);
 
