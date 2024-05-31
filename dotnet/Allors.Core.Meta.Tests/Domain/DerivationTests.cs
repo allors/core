@@ -15,10 +15,10 @@ public class DerivationTests
         var @string = meta.AddUnit(Guid.NewGuid(), "String");
         var @dateTime = meta.AddUnit(Guid.NewGuid(), "DateTime");
         var person = meta.AddClass(Guid.NewGuid(), "Person");
-        var firstName = meta.AddUnit(person, @string, "FirstName");
-        var lastName = meta.AddUnit(person, @string, "LastName");
-        var fullName = meta.AddUnit(person, @string, "FullName");
-        meta.AddUnit(person, @dateTime, "DerivedAt");
+        var firstName = meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
+        var lastName = meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
+        var fullName = meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), person, @string, "FullName");
+        meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), person, @dateTime, "DerivedAt");
 
         var population = new MetaPopulation(meta)
         {

@@ -18,8 +18,8 @@ public class ManyToManyTests
         var @string = meta.AddUnit(Guid.NewGuid(), "String");
         var organization = meta.AddClass(Guid.NewGuid(), "Organization");
         var person = meta.AddClass(Guid.NewGuid(), "Person");
-        var name = meta.AddUnit(organization, @string, "Name");
-        var (organizationWhereEmployee, employees) = meta.AddManyToMany(organization, person, "Employee");
+        var name = meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
+        var (organizationWhereEmployee, employees) = meta.AddManyToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var diagram = new ClassDiagram(meta).Render();
 
@@ -60,8 +60,8 @@ public class ManyToManyTests
         var @string = meta.AddUnit(Guid.NewGuid(), "String");
         var organization = meta.AddClass(Guid.NewGuid(), "Organization");
         var person = meta.AddClass(Guid.NewGuid(), "Person");
-        var name = meta.AddUnit(organization, @string, "Name");
-        var employees = meta.AddManyToMany(organization, person, "Employee");
+        var name = meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
+        var employees = meta.AddManyToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
 
@@ -137,8 +137,8 @@ public class ManyToManyTests
         var @string = meta.AddUnit(Guid.NewGuid(), "String");
         var organization = meta.AddClass(Guid.NewGuid(), "Organization");
         var person = meta.AddClass(Guid.NewGuid(), "Person");
-        meta.AddUnit(organization, @string, "Name");
-        var employees = meta.AddManyToMany(organization, person, "Employee");
+        meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
+        var employees = meta.AddManyToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
 
@@ -198,8 +198,8 @@ public class ManyToManyTests
         var @string = meta.AddUnit(Guid.NewGuid(), "String");
         var organization = meta.AddClass(Guid.NewGuid(), "Organization");
         var person = meta.AddClass(Guid.NewGuid(), "Person");
-        meta.AddUnit(organization, @string, "Name");
-        var employees = meta.AddManyToMany(organization, person, "Employee");
+        meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
+        var employees = meta.AddManyToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
 
@@ -288,8 +288,8 @@ public class ManyToManyTests
         var @string = meta.AddUnit(Guid.NewGuid(), "String");
         var organization = meta.AddClass(Guid.NewGuid(), "Organization");
         var person = meta.AddClass(Guid.NewGuid(), "Person");
-        meta.AddUnit(organization, @string, "Name");
-        var people = meta.AddManyToMany(organization, person);
+        meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
+        var people = meta.AddManyToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person);
 
         var population = new MetaPopulation(meta);
 

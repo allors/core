@@ -1,14 +1,19 @@
 ﻿namespace Allors.Core.Meta.Meta;
 
+using System;
+
 public sealed class MetaManyToOneRoleType : IMetaToOneRoleType
 {
-    internal MetaManyToOneRoleType(MetaObjectType objectType, string singularName, string pluralName, string name)
+    internal MetaManyToOneRoleType(Guid id, MetaObjectType objectType, string singularName, string pluralName, string name)
     {
+        this.Id = id;
         this.ObjectType = objectType;
         this.SingularName = singularName;
         this.PluralName = pluralName;
         this.Name = name;
     }
+
+    public Guid Id { get; }
 
     IMetaAssociationType IMetaRoleType.AssociationType => this.AssociationType;
 

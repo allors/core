@@ -28,18 +28,18 @@ public class Meta
         this.C1.AddDirectSupertype(this.I1);
         this.C2.AddDirectSupertype(this.I2);
 
-        (_, this.I1AllorsString) = m.AddUnit(this.I1, this.String, "I1AllorsString");
-        (_, this.C1AllorsString) = m.AddUnit(this.C1, this.String, "C1AllorsString");
-        (_, this.C2AllorsString) = m.AddUnit(this.C2, this.String, "C2AllorsString");
-        (_, this.C3AllorsString) = m.AddUnit(this.C3, this.String, "C3AllorsString");
-        (_, this.C4AllorsString) = m.AddUnit(this.C4, this.String, "C4AllorsString");
+        (_, this.I1AllorsString) = m.AddUnit(Guid.NewGuid(), Guid.NewGuid(), this.I1, this.String, "I1AllorsString");
+        (_, this.C1AllorsString) = m.AddUnit(Guid.NewGuid(), Guid.NewGuid(), this.C1, this.String, "C1AllorsString");
+        (_, this.C2AllorsString) = m.AddUnit(Guid.NewGuid(), Guid.NewGuid(), this.C2, this.String, "C2AllorsString");
+        (_, this.C3AllorsString) = m.AddUnit(Guid.NewGuid(), Guid.NewGuid(), this.C3, this.String, "C3AllorsString");
+        (_, this.C4AllorsString) = m.AddUnit(Guid.NewGuid(), Guid.NewGuid(), this.C4, this.String, "C4AllorsString");
 
-        (this.C1WhereC1OneToOne, this.C1C1OneToOne) = m.AddOneToOne(this.C1, this.C1, "C1OneToOne");
-        (this.C1WhereI1OneToOne, this.C1I1OneToOne) = m.AddOneToOne(this.C1, this.I1, "I1OneToOne");
-        (this.C1WhereC2OneToOne, this.C1C2OneToOne) = m.AddOneToOne(this.C1, this.C2, "C2OneToOne");
-        (this.C1WhereI2OneToOne, this.C1I2OneToOne) = m.AddOneToOne(this.C1, this.I2, "I2OneToOne");
-        (this.C1sWhereC1ManyToOne, this.C1C1ManyToOne) = m.AddManyToOne(this.C1, this.C1, "C1ManyToOne");
-        (this.C1WhereC1C1one2many, this.C1C1OneToManies) = m.AddOneToMany(this.C1, this.C1, "C1OneToMany");
+        (this.C1WhereC1OneToOne, this.C1C1OneToOne) = m.AddOneToOne(Guid.NewGuid(), Guid.NewGuid(), this.C1, this.C1, "C1OneToOne");
+        (this.C1WhereI1OneToOne, this.C1I1OneToOne) = m.AddOneToOne(Guid.NewGuid(), Guid.NewGuid(), this.C1, this.I1, "I1OneToOne");
+        (this.C1WhereC2OneToOne, this.C1C2OneToOne) = m.AddOneToOne(Guid.NewGuid(), Guid.NewGuid(), this.C1, this.C2, "C2OneToOne");
+        (this.C1WhereI2OneToOne, this.C1I2OneToOne) = m.AddOneToOne(Guid.NewGuid(), Guid.NewGuid(), this.C1, this.I2, "I2OneToOne");
+        (this.C1sWhereC1ManyToOne, this.C1C1ManyToOne) = m.AddManyToOne(Guid.NewGuid(), Guid.NewGuid(), this.C1, this.C1, "C1ManyToOne");
+        (this.C1WhereC1C1one2many, this.C1C1OneToManies) = m.AddOneToMany(Guid.NewGuid(), Guid.NewGuid(), this.C1, this.C1, "C1OneToMany");
     }
 
     public MetaMeta MetaMeta { get; }

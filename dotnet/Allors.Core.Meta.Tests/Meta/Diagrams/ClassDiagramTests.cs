@@ -34,7 +34,7 @@ public class ClassDiagramTests
         var meta = new MetaMeta();
         var organization = meta.AddClass(Guid.NewGuid(), "Organization");
         var person = meta.AddClass(Guid.NewGuid(), "Person");
-        meta.AddOneToMany(organization, person, "Employee");
+        meta.AddOneToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var diagram = new ClassDiagram(meta).Render();
 
@@ -59,8 +59,8 @@ public class ClassDiagramTests
 
         organization.AddDirectSupertype(internalOrganization);
 
-        meta.AddOneToMany(internalOrganization, person, "Employee");
-        meta.AddOneToMany(organization, person, "Customer");
+        meta.AddOneToMany(Guid.NewGuid(), Guid.NewGuid(), internalOrganization, person, "Employee");
+        meta.AddOneToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Customer");
 
         var diagram = new ClassDiagram(meta).Render();
 
@@ -103,7 +103,7 @@ public class ClassDiagramTests
         var meta = new MetaMeta();
         var organization = meta.AddClass(Guid.NewGuid(), "Organization");
         var person = meta.AddClass(Guid.NewGuid(), "Person");
-        meta.AddOneToMany(organization, person, "Employee");
+        meta.AddOneToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var config = new ClassDiagram.Config { OneMultiplicity = "1", ManyMultiplicity = "1..*" };
         var diagram = new ClassDiagram(meta, config).Render();
@@ -125,7 +125,7 @@ public class ClassDiagramTests
         var meta = new MetaMeta();
         var organization = meta.AddClass(Guid.NewGuid(), "Organization");
         var person = meta.AddClass(Guid.NewGuid(), "Person");
-        meta.AddOneToMany(organization, person, "Employee");
+        meta.AddOneToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var config = new ClassDiagram.Config { OneMultiplicity = "one" };
         var diagram = new ClassDiagram(meta, config).Render();
@@ -147,7 +147,7 @@ public class ClassDiagramTests
         var meta = new MetaMeta();
         var organization = meta.AddClass(Guid.NewGuid(), "Organization");
         var person = meta.AddClass(Guid.NewGuid(), "Person");
-        meta.AddOneToMany(organization, person, "Employee");
+        meta.AddOneToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var config = new ClassDiagram.Config { ManyMultiplicity = "many" };
         var diagram = new ClassDiagram(meta, config).Render();

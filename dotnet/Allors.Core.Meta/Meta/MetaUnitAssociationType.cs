@@ -1,15 +1,20 @@
 ﻿namespace Allors.Core.Meta.Meta;
 
+using System;
+
 public sealed class MetaUnitAssociationType : IMetaAssociationType
 {
-    internal MetaUnitAssociationType(MetaObjectType objectType, MetaUnitRoleType roleType, string singularName, string pluralName, string name)
+    internal MetaUnitAssociationType(Guid id, MetaObjectType objectType, MetaUnitRoleType roleType, string singularName, string pluralName, string name)
     {
+        this.Id = id;
         this.ObjectType = objectType;
         this.RoleType = roleType;
         this.SingularName = singularName;
         this.PluralName = pluralName;
         this.Name = name;
     }
+
+    public Guid Id { get; }
 
     IMetaRoleType IMetaAssociationType.RoleType => this.RoleType;
 

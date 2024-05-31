@@ -14,8 +14,8 @@ public class UnitTests
         var @string = meta.AddUnit(Guid.NewGuid(), "String");
         var c1 = meta.AddClass(Guid.NewGuid(), "C1");
         var c2 = meta.AddClass(Guid.NewGuid(), "C2");
-        meta.AddUnit(c1, @string, "Same");
-        meta.AddUnit(c2, @string, "Same");
+        meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), c1, @string, "Same");
+        meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), c2, @string, "Same");
 
         var population = new MetaPopulation(meta);
 
@@ -39,7 +39,7 @@ public class UnitTests
         var meta = new MetaMeta();
         var @string = meta.AddUnit(Guid.NewGuid(), "String");
         var person = meta.AddClass(Guid.NewGuid(), "Person");
-        var unitRoleType = meta.AddUnit(person, @string, "FirstName");
+        var unitRoleType = meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
 
         var population = new MetaPopulation(meta);
 
@@ -68,7 +68,7 @@ public class UnitTests
         var meta = new MetaMeta();
         var @string = meta.AddUnit(Guid.NewGuid(), "String");
         var person = meta.AddClass(Guid.NewGuid(), "Person");
-        var unitRoleType = meta.AddUnit(person, @string, "FirstName");
+        var unitRoleType = meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
 
         var population = new MetaPopulation(meta);
 

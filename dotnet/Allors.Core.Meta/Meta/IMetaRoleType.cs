@@ -1,7 +1,11 @@
 ﻿namespace Allors.Core.Meta.Meta;
 
+using System;
+
 public interface IMetaRoleType
 {
+    Guid Id { get; }
+
     IMetaAssociationType AssociationType { get; }
 
     MetaObjectType ObjectType { get; }

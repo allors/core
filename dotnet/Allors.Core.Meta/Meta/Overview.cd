@@ -1,29 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Allors.Meta.Meta.MetaMeta">
-    <Position X="0.5" Y="0.5" Width="1.75" />
+  <Class Name="Allors.Core.Meta.Meta.MetaMeta">
+    <Position X="0.5" Y="0.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAIAAAQAACAIABAAAAAAYAABAgAAAgAAQAAACA=</HashCode>
+      <HashCode>AAAAAAAIAAAQAACAAABAAAAAAYAABAgAAAgAAQAAACA=</HashCode>
       <FileName>Meta\MetaMeta.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Field Name="objectTypeByName" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="Allors.Meta.Meta.MetaObjectType">
-    <Position X="4.5" Y="1.25" Width="2.75" />
+  <Class Name="Allors.Core.Meta.Meta.MetaObjectType">
+    <Position X="4.5" Y="1.25" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>QgQAQAAAAUBQAAREAGAIABQAAYAQBIgAAQAAgAAAQDA=</HashCode>
+      <HashCode>QgQCQAAAAUBQAAREAGAIABQAAYAQBIgAAQAAgAAAQDA=</HashCode>
       <FileName>Meta\MetaObjectType.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Field Name="directSupertypes" />
       <Field Name="declaredAssociationTypeByName" />
       <Field Name="declaredRoleTypeByName" />
+      <Field Name="directSupertypes" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Interface Name="Allors.Meta.Meta.IMetaAssociationType">
-    <Position X="9.75" Y="1.25" Width="2.25" />
+  <Interface Name="Allors.Core.Meta.Meta.IMetaAssociationType">
+    <Position X="9.75" Y="1.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAAAAAIAAAAAAAQAAAAAAAACAIAAAAAAAAA=</HashCode>
       <FileName>Meta\IMetaAssociationType.cs</FileName>
@@ -32,8 +32,8 @@
       <Property Name="RoleType" />
     </ShowAsAssociation>
   </Interface>
-  <Interface Name="Allors.Meta.Meta.IMetaRoleType">
-    <Position X="15.75" Y="0.75" Width="1.75" />
+  <Interface Name="Allors.Core.Meta.Meta.IMetaRoleType">
+    <Position X="15.75" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAIAAAAAgAQAgAAAAAACAIAAAAAAAAA=</HashCode>
       <FileName>Meta\IMetaRoleType.cs</FileName>
@@ -42,45 +42,45 @@
       <Property Name="AssociationType" />
     </ShowAsAssociation>
   </Interface>
-  <Interface Name="Allors.Meta.Meta.IMetaCompositeAssociationType">
-    <Position X="9.5" Y="4" Width="2.75" />
+  <Interface Name="Allors.Core.Meta.Meta.IMetaCompositeAssociationType">
+    <Position X="9.5" Y="4" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAIAiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Meta\IMetaCompositeAssociationType.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="Allors.Meta.Meta.IMetaManyToAssociationType" Collapsed="true">
-    <Position X="10.75" Y="6.25" Width="2.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Meta\IMetaManyToAssociationType.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
-  <Interface Name="Allors.Meta.Meta.IMetaOneToAssociationType" Collapsed="true">
-    <Position X="8.25" Y="6.25" Width="2.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Meta\IMetaOneToAssociationType.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
-  <Interface Name="Allors.Meta.Meta.IMetaCompositeRoleType">
-    <Position X="15.5" Y="4.25" Width="2.5" />
+  <Interface Name="Allors.Core.Meta.Meta.IMetaCompositeRoleType">
+    <Position X="15.5" Y="4.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAiAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Meta\IMetaCompositeRoleType.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="Allors.Meta.Meta.IMetaToManyRoleType" Collapsed="true">
-    <Position X="17" Y="6.25" Width="2.25" />
+  <Interface Name="Allors.Core.Meta.Meta.IMetaManyToAssociationType" Collapsed="true">
+    <Position X="9" Y="6.25" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\IMetaManyToAssociationType.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Allors.Core.Meta.Meta.IMetaOneToAssociationType" Collapsed="true">
+    <Position X="11.25" Y="6.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Meta\IMetaOneToAssociationType.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Allors.Core.Meta.Meta.IMetaToManyRoleType" Collapsed="true">
+    <Position X="15" Y="6.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Meta\IMetaToManyRoleType.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="Allors.Meta.Meta.IMetaToOneRoleType" Collapsed="true">
-    <Position X="14.5" Y="6.25" Width="2.25" />
+  <Interface Name="Allors.Core.Meta.Meta.IMetaToOneRoleType" Collapsed="true">
+    <Position X="17.25" Y="6.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Meta\IMetaToOneRoleType.cs</FileName>
     </TypeIdentifier>
   </Interface>

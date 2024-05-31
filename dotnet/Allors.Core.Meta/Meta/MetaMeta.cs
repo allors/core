@@ -17,15 +17,20 @@ public sealed class MetaMeta
 
     public IReadOnlyDictionary<string, MetaObjectType> ObjectTypeByName { get; }
 
-    public MetaUnitRoleType AddUnit(MetaObjectType associationObjectType, MetaObjectType roleObjectType, string roleName, string? associationName = null) => associationObjectType.AddUnit(roleObjectType, roleName, associationName);
+    public MetaUnitRoleType AddUnit(Guid associationTypeId, Guid roleTypeId, MetaObjectType associationObjectType, MetaObjectType roleObjectType, string roleName, string? associationName = null)
+        => associationObjectType.AddUnit(associationTypeId, roleTypeId, roleObjectType, roleName, associationName);
 
-    public MetaOneToOneRoleType AddOneToOne(MetaObjectType associationObjectType, MetaObjectType roleObjectType, string? roleName = null, string? associationName = null) => associationObjectType.AddOneToOne(roleObjectType, roleName, associationName);
+    public MetaOneToOneRoleType AddOneToOne(Guid associationTypeId, Guid roleTypeId, MetaObjectType associationObjectType, MetaObjectType roleObjectType, string? roleName = null, string? associationName = null)
+        => associationObjectType.AddOneToOne(associationTypeId, roleTypeId, roleObjectType, roleName, associationName);
 
-    public MetaManyToOneRoleType AddManyToOne(MetaObjectType associationObjectType, MetaObjectType roleObjectType, string? roleName = null, string? associationName = null) => associationObjectType.AddManyToOne(roleObjectType, roleName, associationName);
+    public MetaManyToOneRoleType AddManyToOne(Guid associationTypeId, Guid roleTypeId, MetaObjectType associationObjectType, MetaObjectType roleObjectType, string? roleName = null, string? associationName = null)
+        => associationObjectType.AddManyToOne(associationTypeId, roleTypeId, roleObjectType, roleName, associationName);
 
-    public MetaOneToManyRoleType AddOneToMany(MetaObjectType associationObjectType, MetaObjectType roleObjectType, string? roleName = null, string? associationName = null) => associationObjectType.AddOneToMany(roleObjectType, roleName, associationName);
+    public MetaOneToManyRoleType AddOneToMany(Guid associationTypeId, Guid roleTypeId, MetaObjectType associationObjectType, MetaObjectType roleObjectType, string? roleName = null, string? associationName = null)
+        => associationObjectType.AddOneToMany(associationTypeId, roleTypeId, roleObjectType, roleName, associationName);
 
-    public MetaManyToManyRoleType AddManyToMany(MetaObjectType associationObjectType, MetaObjectType roleObjectType, string? roleName = null, string? associationName = null) => associationObjectType.AddManyToMany(roleObjectType, roleName, associationName);
+    public MetaManyToManyRoleType AddManyToMany(Guid associationTypeId, Guid roleTypeId, MetaObjectType associationObjectType, MetaObjectType roleObjectType, string? roleName = null, string? associationName = null)
+        => associationObjectType.AddManyToMany(associationTypeId, roleTypeId, roleObjectType, roleName, associationName);
 
     public MetaObjectType AddUnit(Guid id, string name)
     {

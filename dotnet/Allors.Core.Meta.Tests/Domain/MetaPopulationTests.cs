@@ -15,8 +15,8 @@ public class MetaPopulationTests
         var named = meta.AddInterface(Guid.NewGuid(), "Named");
         var organization = meta.AddClass(Guid.NewGuid(), "Organization", named);
         var person = meta.AddClass(Guid.NewGuid(), "Person", named);
-        meta.AddUnit(named, @string, "Name");
-        meta.AddOneToOne(organization, person, "Owner");
+        meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), named, @string, "Name");
+        meta.AddOneToOne(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Owner");
 
         var population = new MetaPopulation(meta);
 

@@ -117,37 +117,37 @@ public sealed class CoreMetaMeta
         // Relations
         var metaMeta = this.MetaMeta;
 
-        this.AssociationTypeComposite = metaMeta.AddManyToOne(this.AssociationType, this.Composite);
+        this.AssociationTypeComposite = metaMeta.AddManyToOne(new Guid("cea0ed95-ae21-451d-bef3-2cd6ccb34c29"), new Guid("c1bfd18c-823b-4c23-9e2a-e5bb8e0609d9"), this.AssociationType, this.Composite);
 
-        this.CompositeDirectSupertypes = metaMeta.AddManyToMany(this.Composite, this.Interface, "DirectSupertype");
-        this.CompositeSupertypes = metaMeta.AddManyToMany(this.Composite, this.Interface, "Supertype");
+        this.CompositeDirectSupertypes = metaMeta.AddManyToMany(new Guid("960162a2-a902-4cd9-9576-ccb0e7c9e01c"), new Guid("e23b1087-1890-4741-b76f-aabea13ba7ee"), this.Composite, this.Interface, "DirectSupertype");
+        this.CompositeSupertypes = metaMeta.AddManyToMany(new Guid("b0129926-2eb2-4ac7-80e0-93a2329964cf"), new Guid("c350727f-3b22-49a6-bea9-407e3acadb8d"), this.Composite, this.Interface, "Supertype");
 
-        this.DecimalRoleTypeAssignedPrecision = metaMeta.AddUnit(this.DecimalRoleType, this.Integer, "AssignedPrecision");
-        this.DecimalRoleTypeDerivedPrecision = metaMeta.AddUnit(this.DecimalRoleType, this.Integer, "DerivedPrecision");
-        this.DecimalRoleTypeAssignedScale = metaMeta.AddUnit(this.DecimalRoleType, this.Integer, "AssignedScale");
-        this.DecimalRoleTypeDerivedScale = metaMeta.AddUnit(this.DecimalRoleType, this.Integer, "DerivedScale");
+        this.DecimalRoleTypeAssignedPrecision = metaMeta.AddUnit(new Guid("5b2ac86d-af09-46f6-a454-4d2a3bdeaed3"), new Guid("39de4b9c-0da9-46e0-a3fb-186f78014194"), this.DecimalRoleType, this.Integer, "AssignedPrecision");
+        this.DecimalRoleTypeDerivedPrecision = metaMeta.AddUnit(new Guid("3c25e09b-6b89-46e9-b1bb-f89c4d2fa4db"), new Guid("4c80959c-f1b4-44df-abe2-980c74e64b56"), this.DecimalRoleType, this.Integer, "DerivedPrecision");
+        this.DecimalRoleTypeAssignedScale = metaMeta.AddUnit(new Guid("ac79ed22-0a87-4370-9261-03b27ad8bbe6"), new Guid("de8eccfb-abac-4b36-8d1a-524c43ae1a72"), this.DecimalRoleType, this.Integer, "AssignedScale");
+        this.DecimalRoleTypeDerivedScale = metaMeta.AddUnit(new Guid("ebb42e88-b2c0-48ba-8865-67e86ef6d84e"), new Guid("d8f2c868-d9c9-4ea7-90f6-1cd043c2e9d8"), this.DecimalRoleType, this.Integer, "DerivedScale");
 
-        this.DomainTypes = metaMeta.AddManyToMany(this.Domain, this.Type);
+        this.DomainTypes = metaMeta.AddManyToMany(new Guid("93dcadad-f9e0-402a-bd4f-d150df5f5c26"), new Guid("57696f40-878b-4bbc-ad4f-d77f4b34ee09"), this.Domain, this.Type);
 
-        this.ObjectTypeAssignedPluralName = metaMeta.AddUnit(this.ObjectType, this.String, "AssignedPluralName");
-        this.ObjectTypeDerivedPluralName = metaMeta.AddUnit(this.ObjectType, this.String, "DerivedPluralName");
-        this.ObjectTypeSingularName = metaMeta.AddUnit(this.ObjectType, this.String, "SingularName");
+        this.ObjectTypeAssignedPluralName = metaMeta.AddUnit(new Guid("c45fcfac-5614-4a03-b86a-df2f75cc5fcb"), new Guid("25ab19cc-97dd-4fce-9a37-ffefb8cb4479"), this.ObjectType, this.String, "AssignedPluralName");
+        this.ObjectTypeDerivedPluralName = metaMeta.AddUnit(new Guid("edb514d1-f0b6-44d0-a0ce-2ff9a132b4f7"), new Guid("dc3de909-e05e-46ff-af59-c639035aa23e"), this.ObjectType, this.String, "DerivedPluralName");
+        this.ObjectTypeSingularName = metaMeta.AddUnit(new Guid("4ae8c269-d329-4d01-b48f-3df905c0a9e0"), new Guid("ef9d33ad-7390-4ee1-98d9-6e4410434eb3"), this.ObjectType, this.String, "SingularName");
 
-        this.MetaObjectId = metaMeta.AddUnit(this.MetaObject, this.Unique, "Id");
+        this.MetaObjectId = metaMeta.AddUnit(new Guid("3f24ceec-222a-4933-881c-3f85b6afebac"), new Guid("6df34d00-e78b-47e0-9a9c-bd5a3897efd4"), this.MetaObject, this.Unique, "Id");
 
-        this.RelationEndTypeIsMany = metaMeta.AddUnit(this.RelationEndType, this.Boolean, "IsMany");
+        this.RelationEndTypeIsMany = metaMeta.AddUnit(new Guid("1d3957c3-d1a7-45f4-b6a6-5554223d7326"), new Guid("b84e1f6a-fbee-4e90-8543-1a609149828a"), this.RelationEndType, this.Boolean, "IsMany");
 
-        this.RoleTypeAssociationType = metaMeta.AddOneToOne(this.RoleType, this.AssociationType);
-        this.RoleTypeAssignedPluralName = metaMeta.AddUnit(this.RoleType, this.String, "AssignedPluralName");
-        this.RoleTypeDerivedPluralName = metaMeta.AddUnit(this.RoleType, this.String, "DerivedPluralName");
-        this.RoleTypeObjectType = metaMeta.AddManyToOne(this.RoleType, this.ObjectType);
-        this.RoleTypeName = metaMeta.AddUnit(this.RoleType, this.String, "Name");
-        this.RoleTypeSingularName = metaMeta.AddUnit(this.RoleType, this.String, "SingularName");
+        this.RoleTypeAssociationType = metaMeta.AddOneToOne(new Guid("ff05c66a-7a87-4b1e-8b77-c097285ec7ca"), new Guid("21df9d27-6b9b-4964-9938-1999929c5d32"), this.RoleType, this.AssociationType);
+        this.RoleTypeAssignedPluralName = metaMeta.AddUnit(new Guid("39a5bdaf-3f44-436a-b9e8-a64a5bb770dd"), new Guid("0ae6a8fa-fb9c-4f93-b119-9286f4092ded"), this.RoleType, this.String, "AssignedPluralName");
+        this.RoleTypeDerivedPluralName = metaMeta.AddUnit(new Guid("cd6a33fa-4537-4a83-a6b6-2d79725fb46e"), new Guid("48691ed8-59eb-41cd-b56a-e4ecd7605fb3"), this.RoleType, this.String, "DerivedPluralName");
+        this.RoleTypeObjectType = metaMeta.AddManyToOne(new Guid("ff21b9ad-1a0b-40f5-a35f-5bfb9ed1ab02"), new Guid("8c48eea7-b828-414d-aca8-35d3aa15d804"), this.RoleType, this.ObjectType);
+        this.RoleTypeName = metaMeta.AddUnit(new Guid("15e2d931-89d1-480a-8bb2-42e7902c7ba7"), new Guid("9983827c-23e7-4f9d-9e8b-688e319250e3"), this.RoleType, this.String, "Name");
+        this.RoleTypeSingularName = metaMeta.AddUnit(new Guid("13ba399e-bf05-48fc-8489-b70fb19fba15"), new Guid("9c1ddde7-d9ce-4082-ba04-b69b759d19e5"), this.RoleType, this.String, "SingularName");
 
-        this.StringRoleTypeAssignedSize = metaMeta.AddUnit(this.StringRoleType, this.Integer, "AssignedSize");
-        this.StringRoleTypeDerivedSize = metaMeta.AddUnit(this.StringRoleType, this.Integer, "DerivedSize");
+        this.StringRoleTypeAssignedSize = metaMeta.AddUnit(new Guid("da78d554-bb1b-451c-ade1-4f6efe651d7c"), new Guid("321bb675-0298-42ae-842a-39131f4e1662"), this.StringRoleType, this.Integer, "AssignedSize");
+        this.StringRoleTypeDerivedSize = metaMeta.AddUnit(new Guid("46d33068-969c-4a88-a703-fb5f0d8e0cd8"), new Guid("407e07f4-6d66-4845-9cdb-03e897166d0f"), this.StringRoleType, this.Integer, "DerivedSize");
 
-        this.WorkspaceTypes = metaMeta.AddManyToMany(this.Workspace, this.Type);
+        this.WorkspaceTypes = metaMeta.AddManyToMany(new Guid("7a8cb874-180a-4f0c-855d-e841b54a0eda"), new Guid("d5ce8d4f-5eb8-4253-9d19-0b11ca50d549"), this.Workspace, this.Type);
     }
 
     /// <summary>

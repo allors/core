@@ -13,8 +13,8 @@ public class SnapshotTests
         var meta = new MetaMeta();
         var @string = meta.AddUnit(Guid.NewGuid(), "String");
         var person = meta.AddClass(Guid.NewGuid(), "Person");
-        var firstName = meta.AddUnit(person, @string, "FirstName");
-        var lastName = meta.AddUnit(person, @string, "LastName");
+        var firstName = meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
+        var lastName = meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
 
         var population = new MetaPopulation(meta);
 
@@ -55,10 +55,10 @@ public class SnapshotTests
         var @string = meta.AddUnit(Guid.NewGuid(), "String");
         var person = meta.AddClass(Guid.NewGuid(), "Person");
         var organization = meta.AddClass(Guid.NewGuid(), "Organization");
-        meta.AddUnit(person, @string, "FirstName");
-        meta.AddUnit(person, @string, "LastName");
-        meta.AddUnit(organization, @string, "Name");
-        var employees = meta.AddManyToMany(organization, person, "Employee");
+        meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
+        meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
+        meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
+        var employees = meta.AddManyToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
 

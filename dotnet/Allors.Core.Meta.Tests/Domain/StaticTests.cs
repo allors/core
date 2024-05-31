@@ -14,7 +14,7 @@ public class StaticTests
         var meta = new MetaMeta();
         var c1 = meta.AddClass<C1>(Guid.NewGuid());
         var c2 = meta.AddClass<C2>(Guid.NewGuid());
-        var c1C2OneToOne = meta.AddOneToOne(c1, c2, "C2OneToOne");
+        var c1C2OneToOne = meta.AddOneToOne(Guid.NewGuid(), Guid.NewGuid(), c1, c2, "C2OneToOne");
 
         var population = new MetaPopulation(meta);
 

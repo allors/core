@@ -15,7 +15,7 @@ public class OneToManyTests
         var meta = new MetaMeta();
         var organization = meta.AddClass(Guid.NewGuid(), "Organization");
         var person = meta.AddClass(Guid.NewGuid(), "Person");
-        var employees = meta.AddOneToMany(organization, person, "Employee");
+        var employees = meta.AddOneToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
 
@@ -43,7 +43,7 @@ public class OneToManyTests
         var meta = new MetaMeta();
         var organization = meta.AddClass(Guid.NewGuid(), "Organization");
         var person = meta.AddClass(Guid.NewGuid(), "Person");
-        var employees = meta.AddOneToMany(organization, person, "Employee");
+        var employees = meta.AddOneToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
 
@@ -71,7 +71,7 @@ public class OneToManyTests
         var meta = new MetaMeta();
         var organization = meta.AddClass(Guid.NewGuid(), "Organization");
         var person = meta.AddClass(Guid.NewGuid(), "Person");
-        var employees = meta.AddOneToMany(organization, person, "Employee");
+        var employees = meta.AddOneToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
 
@@ -100,7 +100,7 @@ public class OneToManyTests
         var named = meta.AddInterface(Guid.NewGuid(), "Named");
         var organization = meta.AddClass(Guid.NewGuid(), "Organization", named);
         var person = meta.AddClass(Guid.NewGuid(), "Person", named);
-        var employees = meta.AddOneToMany(organization, person, "Employee");
+        var employees = meta.AddOneToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
 
@@ -137,7 +137,7 @@ public class OneToManyTests
         var meta = new MetaMeta();
         var organization = meta.AddClass(Guid.NewGuid(), "Organization");
         var person = meta.AddClass(Guid.NewGuid(), "Person");
-        var employees = meta.AddOneToMany(organization, person, "Employee");
+        var employees = meta.AddOneToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
 
@@ -187,7 +187,7 @@ public class OneToManyTests
         var meta = new MetaMeta();
         var organization = meta.AddClass(Guid.NewGuid(), "Organization");
         var person = meta.AddClass(Guid.NewGuid(), "Person");
-        var employees = meta.AddOneToMany(organization, person, "Employee");
+        var employees = meta.AddOneToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
 
@@ -218,7 +218,7 @@ public class OneToManyTests
         var meta = new MetaMeta();
         var organization = meta.AddClass(Guid.NewGuid(), "Organization");
         var person = meta.AddClass(Guid.NewGuid(), "Person");
-        var employees = meta.AddOneToMany(organization, person, "Employee");
+        var employees = meta.AddOneToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
 
@@ -249,7 +249,7 @@ public class OneToManyTests
         var meta = new MetaMeta();
         var organization = meta.AddClass(Guid.NewGuid(), "Organization");
         var person = meta.AddClass(Guid.NewGuid(), "Person");
-        var employees = meta.AddOneToMany(organization, person, "Employee");
+        var employees = meta.AddOneToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
 

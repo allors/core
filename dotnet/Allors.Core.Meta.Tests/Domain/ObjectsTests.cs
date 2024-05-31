@@ -14,8 +14,8 @@ public class ObjectsTests
         var meta = new MetaMeta();
         var @string = meta.AddUnit(Guid.NewGuid(), "String");
         var person = meta.AddClass(Guid.NewGuid(), "Person");
-        meta.AddUnit(person, @string, "FirstName");
-        meta.AddUnit(person, @string, "LastName");
+        meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
+        meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
 
         var population = new MetaPopulation(meta);
 
