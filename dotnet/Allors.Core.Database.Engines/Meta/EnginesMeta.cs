@@ -28,11 +28,9 @@ public sealed class EnginesMeta
                 EnginesMetaObject metaObject = v switch
                 {
                     Domain domain => new EnginesDomain(this, domain),
-                    Workspace workspace => new EnginesWorkspace(this, workspace),
                     Class @class => new EnginesClass(this, @class),
                     Interface @interface => new EnginesInterface(this, @interface),
                     Unit unit => new EnginesUnit(this, unit),
-                    MethodType methodType => new EnginesMethodType(this, methodType),
                     BinaryRoleType binaryRoleType => new EnginesBinaryRoleType(this, binaryRoleType),
                     BooleanRoleType booleanRoleType => new EnginesBooleanRoleType(this, booleanRoleType),
                     DateTimeRoleType dateTimeRoleType => new EnginesDateTimeRoleType(this, dateTimeRoleType),

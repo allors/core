@@ -33,7 +33,6 @@ public sealed class CoreMetaMeta
         this.ManyToOneAssociationType = this.AddMetaClass(new Guid("b0c7762d-7638-4d18-87e4-48eb9053b156"), typeof(ManyToOneAssociationType));
         this.ManyToOneRoleType = this.AddMetaClass(new Guid("3900a114-55b6-42f8-aea9-b7937e38bc07"), typeof(ManyToOneRoleType));
         this.MetaObject = this.AddMetaInterface(new Guid("258b338e-a76f-4022-a431-6732ef7fc021"), "MetaObject");
-        this.MethodType = this.AddMetaClass(new Guid("d21ffb87-afd8-4cbf-879a-c44d9decf01d"), typeof(MethodType));
         this.ObjectType = this.AddMetaInterface(new Guid("20088de8-27b2-4fe7-a016-502e7e096f4f"), "ObjectType");
         this.OneToAssociationType = this.AddMetaInterface(new Guid("0fd0f52e-9e79-440d-81a2-45513044aad4"), "OneToAssociationType");
         this.OneToManyAssociationType = this.AddMetaClass(new Guid("eb2e311d-b736-44e0-a283-05bc195a46be"), typeof(OneToManyAssociationType));
@@ -66,7 +65,6 @@ public sealed class CoreMetaMeta
         this.Unit = this.AddMetaClass(new Guid("32c01fd7-9002-4a3a-b364-1b2ecae870a0"), typeof(Unit));
         this.UnitAssociationType = this.AddMetaInterface(new Guid("76e3b379-86c0-4015-b279-dfc8b272a128"), "UnitAssociationType");
         this.UnitRoleType = this.AddMetaInterface(new Guid("d295663a-1731-4c05-930b-a51002c25453"), "UnitRoleType");
-        this.Workspace = this.AddMetaClass(new Guid("80473529-985e-4b70-a17f-9cc63276dca6"), typeof(Workspace));
 
         // Inheritance
         this.AssociationType.AddDirectSupertype(this.RelationEndType);
@@ -81,7 +79,6 @@ public sealed class CoreMetaMeta
         this.ManyToManyRoleType.AddDirectSupertype(this.ToManyRoleType);
         this.ManyToOneAssociationType.AddDirectSupertype(this.ManyToAssociationType);
         this.ManyToOneRoleType.AddDirectSupertype(this.ToOneRoleType);
-        this.MethodType.AddDirectSupertype(this.OperandType);
         this.ObjectType.AddDirectSupertype(this.Type);
         this.OneToAssociationType.AddDirectSupertype(this.CompositeAssociationType);
         this.OneToManyAssociationType.AddDirectSupertype(this.OneToAssociationType);
@@ -114,7 +111,6 @@ public sealed class CoreMetaMeta
         this.Unit.AddDirectSupertype(this.ObjectType);
         this.UnitAssociationType.AddDirectSupertype(this.AssociationType);
         this.UnitRoleType.AddDirectSupertype(this.RoleType);
-        this.Workspace.AddDirectSupertype(this.MetaObject);
 
         // Relations
         var metaMeta = this.MetaMeta;
@@ -152,8 +148,6 @@ public sealed class CoreMetaMeta
 
         this.StringRoleTypeAssignedSize = metaMeta.AddUnit(new Guid("da78d554-bb1b-451c-ade1-4f6efe651d7c"), new Guid("321bb675-0298-42ae-842a-39131f4e1662"), this.StringRoleType, this.Integer, "AssignedSize");
         this.StringRoleTypeDerivedSize = metaMeta.AddUnit(new Guid("46d33068-969c-4a88-a703-fb5f0d8e0cd8"), new Guid("407e07f4-6d66-4845-9cdb-03e897166d0f"), this.StringRoleType, this.Integer, "DerivedSize");
-
-        this.WorkspaceTypes = metaMeta.AddManyToMany(new Guid("7a8cb874-180a-4f0c-855d-e841b54a0eda"), new Guid("d5ce8d4f-5eb8-4253-9d19-0b11ca50d549"), this.Workspace, this.Type);
     }
 
     /// <summary>
@@ -290,11 +284,6 @@ public sealed class CoreMetaMeta
     /// The id of a meta object.
     /// </summary>
     public MetaUnitRoleType MetaObjectId { get; init; }
-
-    /// <summary>
-    /// A method type.
-    /// </summary>
-    public MetaObjectType MethodType { get; init; }
 
     /// <summary>
     /// An object type.
@@ -530,16 +519,6 @@ public sealed class CoreMetaMeta
     /// Unit role type.
     /// </summary>
     public MetaObjectType UnitRoleType { get; set; }
-
-    /// <summary>
-    /// A workspace.
-    /// </summary>
-    public MetaObjectType Workspace { get; init; }
-
-    /// <summary>
-    /// The types of a workspace.
-    /// </summary>
-    public MetaManyToManyRoleType WorkspaceTypes { get; init; }
 
     /// <summary>
     /// Creates a new meta class.
