@@ -53,6 +53,7 @@ public sealed class CoreMetaMeta
         this.DecimalRoleType = this.AddMetaClass(new Guid("8991761d-be85-4601-a67d-f85bcd5432e1"), typeof(DecimalRoleType));
         this.FloatAssociationType = this.AddMetaClass(new Guid("11c199c1-c2ba-4933-9455-643eebcb96f5"), typeof(FloatAssociationType));
         this.FloatRoleType = this.AddMetaClass(new Guid("2eada119-a35c-4076-b9ba-6b731684c2af"), typeof(FloatRoleType));
+        this.Inheritance = this.AddMetaClass(new Guid("8fbe1a09-1883-4716-91d3-609190d9a23d"), typeof(Inheritance));
         this.IntegerAssociationType = this.AddMetaClass(new Guid("1e62c68e-d9ba-4169-add4-865b53136108"), typeof(IntegerAssociationType));
         this.IntegerRoleType = this.AddMetaClass(new Guid("65f77b86-5a2a-4961-b7e4-0eaa42b2a157"), typeof(IntegerRoleType));
         this.StringAssociationType = this.AddMetaClass(new Guid("0368b7c4-73f8-4f9b-8182-60e09771b62c"), typeof(StringAssociationType));
@@ -100,6 +101,7 @@ public sealed class CoreMetaMeta
         this.DecimalRoleType.AddDirectSupertype(this.UnitRoleType);
         this.FloatAssociationType.AddDirectSupertype(this.UnitAssociationType);
         this.FloatRoleType.AddDirectSupertype(this.UnitRoleType);
+        this.Inheritance.AddDirectSupertype(this.MetaObject);
         this.IntegerAssociationType.AddDirectSupertype(this.UnitAssociationType);
         this.IntegerRoleType.AddDirectSupertype(this.UnitRoleType);
         this.StringAssociationType.AddDirectSupertype(this.UnitAssociationType);
@@ -127,7 +129,11 @@ public sealed class CoreMetaMeta
         this.DecimalRoleTypeAssignedScale = metaMeta.AddUnit(new Guid("ac79ed22-0a87-4370-9261-03b27ad8bbe6"), new Guid("de8eccfb-abac-4b36-8d1a-524c43ae1a72"), this.DecimalRoleType, this.Integer, "AssignedScale");
         this.DecimalRoleTypeDerivedScale = metaMeta.AddUnit(new Guid("ebb42e88-b2c0-48ba-8865-67e86ef6d84e"), new Guid("d8f2c868-d9c9-4ea7-90f6-1cd043c2e9d8"), this.DecimalRoleType, this.Integer, "DerivedScale");
 
+        this.DomainName = metaMeta.AddUnit(new Guid("1dd008c4-755e-4f84-b52f-360afaf1a6cd"), new Guid("2b42b7b2-5ebc-42f6-9614-2e0f3a95c718"), this.Domain, this.String, "Name");
         this.DomainTypes = metaMeta.AddManyToMany(new Guid("93dcadad-f9e0-402a-bd4f-d150df5f5c26"), new Guid("57696f40-878b-4bbc-ad4f-d77f4b34ee09"), this.Domain, this.Type);
+
+        this.InheritanceSubtype = metaMeta.AddManyToOne(new Guid("e2cd96af-a436-439c-b02b-ecf23f19a96f"), new Guid("a9bac7e2-ccaa-4ff9-bcbb-401770e139b4"), this.Inheritance, this.Composite, "Subtype");
+        this.InheritanceSupertype = metaMeta.AddManyToOne(new Guid("c9f8f651-5b6e-408d-b088-0ca925e8b2d5"), new Guid("331535e0-5afd-42dc-9251-7dea0c9d9d44"), this.Inheritance, this.Interface, "Supertype");
 
         this.ObjectTypeAssignedPluralName = metaMeta.AddUnit(new Guid("c45fcfac-5614-4a03-b86a-df2f75cc5fcb"), new Guid("25ab19cc-97dd-4fce-9a37-ffefb8cb4479"), this.ObjectType, this.String, "AssignedPluralName");
         this.ObjectTypeDerivedPluralName = metaMeta.AddUnit(new Guid("edb514d1-f0b6-44d0-a0ce-2ff9a132b4f7"), new Guid("dc3de909-e05e-46ff-af59-c639035aa23e"), this.ObjectType, this.String, "DerivedPluralName");
@@ -201,9 +207,29 @@ public sealed class CoreMetaMeta
     public MetaObjectType Domain { get; init; }
 
     /// <summary>
+    /// The name of a domain.
+    /// </summary>
+    public MetaUnitRoleType DomainName { get; init; }
+
+    /// <summary>
     /// The types of a domain.
     /// </summary>
     public MetaManyToManyRoleType DomainTypes { get; init; }
+
+    /// <summary>
+    /// An inheritance.
+    /// </summary>
+    public MetaObjectType Inheritance { get; init; }
+
+    /// <summary>
+    /// The subtype of an inheritance.
+    /// </summary>
+    public MetaManyToOneRoleType InheritanceSubtype { get; init; }
+
+    /// <summary>
+    /// The supertype of an inheritance.
+    /// </summary>
+    public MetaManyToOneRoleType InheritanceSupertype { get; init; }
 
     /// <summary>
     /// An interface.
@@ -537,6 +563,7 @@ public sealed class CoreMetaMeta
     {
         var metaPopulation = new MetaPopulation(this.MetaMeta);
 
+        metaPopulation.DerivationById[nameof(this.CompositeDirectSupertypes)] = new CompositeDirectSupertypes(metaPopulation, this);
         metaPopulation.DerivationById[nameof(this.CompositeSupertypes)] = new CompositeSupertypes(metaPopulation, this);
         metaPopulation.DerivationById[nameof(this.DecimalRoleTypeDerivedPrecision)] = new DecimalRoleTypeDerivedPrecision(this);
         metaPopulation.DerivationById[nameof(this.DecimalRoleTypeDerivedScale)] = new DecimalRoleTypeDerivedScale(this);

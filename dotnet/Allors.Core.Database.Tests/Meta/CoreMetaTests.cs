@@ -22,13 +22,16 @@ public class CoreMetaTests
     {
         var coreMeta = new CoreMeta();
 
+        var domains = coreMeta.MetaPopulation.Objects.OfType<Domain>().ToArray();
         var units = coreMeta.MetaPopulation.Objects.OfType<Unit>().ToArray();
         var interfaces = coreMeta.MetaPopulation.Objects.OfType<Interface>().ToArray();
         var classes = coreMeta.MetaPopulation.Objects.OfType<Class>().ToArray();
 
-        Assert.Equal(6, coreMeta.MetaPopulation.Objects.Count());
+        Assert.Equal(8, coreMeta.MetaPopulation.Objects.Count());
+
+        Assert.Single(domains);
         Assert.Equal(5, units.Length);
         Assert.Single(interfaces);
-        Assert.Empty(classes);
+        Assert.Single(classes);
     }
 }

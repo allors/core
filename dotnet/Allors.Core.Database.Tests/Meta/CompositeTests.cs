@@ -12,12 +12,14 @@ public class CompositeTests
     {
         var m = new CoreMeta();
 
-        var s1 = m.AddInterface(Guid.NewGuid(), "S1");
-        var i1 = m.AddInterface(Guid.NewGuid(), "I1");
-        var c1 = m.AddInterface(Guid.NewGuid(), "C1");
+        var domain = m.AddDomain(Guid.NewGuid(), "MyDomain");
 
-        m.AddDirectSupertype(i1, s1);
-        m.AddDirectSupertype(c1, i1);
+        var s1 = m.AddInterface(domain, Guid.NewGuid(), "S1");
+        var i1 = m.AddInterface(domain, Guid.NewGuid(), "I1");
+        var c1 = m.AddInterface(domain, Guid.NewGuid(), "C1");
+
+        m.AddInheritance(domain, i1, s1);
+        m.AddInheritance(domain, c1, i1);
 
         m.Freeze();
 
