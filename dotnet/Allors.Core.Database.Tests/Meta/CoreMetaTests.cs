@@ -26,12 +26,16 @@ public class CoreMetaTests
         var units = coreMeta.MetaPopulation.Objects.OfType<Unit>().ToArray();
         var interfaces = coreMeta.MetaPopulation.Objects.OfType<Interface>().ToArray();
         var classes = coreMeta.MetaPopulation.Objects.OfType<Class>().ToArray();
+        var associationTypes = coreMeta.MetaPopulation.Objects.OfType<IAssociationType>().ToArray();
+        var roleTypes = coreMeta.MetaPopulation.Objects.OfType<IRoleType>().ToArray();
 
-        Assert.Equal(8, coreMeta.MetaPopulation.Objects.Count());
+        Assert.Equal(101, coreMeta.MetaPopulation.Objects.Count());
 
         Assert.Single(domains);
-        Assert.Equal(5, units.Length);
-        Assert.Single(interfaces);
-        Assert.Single(classes);
+        Assert.Equal(6, units.Length);
+        Assert.Equal(17, interfaces.Length);
+        Assert.Equal(29, classes.Length);
+        Assert.Equal(24, associationTypes.Length);
+        Assert.Equal(24, roleTypes.Length);
     }
 }
