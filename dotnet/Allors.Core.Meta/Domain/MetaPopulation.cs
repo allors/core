@@ -133,7 +133,7 @@ public sealed class MetaPopulation(MetaMeta meta)
 
     internal void SetToManyRole(MetaObject association, IMetaToManyRoleType roleType, IEnumerable<IMetaObject> items)
     {
-        var normalizedRole = this.Normalize(roleType, items).Distinct().ToArray();
+        var normalizedRole = this.Normalize(roleType, items);
 
         switch (roleType)
         {
@@ -398,80 +398,6 @@ public sealed class MetaPopulation(MetaMeta meta)
         changedRoleByAssociation[association] = previousRole != null ? previousRole.Add(role) : ImmutableHashSet.Create(role);
     }
 
-    private void RemoveOneToManyRole(IMetaObject association, MetaOneToManyRoleType roleType, IMetaObject[] items)
-    {
-        var associationType = roleType.AssociationType;
-
-        var previousRole = (IImmutableSet<IMetaObject>?)this.GetRole(association, roleType);
-        if (previousRole?.Overlaps(items) == true)
-        {
-            // Role
-            var changedRoleByAssociation = this.changedRelations.RoleByAssociation(roleType);
-            changedRoleByAssociation[association] = previousRole.Except(items);
-
-            // Association
-            var changedAssociationByRole = this.changedRelations.AssociationByRole(associationType);
-
-            foreach (var item in items)
-            {
-                if (associationType.IsOne)
-                {
-                    // One to Many
-                    changedAssociationByRole.Remove(item);
-                }
-                else
-                {
-                    var previousAssociation = this.GetToManyAssociation(item, associationType);
-
-                    // Many to Many
-                    if (previousAssociation?.Contains(association) == true)
-                    {
-                        changedAssociationByRole[item] = previousAssociation.Remove(association);
-                    }
-                }
-            }
-        }
-    }
-
-    private void AddOneToManyRole(IMetaObject association, MetaOneToManyRoleType roleType, IMetaObject[] items)
-    {
-        var associationType = roleType.AssociationType;
-
-        // Role
-        var changedRoleByAssociation = this.changedRelations.RoleByAssociation(roleType);
-        var previousRole = (IImmutableSet<IMetaObject>?)this.GetRole(association, roleType);
-        changedRoleByAssociation[association] = previousRole != null ? previousRole.Union(items) : ImmutableHashSet.Create(items);
-
-        // Association
-        var changedAssociationByRole = this.changedRelations.AssociationByRole(associationType);
-        foreach (var item in items)
-        {
-            if (associationType.IsOne)
-            {
-                var previousAssociation = this.GetToOneAssociation(item, associationType);
-
-                // One to Many
-                if (previousAssociation != null)
-                {
-                    var previousAssociationRole = (IImmutableSet<IMetaObject>?)this.GetRole(previousAssociation, roleType);
-                    if (previousAssociationRole?.Contains(item) == true)
-                    {
-                        changedRoleByAssociation[previousAssociation] = previousAssociationRole.Remove(item);
-                    }
-                }
-
-                changedAssociationByRole[item] = association;
-            }
-            else
-            {
-                var previousAssociation = this.GetToManyAssociation(item, associationType);
-
-                // Many to Many
-                changedAssociationByRole[item] = previousAssociation != null ? previousAssociation.Add(association) : ImmutableHashSet.Create(association);
-            }
-        }
-    }
-
     private void RemoveOneToManyRole(IMetaObject association, MetaOneToManyRoleType roleType)
     {
         var associationType = roleType.AssociationType;
@@ -606,45 +532,6 @@ public sealed class MetaPopulation(MetaMeta meta)
         }
     }
 
-    private void AddManyToManyRole(IMetaObject association, MetaManyToManyRoleType roleType, IMetaObject[] items)
-    {
-        var associationType = roleType.AssociationType;
-
-        // Role
-        var changedRoleByAssociation = this.changedRelations.RoleByAssociation(roleType);
-        var previousRole = (IImmutableSet<IMetaObject>?)this.GetRole(association, roleType);
-        changedRoleByAssociation[association] = previousRole != null ? previousRole.Union(items) : ImmutableHashSet.Create(items);
-
-        // Association
-        var changedAssociationByRole = this.changedRelations.AssociationByRole(associationType);
-        foreach (var item in items)
-        {
-            if (associationType.IsOne)
-            {
-                var previousAssociation = this.GetToOneAssociation(item, associationType);
-
-                // One to Many
-                if (previousAssociation != null)
-                {
-                    var previousAssociationRole = (IImmutableSet<IMetaObject>?)this.GetRole(previousAssociation, roleType);
-                    if (previousAssociationRole?.Contains(item) == true)
-                    {
-                        changedRoleByAssociation[previousAssociation] = previousAssociationRole.Remove(item);
-                    }
-                }
-
-                changedAssociationByRole[item] = association;
-            }
-            else
-            {
-                var previousAssociation = this.GetToManyAssociation(item, associationType);
-
-                // Many to Many
-                changedAssociationByRole[item] = previousAssociation != null ? previousAssociation.Add(association) : ImmutableHashSet.Create(association);
-            }
-        }
-    }
-
     private void RemoveManyToManyRole(IMetaObject association, MetaManyToManyRoleType roleType, IMetaObject item)
     {
         var associationType = roleType.AssociationType;
@@ -704,41 +591,6 @@ public sealed class MetaPopulation(MetaMeta meta)
                     if (previousAssociation?.Contains(association) == true)
                     {
                         changedAssociationByRole[role] = previousAssociation.Remove(association);
-                    }
-                }
-            }
-        }
-    }
-
-    private void RemoveManyToManyRole(IMetaObject association, MetaManyToManyRoleType roleType, IMetaObject[] items)
-    {
-        var associationType = roleType.AssociationType;
-
-        var previousRole = (IImmutableSet<IMetaObject>?)this.GetRole(association, roleType);
-        if (previousRole?.Overlaps(items) == true)
-        {
-            // Role
-            var changedRoleByAssociation = this.changedRelations.RoleByAssociation(roleType);
-            changedRoleByAssociation[association] = previousRole.Except(items);
-
-            // Association
-            var changedAssociationByRole = this.changedRelations.AssociationByRole(associationType);
-
-            foreach (var item in items)
-            {
-                if (associationType.IsOne)
-                {
-                    // One to Many
-                    changedAssociationByRole.Remove(item);
-                }
-                else
-                {
-                    var previousAssociation = this.GetToManyAssociation(item, associationType);
-
-                    // Many to Many
-                    if (previousAssociation?.Contains(association) == true)
-                    {
-                        changedAssociationByRole[item] = previousAssociation.Remove(association);
                     }
                 }
             }
@@ -837,28 +689,23 @@ Use DateTimeKind.Utc or DateTimeKind.Local."),
         throw new ArgumentException($"{roleType.Name} should be an meta object but was a {value.GetType()}");
     }
 
-    private IEnumerable<IMetaObject> Normalize(IMetaToManyRoleType roleType, IEnumerable<IMetaObject?> value)
-    {
-        foreach (var @object in value)
-        {
-            if (@object == null)
+    private IMetaObject[] Normalize(IMetaToManyRoleType roleType, IEnumerable<IMetaObject?> value)
+        => value
+            .Where(v =>
             {
-                continue;
-            }
-
-            if (@object is IMetaObject metaObject)
-            {
-                if (!roleType.ObjectType.IsAssignableFrom(metaObject.ObjectType))
+                if (v == null)
                 {
-                    throw new ArgumentException($"{roleType.Name} should be assignable to {roleType.ObjectType.Name} but was a {metaObject.ObjectType.Name}");
+                    return false;
                 }
-            }
-            else
-            {
-                throw new ArgumentException($"{roleType.Name} should be an meta object but was a {@object.GetType()}");
-            }
 
-            yield return metaObject;
-        }
-    }
+                if (!roleType.ObjectType.IsAssignableFrom(v.ObjectType))
+                {
+                    throw new ArgumentException($"{roleType.Name} should be assignable to {roleType.ObjectType.Name} but was a {v.ObjectType.Name}");
+                }
+
+                return true;
+            })
+            .Cast<IMetaObject>()
+            .Distinct()
+            .ToArray();
 }
