@@ -21,9 +21,10 @@ public sealed class CoreMeta
         this.Meta = new CoreMetaMeta();
         this.MetaPopulation = this.Meta.CreateMetaPopulation();
 
-        this.AllorsCore = this.AddDomain(new Guid("74b21070-a04e-41c6-a896-902c8b04a2fd"), "AllorsCore");
-
         var m = this.Meta;
+
+        // Domain
+        this.AllorsCore = this.AddDomain(m.AllorsCore.Id, m.AllorsCore.Name);
 
         // Units
         this.Boolean = this.AddUnit(m.Boolean.Id, m.Boolean.Name);

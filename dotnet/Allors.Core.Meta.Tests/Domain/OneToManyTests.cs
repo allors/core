@@ -13,65 +13,10 @@ public class OneToManyTests
     public void AddSameAssociation()
     {
         var meta = new MetaMeta();
-        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
-        var person = meta.AddClass(Guid.NewGuid(), "Person");
-        var employees = meta.AddOneToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
-
-        var population = new MetaPopulation(meta);
-
-        var acme = population.Build(organization);
-        var jane = population.Build(person);
-        var john = population.Build(person);
-        var jenny = population.Build(person);
-
-        acme.Add(employees, jane);
-        acme.Add(employees, john);
-        acme.Add(employees, jenny);
-
-        Assert.Contains(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.Contains(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.Contains(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
-
-        Assert.Equal(acme, jane["OrganizationWhereEmployee"]);
-        Assert.Equal(acme, john["OrganizationWhereEmployee"]);
-        Assert.Equal(acme, jenny["OrganizationWhereEmployee"]);
-    }
-
-    [Fact]
-    public void AddSameAssociationParams()
-    {
-        var meta = new MetaMeta();
-        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
-        var person = meta.AddClass(Guid.NewGuid(), "Person");
-        var employees = meta.AddOneToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
-
-        var population = new MetaPopulation(meta);
-
-        var acme = population.Build(organization);
-        var jane = population.Build(person);
-        var john = population.Build(person);
-        var jenny = population.Build(person);
-
-        acme.Add(employees, jane);
-        acme.Add(employees, john);
-        acme.Add(employees, jenny);
-
-        Assert.Contains(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.Contains(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.Contains(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
-
-        Assert.Equal(acme, jane["OrganizationWhereEmployee"]);
-        Assert.Equal(acme, john["OrganizationWhereEmployee"]);
-        Assert.Equal(acme, jenny["OrganizationWhereEmployee"]);
-    }
-
-    [Fact]
-    public void AddSameAssociationArray()
-    {
-        var meta = new MetaMeta();
-        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
-        var person = meta.AddClass(Guid.NewGuid(), "Person");
-        var employees = meta.AddOneToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
+        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
+        var organization = meta.AddClass(domain, Guid.NewGuid(), "Organization");
+        var person = meta.AddClass(domain, Guid.NewGuid(), "Person");
+        var employees = meta.AddOneToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
 
@@ -97,10 +42,11 @@ public class OneToManyTests
     public void AddDifferentAssociation()
     {
         var meta = new MetaMeta();
-        var named = meta.AddInterface(Guid.NewGuid(), "Named");
-        var organization = meta.AddClass(Guid.NewGuid(), "Organization", named);
-        var person = meta.AddClass(Guid.NewGuid(), "Person", named);
-        var employees = meta.AddOneToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
+        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
+        var named = meta.AddInterface(domain, Guid.NewGuid(), "Named");
+        var organization = meta.AddClass(domain, Guid.NewGuid(), "Organization", named);
+        var person = meta.AddClass(domain, Guid.NewGuid(), "Person", named);
+        var employees = meta.AddOneToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
 
@@ -135,9 +81,10 @@ public class OneToManyTests
     public void Remove()
     {
         var meta = new MetaMeta();
-        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
-        var person = meta.AddClass(Guid.NewGuid(), "Person");
-        var employees = meta.AddOneToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
+        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
+        var organization = meta.AddClass(domain, Guid.NewGuid(), "Organization");
+        var person = meta.AddClass(domain, Guid.NewGuid(), "Person");
+        var employees = meta.AddOneToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
 
@@ -182,74 +129,13 @@ public class OneToManyTests
     }
 
     [Fact]
-    public void RemoveParams()
-    {
-        var meta = new MetaMeta();
-        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
-        var person = meta.AddClass(Guid.NewGuid(), "Person");
-        var employees = meta.AddOneToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
-
-        var population = new MetaPopulation(meta);
-
-        var acme = population.Build(organization);
-        var jane = population.Build(person);
-        var john = population.Build(person);
-        var jenny = population.Build(person);
-
-        acme.Add(employees, jane);
-        acme.Add(employees, john);
-        acme.Add(employees, jenny);
-
-        acme.Remove(employees, jane);
-        acme.Remove(employees, john);
-
-        Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.DoesNotContain(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.Contains(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
-
-        Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
-        Assert.NotEqual(acme, john["OrganizationWhereEmployee"]);
-        Assert.Equal(acme, jenny["OrganizationWhereEmployee"]);
-    }
-
-    [Fact]
-    public void RemoveArray()
-    {
-        var meta = new MetaMeta();
-        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
-        var person = meta.AddClass(Guid.NewGuid(), "Person");
-        var employees = meta.AddOneToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
-
-        var population = new MetaPopulation(meta);
-
-        var acme = population.Build(organization);
-        var jane = population.Build(person);
-        var john = population.Build(person);
-        var jenny = population.Build(person);
-
-        acme.Add(employees, jane);
-        acme.Add(employees, john);
-        acme.Add(employees, jenny);
-
-        acme.Remove(employees, jane);
-        acme.Remove(employees, john);
-
-        Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.DoesNotContain(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.Contains(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
-
-        Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
-        Assert.NotEqual(acme, john["OrganizationWhereEmployee"]);
-        Assert.Equal(acme, jenny["OrganizationWhereEmployee"]);
-    }
-
-    [Fact]
     public void RemoveAll()
     {
         var meta = new MetaMeta();
-        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
-        var person = meta.AddClass(Guid.NewGuid(), "Person");
-        var employees = meta.AddOneToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
+        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
+        var organization = meta.AddClass(domain, Guid.NewGuid(), "Organization");
+        var person = meta.AddClass(domain, Guid.NewGuid(), "Person");
+        var employees = meta.AddOneToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
 

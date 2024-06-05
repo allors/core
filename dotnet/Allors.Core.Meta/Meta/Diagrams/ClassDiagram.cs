@@ -19,7 +19,7 @@ public sealed class ClassDiagram(MetaMeta metaMeta, ClassDiagram.Config? config 
 
                    """;
 
-        var composites = metaMeta.ObjectTypeByName.Values
+        var composites = metaMeta.ObjectTypeById.Values
             .Where(v => v.Kind != MetaObjectTypeKind.Unit)
             .OrderBy(v => v.Name);
 

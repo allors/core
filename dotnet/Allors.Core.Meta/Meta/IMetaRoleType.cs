@@ -4,6 +4,8 @@ using System;
 
 public interface IMetaRoleType
 {
+    MetaDomain Domain { get; }
+
     Guid Id { get; }
 
     IMetaAssociationType AssociationType { get; }

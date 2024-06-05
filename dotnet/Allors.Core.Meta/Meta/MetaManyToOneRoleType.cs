@@ -4,14 +4,17 @@ using System;
 
 public sealed class MetaManyToOneRoleType : IMetaToOneRoleType
 {
-    internal MetaManyToOneRoleType(Guid id, MetaObjectType objectType, string singularName, string pluralName, string name)
+    internal MetaManyToOneRoleType(MetaDomain domain, Guid id, MetaObjectType objectType, string singularName, string pluralName, string name)
     {
+        this.Domain = domain;
         this.Id = id;
         this.ObjectType = objectType;
         this.SingularName = singularName;
         this.PluralName = pluralName;
         this.Name = name;
     }
+
+    public MetaDomain Domain { get; }
 
     public Guid Id { get; }
 

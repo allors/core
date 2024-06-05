@@ -12,13 +12,14 @@ public class DerivationTests
     public void Derivation()
     {
         var meta = new MetaMeta();
-        var @string = meta.AddUnit(Guid.NewGuid(), "String");
-        var @dateTime = meta.AddUnit(Guid.NewGuid(), "DateTime");
-        var person = meta.AddClass(Guid.NewGuid(), "Person");
-        var firstName = meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
-        var lastName = meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
-        var fullName = meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), person, @string, "FullName");
-        meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), person, @dateTime, "DerivedAt");
+        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
+        var @string = meta.AddUnit(domain, Guid.NewGuid(), "String");
+        var @dateTime = meta.AddUnit(domain, Guid.NewGuid(), "DateTime");
+        var person = meta.AddClass(domain, Guid.NewGuid(), "Person");
+        var firstName = meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
+        var lastName = meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
+        var fullName = meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FullName");
+        meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @dateTime, "DerivedAt");
 
         var population = new MetaPopulation(meta)
         {
@@ -61,11 +62,13 @@ public class DerivationTests
 
             var people = firstNames.Union(lastNames).Select(v => v.Key).Distinct();
 
-            foreach (MetaObject person in people)
+            foreach (IMetaObject person in people)
             {
                 // Dummy updates ...
+#pragma warning disable S1656 // Variables should not be self-assigned
                 person["FirstName"] = person["FirstName"];
                 person["LastName"] = person["LastName"];
+#pragma warning restore S1656 // Variables should not be self-assigned
 
                 person["DerivedAt"] = DateTime.Now;
 
@@ -90,7 +93,7 @@ public class DerivationTests
 
             var people = firstNames.Union(lastNames).Select(v => v.Key).Distinct();
 
-            foreach (MetaObject person in people)
+            foreach (IMetaObject person in people)
             {
                 person["FullName"] = $"{person["FullName"]} Chained";
             }

@@ -11,10 +11,11 @@ public class SnapshotTests
     public void Unit()
     {
         var meta = new MetaMeta();
-        var @string = meta.AddUnit(Guid.NewGuid(), "String");
-        var person = meta.AddClass(Guid.NewGuid(), "Person");
-        var firstName = meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
-        var lastName = meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
+        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
+        var @string = meta.AddUnit(domain, Guid.NewGuid(), "String");
+        var person = meta.AddClass(domain, Guid.NewGuid(), "Person");
+        var firstName = meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
+        var lastName = meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
 
         var population = new MetaPopulation(meta);
 
@@ -52,13 +53,14 @@ public class SnapshotTests
     public void Composites()
     {
         var meta = new MetaMeta();
-        var @string = meta.AddUnit(Guid.NewGuid(), "String");
-        var person = meta.AddClass(Guid.NewGuid(), "Person");
-        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
-        meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
-        meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
-        meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
-        var employees = meta.AddManyToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
+        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
+        var @string = meta.AddUnit(domain, Guid.NewGuid(), "String");
+        var person = meta.AddClass(domain, Guid.NewGuid(), "Person");
+        var organization = meta.AddClass(domain, Guid.NewGuid(), "Organization");
+        meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
+        meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
+        meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
+        var employees = meta.AddManyToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
 

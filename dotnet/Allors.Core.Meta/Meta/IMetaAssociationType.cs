@@ -4,6 +4,8 @@ using System;
 
 public interface IMetaAssociationType
 {
+    MetaDomain Domain { get; }
+
     Guid Id { get; }
 
     MetaObjectType ObjectType { get; }

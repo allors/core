@@ -4,8 +4,9 @@ using System;
 
 public sealed class MetaManyToManyAssociationType : IMetaManyToAssociationType
 {
-    internal MetaManyToManyAssociationType(Guid id, MetaObjectType objectType, MetaManyToManyRoleType roleType, string singularName, string pluralName, string name)
+    internal MetaManyToManyAssociationType(MetaDomain domain, Guid id, MetaObjectType objectType, MetaManyToManyRoleType roleType, string singularName, string pluralName, string name)
     {
+        this.Domain = domain;
         this.Id = id;
         this.ObjectType = objectType;
         this.RoleType = roleType;
@@ -13,6 +14,8 @@ public sealed class MetaManyToManyAssociationType : IMetaManyToAssociationType
         this.PluralName = pluralName;
         this.Name = name;
     }
+
+    public MetaDomain Domain { get; }
 
     public Guid Id { get; }
 

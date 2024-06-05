@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Allors.Core.Meta.Domain;
 using Allors.Core.Meta.Meta;
-using Allors.Core.Meta.Meta.Diagrams;
 using Xunit;
 
 public class ManyToManyTests
@@ -15,13 +14,12 @@ public class ManyToManyTests
     public void AddSingleActiveLink()
     {
         var meta = new MetaMeta();
-        var @string = meta.AddUnit(Guid.NewGuid(), "String");
-        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
-        var person = meta.AddClass(Guid.NewGuid(), "Person");
-        var name = meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
-        var (organizationWhereEmployee, employees) = meta.AddManyToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
-
-        var diagram = new ClassDiagram(meta).Render();
+        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
+        var @string = meta.AddUnit(domain, Guid.NewGuid(), "String");
+        var organization = meta.AddClass(domain, Guid.NewGuid(), "Organization");
+        var person = meta.AddClass(domain, Guid.NewGuid(), "Person");
+        var name = meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
+        var (organizationWhereEmployee, employees) = meta.AddManyToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
 
@@ -57,11 +55,12 @@ public class ManyToManyTests
     public void SetSingleActiveLink()
     {
         var meta = new MetaMeta();
-        var @string = meta.AddUnit(Guid.NewGuid(), "String");
-        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
-        var person = meta.AddClass(Guid.NewGuid(), "Person");
-        var name = meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
-        var employees = meta.AddManyToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
+        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
+        var @string = meta.AddUnit(domain, Guid.NewGuid(), "String");
+        var organization = meta.AddClass(domain, Guid.NewGuid(), "Organization");
+        var person = meta.AddClass(domain, Guid.NewGuid(), "Person");
+        var name = meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
+        var employees = meta.AddManyToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
 
@@ -134,11 +133,12 @@ public class ManyToManyTests
     public void RemoveSingleActiveLink()
     {
         var meta = new MetaMeta();
-        var @string = meta.AddUnit(Guid.NewGuid(), "String");
-        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
-        var person = meta.AddClass(Guid.NewGuid(), "Person");
-        meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
-        var employees = meta.AddManyToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
+        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
+        var @string = meta.AddUnit(domain, Guid.NewGuid(), "String");
+        var organization = meta.AddClass(domain, Guid.NewGuid(), "Organization");
+        var person = meta.AddClass(domain, Guid.NewGuid(), "Person");
+        meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
+        var employees = meta.AddManyToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
 
@@ -195,11 +195,12 @@ public class ManyToManyTests
     public void MultipleActiveLinks()
     {
         var meta = new MetaMeta();
-        var @string = meta.AddUnit(Guid.NewGuid(), "String");
-        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
-        var person = meta.AddClass(Guid.NewGuid(), "Person");
-        meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
-        var employees = meta.AddManyToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
+        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
+        var @string = meta.AddUnit(domain, Guid.NewGuid(), "String");
+        var organization = meta.AddClass(domain, Guid.NewGuid(), "Organization");
+        var person = meta.AddClass(domain, Guid.NewGuid(), "Person");
+        meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
+        var employees = meta.AddManyToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var population = new MetaPopulation(meta);
 
@@ -285,11 +286,12 @@ public class ManyToManyTests
     public void DefaultRoleName()
     {
         var meta = new MetaMeta();
-        var @string = meta.AddUnit(Guid.NewGuid(), "String");
-        var organization = meta.AddClass(Guid.NewGuid(), "Organization");
-        var person = meta.AddClass(Guid.NewGuid(), "Person");
-        meta.AddUnit(Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
-        var people = meta.AddManyToMany(Guid.NewGuid(), Guid.NewGuid(), organization, person);
+        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
+        var @string = meta.AddUnit(domain, Guid.NewGuid(), "String");
+        var organization = meta.AddClass(domain, Guid.NewGuid(), "Organization");
+        var person = meta.AddClass(domain, Guid.NewGuid(), "Person");
+        meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
+        var people = meta.AddManyToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person);
 
         var population = new MetaPopulation(meta);
 

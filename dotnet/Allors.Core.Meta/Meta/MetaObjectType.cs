@@ -14,9 +14,10 @@ public sealed class MetaObjectType
     private IDictionary<string, IMetaRoleType>? derivedRoleTypeByName;
     private HashSet<MetaObjectType>? derivedSupertypes;
 
-    internal MetaObjectType(MetaMeta meta, MetaObjectTypeKind kind, Guid id, string name)
+    internal MetaObjectType(MetaDomain domain, MetaObjectTypeKind kind, Guid id, string name)
     {
-        this.Meta = meta;
+        this.Meta = domain.Meta;
+        this.Domain = domain;
         this.Kind = kind;
         this.Id = id;
         this.Name = name;
@@ -27,14 +28,16 @@ public sealed class MetaObjectType
         this.Meta.ResetDerivations();
     }
 
-    internal MetaObjectType(MetaMeta meta, MetaObjectTypeKind kind, Guid id, Type type)
-        : this(meta, kind, id, type.Name)
+    internal MetaObjectType(MetaDomain domain, MetaObjectTypeKind kind, Guid id, Type type)
+        : this(domain, kind, id, type.Name)
     {
         this.Type = type;
         this.TypeCode = Type.GetTypeCode(type);
     }
 
     public MetaMeta Meta { get; }
+
+    public MetaDomain Domain { get; }
 
     public MetaObjectTypeKind Kind { get; set; }
 
@@ -116,12 +119,13 @@ public sealed class MetaObjectType
         return this == other || other.Supertypes.Contains(this);
     }
 
-    internal MetaUnitRoleType AddUnit(Guid associationTypeId, Guid roleTypeId, MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
+    internal MetaUnitRoleType AddUnit(MetaDomain domain, Guid associationTypeId, Guid roleTypeId, MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
     {
         roleSingularName ??= objectType.Name;
         var rolePluralName = this.Meta.Pluralize(roleSingularName);
 
         var roleType = new MetaUnitRoleType(
+            domain,
             roleTypeId,
             objectType,
             roleSingularName,
@@ -140,6 +144,7 @@ public sealed class MetaObjectType
         }
 
         roleType.AssociationType = new MetaUnitAssociationType(
+            domain,
             associationTypeId,
             this,
             roleType,
@@ -155,12 +160,13 @@ public sealed class MetaObjectType
         return roleType;
     }
 
-    internal MetaOneToOneRoleType AddOneToOne(Guid associationTypeId, Guid roleTypeId, MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
+    internal MetaOneToOneRoleType AddOneToOne(MetaDomain domain, Guid associationTypeId, Guid roleTypeId, MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
     {
         roleSingularName ??= objectType.Name;
         var rolePluralName = this.Meta.Pluralize(roleSingularName);
 
         var roleType = new MetaOneToOneRoleType(
+            domain,
             roleTypeId,
             objectType,
             roleSingularName,
@@ -179,6 +185,7 @@ public sealed class MetaObjectType
         }
 
         roleType.AssociationType = new MetaOneToOneAssociationType(
+            domain,
             associationTypeId,
             this,
             roleType,
@@ -194,12 +201,13 @@ public sealed class MetaObjectType
         return roleType;
     }
 
-    internal MetaManyToOneRoleType AddManyToOne(Guid associationTypeId, Guid roleTypeId, MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
+    internal MetaManyToOneRoleType AddManyToOne(MetaDomain domain, Guid associationTypeId, Guid roleTypeId, MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
     {
         roleSingularName ??= objectType.Name;
         var rolePluralName = this.Meta.Pluralize(roleSingularName);
 
         var roleType = new MetaManyToOneRoleType(
+            domain,
             roleTypeId,
             objectType,
             roleSingularName,
@@ -218,6 +226,7 @@ public sealed class MetaObjectType
         }
 
         roleType.AssociationType = new MetaManyToOneAssociationType(
+            domain,
             associationTypeId,
             this,
             roleType,
@@ -233,12 +242,13 @@ public sealed class MetaObjectType
         return roleType;
     }
 
-    internal MetaOneToManyRoleType AddOneToMany(Guid associationTypeId, Guid roleTypeId, MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
+    internal MetaOneToManyRoleType AddOneToMany(MetaDomain domain, Guid associationTypeId, Guid roleTypeId, MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
     {
         roleSingularName ??= objectType.Name;
         var rolePluralName = this.Meta.Pluralize(roleSingularName);
 
         var roleType = new MetaOneToManyRoleType(
+            domain,
             roleTypeId,
             objectType,
             roleSingularName,
@@ -257,6 +267,7 @@ public sealed class MetaObjectType
         }
 
         roleType.AssociationType = new MetaOneToManyAssociationType(
+            domain,
             associationTypeId,
             this,
             roleType,
@@ -272,12 +283,13 @@ public sealed class MetaObjectType
         return roleType;
     }
 
-    internal MetaManyToManyRoleType AddManyToMany(Guid associationTypeId, Guid roleTypeId, MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
+    internal MetaManyToManyRoleType AddManyToMany(MetaDomain domain, Guid associationTypeId, Guid roleTypeId, MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
     {
         roleSingularName ??= objectType.Name;
         var rolePluralName = this.Meta.Pluralize(roleSingularName);
 
         var roleType = new MetaManyToManyRoleType(
+            domain,
             roleTypeId,
             objectType,
             roleSingularName,
@@ -296,6 +308,7 @@ public sealed class MetaObjectType
         }
 
         roleType.AssociationType = new MetaManyToManyAssociationType(
+            domain,
             associationTypeId,
             this,
             roleType,

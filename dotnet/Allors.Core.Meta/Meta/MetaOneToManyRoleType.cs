@@ -4,14 +4,17 @@ using System;
 
 public sealed class MetaOneToManyRoleType : IMetaToManyRoleType
 {
-    internal MetaOneToManyRoleType(Guid id, MetaObjectType objectType, string singularName, string pluralName, string name)
+    internal MetaOneToManyRoleType(MetaDomain domain, Guid id, MetaObjectType objectType, string singularName, string pluralName, string name)
     {
+        this.Domain = domain;
         this.Id = id;
         this.ObjectType = objectType;
         this.SingularName = singularName;
         this.PluralName = pluralName;
         this.Name = name;
     }
+
+    public MetaDomain Domain { get; }
 
     public Guid Id { get; }
 

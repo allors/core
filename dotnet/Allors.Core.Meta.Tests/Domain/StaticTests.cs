@@ -12,9 +12,10 @@ public class StaticTests
     public void C1C2OneToOne()
     {
         var meta = new MetaMeta();
-        var c1 = meta.AddClass<C1>(Guid.NewGuid());
-        var c2 = meta.AddClass<C2>(Guid.NewGuid());
-        var c1C2OneToOne = meta.AddOneToOne(Guid.NewGuid(), Guid.NewGuid(), c1, c2, "C2OneToOne");
+        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
+        var c1 = meta.AddClass<C1>(domain, Guid.NewGuid());
+        var c2 = meta.AddClass<C2>(domain, Guid.NewGuid());
+        var c1C2OneToOne = meta.AddOneToOneRelation(domain, Guid.NewGuid(), Guid.NewGuid(), c1, c2, "C2OneToOne");
 
         var population = new MetaPopulation(meta);
 
