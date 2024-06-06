@@ -43,9 +43,8 @@ public class Database : IDatabase
         {
             var commitTransaction = new Transaction(transaction);
 
-            foreach (var kvp in transaction.InstantiatedObjectByObjectId)
+            foreach (var @object in transaction.InstantiatedObjectByObjectId.Values)
             {
-                var @object = kvp.Value;
                 @object.Commit(commitTransaction);
             }
 

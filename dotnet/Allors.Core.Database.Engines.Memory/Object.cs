@@ -1079,7 +1079,7 @@ public class Object : IObject
     {
         var composite = roleType.Composite;
 
-        if (objects.Any(@object => !composite.IsAssignableFrom(@object.Class)))
+        if (Array.Exists(objects, @object => !composite.IsAssignableFrom(@object.Class)))
         {
             throw new ArgumentException($"{roleType} should be assignable to {composite.SingularName}");
         }

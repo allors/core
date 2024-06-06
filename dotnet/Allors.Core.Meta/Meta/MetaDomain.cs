@@ -8,6 +8,7 @@ public sealed class MetaDomain
     private readonly Dictionary<Guid, MetaObjectType> objectTypeById;
     private readonly Dictionary<Guid, IMetaAssociationType> associationTypeById;
     private readonly Dictionary<Guid, IMetaRoleType> roleTypeById;
+    private readonly Dictionary<Guid, MetaInheritance> inheritanceById;
 
     public MetaDomain(MetaMeta meta, Guid id, string name)
     {
@@ -18,6 +19,7 @@ public sealed class MetaDomain
         this.objectTypeById = [];
         this.associationTypeById = [];
         this.roleTypeById = [];
+        this.inheritanceById = [];
     }
 
     public IReadOnlyDictionary<Guid, MetaObjectType> ObjectTypeById => this.objectTypeById;
@@ -41,5 +43,10 @@ public sealed class MetaDomain
     {
         this.roleTypeById.Add(roleType.Id, roleType);
         this.associationTypeById.Add(roleType.AssociationType.Id, roleType.AssociationType);
+    }
+
+    internal void Add(MetaInheritance inheritance)
+    {
+        this.inheritanceById.Add(inheritance.Id, inheritance);
     }
 }

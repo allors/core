@@ -481,8 +481,7 @@ public class OneToOneTests
         {
             var database = this.CreatePopulation();
 
-            var (association, role, builders, fromBuilder, fromAnotherBuilder, toBuilder, toAnotherBuilder) =
-                fixture();
+            var (association, role, builders, _, _, _, _) = fixture();
 
             if (builders.Length == 1)
             {

@@ -1,7 +1,6 @@
 ﻿namespace Allors.Core.Database.Engines.Tests;
 
 using System;
-using FluentAssertions;
 using Xunit;
 
 public abstract class UnitTests : Tests
@@ -41,81 +40,18 @@ public abstract class UnitTests : Tests
     [Fact]
     public void String()
     {
-        var database = this.CreateDatabase();
-        var transaction = database.CreateTransaction();
-
-        var c1a = transaction.Build(this.Meta.C1);
-
-        c1a[this.Meta.I1AllorsString] = "A string";
-
-        Assert.Equal("A string", c1a[this.Meta.I1AllorsString]);
-    }
-
-    [Fact]
-    public void CheckIsLegalValue()
-    {
         foreach (var (_, preact) in this.preActs)
         {
             var database = this.CreateDatabase();
             var transaction = database.CreateTransaction();
 
-            var m = this.Meta;
-
-            var c1a = transaction.Build(m.C1);
-            var c1b = transaction.Build(m.C1);
-
-            // Illegal Role
-            /*
-            preact(transaction);
-
-            c1a.Invoking(v => v[m.C1AllorsBoolean] = "Oops")
-                .Should().Throw<ArgumentException>();
+            var c1a = transaction.Build(this.Meta.C1);
 
             preact(transaction);
 
-            c1a.Invoking(v => v[m.C1AllorsBoolean] = c1b)
-                .Should().Throw<ArgumentException>();
+            c1a[this.Meta.I1AllorsString] = "A string";
 
-            preact(transaction);
-
-            c1a.Invoking(v => v[m.C1AllorsDecimal] = "Oops")
-                .Should().Throw<ArgumentException>();
-
-            preact(transaction);
-
-            c1a.Invoking(v => v[m.C1AllorsDecimal] = c1b)
-                .Should().Throw<ArgumentException>();
-
-            preact(transaction);
-
-            c1a.Invoking(v => v[m.C1AllorsDouble] = 0.01m)
-                .Should().Throw<ArgumentException>();
-
-            preact(transaction);
-
-            c1a.Invoking(v => v[m.C1AllorsDouble] = "Oops")
-                .Should().Throw<ArgumentException>();
-
-            preact(transaction);
-
-            c1a.Invoking(v => v[m.C1AllorsDouble] = c1b)
-                .Should().Throw<ArgumentException>();
-
-            preact(transaction);
-
-            c1a.Invoking(v => v[m.C1AllorsInteger] = 0L)
-                .Should().Throw<ArgumentException>();
-
-            preact(transaction);
-
-            c1a.Invoking(v => v[m.C1AllorsInteger] = "Oops")
-                .Should().Throw<ArgumentException>();
-
-            preact(transaction);
-
-            c1a.Invoking(v => v[m.C1AllorsInteger] = c1b)
-                .Should().Throw<ArgumentException>();
-            */
+            Assert.Equal("A string", c1a[this.Meta.I1AllorsString]);
         }
     }
 

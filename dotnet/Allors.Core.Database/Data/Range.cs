@@ -14,8 +14,6 @@ using System.Linq;
 /// </summary>
 public record Range : IExtent
 {
-    private int? hashCode;
-
     /// <summary>
     /// The objects.
     /// </summary>
@@ -33,7 +31,7 @@ public record Range : IExtent
     /// <inheritdoc />
     public override int GetHashCode()
     {
-        return this.hashCode ??= this.Objects
+        return this.Objects
             .OrderBy(v => v)
             .Aggregate(0, (acc, v) => HashCode.Combine(acc, v.GetHashCode()));
     }

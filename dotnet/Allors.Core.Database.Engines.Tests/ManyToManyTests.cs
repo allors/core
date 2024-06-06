@@ -387,6 +387,7 @@ public abstract class ManyToManyTests : Tests
         }
     }
 
+#pragma warning disable S1144 // Unused private types or members should be removed
     private void FromFromAnotherToToAnother(
         Func<IEnumerable<Action<ManyToManyAssociationType, ManyToManyRoleType, IObject, IObject, IObject, IObject>>> acts,
         Func<IEnumerable<Action<ManyToManyAssociationType, ManyToManyRoleType, IObject, IObject, IObject, IObject>>> asserts)
@@ -444,4 +445,5 @@ public abstract class ManyToManyTests : Tests
             }
         }
     }
+#pragma warning restore S1144 // Unused private types or members should be removed
 }

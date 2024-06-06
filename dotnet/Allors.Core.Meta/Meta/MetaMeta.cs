@@ -10,6 +10,7 @@ public sealed class MetaMeta
     private readonly Dictionary<string, MetaObjectType> objectTypeByName;
     private readonly Dictionary<Guid, IMetaAssociationType> associationTypeById;
     private readonly Dictionary<Guid, IMetaRoleType> roleTypeById;
+    private readonly Dictionary<Guid, MetaInheritance> inheritanceById;
 
     public MetaMeta()
     {
@@ -18,6 +19,7 @@ public sealed class MetaMeta
         this.objectTypeByName = [];
         this.associationTypeById = [];
         this.roleTypeById = [];
+        this.inheritanceById = [];
     }
 
     public IReadOnlyDictionary<Guid, MetaDomain> DomainById => this.domainById;
@@ -120,6 +122,16 @@ public sealed class MetaMeta
         return role;
     }
 
+    public MetaInheritance AddInheritance(MetaDomain domain, Guid id, MetaObjectType subtype, MetaObjectType supertype)
+    {
+        var inheritance = new MetaInheritance(domain, id, subtype, supertype);
+
+        subtype.AddDirectSupertype(supertype);
+
+        this.Add(inheritance);
+        return inheritance;
+    }
+
     internal string Pluralize(string singular)
     {
         static bool EndsWith(string word, string ending) => word.EndsWith(ending, StringComparison.InvariantCultureIgnoreCase);
@@ -188,5 +200,13 @@ public sealed class MetaMeta
 
         var domain = roleType.Domain;
         domain.Add(roleType);
+    }
+
+    private void Add(MetaInheritance inheritance)
+    {
+        this.inheritanceById.Add(inheritance.Id, inheritance);
+
+        var domain = inheritance.Domain;
+        domain.Add(inheritance);
     }
 }

@@ -1,23 +1,28 @@
 ﻿namespace Allors.Core.Meta.Meta.Diagrams;
 
 using System.Linq;
+using System.Text;
 
 public sealed class ClassDiagram(MetaMeta metaMeta, ClassDiagram.Config? config = null)
 {
     public string Render()
     {
-        var diagram = config?.Title != null ?
-            $"""
+        var diagram = new StringBuilder();
+
+        if (config?.Title != null)
+        {
+            diagram.Append($"""
              ---
              title: {config.Title}
              ---
 
-             """ : string.Empty;
+             """);
+        }
 
-        diagram += """
+        diagram.Append("""
                    classDiagram
 
-                   """;
+                   """);
 
         var composites = metaMeta.ObjectTypeById.Values
             .Where(v => v.Kind != MetaObjectTypeKind.Unit)
@@ -25,12 +30,12 @@ public sealed class ClassDiagram(MetaMeta metaMeta, ClassDiagram.Config? config 
 
         foreach (var composite in composites)
         {
-            diagram += $"    class {composite.Name}\r\n";
+            diagram.AppendLine($"    class {composite.Name}");
 
             var directSuperTypes = composite.DirectSupertypes;
             foreach (var directSuperType in directSuperTypes)
             {
-                diagram += $"    {directSuperType.Name} <|-- {composite.Name}\r\n";
+                diagram.AppendLine($"    {directSuperType.Name} <|-- {composite.Name}");
             }
 
             var declaredRoleTypes = composite.DeclaredRoleTypeByName.Values.OrderBy(v => v.Name);
@@ -38,7 +43,7 @@ public sealed class ClassDiagram(MetaMeta metaMeta, ClassDiagram.Config? config 
             {
                 if (roleType is MetaUnitRoleType)
                 {
-                    diagram += $"    {composite.Name} : {roleType.ObjectType.Name} {roleType.Name}\r\n";
+                    diagram.AppendLine($"    {composite.Name} : {roleType.ObjectType.Name} {roleType.Name}");
                 }
                 else if (roleType is IMetaCompositeRoleType compositeRoleType && roleType.AssociationType is IMetaCompositeAssociationType compositeAssociationType)
                 {
@@ -58,12 +63,12 @@ public sealed class ClassDiagram(MetaMeta metaMeta, ClassDiagram.Config? config 
                         roleTypeMultiplicity = $" \"{roleTypeMultiplicity}\"";
                     }
 
-                    diagram += $"    {composite.Name} {associationTypeMultiplicity}o--{roleTypeMultiplicity} {roleType.ObjectType.Name} : {roleType.Name}\r\n";
+                    diagram.AppendLine($"    {composite.Name} {associationTypeMultiplicity}o--{roleTypeMultiplicity} {roleType.ObjectType.Name} : {roleType.Name}");
                 }
             }
         }
 
-        return diagram;
+        return diagram.ToString();
     }
 
     public sealed record Config

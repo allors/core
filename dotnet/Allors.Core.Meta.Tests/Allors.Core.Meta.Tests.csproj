@@ -6,7 +6,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <IsPackable>false</IsPackable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <NoWarn>CS1573;CS1591;</NoWarn>
+    <NoWarn>CS1573;CS1591;S1135;S125;</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

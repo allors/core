@@ -837,7 +837,7 @@ public abstract class OneToOneTests : Tests
             var database = this.CreateDatabase();
             var transaction = database.CreateTransaction();
 
-            var (association, role, builders, fromBuilder, fromAnotherBuilder, toBuilder, toAnotherBuilder) = fixture();
+            var (association, role, builders, _, _, _, _) = fixture();
 
             if (builders.Length == 1)
             {

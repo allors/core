@@ -108,15 +108,15 @@ public sealed class MetaObjectType
 
     public override string ToString() => this.Name;
 
-    public void AddDirectSupertype(MetaObjectType directSupertype)
-    {
-        this.directSupertypes.Add(directSupertype);
-        this.Meta.ResetDerivations();
-    }
-
     public bool IsAssignableFrom(MetaObjectType other)
     {
         return this == other || other.Supertypes.Contains(this);
+    }
+
+    internal void AddDirectSupertype(MetaObjectType directSupertype)
+    {
+        this.directSupertypes.Add(directSupertype);
+        this.Meta.ResetDerivations();
     }
 
     internal MetaUnitRoleType AddUnit(MetaDomain domain, Guid associationTypeId, Guid roleTypeId, MetaObjectType objectType, string? roleSingularName, string? associationSingularName)

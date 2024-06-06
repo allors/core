@@ -56,11 +56,12 @@ public class ClassDiagramTests
     {
         var meta = new MetaMeta();
         var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
+
         var internalOrganization = meta.AddClass(domain, Guid.NewGuid(), "InternalOrganization");
         var organization = meta.AddClass(domain, Guid.NewGuid(), "Organization");
         var person = meta.AddClass(domain, Guid.NewGuid(), "Person");
 
-        organization.AddDirectSupertype(internalOrganization);
+        meta.AddInheritance(domain, Guid.NewGuid(), organization, internalOrganization);
 
         meta.AddOneToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), internalOrganization, person, "Employee");
         meta.AddOneToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Customer");

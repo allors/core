@@ -40,7 +40,7 @@ public abstract class LifeCycleTests : Tests
             var database = this.CreateDatabase();
             var transaction = database.CreateTransaction();
 
-            var (association, role, builders, _, _, _, _) = fixture();
+            var (_, _, builders, _, _, _, _) = fixture();
 
             var objects = builders.Select(v => v(transaction)).ToArray();
 

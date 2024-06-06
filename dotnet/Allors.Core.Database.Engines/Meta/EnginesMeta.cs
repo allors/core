@@ -20,7 +20,6 @@ public sealed class EnginesMeta
     public EnginesMeta(CoreMeta coreMeta)
     {
         this.CoreMeta = coreMeta;
-        var m = this.CoreMeta.Meta;
 
         this.mapping = this.CoreMeta.MetaPopulation.Objects
             .Select(v =>
