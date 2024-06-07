@@ -94,6 +94,7 @@ public sealed class CoreMeta
         (_, this.DecimalRoleTypeDerivedScale) = this.AddIntegerRelation(m.DecimalRoleTypeDerivedScale);
 
         (_, this.DomainName) = this.AddStringRelation(m.DomainName);
+        (_, this.DomainSuperdomains) = this.AddManyToManyRelation(m.DomainSuperdomains);
         (_, this.DomainTypes) = this.AddManyToManyRelation(m.DomainTypes);
 
         (_, this.InheritanceSubtype) = this.AddManyToOneRelation(m.InheritanceSubtype);
@@ -189,6 +190,11 @@ public sealed class CoreMeta
     /// The name of a domain.
     /// </summary>
     public StringRoleType DomainName { get; init; }
+
+    /// <summary>
+    /// The super domains of a domain.
+    /// </summary>
+    public ManyToManyRoleType DomainSuperdomains { get; init; }
 
     /// <summary>
     /// The types of a domain.

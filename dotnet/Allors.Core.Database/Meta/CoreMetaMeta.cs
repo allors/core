@@ -130,6 +130,7 @@ public sealed class CoreMetaMeta
         this.DecimalRoleTypeDerivedScale = m.AddUnitRelation(d, new Guid("ebb42e88-b2c0-48ba-8865-67e86ef6d84e"), new Guid("d8f2c868-d9c9-4ea7-90f6-1cd043c2e9d8"), this.DecimalRoleType, this.Integer, "DerivedScale");
 
         this.DomainName = m.AddUnitRelation(d, new Guid("1dd008c4-755e-4f84-b52f-360afaf1a6cd"), new Guid("2b42b7b2-5ebc-42f6-9614-2e0f3a95c718"), this.Domain, this.String, "Name");
+        this.DomainSuperdomains = m.AddManyToManyRelation(d, new Guid("ae8311c8-75ea-426e-ad50-3f400accb264"), new Guid("25297ff9-2bc6-49a7-9409-46369388e6d7"), this.Domain, this.Domain, "Superdomain");
         this.DomainTypes = m.AddManyToManyRelation(d, new Guid("93dcadad-f9e0-402a-bd4f-d150df5f5c26"), new Guid("57696f40-878b-4bbc-ad4f-d77f4b34ee09"), this.Domain, this.Type);
 
         this.InheritanceSubtype = m.AddManyToOneRelation(d, new Guid("e2cd96af-a436-439c-b02b-ecf23f19a96f"), new Guid("a9bac7e2-ccaa-4ff9-bcbb-401770e139b4"), this.Inheritance, this.Composite, "Subtype");
@@ -208,6 +209,11 @@ public sealed class CoreMetaMeta
     /// The name of a domain.
     /// </summary>
     public MetaUnitRoleType DomainName { get; init; }
+
+    /// <summary>
+    /// The super domains of a domain.
+    /// </summary>
+    public MetaManyToManyRoleType DomainSuperdomains { get; init; }
 
     /// <summary>
     /// The types of a domain.
