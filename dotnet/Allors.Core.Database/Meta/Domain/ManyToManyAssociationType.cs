@@ -1,7 +1,7 @@
 ﻿namespace Allors.Core.Database.Meta.Domain;
 
 using Allors.Core.Meta;
-using Allors.Core.Meta.Meta;
+using Allors.Core.MetaMeta;
 
 /// <summary>
 /// An association type handle with multiplicity many to many.

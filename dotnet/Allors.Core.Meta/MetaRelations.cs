@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Allors.Core.Meta.Meta;
+using Allors.Core.MetaMeta;
 
 internal sealed class MetaRelations
 {

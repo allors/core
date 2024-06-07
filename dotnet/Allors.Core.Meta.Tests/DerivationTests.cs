@@ -3,7 +3,7 @@
 using System;
 using System.Linq;
 using Allors.Core.Meta;
-using Allors.Core.Meta.Meta;
+using Allors.Core.MetaMeta;
 using Xunit;
 
 public class DerivationTests

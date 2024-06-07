@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Allors.Core.Meta.Meta;
+using Allors.Core.MetaMeta;
 
 public sealed class MetaChangeSet(
     IReadOnlySet<IMetaObject> newObjects,

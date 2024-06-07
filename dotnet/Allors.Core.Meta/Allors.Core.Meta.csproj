@@ -47,4 +47,8 @@
     <AdditionalFiles Include="../stylecop.json" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Allors.Core.MetaMeta\Allors.Core.MetaMeta.csproj" />
+  </ItemGroup>
+
 </Project>

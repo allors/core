@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Globalization;
 using System.Linq;
-using Allors.Core.Meta.Meta;
+using Allors.Core.MetaMeta;
 
 public sealed class MetaPopulation(MetaMeta meta)
 {

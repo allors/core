@@ -3,7 +3,7 @@
 using System.Linq;
 using Allors.Core.Database.Meta;
 using Allors.Core.Database.Meta.Domain;
-using Allors.Core.Meta.Meta.Diagrams;
+using Allors.Core.MetaMeta.Diagrams;
 using Xunit;
 
 public class CoreMetaTests

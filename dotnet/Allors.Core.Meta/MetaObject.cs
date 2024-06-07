@@ -2,7 +2,7 @@
 
 using System;
 using System.Collections.Generic;
-using Allors.Core.Meta.Meta;
+using Allors.Core.MetaMeta;
 
 public class MetaObject(MetaPopulation population, MetaObjectType objectType)
     : IMetaObject

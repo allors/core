@@ -1,19 +1,18 @@
-﻿namespace Allors.Core.Database.Meta.Domain
-{
-    using Allors.Core.Meta;
-    using Allors.Core.Meta.Meta;
+﻿namespace Allors.Core.Database.Meta.Domain;
 
+using Allors.Core.Meta;
+using Allors.Core.MetaMeta;
+
+/// <summary>
+/// A role type handle with multiplicity one to many.
+/// </summary>
+public sealed class OneToManyRoleType : MetaObject, IToManyRoleType
+{
     /// <summary>
-    /// A role type handle with multiplicity one to many.
+    /// Initializes a new instance of the <see cref="OneToManyRoleType"/> class.
     /// </summary>
-    public sealed class OneToManyRoleType : MetaObject, IToManyRoleType
+    public OneToManyRoleType(MetaPopulation population, MetaObjectType objectType)
+        : base(population, objectType)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OneToManyRoleType"/> class.
-        /// </summary>
-        public OneToManyRoleType(MetaPopulation population, MetaObjectType objectType)
-            : base(population, objectType)
-        {
-        }
     }
 }

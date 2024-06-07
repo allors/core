@@ -1,7 +1,7 @@
 ﻿namespace Allors.Core.Meta;
 
 using System.Collections.Generic;
-using Allors.Core.Meta.Meta;
+using Allors.Core.MetaMeta;
 
 public interface IMetaObject
 {

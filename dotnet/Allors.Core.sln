@@ -21,6 +21,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Allors.Core.Database.Engine
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Allors.Core.Database.Engines.Tests", "Allors.Core.Database.Engines.Tests\Allors.Core.Database.Engines.Tests.csproj", "{E901F3EC-7DDD-449C-B3CA-E4DAF383F777}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Allors.Core.MetaMeta", "Allors.Core.MetaMeta\Allors.Core.MetaMeta.csproj", "{76EE493F-D93C-4DD3-9D2C-4C501CAA06A0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Allors.Core.MetaMeta.Tests", "Allors.Core.MetaMeta.Tests\Allors.Core.MetaMeta.Tests.csproj", "{D6458A0B-34D8-4ABB-B8F8-72BFD7364FF2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +65,14 @@ Global
 		{E901F3EC-7DDD-449C-B3CA-E4DAF383F777}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E901F3EC-7DDD-449C-B3CA-E4DAF383F777}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E901F3EC-7DDD-449C-B3CA-E4DAF383F777}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76EE493F-D93C-4DD3-9D2C-4C501CAA06A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76EE493F-D93C-4DD3-9D2C-4C501CAA06A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76EE493F-D93C-4DD3-9D2C-4C501CAA06A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76EE493F-D93C-4DD3-9D2C-4C501CAA06A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6458A0B-34D8-4ABB-B8F8-72BFD7364FF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6458A0B-34D8-4ABB-B8F8-72BFD7364FF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6458A0B-34D8-4ABB-B8F8-72BFD7364FF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6458A0B-34D8-4ABB-B8F8-72BFD7364FF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

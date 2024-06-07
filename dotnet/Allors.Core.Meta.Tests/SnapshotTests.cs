@@ -2,7 +2,7 @@
 
 using System;
 using Allors.Core.Meta;
-using Allors.Core.Meta.Meta;
+using Allors.Core.MetaMeta;
 using Xunit;
 
 public class SnapshotTests
