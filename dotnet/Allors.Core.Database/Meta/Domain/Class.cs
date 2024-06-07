@@ -11,8 +11,8 @@ public sealed class Class : MetaObject, IComposite
     /// <summary>
     /// Initializes a new instance of the <see cref="Class"/> class.
     /// </summary>
-    public Class(MetaPopulation population, MetaObjectType objectType)
-        : base(population, objectType)
+    public Class(Meta meta, MetaObjectType objectType)
+        : base(meta, objectType)
     {
     }
 

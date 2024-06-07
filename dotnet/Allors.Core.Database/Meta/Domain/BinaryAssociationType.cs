@@ -11,8 +11,8 @@ public sealed class BinaryAssociationType : MetaObject, IUnitAssociationType
     /// <summary>
     /// Initializes a new instance of the <see cref="BinaryAssociationType"/> class.
     /// </summary>
-    public BinaryAssociationType(MetaPopulation population, MetaObjectType objectType)
-        : base(population, objectType)
+    public BinaryAssociationType(Meta meta, MetaObjectType objectType)
+        : base(meta, objectType)
     {
     }
 }

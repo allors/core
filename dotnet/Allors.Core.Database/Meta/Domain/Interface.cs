@@ -11,8 +11,8 @@ public sealed class Interface : MetaObject, IComposite
     /// <summary>
     /// Initializes a new instance of the <see cref="Interface"/> class.
     /// </summary>
-    public Interface(MetaPopulation population, MetaObjectType objectType)
-        : base(population, objectType)
+    public Interface(Meta meta, MetaObjectType objectType)
+        : base(meta, objectType)
     {
     }
 

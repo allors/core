@@ -11,18 +11,18 @@ public class DerivationOverrideTests
     [Fact]
     public void Derivation()
     {
-        var meta = new MetaMeta();
-        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
-        var @string = meta.AddUnit(domain, Guid.NewGuid(), "String");
-        var @dateTime = meta.AddUnit(domain, Guid.NewGuid(), "DateTime");
-        var person = meta.AddClass(domain, Guid.NewGuid(), "Person");
-        var firstName = meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
-        var lastName = meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
-        var fullName = meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FullName");
-        meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, dateTime, "DerivedAt");
-        meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "Greeting");
+        var metaMeta = new MetaMeta();
+        var domain = metaMeta.AddDomain(Guid.NewGuid(), "Domain");
+        var @string = metaMeta.AddUnit(domain, Guid.NewGuid(), "String");
+        var @dateTime = metaMeta.AddUnit(domain, Guid.NewGuid(), "DateTime");
+        var person = metaMeta.AddClass(domain, Guid.NewGuid(), "Person");
+        var firstName = metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
+        var lastName = metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
+        var fullName = metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FullName");
+        metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, dateTime, "DerivedAt");
+        metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "Greeting");
 
-        var population = new MetaPopulation(meta)
+        var meta = new Meta(metaMeta)
         {
             DerivationById =
             {
@@ -31,11 +31,11 @@ public class DerivationOverrideTests
             },
         };
 
-        var john = population.Build(person);
+        var john = meta.Build(person);
         john["FirstName"] = "John";
         john["LastName"] = "Doe";
 
-        population.Derive();
+        meta.Derive();
 
         Assert.Equal("Hello John Doe!", john["Greeting"]);
     }

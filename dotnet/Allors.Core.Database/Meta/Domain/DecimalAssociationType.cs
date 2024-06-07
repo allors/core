@@ -11,8 +11,8 @@ public sealed class DecimalAssociationType : MetaObject, IUnitAssociationType
     /// <summary>
     /// Initializes a new instance of the <see cref="DecimalAssociationType"/> class.
     /// </summary>
-    public DecimalAssociationType(MetaPopulation population, MetaObjectType objectType)
-        : base(population, objectType)
+    public DecimalAssociationType(Meta meta, MetaObjectType objectType)
+        : base(meta, objectType)
     {
     }
 }

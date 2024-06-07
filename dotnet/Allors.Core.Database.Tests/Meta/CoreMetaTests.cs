@@ -12,7 +12,7 @@ public class CoreMetaTests
     public void Diagram()
     {
         var coreMeta = new CoreMeta();
-        var diagram = new ClassDiagram(coreMeta.Meta.MetaMeta).Render();
+        var diagram = new ClassDiagram(coreMeta.MetaMeta.MetaMeta).Render();
 
         Assert.NotNull(diagram);
     }
@@ -22,14 +22,14 @@ public class CoreMetaTests
     {
         var coreMeta = new CoreMeta();
 
-        var domains = coreMeta.MetaPopulation.Objects.OfType<Domain>().ToArray();
-        var units = coreMeta.MetaPopulation.Objects.OfType<Unit>().ToArray();
-        var interfaces = coreMeta.MetaPopulation.Objects.OfType<Interface>().ToArray();
-        var classes = coreMeta.MetaPopulation.Objects.OfType<Class>().ToArray();
-        var associationTypes = coreMeta.MetaPopulation.Objects.OfType<IAssociationType>().ToArray();
-        var roleTypes = coreMeta.MetaPopulation.Objects.OfType<IRoleType>().ToArray();
+        var domains = coreMeta.Meta.Objects.OfType<Domain>().ToArray();
+        var units = coreMeta.Meta.Objects.OfType<Unit>().ToArray();
+        var interfaces = coreMeta.Meta.Objects.OfType<Interface>().ToArray();
+        var classes = coreMeta.Meta.Objects.OfType<Class>().ToArray();
+        var associationTypes = coreMeta.Meta.Objects.OfType<IAssociationType>().ToArray();
+        var roleTypes = coreMeta.Meta.Objects.OfType<IRoleType>().ToArray();
 
-        Assert.Equal(103, coreMeta.MetaPopulation.Objects.Count());
+        Assert.Equal(103, coreMeta.Meta.Objects.Count());
 
         Assert.Single(domains);
         Assert.Equal(6, units.Length);

@@ -11,8 +11,8 @@ public sealed class DateTimeRoleType : MetaObject, IUnitRoleType
     /// <summary>
     /// Initializes a new instance of the <see cref="DateTimeRoleType"/> class.
     /// </summary>
-    public DateTimeRoleType(MetaPopulation population, MetaObjectType objectType)
-        : base(population, objectType)
+    public DateTimeRoleType(Meta meta, MetaObjectType objectType)
+        : base(meta, objectType)
     {
     }
 }

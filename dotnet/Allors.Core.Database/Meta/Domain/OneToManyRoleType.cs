@@ -11,8 +11,8 @@ public sealed class OneToManyRoleType : MetaObject, IToManyRoleType
     /// <summary>
     /// Initializes a new instance of the <see cref="OneToManyRoleType"/> class.
     /// </summary>
-    public OneToManyRoleType(MetaPopulation population, MetaObjectType objectType)
-        : base(population, objectType)
+    public OneToManyRoleType(Meta meta, MetaObjectType objectType)
+        : base(meta, objectType)
     {
     }
 }

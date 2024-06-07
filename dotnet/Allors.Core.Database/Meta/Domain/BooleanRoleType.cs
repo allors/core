@@ -11,8 +11,8 @@ public sealed class BooleanRoleType : MetaObject, IUnitRoleType
     /// <summary>
     /// Initializes a new instance of the <see cref="BooleanRoleType"/> class.
     /// </summary>
-    public BooleanRoleType(MetaPopulation population, MetaObjectType objectType)
-        : base(population, objectType)
+    public BooleanRoleType(Meta meta, MetaObjectType objectType)
+        : base(meta, objectType)
     {
     }
 }

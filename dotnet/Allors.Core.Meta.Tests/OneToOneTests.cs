@@ -14,17 +14,17 @@ public class OneToOneTests
     private readonly Func<(
         MetaOneToOneAssociationType Association,
         MetaOneToOneRoleType Role,
-        Func<MetaPopulation, IMetaObject>[] Builders,
-        Func<MetaPopulation, IMetaObject> FromBuilder,
-        Func<MetaPopulation, IMetaObject> FromAnotherBuilder,
-        Func<MetaPopulation, IMetaObject> ToBuilder,
-        Func<MetaPopulation, IMetaObject> ToAnotherBuilder)>[] fixtures;
+        Func<Meta, IMetaObject>[] Builders,
+        Func<Meta, IMetaObject> FromBuilder,
+        Func<Meta, IMetaObject> FromAnotherBuilder,
+        Func<Meta, IMetaObject> ToBuilder,
+        Func<Meta, IMetaObject> ToAnotherBuilder)>[] fixtures;
 
-    private readonly Action<MetaPopulation>[] preActs;
+    private readonly Action<Meta>[] preActs;
 
     public OneToOneTests()
     {
-        this.Meta = new Static.Meta();
+        this.Meta = new Static.TestsMeta();
 
         this.fixtures =
         [
@@ -36,7 +36,7 @@ public class OneToOneTests
 
                 return (association, role, [C1Builder], C1Builder, C1Builder, C1Builder, C1Builder);
 
-                IMetaObject C1Builder(MetaPopulation transaction) => transaction.Build(this.Meta.C1);
+                IMetaObject C1Builder(Meta transaction) => transaction.Build(this.Meta.C1);
             },
             () =>
             {
@@ -46,7 +46,7 @@ public class OneToOneTests
 
                 return (association, role, [C1Builder], C1Builder, C1Builder, C1Builder, C1Builder);
 
-                IMetaObject C1Builder(MetaPopulation transaction) => transaction.Build(this.Meta.C1);
+                IMetaObject C1Builder(Meta transaction) => transaction.Build(this.Meta.C1);
             },
             () =>
             {
@@ -56,8 +56,8 @@ public class OneToOneTests
 
                 return (association, role, [C1Builder, C2Builder],  C1Builder, C1Builder, C2Builder, C2Builder);
 
-                IMetaObject C1Builder(MetaPopulation transaction) => transaction.Build(this.Meta.C1);
-                IMetaObject C2Builder(MetaPopulation transaction) => transaction.Build(this.Meta.C2);
+                IMetaObject C1Builder(Meta transaction) => transaction.Build(this.Meta.C1);
+                IMetaObject C2Builder(Meta transaction) => transaction.Build(this.Meta.C2);
             },
             () =>
             {
@@ -67,8 +67,8 @@ public class OneToOneTests
 
                 return (association, role, [C1Builder, C2Builder],  C1Builder, C1Builder, C2Builder, C2Builder);
 
-                IMetaObject C1Builder(MetaPopulation transaction) => transaction.Build(this.Meta.C1);
-                IMetaObject C2Builder(MetaPopulation transaction) => transaction.Build(this.Meta.C2);
+                IMetaObject C1Builder(Meta transaction) => transaction.Build(this.Meta.C1);
+                IMetaObject C2Builder(Meta transaction) => transaction.Build(this.Meta.C2);
             },
         ];
 
@@ -84,7 +84,7 @@ public class OneToOneTests
         ];
     }
 
-    public Static.Meta Meta { get; }
+    public Static.TestsMeta Meta { get; }
 
     [Fact]
     public void FromToInitial()
@@ -445,7 +445,7 @@ public class OneToOneTests
     {
         foreach (var fixture in this.fixtures)
         {
-            var database = this.CreatePopulation();
+            var meta = this.CreateMeta();
 
             var (association, role, builders, _, _, _, _) =
                 fixture();
@@ -455,9 +455,9 @@ public class OneToOneTests
                 var builder = builders[0];
 
                 // Begin - Middle - End
-                var begin = builder(database);
-                var middle = builder(database);
-                var end = builder(database);
+                var begin = builder(meta);
+                var middle = builder(meta);
+                var end = builder(meta);
 
                 begin[role] = middle;
                 middle[role] = end;
@@ -479,7 +479,7 @@ public class OneToOneTests
     {
         foreach (var fixture in this.fixtures)
         {
-            var database = this.CreatePopulation();
+            var meta = this.CreateMeta();
 
             var (association, role, builders, _, _, _, _) = fixture();
 
@@ -488,9 +488,9 @@ public class OneToOneTests
                 var builder = builders[0];
 
                 // Begin - Middle - End
-                var begin = builder(database);
-                var middle = builder(database);
-                var end = builder(database);
+                var begin = builder(meta);
+                var middle = builder(meta);
+                var end = builder(meta);
 
                 begin[role] = middle;
                 middle[role] = end;
@@ -507,9 +507,9 @@ public class OneToOneTests
         }
     }
 
-    private MetaPopulation CreatePopulation()
+    private Meta CreateMeta()
     {
-        return new MetaPopulation(this.Meta.MetaMeta);
+        return new Meta(this.Meta.MetaMeta);
     }
 
     private void FromTo(
@@ -530,16 +530,16 @@ public class OneToOneTests
                         {
                             var (association, role, _, fromBuilder, _, toBuilder, _) = fixture();
 
-                            var population = this.CreatePopulation();
+                            var meta = this.CreateMeta();
 
-                            var from = fromBuilder(population);
-                            var to = toBuilder(population);
+                            var from = fromBuilder(meta);
+                            var to = toBuilder(meta);
 
                             foreach (var act in acts())
                             {
                                 for (var actRepeat = 0; actRepeat < actRepeats; actRepeat++)
                                 {
-                                    preact(population);
+                                    preact(meta);
                                     act(association, role, from, to);
                                 }
                             }
@@ -579,17 +579,17 @@ public class OneToOneTests
                                 var (association, role, _, fromBuilder, fromAnotherBuilder, toBuilder, _) =
                                     fixture();
 
-                                var population = this.CreatePopulation();
+                                var meta = this.CreateMeta();
 
-                                var from = fromBuilder(population);
-                                var fromAnother = fromAnotherBuilder(population);
-                                var to = toBuilder(population);
+                                var from = fromBuilder(meta);
+                                var fromAnother = fromAnotherBuilder(meta);
+                                var to = toBuilder(meta);
 
                                 foreach (var act in acts())
                                 {
                                     for (var actRepeat = 0; actRepeat < actRepeats; actRepeat++)
                                     {
-                                        preact(population);
+                                        preact(meta);
                                         act(association, role, from, fromAnother, to);
                                     }
                                 }
@@ -629,17 +629,17 @@ public class OneToOneTests
                             {
                                 var (association, role, _, fromBuilder, _, toBuilder, toAnotherBuilder) = fixture();
 
-                                var population = this.CreatePopulation();
+                                var meta = this.CreateMeta();
 
-                                var from = fromBuilder(population);
-                                var to = toBuilder(population);
-                                var toAnother = toAnotherBuilder(population);
+                                var from = fromBuilder(meta);
+                                var to = toBuilder(meta);
+                                var toAnother = toAnotherBuilder(meta);
 
                                 foreach (var act in acts())
                                 {
                                     for (var actRepeat = 0; actRepeat < actRepeats; actRepeat++)
                                     {
-                                        preact(population);
+                                        preact(meta);
                                         act(association, role, from, to, toAnother);
                                     }
                                 }
@@ -680,18 +680,18 @@ public class OneToOneTests
                                 var (association, role, _, fromBuilder, fromAnotherBuilder, toBuilder,
                                     toAnotherBuilder) = fixture();
 
-                                var population = this.CreatePopulation();
+                                var meta = this.CreateMeta();
 
-                                var from = fromBuilder(population);
-                                var fromAnother = fromAnotherBuilder(population);
-                                var to = toBuilder(population);
-                                var toAnother = toAnotherBuilder(population);
+                                var from = fromBuilder(meta);
+                                var fromAnother = fromAnotherBuilder(meta);
+                                var to = toBuilder(meta);
+                                var toAnother = toAnotherBuilder(meta);
 
                                 foreach (var act in acts())
                                 {
                                     for (var actRepeat = 0; actRepeat < actRepeats; actRepeat++)
                                     {
-                                        preact(population);
+                                        preact(meta);
                                         act(association, role, from, fromAnother, to, toAnother);
                                     }
                                 }

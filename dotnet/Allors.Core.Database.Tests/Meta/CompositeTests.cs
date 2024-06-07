@@ -23,8 +23,8 @@ public class CompositeTests
 
         m.Freeze();
 
-        s1[m.Meta.CompositeSupertypes].Should().BeEmpty();
-        i1[m.Meta.CompositeSupertypes].Should().BeEquivalentTo([s1]);
-        c1[m.Meta.CompositeSupertypes].Should().BeEquivalentTo([i1, s1]);
+        s1[m.MetaMeta.CompositeSupertypes].Should().BeEmpty();
+        i1[m.MetaMeta.CompositeSupertypes].Should().BeEquivalentTo([s1]);
+        c1[m.MetaMeta.CompositeSupertypes].Should().BeEquivalentTo([i1, s1]);
     }
 }

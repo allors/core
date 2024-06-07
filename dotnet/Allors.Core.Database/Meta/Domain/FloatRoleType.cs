@@ -11,8 +11,8 @@ public sealed class FloatRoleType : MetaObject, IUnitRoleType
     /// <summary>
     /// Initializes a new instance of the <see cref="FloatRoleType"/> class.
     /// </summary>
-    public FloatRoleType(MetaPopulation population, MetaObjectType objectType)
-        : base(population, objectType)
+    public FloatRoleType(Meta meta, MetaObjectType objectType)
+        : base(meta, objectType)
     {
     }
 }

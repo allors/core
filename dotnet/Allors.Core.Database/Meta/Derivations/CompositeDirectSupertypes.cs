@@ -6,7 +6,7 @@ using Allors.Core.Meta;
 /// <summary>
 /// Derive the supertypes of the composite.
 /// </summary>
-public sealed class CompositeDirectSupertypes(MetaPopulation population, CoreMetaMeta m) : IMetaDerivation
+public sealed class CompositeDirectSupertypes(Meta meta, CoreMetaMeta m) : IMetaDerivation
 {
     /// <inheritdoc/>
     public void Derive(MetaChangeSet changeSet)
@@ -19,12 +19,12 @@ public sealed class CompositeDirectSupertypes(MetaPopulation population, CoreMet
             return;
         }
 
-        foreach (var composite in population.Objects.Where(v => m.Composite.IsAssignableFrom(v.ObjectType)))
+        foreach (var composite in meta.Objects.Where(v => m.Composite.IsAssignableFrom(v.ObjectType)))
         {
             composite[m.CompositeSupertypes] = [];
         }
 
-        foreach (var inheritance in population.Objects.Where(v => m.Inheritance.IsAssignableFrom(v.ObjectType)))
+        foreach (var inheritance in meta.Objects.Where(v => m.Inheritance.IsAssignableFrom(v.ObjectType)))
         {
             var subtype = inheritance[m.InheritanceSubtype];
             var supertype = inheritance[m.InheritanceSupertype];

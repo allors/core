@@ -19,7 +19,7 @@ public abstract class EnginesMetaObject(EnginesMeta enginesMeta, MetaObject meta
     /// <summary>
     /// The core meta meta.
     /// </summary>
-    public CoreMetaMeta M => this.EnginesMeta.CoreMeta.Meta;
+    public CoreMetaMeta M => this.EnginesMeta.CoreMeta.MetaMeta;
 
     /// <summary>
     /// The meta object.

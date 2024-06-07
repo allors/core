@@ -11,8 +11,8 @@ public sealed class BooleanAssociationType : MetaObject, IUnitAssociationType
     /// <summary>
     /// Initializes a new instance of the <see cref="BooleanAssociationType"/> class.
     /// </summary>
-    public BooleanAssociationType(MetaPopulation population, MetaObjectType objectType)
-        : base(population, objectType)
+    public BooleanAssociationType(Meta meta, MetaObjectType objectType)
+        : base(meta, objectType)
     {
     }
 }

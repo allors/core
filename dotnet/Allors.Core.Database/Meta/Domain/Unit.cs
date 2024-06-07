@@ -11,8 +11,8 @@ public sealed class Unit : MetaObject, IObjectType
     /// <summary>
     /// Initializes a new instance of the <see cref="Unit"/> class.
     /// </summary>
-    public Unit(MetaPopulation population, MetaObjectType objectType)
-        : base(population, objectType)
+    public Unit(Meta meta, MetaObjectType objectType)
+        : base(meta, objectType)
     {
     }
 

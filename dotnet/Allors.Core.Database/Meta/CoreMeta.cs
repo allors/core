@@ -8,7 +8,7 @@ using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
 
 /// <summary>
-/// Core Meta.
+/// Core MetaMeta.
 /// </summary>
 public sealed class CoreMeta
 {
@@ -18,10 +18,10 @@ public sealed class CoreMeta
     public CoreMeta()
     {
         this.IsFrozen = false;
-        this.Meta = new CoreMetaMeta();
-        this.MetaPopulation = this.Meta.CreateMetaPopulation();
+        this.MetaMeta = new CoreMetaMeta();
+        this.Meta = this.MetaMeta.CreateMetaPopulation();
 
-        var m = this.Meta;
+        var m = this.MetaMeta;
 
         // Domain
         this.AllorsCore = this.AddDomain(m.AllorsCore.Id, m.AllorsCore.Name);
@@ -34,7 +34,7 @@ public sealed class CoreMeta
         this.String = this.AddUnit(m.String.Id, m.String.Name);
         this.Unique = this.AddUnit(m.Unique.Id, m.Unique.Name);
 
-        // Meta Domain
+        // MetaMeta Domain
         // Objects
         this.AssociationType = this.AddInterface(m.AssociationType);
         this.Class = this.AddClass(m.Class);
@@ -126,9 +126,9 @@ public sealed class CoreMeta
     }
 
     /// <summary>
-    /// Meta Meta.
+    /// MetaMeta MetaMeta.
     /// </summary>
-    public CoreMetaMeta Meta { get; }
+    public CoreMetaMeta MetaMeta { get; }
 
     /// <summary>
     /// Is this meta frozen.
@@ -136,9 +136,9 @@ public sealed class CoreMeta
     public bool IsFrozen { get; private set; }
 
     /// <summary>
-    /// The meta population.
+    /// The meta.
     /// </summary>
-    public MetaPopulation MetaPopulation { get; init; }
+    public Meta Meta { get; init; }
 
     /// <summary>
     /// An association type.
@@ -538,7 +538,7 @@ public sealed class CoreMeta
         get
         {
             // TODO: Add optimizaiton after freeze
-            return this.MetaPopulation.Objects.First(v => ((Guid)v[this.Meta.MetaObjectId]!) == id);
+            return this.Meta.Objects.First(v => ((Guid)v[this.MetaMeta.MetaObjectId]!) == id);
         }
     }
 
@@ -550,11 +550,11 @@ public sealed class CoreMeta
         if (!this.IsFrozen)
         {
             this.IsFrozen = true;
-            this.MetaPopulation.Derive();
+            this.Meta.Derive();
 
-            // TODO: Add freeze to Allors.Meta
+            // TODO: Add freeze to Allors.MetaMeta
             // this.MetaMeta.Freeze();
-            // this.MetaPopulation.Freeze();
+            // this.MetaMeta.Freeze();
         }
     }
 
@@ -563,15 +563,15 @@ public sealed class CoreMeta
     /// </summary>
     public Domain.Domain AddDomain(Guid id, string name)
     {
-        var m = this.Meta;
+        var m = this.MetaMeta;
 
-        var domain = this.MetaPopulation.Build<Domain.Domain>(v =>
+        var domain = this.Meta.Build<Domain.Domain>(v =>
         {
             v[m.MetaObjectId] = id;
             v[m.DomainName] = name;
         });
 
-        domain.Add(this.Meta.DomainTypes, domain);
+        domain.Add(this.MetaMeta.DomainTypes, domain);
 
         return domain;
     }
@@ -592,15 +592,15 @@ public sealed class CoreMeta
     /// </summary>
     public Inheritance AddInheritance(Domain.Domain domain, IComposite subtype, Interface supertype)
     {
-        var m = this.Meta;
+        var m = this.MetaMeta;
 
-        var inheritance = this.MetaPopulation.Build<Inheritance>(v =>
+        var inheritance = this.Meta.Build<Inheritance>(v =>
         {
             v[m.InheritanceSubtype] = subtype;
             v[m.InheritanceSupertype] = supertype;
         });
 
-        domain.Add(this.Meta.DomainTypes, inheritance);
+        domain.Add(this.MetaMeta.DomainTypes, inheritance);
 
         return inheritance;
     }
@@ -610,16 +610,16 @@ public sealed class CoreMeta
     /// </summary>
     public Unit AddUnit(Domain.Domain domain, Guid id, string singularName, string? assignedPluralName = null)
     {
-        var m = this.Meta;
+        var m = this.MetaMeta;
 
-        var unit = this.MetaPopulation.Build<Unit>(v =>
+        var unit = this.Meta.Build<Unit>(v =>
         {
             v[m.MetaObjectId] = id;
             v[m.ObjectTypeSingularName] = singularName;
             v[m.ObjectTypeAssignedPluralName] = assignedPluralName;
         });
 
-        domain.Add(this.Meta.DomainTypes, unit);
+        domain.Add(this.MetaMeta.DomainTypes, unit);
 
         return unit;
     }
@@ -629,16 +629,16 @@ public sealed class CoreMeta
     /// </summary>
     public Interface AddInterface(Domain.Domain domain, Guid id, string singularName, string? assignedPluralName = null)
     {
-        var m = this.Meta;
+        var m = this.MetaMeta;
 
-        var @interface = this.MetaPopulation.Build<Interface>(v =>
+        var @interface = this.Meta.Build<Interface>(v =>
         {
             v[m.MetaObjectId] = id;
             v[m.ObjectTypeSingularName] = singularName;
             v[m.ObjectTypeAssignedPluralName] = assignedPluralName;
         });
 
-        domain.Add(this.Meta.DomainTypes, @interface);
+        domain.Add(this.MetaMeta.DomainTypes, @interface);
 
         return @interface;
     }
@@ -648,16 +648,16 @@ public sealed class CoreMeta
     /// </summary>
     public Class AddClass(Domain.Domain domain, Guid id, string singularName, string? assignedPluralName = null)
     {
-        var m = this.Meta;
+        var m = this.MetaMeta;
 
-        var @class = this.MetaPopulation.Build<Class>(v =>
+        var @class = this.Meta.Build<Class>(v =>
         {
             v[m.MetaObjectId] = id;
             v[m.ObjectTypeSingularName] = singularName;
             v[m.ObjectTypeAssignedPluralName] = assignedPluralName;
         });
 
-        domain.Add(this.Meta.DomainTypes, @class);
+        domain.Add(this.MetaMeta.DomainTypes, @class);
 
         return @class;
     }
@@ -667,15 +667,15 @@ public sealed class CoreMeta
     /// </summary>
     public (BinaryAssociationType AssociationType, BinaryRoleType RoleType) AddBinaryRelation(Domain.Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, Unit unit, string singularName, string? assignedPluralName = null)
     {
-        var m = this.Meta;
+        var m = this.MetaMeta;
 
-        var associationType = this.MetaPopulation.Build<BinaryAssociationType>(v =>
+        var associationType = this.Meta.Build<BinaryAssociationType>(v =>
         {
             v[m.MetaObjectId] = associationTypeId;
             v[m.AssociationTypeComposite] = associationComposite;
         });
 
-        var roleType = this.MetaPopulation.Build<BinaryRoleType>(v =>
+        var roleType = this.Meta.Build<BinaryRoleType>(v =>
         {
             v[m.MetaObjectId] = roleTypeId;
             v[m.RoleTypeAssociationType] = associationType;
@@ -684,7 +684,7 @@ public sealed class CoreMeta
             v[m.RoleTypeAssignedPluralName] = assignedPluralName;
         });
 
-        domain.Add(this.Meta.DomainTypes, unit);
+        domain.Add(this.MetaMeta.DomainTypes, unit);
 
         return (associationType, roleType);
     }
@@ -694,15 +694,15 @@ public sealed class CoreMeta
     /// </summary>
     public (BooleanAssociationType AssociationType, BooleanRoleType RoleType) AddBooleanRelation(Domain.Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, Unit unit, string singularName, string? assignedPluralName = null)
     {
-        var m = this.Meta;
+        var m = this.MetaMeta;
 
-        var associationType = this.MetaPopulation.Build<BooleanAssociationType>(v =>
+        var associationType = this.Meta.Build<BooleanAssociationType>(v =>
         {
             v[m.MetaObjectId] = associationTypeId;
             v[m.AssociationTypeComposite] = associationComposite;
         });
 
-        var roleType = this.MetaPopulation.Build<BooleanRoleType>(v =>
+        var roleType = this.Meta.Build<BooleanRoleType>(v =>
         {
             v[m.MetaObjectId] = roleTypeId;
             v[m.RoleTypeAssociationType] = associationType;
@@ -711,8 +711,8 @@ public sealed class CoreMeta
             v[m.RoleTypeAssignedPluralName] = assignedPluralName;
         });
 
-        domain.Add(this.Meta.DomainTypes, associationType);
-        domain.Add(this.Meta.DomainTypes, roleType);
+        domain.Add(this.MetaMeta.DomainTypes, associationType);
+        domain.Add(this.MetaMeta.DomainTypes, roleType);
 
         return (associationType, roleType);
     }
@@ -722,15 +722,15 @@ public sealed class CoreMeta
     /// </summary>
     public (DateTimeAssociationType AssociationType, DateTimeRoleType RoleType) AddDateTimeRelation(Domain.Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, Unit unit, string singularName, string? assignedPluralName = null)
     {
-        var m = this.Meta;
+        var m = this.MetaMeta;
 
-        var associationType = this.MetaPopulation.Build<DateTimeAssociationType>(v =>
+        var associationType = this.Meta.Build<DateTimeAssociationType>(v =>
         {
             v[m.MetaObjectId] = associationTypeId;
             v[m.AssociationTypeComposite] = associationComposite;
         });
 
-        var roleType = this.MetaPopulation.Build<DateTimeRoleType>(v =>
+        var roleType = this.Meta.Build<DateTimeRoleType>(v =>
         {
             v[m.MetaObjectId] = roleTypeId;
             v[m.RoleTypeAssociationType] = associationType;
@@ -739,8 +739,8 @@ public sealed class CoreMeta
             v[m.RoleTypeAssignedPluralName] = assignedPluralName;
         });
 
-        domain.Add(this.Meta.DomainTypes, associationType);
-        domain.Add(this.Meta.DomainTypes, roleType);
+        domain.Add(this.MetaMeta.DomainTypes, associationType);
+        domain.Add(this.MetaMeta.DomainTypes, roleType);
 
         return (associationType, roleType);
     }
@@ -750,15 +750,15 @@ public sealed class CoreMeta
     /// </summary>
     public (DecimalAssociationType AssociationType, DecimalRoleType RoleType) AddDecimalRelation(Domain.Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, Unit unit, string singularName, string? assignedPluralName = null)
     {
-        var m = this.Meta;
+        var m = this.MetaMeta;
 
-        var associationType = this.MetaPopulation.Build<DecimalAssociationType>(v =>
+        var associationType = this.Meta.Build<DecimalAssociationType>(v =>
         {
             v[m.MetaObjectId] = associationTypeId;
             v[m.AssociationTypeComposite] = associationComposite;
         });
 
-        var roleType = this.MetaPopulation.Build<DecimalRoleType>(v =>
+        var roleType = this.Meta.Build<DecimalRoleType>(v =>
         {
             v[m.MetaObjectId] = roleTypeId;
             v[m.RoleTypeAssociationType] = associationType;
@@ -767,8 +767,8 @@ public sealed class CoreMeta
             v[m.RoleTypeAssignedPluralName] = assignedPluralName;
         });
 
-        domain.Add(this.Meta.DomainTypes, associationType);
-        domain.Add(this.Meta.DomainTypes, roleType);
+        domain.Add(this.MetaMeta.DomainTypes, associationType);
+        domain.Add(this.MetaMeta.DomainTypes, roleType);
 
         return (associationType, roleType);
     }
@@ -778,15 +778,15 @@ public sealed class CoreMeta
     /// </summary>
     public (FloatAssociationType AssociationType, FloatRoleType RoleType) AddFloatRelation(Domain.Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, Unit unit, string singularName, string? assignedPluralName = null)
     {
-        var m = this.Meta;
+        var m = this.MetaMeta;
 
-        var associationType = this.MetaPopulation.Build<FloatAssociationType>(v =>
+        var associationType = this.Meta.Build<FloatAssociationType>(v =>
         {
             v[m.MetaObjectId] = associationTypeId;
             v[m.AssociationTypeComposite] = associationComposite;
         });
 
-        var roleType = this.MetaPopulation.Build<FloatRoleType>(v =>
+        var roleType = this.Meta.Build<FloatRoleType>(v =>
         {
             v[m.MetaObjectId] = roleTypeId;
             v[m.RoleTypeAssociationType] = associationType;
@@ -795,8 +795,8 @@ public sealed class CoreMeta
             v[m.RoleTypeAssignedPluralName] = assignedPluralName;
         });
 
-        domain.Add(this.Meta.DomainTypes, associationType);
-        domain.Add(this.Meta.DomainTypes, roleType);
+        domain.Add(this.MetaMeta.DomainTypes, associationType);
+        domain.Add(this.MetaMeta.DomainTypes, roleType);
 
         return (associationType, roleType);
     }
@@ -806,15 +806,15 @@ public sealed class CoreMeta
     /// </summary>
     public (IntegerAssociationType AssociationType, IntegerRoleType RoleType) AddIntegerRelation(Domain.Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, Unit unit, string singularName, string? assignedPluralName = null)
     {
-        var m = this.Meta;
+        var m = this.MetaMeta;
 
-        var associationType = this.MetaPopulation.Build<IntegerAssociationType>(v =>
+        var associationType = this.Meta.Build<IntegerAssociationType>(v =>
         {
             v[m.MetaObjectId] = associationTypeId;
             v[m.AssociationTypeComposite] = associationComposite;
         });
 
-        var roleType = this.MetaPopulation.Build<IntegerRoleType>(v =>
+        var roleType = this.Meta.Build<IntegerRoleType>(v =>
         {
             v[m.MetaObjectId] = roleTypeId;
             v[m.RoleTypeAssociationType] = associationType;
@@ -823,8 +823,8 @@ public sealed class CoreMeta
             v[m.RoleTypeAssignedPluralName] = assignedPluralName;
         });
 
-        domain.Add(this.Meta.DomainTypes, associationType);
-        domain.Add(this.Meta.DomainTypes, roleType);
+        domain.Add(this.MetaMeta.DomainTypes, associationType);
+        domain.Add(this.MetaMeta.DomainTypes, roleType);
 
         return (associationType, roleType);
     }
@@ -834,15 +834,15 @@ public sealed class CoreMeta
     /// </summary>
     public (StringAssociationType AssociationType, StringRoleType RoleType) AddStringRelation(Domain.Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, Unit unit, string singularName, string? assignedPluralName = null)
     {
-        var m = this.Meta;
+        var m = this.MetaMeta;
 
-        var associationType = this.MetaPopulation.Build<StringAssociationType>(v =>
+        var associationType = this.Meta.Build<StringAssociationType>(v =>
         {
             v[m.MetaObjectId] = associationTypeId;
             v[m.AssociationTypeComposite] = associationComposite;
         });
 
-        var roleType = this.MetaPopulation.Build<StringRoleType>(v =>
+        var roleType = this.Meta.Build<StringRoleType>(v =>
         {
             v[m.MetaObjectId] = roleTypeId;
             v[m.RoleTypeAssociationType] = associationType;
@@ -851,8 +851,8 @@ public sealed class CoreMeta
             v[m.RoleTypeAssignedPluralName] = assignedPluralName;
         });
 
-        domain.Add(this.Meta.DomainTypes, associationType);
-        domain.Add(this.Meta.DomainTypes, roleType);
+        domain.Add(this.MetaMeta.DomainTypes, associationType);
+        domain.Add(this.MetaMeta.DomainTypes, roleType);
 
         return (associationType, roleType);
     }
@@ -862,15 +862,15 @@ public sealed class CoreMeta
     /// </summary>
     public (UniqueAssociationType AssociationType, UniqueRoleType RoleType) AddUniqueRelation(Domain.Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, Unit unit, string singularName, string? assignedPluralName = null)
     {
-        var m = this.Meta;
+        var m = this.MetaMeta;
 
-        var associationType = this.MetaPopulation.Build<UniqueAssociationType>(v =>
+        var associationType = this.Meta.Build<UniqueAssociationType>(v =>
         {
             v[m.MetaObjectId] = associationTypeId;
             v[m.AssociationTypeComposite] = associationComposite;
         });
 
-        var roleType = this.MetaPopulation.Build<UniqueRoleType>(v =>
+        var roleType = this.Meta.Build<UniqueRoleType>(v =>
         {
             v[m.MetaObjectId] = roleTypeId;
             v[m.RoleTypeAssociationType] = associationType;
@@ -879,8 +879,8 @@ public sealed class CoreMeta
             v[m.RoleTypeAssignedPluralName] = assignedPluralName;
         });
 
-        domain.Add(this.Meta.DomainTypes, associationType);
-        domain.Add(this.Meta.DomainTypes, roleType);
+        domain.Add(this.MetaMeta.DomainTypes, associationType);
+        domain.Add(this.MetaMeta.DomainTypes, roleType);
 
         return (associationType, roleType);
     }
@@ -890,15 +890,15 @@ public sealed class CoreMeta
     /// </summary>
     public (OneToOneAssociationType AssociationType, OneToOneRoleType RoleType) AddOneToOneRelation(Domain.Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, IComposite roleComposite, string? singularName = null, string? assignedPluralName = null)
     {
-        var m = this.Meta;
+        var m = this.MetaMeta;
 
-        var associationType = this.MetaPopulation.Build<OneToOneAssociationType>(v =>
+        var associationType = this.Meta.Build<OneToOneAssociationType>(v =>
         {
             v[m.MetaObjectId] = associationTypeId;
             v[m.AssociationTypeComposite] = associationComposite;
         });
 
-        var roleType = this.MetaPopulation.Build<OneToOneRoleType>(v =>
+        var roleType = this.Meta.Build<OneToOneRoleType>(v =>
         {
             v[m.MetaObjectId] = roleTypeId;
             v[m.RoleTypeAssociationType] = associationType;
@@ -907,8 +907,8 @@ public sealed class CoreMeta
             v[m.RoleTypeAssignedPluralName] = assignedPluralName;
         });
 
-        domain.Add(this.Meta.DomainTypes, associationType);
-        domain.Add(this.Meta.DomainTypes, roleType);
+        domain.Add(this.MetaMeta.DomainTypes, associationType);
+        domain.Add(this.MetaMeta.DomainTypes, roleType);
 
         return (associationType, roleType);
     }
@@ -918,15 +918,15 @@ public sealed class CoreMeta
     /// </summary>
     public (ManyToOneAssociationType AssociationType, ManyToOneRoleType RoleType) AddManyToOneRelation(Domain.Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, IComposite roleComposite, string? singularName = null, string? assignedPluralName = null)
     {
-        var m = this.Meta;
+        var m = this.MetaMeta;
 
-        var associationType = this.MetaPopulation.Build<ManyToOneAssociationType>(v =>
+        var associationType = this.Meta.Build<ManyToOneAssociationType>(v =>
         {
             v[m.MetaObjectId] = associationTypeId;
             v[m.AssociationTypeComposite] = associationComposite;
         });
 
-        var roleType = this.MetaPopulation.Build<ManyToOneRoleType>(v =>
+        var roleType = this.Meta.Build<ManyToOneRoleType>(v =>
         {
             v[m.MetaObjectId] = roleTypeId;
             v[m.RoleTypeAssociationType] = associationType;
@@ -935,8 +935,8 @@ public sealed class CoreMeta
             v[m.RoleTypeAssignedPluralName] = assignedPluralName;
         });
 
-        domain.Add(this.Meta.DomainTypes, associationType);
-        domain.Add(this.Meta.DomainTypes, roleType);
+        domain.Add(this.MetaMeta.DomainTypes, associationType);
+        domain.Add(this.MetaMeta.DomainTypes, roleType);
 
         return (associationType, roleType);
     }
@@ -946,15 +946,15 @@ public sealed class CoreMeta
     /// </summary>
     public (OneToManyAssociationType AssociationType, OneToManyRoleType RoleType) AddOneToManyRelation(Domain.Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, IComposite roleComposite, string? singularName = null, string? assignedPluralName = null)
     {
-        var m = this.Meta;
+        var m = this.MetaMeta;
 
-        var associationType = this.MetaPopulation.Build<OneToManyAssociationType>(v =>
+        var associationType = this.Meta.Build<OneToManyAssociationType>(v =>
         {
             v[m.MetaObjectId] = associationTypeId;
             v[m.AssociationTypeComposite] = associationComposite;
         });
 
-        var roleType = this.MetaPopulation.Build<OneToManyRoleType>(v =>
+        var roleType = this.Meta.Build<OneToManyRoleType>(v =>
         {
             v[m.MetaObjectId] = roleTypeId;
             v[m.RoleTypeAssociationType] = associationType;
@@ -963,8 +963,8 @@ public sealed class CoreMeta
             v[m.RoleTypeAssignedPluralName] = assignedPluralName;
         });
 
-        domain.Add(this.Meta.DomainTypes, associationType);
-        domain.Add(this.Meta.DomainTypes, roleType);
+        domain.Add(this.MetaMeta.DomainTypes, associationType);
+        domain.Add(this.MetaMeta.DomainTypes, roleType);
 
         return (associationType, roleType);
     }
@@ -974,15 +974,15 @@ public sealed class CoreMeta
     /// </summary>
     public (ManyToManyAssociationType AssociationType, ManyToManyRoleType RoleType) AddManyToManyRelation(Domain.Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, IComposite roleComposite, string? singularName = null, string? assignedPluralName = null)
     {
-        var m = this.Meta;
+        var m = this.MetaMeta;
 
-        var associationType = this.MetaPopulation.Build<ManyToManyAssociationType>(v =>
+        var associationType = this.Meta.Build<ManyToManyAssociationType>(v =>
         {
             v[m.MetaObjectId] = associationTypeId;
             v[m.AssociationTypeComposite] = associationComposite;
         });
 
-        var roleType = this.MetaPopulation.Build<ManyToManyRoleType>(v =>
+        var roleType = this.Meta.Build<ManyToManyRoleType>(v =>
         {
             v[m.MetaObjectId] = roleTypeId;
             v[m.RoleTypeAssociationType] = associationType;
@@ -991,8 +991,8 @@ public sealed class CoreMeta
             v[m.RoleTypeAssignedPluralName] = assignedPluralName;
         });
 
-        domain.Add(this.Meta.DomainTypes, associationType);
-        domain.Add(this.Meta.DomainTypes, roleType);
+        domain.Add(this.MetaMeta.DomainTypes, associationType);
+        domain.Add(this.MetaMeta.DomainTypes, roleType);
 
         return (associationType, roleType);
     }
@@ -1013,15 +1013,15 @@ public sealed class CoreMeta
     /// </summary>
     internal Inheritance AddInheritance(IComposite subtype, Interface supertype)
     {
-        var m = this.Meta;
+        var m = this.MetaMeta;
 
-        var inheritance = this.MetaPopulation.Build<Inheritance>(v =>
+        var inheritance = this.Meta.Build<Inheritance>(v =>
         {
             v[m.InheritanceSubtype] = subtype;
             v[m.InheritanceSupertype] = supertype;
         });
 
-        this.Domain.Add(this.Meta.DomainTypes, inheritance);
+        this.Domain.Add(this.MetaMeta.DomainTypes, inheritance);
 
         return inheritance;
     }

@@ -21,7 +21,7 @@ public sealed class EnginesMeta
     {
         this.CoreMeta = coreMeta;
 
-        this.mapping = this.CoreMeta.MetaPopulation.Objects
+        this.mapping = this.CoreMeta.Meta.Objects
             .Select(v =>
             {
                 EnginesMetaObject metaObject = v switch

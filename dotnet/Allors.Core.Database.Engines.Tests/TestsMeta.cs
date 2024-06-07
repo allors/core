@@ -5,7 +5,7 @@ using Allors.Core.Database.Meta;
 using Allors.Core.Database.Meta.Domain;
 
 /// <summary>
-/// Meta for Tests.
+/// MetaMeta for Tests.
 /// </summary>
 public sealed class TestsMeta
 {

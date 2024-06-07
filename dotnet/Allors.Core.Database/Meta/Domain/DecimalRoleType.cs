@@ -11,8 +11,8 @@ public sealed class DecimalRoleType : MetaObject, IUnitRoleType
     /// <summary>
     /// Initializes a new instance of the <see cref="DecimalRoleType"/> class.
     /// </summary>
-    public DecimalRoleType(MetaPopulation population, MetaObjectType objectType)
-        : base(population, objectType)
+    public DecimalRoleType(Meta meta, MetaObjectType objectType)
+        : base(meta, objectType)
     {
     }
 }

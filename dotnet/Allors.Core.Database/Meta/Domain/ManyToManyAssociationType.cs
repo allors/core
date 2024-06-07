@@ -11,8 +11,8 @@ public sealed class ManyToManyAssociationType : MetaObject, IManyToAssociationTy
     /// <summary>
     /// Initializes a new instance of the <see cref="ManyToManyAssociationType"/> class.
     /// </summary>
-    public ManyToManyAssociationType(MetaPopulation population, MetaObjectType objectType)
-        : base(population, objectType)
+    public ManyToManyAssociationType(Meta meta, MetaObjectType objectType)
+        : base(meta, objectType)
     {
     }
 }

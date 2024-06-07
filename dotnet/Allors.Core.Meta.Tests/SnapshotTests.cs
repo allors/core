@@ -10,22 +10,22 @@ public class SnapshotTests
     [Fact]
     public void Unit()
     {
-        var meta = new MetaMeta();
-        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
-        var @string = meta.AddUnit(domain, Guid.NewGuid(), "String");
-        var person = meta.AddClass(domain, Guid.NewGuid(), "Person");
-        var firstName = meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
-        var lastName = meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
+        var metaMeta = new MetaMeta();
+        var domain = metaMeta.AddDomain(Guid.NewGuid(), "Domain");
+        var @string = metaMeta.AddUnit(domain, Guid.NewGuid(), "String");
+        var person = metaMeta.AddClass(domain, Guid.NewGuid(), "Person");
+        var firstName = metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
+        var lastName = metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
 
-        var population = new MetaPopulation(meta);
+        var meta = new Meta(metaMeta);
 
-        var john = population.Build(person);
-        var jane = population.Build(person);
+        var john = meta.Build(person);
+        var jane = meta.Build(person);
 
         john["FirstName"] = "John";
         john["LastName"] = "Doe";
 
-        var snapshot1 = population.Checkpoint();
+        var snapshot1 = meta.Checkpoint();
 
         jane["FirstName"] = "Jane";
         jane["LastName"] = "Doe";
@@ -38,7 +38,7 @@ public class SnapshotTests
         Assert.Contains(john, changedFirstNames.Keys);
         Assert.Contains(john, changedLastNames.Keys);
 
-        var snapshot2 = population.Checkpoint();
+        var snapshot2 = meta.Checkpoint();
 
         changedFirstNames = snapshot2.ChangedRoles(firstName);
         changedLastNames = snapshot2.ChangedRoles(lastName);
@@ -52,20 +52,20 @@ public class SnapshotTests
     [Fact]
     public void Composites()
     {
-        var meta = new MetaMeta();
-        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
-        var @string = meta.AddUnit(domain, Guid.NewGuid(), "String");
-        var person = meta.AddClass(domain, Guid.NewGuid(), "Person");
-        var organization = meta.AddClass(domain, Guid.NewGuid(), "Organization");
-        meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
-        meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
-        meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
-        var employees = meta.AddManyToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
+        var metaMeta = new MetaMeta();
+        var domain = metaMeta.AddDomain(Guid.NewGuid(), "Domain");
+        var @string = metaMeta.AddUnit(domain, Guid.NewGuid(), "String");
+        var person = metaMeta.AddClass(domain, Guid.NewGuid(), "Person");
+        var organization = metaMeta.AddClass(domain, Guid.NewGuid(), "Organization");
+        metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
+        metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
+        metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
+        var employees = metaMeta.AddManyToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
-        var population = new MetaPopulation(meta);
+        var meta = new Meta(metaMeta);
 
-        var john = population.Build(person);
-        var jane = population.Build(person);
+        var john = meta.Build(person);
+        var jane = meta.Build(person);
 
         john["FirstName"] = "John";
         john["LastName"] = "Doe";
@@ -73,19 +73,19 @@ public class SnapshotTests
         jane["FirstName"] = "Jane";
         jane["LastName"] = "Doe";
 
-        var acme = population.Build(organization);
+        var acme = meta.Build(organization);
 
         acme["Name"] = "Acme";
 
         acme["Employees"] = new[] { john, jane };
 
-        var snapshot = population.Checkpoint();
+        var snapshot = meta.Checkpoint();
         var changedEmployees = snapshot.ChangedRoles(employees);
         Assert.Single(changedEmployees);
 
         acme["Employees"] = new[] { jane, john };
 
-        snapshot = population.Checkpoint();
+        snapshot = meta.Checkpoint();
         changedEmployees = snapshot.ChangedRoles(employees);
         Assert.Empty(changedEmployees);
 
@@ -93,7 +93,7 @@ public class SnapshotTests
 
         acme["Employees"] = new[] { jane, john };
 
-        snapshot = population.Checkpoint();
+        snapshot = meta.Checkpoint();
         changedEmployees = snapshot.ChangedRoles(employees);
         Assert.Empty(changedEmployees);
     }

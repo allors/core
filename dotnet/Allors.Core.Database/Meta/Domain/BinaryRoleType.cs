@@ -11,8 +11,8 @@ public sealed class BinaryRoleType : MetaObject, IUnitRoleType
     /// <summary>
     /// Initializes a new instance of the <see cref="BinaryRoleType"/> class.
     /// </summary>
-    public BinaryRoleType(MetaPopulation population, MetaObjectType objectType)
-        : base(population, objectType)
+    public BinaryRoleType(Meta meta, MetaObjectType objectType)
+        : base(meta, objectType)
     {
     }
 }

@@ -11,8 +11,8 @@ public sealed class StringAssociationType : MetaObject, IUnitAssociationType
     /// <summary>
     /// Initializes a new instance of the <see cref="StringAssociationType"/> class.
     /// </summary>
-    public StringAssociationType(MetaPopulation population, MetaObjectType objectType)
-        : base(population, objectType)
+    public StringAssociationType(Meta meta, MetaObjectType objectType)
+        : base(meta, objectType)
     {
     }
 }

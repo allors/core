@@ -11,8 +11,8 @@ public sealed class OneToManyAssociationType : MetaObject, IOneToAssociationType
     /// <summary>
     /// Initializes a new instance of the <see cref="OneToManyAssociationType"/> class.
     /// </summary>
-    public OneToManyAssociationType(MetaPopulation population, MetaObjectType objectType)
-        : base(population, objectType)
+    public OneToManyAssociationType(Meta meta, MetaObjectType objectType)
+        : base(meta, objectType)
     {
     }
 }

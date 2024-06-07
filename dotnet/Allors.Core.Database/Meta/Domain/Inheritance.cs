@@ -11,8 +11,8 @@ public sealed class Inheritance : MetaObject
     /// <summary>
     /// Initializes a new instance of the <see cref="Inheritance"/> class.
     /// </summary>
-    public Inheritance(MetaPopulation population, MetaObjectType objectType)
-        : base(population, objectType)
+    public Inheritance(Meta meta, MetaObjectType objectType)
+        : base(meta, objectType)
     {
     }
 }

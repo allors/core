@@ -11,17 +11,17 @@ public class DerivationTests
     [Fact]
     public void Derivation()
     {
-        var meta = new MetaMeta();
-        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
-        var @string = meta.AddUnit(domain, Guid.NewGuid(), "String");
-        var @dateTime = meta.AddUnit(domain, Guid.NewGuid(), "DateTime");
-        var person = meta.AddClass(domain, Guid.NewGuid(), "Person");
-        var firstName = meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
-        var lastName = meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
-        var fullName = meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FullName");
-        meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @dateTime, "DerivedAt");
+        var metaMeta = new MetaMeta();
+        var domain = metaMeta.AddDomain(Guid.NewGuid(), "Domain");
+        var @string = metaMeta.AddUnit(domain, Guid.NewGuid(), "String");
+        var @dateTime = metaMeta.AddUnit(domain, Guid.NewGuid(), "DateTime");
+        var person = metaMeta.AddClass(domain, Guid.NewGuid(), "Person");
+        var firstName = metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
+        var lastName = metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
+        var fullName = metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FullName");
+        metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @dateTime, "DerivedAt");
 
-        var population = new MetaPopulation(meta)
+        var meta = new Meta(metaMeta)
         {
             DerivationById =
             {
@@ -29,21 +29,21 @@ public class DerivationTests
             },
         };
 
-        var john = population.Build(person);
+        var john = meta.Build(person);
         john[firstName] = "John";
         john[lastName] = "Doe";
 
-        population.Derive();
+        meta.Derive();
 
         Assert.Equal("John Doe", john[fullName]);
 
-        population.DerivationById["FullName"] = new GreetingDerivation(population.DerivationById["FullName"], firstName, lastName);
+        meta.DerivationById["FullName"] = new GreetingDerivation(meta.DerivationById["FullName"], firstName, lastName);
 
-        var jane = population.Build(person);
+        var jane = meta.Build(person);
         jane[firstName] = "Jane";
         jane[lastName] = "Doe";
 
-        population.Derive();
+        meta.Derive();
 
         Assert.Equal("Jane Doe Chained", jane[fullName]);
     }

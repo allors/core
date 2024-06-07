@@ -3,9 +3,9 @@
 using System;
 using Allors.Core.MetaMeta;
 
-public class Meta
+public class TestsMeta
 {
-    public Meta()
+    public TestsMeta()
     {
         this.MetaMeta = new MetaMeta();
 

@@ -12,18 +12,18 @@ public class OneToManyTests
     [Fact]
     public void AddSameAssociation()
     {
-        var meta = new MetaMeta();
-        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
-        var organization = meta.AddClass(domain, Guid.NewGuid(), "Organization");
-        var person = meta.AddClass(domain, Guid.NewGuid(), "Person");
-        var employees = meta.AddOneToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
+        var metaMeta = new MetaMeta();
+        var domain = metaMeta.AddDomain(Guid.NewGuid(), "Domain");
+        var organization = metaMeta.AddClass(domain, Guid.NewGuid(), "Organization");
+        var person = metaMeta.AddClass(domain, Guid.NewGuid(), "Person");
+        var employees = metaMeta.AddOneToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
-        var population = new MetaPopulation(meta);
+        var meta = new Meta(metaMeta);
 
-        var acme = population.Build(organization);
-        var jane = population.Build(person);
-        var john = population.Build(person);
-        var jenny = population.Build(person);
+        var acme = meta.Build(organization);
+        var jane = meta.Build(person);
+        var john = meta.Build(person);
+        var jenny = meta.Build(person);
 
         acme.Add(employees, jane);
         acme.Add(employees, john);
@@ -41,26 +41,26 @@ public class OneToManyTests
     [Fact]
     public void AddDifferentAssociation()
     {
-        var meta = new MetaMeta();
-        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
-        var named = meta.AddInterface(domain, Guid.NewGuid(), "Named");
-        var organization = meta.AddClass(domain, Guid.NewGuid(), "Organization", named);
-        var person = meta.AddClass(domain, Guid.NewGuid(), "Person", named);
-        var employees = meta.AddOneToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
+        var metaMeta = new MetaMeta();
+        var domain = metaMeta.AddDomain(Guid.NewGuid(), "Domain");
+        var named = metaMeta.AddInterface(domain, Guid.NewGuid(), "Named");
+        var organization = metaMeta.AddClass(domain, Guid.NewGuid(), "Organization", named);
+        var person = metaMeta.AddClass(domain, Guid.NewGuid(), "Person", named);
+        var employees = metaMeta.AddOneToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
-        var population = new MetaPopulation(meta);
+        var meta = new Meta(metaMeta);
 
-        var acme = population.Build(organization);
+        var acme = meta.Build(organization);
 
-        var jane = population.Build(person);
-        var john = population.Build(person);
-        var jenny = population.Build(person);
+        var jane = meta.Build(person);
+        var john = meta.Build(person);
+        var jenny = meta.Build(person);
 
         acme.Add(employees, jane);
         acme.Add(employees, john);
         acme.Add(employees, jenny);
 
-        var hooli = population.Build(organization);
+        var hooli = meta.Build(organization);
 
         hooli.Add(employees, jane);
 
@@ -80,18 +80,18 @@ public class OneToManyTests
     [Fact]
     public void Remove()
     {
-        var meta = new MetaMeta();
-        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
-        var organization = meta.AddClass(domain, Guid.NewGuid(), "Organization");
-        var person = meta.AddClass(domain, Guid.NewGuid(), "Person");
-        var employees = meta.AddOneToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
+        var metaMeta = new MetaMeta();
+        var domain = metaMeta.AddDomain(Guid.NewGuid(), "Domain");
+        var organization = metaMeta.AddClass(domain, Guid.NewGuid(), "Organization");
+        var person = metaMeta.AddClass(domain, Guid.NewGuid(), "Person");
+        var employees = metaMeta.AddOneToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
-        var population = new MetaPopulation(meta);
+        var meta = new Meta(metaMeta);
 
-        var acme = population.Build(organization);
-        var jane = population.Build(person);
-        var john = population.Build(person);
-        var jenny = population.Build(person);
+        var acme = meta.Build(organization);
+        var jane = meta.Build(person);
+        var john = meta.Build(person);
+        var jenny = meta.Build(person);
 
         acme.Add(employees, jane);
         acme.Add(employees, john);
@@ -131,18 +131,18 @@ public class OneToManyTests
     [Fact]
     public void RemoveAll()
     {
-        var meta = new MetaMeta();
-        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
-        var organization = meta.AddClass(domain, Guid.NewGuid(), "Organization");
-        var person = meta.AddClass(domain, Guid.NewGuid(), "Person");
-        var employees = meta.AddOneToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
+        var metaMeta = new MetaMeta();
+        var domain = metaMeta.AddDomain(Guid.NewGuid(), "Domain");
+        var organization = metaMeta.AddClass(domain, Guid.NewGuid(), "Organization");
+        var person = metaMeta.AddClass(domain, Guid.NewGuid(), "Person");
+        var employees = metaMeta.AddOneToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
-        var population = new MetaPopulation(meta);
+        var meta = new Meta(metaMeta);
 
-        var acme = population.Build(organization);
-        var jane = population.Build(person);
-        var john = population.Build(person);
-        var jenny = population.Build(person);
+        var acme = meta.Build(organization);
+        var jane = meta.Build(person);
+        var john = meta.Build(person);
+        var jenny = meta.Build(person);
 
         acme.Add(employees, jane);
         acme.Add(employees, john);

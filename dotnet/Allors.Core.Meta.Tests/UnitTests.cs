@@ -9,22 +9,22 @@ public class UnitTests
     [Fact]
     public void SameRoleTypeName()
     {
-        var meta = new MetaMeta();
-        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
-        var @string = meta.AddUnit(domain, Guid.NewGuid(), "String");
-        var c1 = meta.AddClass(domain, Guid.NewGuid(), "C1");
-        var c2 = meta.AddClass(domain, Guid.NewGuid(), "C2");
-        meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), c1, @string, "Same");
-        meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), c2, @string, "Same");
+        var metaMeta = new MetaMeta();
+        var domain = metaMeta.AddDomain(Guid.NewGuid(), "Domain");
+        var @string = metaMeta.AddUnit(domain, Guid.NewGuid(), "String");
+        var c1 = metaMeta.AddClass(domain, Guid.NewGuid(), "C1");
+        var c2 = metaMeta.AddClass(domain, Guid.NewGuid(), "C2");
+        metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), c1, @string, "Same");
+        metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), c2, @string, "Same");
 
-        var population = new MetaPopulation(meta);
+        var meta = new Meta(metaMeta);
 
-        var c1a = population.Build(c1, v =>
+        var c1a = meta.Build(c1, v =>
         {
             v["Same"] = "c1";
         });
 
-        var c2a = population.Build(c2, v =>
+        var c2a = meta.Build(c2, v =>
         {
             v["Same"] = "c2";
         });
@@ -36,16 +36,16 @@ public class UnitTests
     [Fact]
     public void PropertySetByString()
     {
-        var meta = new MetaMeta();
-        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
-        var @string = meta.AddUnit(domain, Guid.NewGuid(), "String");
-        var person = meta.AddClass(domain, Guid.NewGuid(), "Person");
-        var unitRoleType = meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
+        var metaMeta = new MetaMeta();
+        var domain = metaMeta.AddDomain(Guid.NewGuid(), "Domain");
+        var @string = metaMeta.AddUnit(domain, Guid.NewGuid(), "String");
+        var person = metaMeta.AddClass(domain, Guid.NewGuid(), "Person");
+        var unitRoleType = metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
 
-        var population = new MetaPopulation(meta);
+        var meta = new Meta(metaMeta);
 
-        var john = population.Build(person);
-        var jane = population.Build(person);
+        var john = meta.Build(person);
+        var jane = meta.Build(person);
 
         john["FirstName"] = "John";
         jane["FirstName"] = "Jane";
@@ -66,16 +66,16 @@ public class UnitTests
     [Fact]
     public void PropertySetByUnitRoleType()
     {
-        var meta = new MetaMeta();
-        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
-        var @string = meta.AddUnit(domain, Guid.NewGuid(), "String");
-        var person = meta.AddClass(domain, Guid.NewGuid(), "Person");
-        var unitRoleType = meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
+        var metaMeta = new MetaMeta();
+        var domain = metaMeta.AddDomain(Guid.NewGuid(), "Domain");
+        var @string = metaMeta.AddUnit(domain, Guid.NewGuid(), "String");
+        var person = metaMeta.AddClass(domain, Guid.NewGuid(), "Person");
+        var unitRoleType = metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
 
-        var population = new MetaPopulation(meta);
+        var meta = new Meta(metaMeta);
 
-        var john = population.Build(person);
-        var jane = population.Build(person);
+        var john = meta.Build(person);
+        var jane = meta.Build(person);
 
         john[unitRoleType] = "John";
         jane[unitRoleType] = "Jane";

@@ -7,7 +7,7 @@ using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
 
 /// <summary>
-/// Core Meta Meta.
+/// Core MetaMeta MetaMeta.
 /// </summary>
 public sealed class CoreMetaMeta
 {
@@ -530,11 +530,11 @@ public sealed class CoreMetaMeta
     public MetaObjectType UnitRoleType { get; set; }
 
     /// <summary>
-    /// Creates a new MetaPopulation
+    /// Creates a new MetaMeta
     /// </summary>
-    public MetaPopulation CreateMetaPopulation()
+    public Meta CreateMetaPopulation()
     {
-        var metaPopulation = new MetaPopulation(this.MetaMeta);
+        var metaPopulation = new Meta(this.MetaMeta);
 
         metaPopulation.DerivationById[nameof(this.CompositeDirectSupertypes)] = new CompositeDirectSupertypes(metaPopulation, this);
         metaPopulation.DerivationById[nameof(this.CompositeSupertypes)] = new CompositeSupertypes(metaPopulation, this);

@@ -11,18 +11,18 @@ public class ObjectsTests
     [Fact]
     public void Filter()
     {
-        var meta = new MetaMeta();
-        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
-        var @string = meta.AddUnit(domain, Guid.NewGuid(), "String");
-        var person = meta.AddClass(domain, Guid.NewGuid(), "Person");
-        meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
-        meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
+        var metaMeta = new MetaMeta();
+        var domain = metaMeta.AddDomain(Guid.NewGuid(), "Domain");
+        var @string = metaMeta.AddUnit(domain, Guid.NewGuid(), "String");
+        var person = metaMeta.AddClass(domain, Guid.NewGuid(), "Person");
+        metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
+        metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
 
-        var population = new MetaPopulation(meta);
+        var meta = new Meta(metaMeta);
 
         IMetaObject NewPerson(string firstName, string lastName)
         {
-            return population.Build(person, v =>
+            return meta.Build(person, v =>
             {
                 v["FirstName"] = firstName;
                 v["LastName"] = lastName;
@@ -33,24 +33,24 @@ public class ObjectsTests
         var john = NewPerson("John", "Doe");
         var jenny = NewPerson("Jenny", "Doe");
 
-        var lastNameDoe = population.Objects.Where(v => (string)v["LastName"]! == "Doe").ToArray();
+        var lastNameDoe = meta.Objects.Where(v => (string)v["LastName"]! == "Doe").ToArray();
 
         Assert.Equal(3, lastNameDoe.Length);
         Assert.Contains(jane, lastNameDoe);
         Assert.Contains(john, lastNameDoe);
         Assert.Contains(jenny, lastNameDoe);
 
-        var lessThanFourLetterFirstNames = population.Objects.Where(v => ((string)v["FirstName"]!).Length < 4).ToArray();
+        var lessThanFourLetterFirstNames = meta.Objects.Where(v => ((string)v["FirstName"]!).Length < 4).ToArray();
 
         Assert.Empty(lessThanFourLetterFirstNames);
 
-        var fourLetterFirstNames = population.Objects.Where(v => ((string)v["FirstName"]!).Length == 4).ToArray();
+        var fourLetterFirstNames = meta.Objects.Where(v => ((string)v["FirstName"]!).Length == 4).ToArray();
 
         Assert.Equal(2, fourLetterFirstNames.Length);
         Assert.Contains(jane, fourLetterFirstNames);
         Assert.Contains(john, fourLetterFirstNames);
 
-        var fiveLetterFirstNames = population.Objects.Where(v => ((string)v["FirstName"]!).Length == 5).ToArray();
+        var fiveLetterFirstNames = meta.Objects.Where(v => ((string)v["FirstName"]!).Length == 5).ToArray();
         Assert.Single(fiveLetterFirstNames);
         Assert.Contains(jenny, fiveLetterFirstNames);
     }

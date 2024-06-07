@@ -11,8 +11,8 @@ public sealed class UniqueAssociationType : MetaObject, IUnitAssociationType
     /// <summary>
     /// Initializes a new instance of the <see cref="UniqueAssociationType"/> class.
     /// </summary>
-    public UniqueAssociationType(MetaPopulation population, MetaObjectType objectType)
-        : base(population, objectType)
+    public UniqueAssociationType(Meta meta, MetaObjectType objectType)
+        : base(meta, objectType)
     {
     }
 }

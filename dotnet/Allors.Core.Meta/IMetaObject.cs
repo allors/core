@@ -5,7 +5,7 @@ using Allors.Core.MetaMeta;
 
 public interface IMetaObject
 {
-    MetaPopulation Population { get; }
+    Meta Meta { get; }
 
     MetaObjectType ObjectType { get; }
 

@@ -11,8 +11,8 @@ public sealed class FloatAssociationType : MetaObject, IUnitAssociationType
     /// <summary>
     /// Initializes a new instance of the <see cref="FloatAssociationType"/> class.
     /// </summary>
-    public FloatAssociationType(MetaPopulation population, MetaObjectType objectType)
-        : base(population, objectType)
+    public FloatAssociationType(Meta meta, MetaObjectType objectType)
+        : base(meta, objectType)
     {
     }
 }

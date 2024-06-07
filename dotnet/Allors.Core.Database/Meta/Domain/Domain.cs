@@ -11,8 +11,8 @@ public class Domain : MetaObject
     /// <summary>
     /// Initializes a new instance of the <see cref="Domain"/> class.
     /// </summary>
-    public Domain(MetaPopulation population, MetaObjectType objectType)
-        : base(population, objectType)
+    public Domain(Meta meta, MetaObjectType objectType)
+        : base(meta, objectType)
     {
     }
 

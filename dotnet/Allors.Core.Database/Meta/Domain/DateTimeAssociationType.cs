@@ -11,8 +11,8 @@ public sealed class DateTimeAssociationType : MetaObject, IUnitAssociationType
     /// <summary>
     /// Initializes a new instance of the <see cref="DateTimeAssociationType"/> class.
     /// </summary>
-    public DateTimeAssociationType(MetaPopulation population, MetaObjectType objectType)
-        : base(population, objectType)
+    public DateTimeAssociationType(Meta meta, MetaObjectType objectType)
+        : base(meta, objectType)
     {
     }
 }

@@ -11,8 +11,8 @@ public sealed class UniqueRoleType : MetaObject, IUnitRoleType
     /// <summary>
     /// Initializes a new instance of the <see cref="UniqueRoleType"/> class.
     /// </summary>
-    public UniqueRoleType(MetaPopulation population, MetaObjectType objectType)
-        : base(population, objectType)
+    public UniqueRoleType(Meta meta, MetaObjectType objectType)
+        : base(meta, objectType)
     {
     }
 }

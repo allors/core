@@ -3,5 +3,5 @@
 using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
 
-public class C2(MetaPopulation population, MetaObjectType objectType)
-    : MetaObject(population, objectType), I2;
+public class C2(Meta meta, MetaObjectType objectType)
+    : MetaObject(meta, objectType), I2;

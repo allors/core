@@ -8,7 +8,7 @@ using System.Globalization;
 using System.Linq;
 using Allors.Core.MetaMeta;
 
-public sealed class MetaPopulation(MetaMeta meta)
+public sealed class Meta(MetaMeta meta)
 {
     private readonly MetaRelations relations = new();
     private readonly MetaRelations changedRelations = new();
@@ -16,7 +16,7 @@ public sealed class MetaPopulation(MetaMeta meta)
     private IList<IMetaObject>? newObjects = null;
     private IImmutableList<IMetaObject> objects = ImmutableArray<IMetaObject>.Empty;
 
-    public MetaMeta Meta { get; } = meta;
+    public MetaMeta MetaMeta { get; } = meta;
 
     public Dictionary<string, IMetaDerivation> DerivationById { get; } = [];
 
@@ -39,7 +39,7 @@ public sealed class MetaPopulation(MetaMeta meta)
         where T : IMetaObject
     {
         var className = typeof(T).Name;
-        var @class = this.Meta.ObjectTypeByName[className] ?? throw new ArgumentException($"Class with name {className} not found");
+        var @class = this.MetaMeta.ObjectTypeByName[className] ?? throw new ArgumentException($"Class with name {className} not found");
 
         if (@class.Type == null)
         {

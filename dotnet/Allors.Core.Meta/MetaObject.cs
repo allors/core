@@ -4,10 +4,10 @@ using System;
 using System.Collections.Generic;
 using Allors.Core.MetaMeta;
 
-public class MetaObject(MetaPopulation population, MetaObjectType objectType)
+public class MetaObject(Meta meta, MetaObjectType objectType)
     : IMetaObject
 {
-    public MetaPopulation Population { get; } = population;
+    public Meta Meta { get; } = meta;
 
     public MetaObjectType ObjectType { get; } = objectType;
 
@@ -72,20 +72,20 @@ public class MetaObject(MetaPopulation population, MetaObjectType objectType)
 
     public object? this[MetaUnitRoleType roleType]
     {
-        get => this.Population.GetUnitRole(this, roleType);
-        set => this.Population.SetUnitRole(this, roleType, value);
+        get => this.Meta.GetUnitRole(this, roleType);
+        set => this.Meta.SetUnitRole(this, roleType, value);
     }
 
     public IMetaObject? this[IMetaToOneRoleType roleType]
     {
-        get => this.Population.GetToOneRole(this, roleType);
-        set => this.Population.SetToOneRole(this, roleType, value);
+        get => this.Meta.GetToOneRole(this, roleType);
+        set => this.Meta.SetToOneRole(this, roleType, value);
     }
 
     public IEnumerable<IMetaObject> this[IMetaToManyRoleType roleType]
     {
-        get => this.Population.GetToManyRole(this, roleType) ?? [];
-        set => this.Population.SetToManyRole(this, roleType, value);
+        get => this.Meta.GetToManyRole(this, roleType) ?? [];
+        set => this.Meta.SetToManyRole(this, roleType, value);
     }
 
     public object? this[IMetaAssociationType associationType] => associationType switch
@@ -95,11 +95,11 @@ public class MetaObject(MetaPopulation population, MetaObjectType objectType)
         _ => throw new InvalidOperationException(),
     };
 
-    public IMetaObject? this[IMetaOneToAssociationType associationType] => this.Population.GetToOneAssociation(this, associationType);
+    public IMetaObject? this[IMetaOneToAssociationType associationType] => this.Meta.GetToOneAssociation(this, associationType);
 
-    public IEnumerable<IMetaObject> this[IMetaManyToAssociationType associationType] => this.Population.GetToManyAssociation(this, associationType) ?? [];
+    public IEnumerable<IMetaObject> this[IMetaManyToAssociationType associationType] => this.Meta.GetToManyAssociation(this, associationType) ?? [];
 
-    public void Add(IMetaToManyRoleType roleType, IMetaObject item) => this.Population.AddToManyRole(this, roleType, item);
+    public void Add(IMetaToManyRoleType roleType, IMetaObject item) => this.Meta.AddToManyRole(this, roleType, item);
 
-    public void Remove(IMetaToManyRoleType roleType, IMetaObject item) => this.Population.RemoveToManyRole(this, roleType, item);
+    public void Remove(IMetaToManyRoleType roleType, IMetaObject item) => this.Meta.RemoveToManyRole(this, roleType, item);
 }

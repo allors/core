@@ -13,22 +13,22 @@ public class ManyToManyTests
     [Fact]
     public void AddSingleActiveLink()
     {
-        var meta = new MetaMeta();
-        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
-        var @string = meta.AddUnit(domain, Guid.NewGuid(), "String");
-        var organization = meta.AddClass(domain, Guid.NewGuid(), "Organization");
-        var person = meta.AddClass(domain, Guid.NewGuid(), "Person");
-        var name = meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
-        var (organizationWhereEmployee, employees) = meta.AddManyToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
+        var metaMeta = new MetaMeta();
+        var domain = metaMeta.AddDomain(Guid.NewGuid(), "Domain");
+        var @string = metaMeta.AddUnit(domain, Guid.NewGuid(), "String");
+        var organization = metaMeta.AddClass(domain, Guid.NewGuid(), "Organization");
+        var person = metaMeta.AddClass(domain, Guid.NewGuid(), "Person");
+        var name = metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
+        var (organizationWhereEmployee, employees) = metaMeta.AddManyToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
-        var population = new MetaPopulation(meta);
+        var meta = new Meta(metaMeta);
 
-        var acme = population.Build(organization, v => v[name] = "Acme");
-        var hooli = population.Build(organization, v => v[name] = "Hooli");
+        var acme = meta.Build(organization, v => v[name] = "Acme");
+        var hooli = meta.Build(organization, v => v[name] = "Hooli");
 
-        var jane = population.Build(person);
-        var john = population.Build(person);
-        var jenny = population.Build(person);
+        var jane = meta.Build(person);
+        var john = meta.Build(person);
+        var jenny = meta.Build(person);
 
         acme.Add(employees, jane);
         acme.Add(employees, john);
@@ -54,22 +54,22 @@ public class ManyToManyTests
     [Fact]
     public void SetSingleActiveLink()
     {
-        var meta = new MetaMeta();
-        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
-        var @string = meta.AddUnit(domain, Guid.NewGuid(), "String");
-        var organization = meta.AddClass(domain, Guid.NewGuid(), "Organization");
-        var person = meta.AddClass(domain, Guid.NewGuid(), "Person");
-        var name = meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
-        var employees = meta.AddManyToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
+        var metaMeta = new MetaMeta();
+        var domain = metaMeta.AddDomain(Guid.NewGuid(), "Domain");
+        var @string = metaMeta.AddUnit(domain, Guid.NewGuid(), "String");
+        var organization = metaMeta.AddClass(domain, Guid.NewGuid(), "Organization");
+        var person = metaMeta.AddClass(domain, Guid.NewGuid(), "Person");
+        var name = metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
+        var employees = metaMeta.AddManyToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
-        var population = new MetaPopulation(meta);
+        var meta = new Meta(metaMeta);
 
-        var acme = population.Build(organization, v => v[name] = "Acme");
-        var hooli = population.Build(organization, v => v[name] = "Hooli");
+        var acme = meta.Build(organization, v => v[name] = "Acme");
+        var hooli = meta.Build(organization, v => v[name] = "Hooli");
 
-        var jane = population.Build(person);
-        var john = population.Build(person);
-        var jenny = population.Build(person);
+        var jane = meta.Build(person);
+        var john = meta.Build(person);
+        var jenny = meta.Build(person);
 
         acme[employees] = new[] { jane }.ToFrozenSet();
 
@@ -132,22 +132,22 @@ public class ManyToManyTests
     [Fact]
     public void RemoveSingleActiveLink()
     {
-        var meta = new MetaMeta();
-        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
-        var @string = meta.AddUnit(domain, Guid.NewGuid(), "String");
-        var organization = meta.AddClass(domain, Guid.NewGuid(), "Organization");
-        var person = meta.AddClass(domain, Guid.NewGuid(), "Person");
-        meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
-        var employees = meta.AddManyToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
+        var metaMeta = new MetaMeta();
+        var domain = metaMeta.AddDomain(Guid.NewGuid(), "Domain");
+        var @string = metaMeta.AddUnit(domain, Guid.NewGuid(), "String");
+        var organization = metaMeta.AddClass(domain, Guid.NewGuid(), "Organization");
+        var person = metaMeta.AddClass(domain, Guid.NewGuid(), "Person");
+        metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
+        var employees = metaMeta.AddManyToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
-        var population = new MetaPopulation(meta);
+        var meta = new Meta(metaMeta);
 
-        var acme = population.Build(organization, v => v["Name"] = "Acme");
-        var hooli = population.Build(organization, v => v["Name"] = "Hooli");
+        var acme = meta.Build(organization, v => v["Name"] = "Acme");
+        var hooli = meta.Build(organization, v => v["Name"] = "Hooli");
 
-        var jane = population.Build(person);
-        var john = population.Build(person);
-        var jenny = population.Build(person);
+        var jane = meta.Build(person);
+        var john = meta.Build(person);
+        var jenny = meta.Build(person);
 
         acme["Employees"] = new[] { jane, john, jenny };
 
@@ -194,22 +194,22 @@ public class ManyToManyTests
     [Fact]
     public void MultipleActiveLinks()
     {
-        var meta = new MetaMeta();
-        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
-        var @string = meta.AddUnit(domain, Guid.NewGuid(), "String");
-        var organization = meta.AddClass(domain, Guid.NewGuid(), "Organization");
-        var person = meta.AddClass(domain, Guid.NewGuid(), "Person");
-        meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
-        var employees = meta.AddManyToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
+        var metaMeta = new MetaMeta();
+        var domain = metaMeta.AddDomain(Guid.NewGuid(), "Domain");
+        var @string = metaMeta.AddUnit(domain, Guid.NewGuid(), "String");
+        var organization = metaMeta.AddClass(domain, Guid.NewGuid(), "Organization");
+        var person = metaMeta.AddClass(domain, Guid.NewGuid(), "Person");
+        metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
+        var employees = metaMeta.AddManyToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
-        var population = new MetaPopulation(meta);
+        var meta = new Meta(metaMeta);
 
-        var acme = population.Build(organization, v => v["Name"] = "Acme");
-        var hooli = population.Build(organization, v => v["Name"] = "Hooli");
+        var acme = meta.Build(organization, v => v["Name"] = "Acme");
+        var hooli = meta.Build(organization, v => v["Name"] = "Hooli");
 
-        var jane = population.Build(person);
-        var john = population.Build(person);
-        var jenny = population.Build(person);
+        var jane = meta.Build(person);
+        var john = meta.Build(person);
+        var jenny = meta.Build(person);
 
         acme.Add(employees, jane);
         acme.Add(employees, john);
@@ -285,19 +285,19 @@ public class ManyToManyTests
     [Fact]
     public void DefaultRoleName()
     {
-        var meta = new MetaMeta();
-        var domain = meta.AddDomain(Guid.NewGuid(), "Domain");
-        var @string = meta.AddUnit(domain, Guid.NewGuid(), "String");
-        var organization = meta.AddClass(domain, Guid.NewGuid(), "Organization");
-        var person = meta.AddClass(domain, Guid.NewGuid(), "Person");
-        meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
-        var people = meta.AddManyToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person);
+        var metaMeta = new MetaMeta();
+        var domain = metaMeta.AddDomain(Guid.NewGuid(), "Domain");
+        var @string = metaMeta.AddUnit(domain, Guid.NewGuid(), "String");
+        var organization = metaMeta.AddClass(domain, Guid.NewGuid(), "Organization");
+        var person = metaMeta.AddClass(domain, Guid.NewGuid(), "Person");
+        metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
+        var people = metaMeta.AddManyToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person);
 
-        var population = new MetaPopulation(meta);
+        var meta = new Meta(metaMeta);
 
-        var acme = population.Build(organization, v => v["Name"] = "Acme");
+        var acme = meta.Build(organization, v => v["Name"] = "Acme");
 
-        var jane = population.Build(person);
+        var jane = meta.Build(person);
 
         acme.Add(people, jane);
 

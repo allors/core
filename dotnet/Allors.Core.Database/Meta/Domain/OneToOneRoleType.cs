@@ -11,8 +11,8 @@ public sealed class OneToOneRoleType : MetaObject, IToOneRoleType
     /// <summary>
     /// Initializes a new instance of the <see cref="OneToOneRoleType"/> class.
     /// </summary>
-    public OneToOneRoleType(MetaPopulation population, MetaObjectType objectType)
-        : base(population, objectType)
+    public OneToOneRoleType(Meta meta, MetaObjectType objectType)
+        : base(meta, objectType)
     {
     }
 
