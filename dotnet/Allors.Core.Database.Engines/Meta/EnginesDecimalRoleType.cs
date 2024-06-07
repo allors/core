@@ -3,7 +3,7 @@
 using System;
 using System.Data.SqlTypes;
 using Allors.Core.Database.Meta.Domain;
-using Allors.Core.Meta.Domain;
+using Allors.Core.Meta;
 
 /// <summary>
 /// An engine unit role type.

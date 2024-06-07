@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Allors.Core.Meta.Domain;
+using Allors.Core.Meta;
 
 /// <summary>
 /// Derive the supertypes of the composite.

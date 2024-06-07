@@ -2,7 +2,7 @@
 
 using System;
 using Allors.Core.Database.Meta;
-using Allors.Core.Meta.Domain;
+using Allors.Core.Meta;
 
 /// <summary>
 /// An engine meta object.

@@ -1,7 +1,7 @@
 ﻿namespace Allors.Core.Database.Meta.Derivations;
 
 using System.Linq;
-using Allors.Core.Meta.Domain;
+using Allors.Core.Meta;
 
 /// <summary>
 /// Derive the size of the string role.

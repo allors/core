@@ -1,10 +1,10 @@
-﻿namespace Allors.Core.Meta.Tests.Domain;
+﻿namespace Allors.Core.Meta.Tests;
 
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Allors.Core.Meta.Domain;
+using Allors.Core.Meta;
 using Allors.Core.Meta.Meta;
 using MoreLinq;
 using Xunit;

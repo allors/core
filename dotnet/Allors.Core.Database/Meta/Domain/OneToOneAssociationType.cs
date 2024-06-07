@@ -1,6 +1,6 @@
 ﻿namespace Allors.Core.Database.Meta.Domain;
 
-using Allors.Core.Meta.Domain;
+using Allors.Core.Meta;
 using Allors.Core.Meta.Meta;
 
 /// <summary>

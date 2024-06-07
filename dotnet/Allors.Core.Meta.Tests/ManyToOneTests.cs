@@ -1,4 +1,4 @@
-﻿namespace Allors.Core.Meta.Tests.Domain;
+﻿namespace Allors.Core.Meta.Tests;
 
 #pragma warning disable S2094 // Classes should not be empty
 public class ManyToOneTests;

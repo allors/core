@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Allors.Core.Database.Meta.Domain;
-using Allors.Core.Meta.Domain;
+using Allors.Core.Meta;
 using Allors.Core.Meta.Meta;
 
 /// <summary>

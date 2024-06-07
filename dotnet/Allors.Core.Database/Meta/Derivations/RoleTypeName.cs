@@ -1,7 +1,7 @@
 ﻿namespace Allors.Core.Database.Meta.Derivations;
 
 using System.Linq;
-using Allors.Core.Meta.Domain;
+using Allors.Core.Meta;
 
 /// <summary>
 /// Derive the name of the role type.

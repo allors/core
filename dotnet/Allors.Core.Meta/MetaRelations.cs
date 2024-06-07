@@ -1,4 +1,4 @@
-﻿namespace Allors.Core.Meta.Domain;
+﻿namespace Allors.Core.Meta;
 
 using System.Collections.Generic;
 using System.Linq;

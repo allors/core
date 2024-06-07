@@ -1,12 +1,12 @@
-﻿namespace Allors.Core.Meta.Tests.Domain;
+﻿namespace Allors.Core.Meta.Tests;
 
 using System;
 using System.Linq;
-using Allors.Core.Meta.Domain;
+using Allors.Core.Meta;
 using Allors.Core.Meta.Meta;
 using Xunit;
 
-public class DerivationTests
+public class DerivationOverrideTests
 {
     [Fact]
     public void Derivation()
@@ -19,33 +19,25 @@ public class DerivationTests
         var firstName = meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
         var lastName = meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
         var fullName = meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FullName");
-        meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @dateTime, "DerivedAt");
+        meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, dateTime, "DerivedAt");
+        meta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "Greeting");
 
         var population = new MetaPopulation(meta)
         {
             DerivationById =
             {
                 ["FullName"] = new FullNameDerivation(firstName, lastName),
+                ["Greeting"] = new GreetingDerivation(fullName),
             },
         };
 
         var john = population.Build(person);
-        john[firstName] = "John";
-        john[lastName] = "Doe";
+        john["FirstName"] = "John";
+        john["LastName"] = "Doe";
 
         population.Derive();
 
-        Assert.Equal("John Doe", john[fullName]);
-
-        population.DerivationById["FullName"] = new GreetingDerivation(population.DerivationById["FullName"], firstName, lastName);
-
-        var jane = population.Build(person);
-        jane[firstName] = "Jane";
-        jane[lastName] = "Doe";
-
-        population.Derive();
-
-        Assert.Equal("Jane Doe Chained", jane[fullName]);
+        Assert.Equal("Hello John Doe!", john["Greeting"]);
     }
 
     private class FullNameDerivation(IMetaRoleType firstName, IMetaRoleType lastName) : IMetaDerivation
@@ -77,25 +69,22 @@ public class DerivationTests
         }
     }
 
-    private class GreetingDerivation(IMetaDerivation derivation, IMetaRoleType firstName, IMetaRoleType lastName) : IMetaDerivation
+    private class GreetingDerivation(IMetaRoleType fullName) : IMetaDerivation
     {
         public void Derive(MetaChangeSet changeSet)
         {
-            derivation.Derive(changeSet);
+            var fullNames = changeSet.ChangedRoles(fullName);
 
-            var firstNames = changeSet.ChangedRoles(firstName);
-            var lastNames = changeSet.ChangedRoles(lastName);
-
-            if (!firstNames.Any() && !lastNames.Any())
+            if (!fullNames.Any())
             {
                 return;
             }
 
-            var people = firstNames.Union(lastNames).Select(v => v.Key).Distinct();
+            var people = fullNames.Select(v => v.Key).Distinct();
 
             foreach (IMetaObject person in people)
             {
-                person["FullName"] = $"{person["FullName"]} Chained";
+                person["Greeting"] = $"Hello {person["FullName"]}!";
             }
         }
     }
