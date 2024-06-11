@@ -13,9 +13,29 @@ public static class CoreIds
     public static readonly Guid Id6b3e8142B69e440f8869A6aaf3b45420 = new("6b3e8142-b69e-440f-8869-a6aaf3b45420");
 
     /// <summary>
+    /// Binary.
+    /// </summary>
+    public static readonly Guid Idcc0e2b47d7d34a58b390e41f53b248a2 = new("cc0e2b47-d7d3-4a58-b390-e41f53b248a2");
+
+    /// <summary>
     /// Boolean.
     /// </summary>
     public static readonly Guid Ida5e7554308e04fdca804e3681ba5eae5 = new("a5e75543-08e0-4fdc-a804-e3681ba5eae5");
+
+    /// <summary>
+    /// DateTime.
+    /// </summary>
+    public static readonly Guid Id7809b062412e42c58b5abaa1919ec156 = new("7809b062-412e-42c5-8b5a-baa1919ec156");
+
+    /// <summary>
+    /// Decimal.
+    /// </summary>
+    public static readonly Guid Id083579BF2E7248CDB49137D776C70F44 = new("083579BF-2E72-48CD-B491-37D776C70F44");
+
+    /// <summary>
+    /// Float.
+    /// </summary>
+    public static readonly Guid Idb2f5d674e8ce455c9799e2794d1ec78e = new("b2f5d674-e8ce-455c-9799-e2794d1ec78e");
 
     /// <summary>
     /// Integer.
@@ -382,9 +402,27 @@ public static class CoreIds
     /// </summary>
     public static readonly Guid Id407e07f46d6648459cdb03e897166d0f = new("407e07f4-6d66-4845-9cdb-03e897166d0f");
 
+    /// <summary>
+    /// Object.
+    /// </summary>
+    public static readonly Guid Idb9b23efefefb4867bce53fd78dd3617d = new("b9b23efe-fefb-4867-bce5-3fd78dd3617d");
+
+    /// <summary>
+    /// Object.Class.
+    /// </summary>
+    public static readonly Guid Id182f88db1f904668967b68f13943ad59 = new("182f88db-1f90-4668-967b-68f13943ad59");
+
     internal static Guid AllorsCore => Id6b3e8142B69e440f8869A6aaf3b45420;
 
+    internal static Guid Binary => Idcc0e2b47d7d34a58b390e41f53b248a2;
+
     internal static Guid Boolean => Ida5e7554308e04fdca804e3681ba5eae5;
+
+    internal static Guid DateTime => Id7809b062412e42c58b5abaa1919ec156;
+
+    internal static Guid Decimal => Id083579BF2E7248CDB49137D776C70F44;
+
+    internal static Guid Float => Idb2f5d674e8ce455c9799e2794d1ec78e;
 
     internal static Guid Integer => Idbb6c48ad0ae34788ba8018d8ffdf7018;
 
@@ -531,4 +569,8 @@ public static class CoreIds
     internal static Guid StringRoleTypeAssignedSize => Id321bb675029842ae842a39131f4e1662;
 
     internal static Guid StringRoleTypeDerivedSize => Id407e07f46d6648459cdb03e897166d0f;
+
+    internal static Guid Object => Idb9b23efefefb4867bce53fd78dd3617d;
+
+    internal static Guid ObjectClass => Id182f88db1f904668967b68f13943ad59;
 }

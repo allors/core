@@ -8,9 +8,9 @@ public sealed class MetaMeta
     private readonly Dictionary<Guid, MetaDomain> domainById;
     private readonly Dictionary<Guid, MetaObjectType> objectTypeById;
     private readonly Dictionary<string, MetaObjectType> objectTypeByName;
+    private readonly Dictionary<Guid, MetaInheritance> inheritanceById;
     private readonly Dictionary<Guid, IMetaAssociationType> associationTypeById;
     private readonly Dictionary<Guid, IMetaRoleType> roleTypeById;
-    private readonly Dictionary<Guid, MetaInheritance> inheritanceById;
 
     public MetaMeta()
     {
@@ -27,6 +27,8 @@ public sealed class MetaMeta
     public IReadOnlyDictionary<Guid, MetaObjectType> ObjectTypeById => this.objectTypeById;
 
     public IReadOnlyDictionary<string, MetaObjectType> ObjectTypeByName => this.objectTypeByName;
+
+    public IReadOnlyDictionary<Guid, MetaInheritance> InheritanceById => this.inheritanceById;
 
     public IReadOnlyDictionary<Guid, IMetaAssociationType> AssociationTypeById => this.associationTypeById;
 

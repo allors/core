@@ -12,7 +12,7 @@ public class CoreMetaTests
     public void Diagram()
     {
         var coreMeta = new CoreMeta();
-        var diagram = new ClassDiagram(coreMeta.MetaMeta.MetaMeta).Render();
+        var diagram = new ClassDiagram(coreMeta.CoreMetaMeta.MetaMeta).Render();
 
         Assert.NotNull(diagram);
     }

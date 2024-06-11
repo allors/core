@@ -16,7 +16,7 @@ public sealed class TestsMeta
     {
         this.CoreMeta = m;
 
-        this.MetaMeta = new TestsMetaMeta(m.MetaMeta);
+        this.MetaMeta = new TestsMetaMeta(m.CoreMetaMeta);
 
         this.AllorsTests = m.AddDomain(this.MetaMeta.AllorsTests.Id, this.MetaMeta.AllorsTests.Name);
 
