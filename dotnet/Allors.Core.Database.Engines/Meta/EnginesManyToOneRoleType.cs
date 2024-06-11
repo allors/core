@@ -1,5 +1,6 @@
 ﻿namespace Allors.Core.Database.Engines.Meta;
 
+using Allors.Core.Database.Meta;
 using Allors.Core.Meta;
 
 /// <summary>
@@ -15,5 +16,5 @@ public sealed class EnginesManyToOneRoleType(EnginesMeta enginesMeta, MetaObject
     /// <summary>
     /// The association type.
     /// </summary>
-    public EnginesManyToOneAssociationType ManyToOneAssociationType => this.associationType ??= (EnginesManyToOneAssociationType)this.EnginesMeta[this.MetaObject[this.M.RoleTypeAssociationType]!];
+    public EnginesManyToOneAssociationType ManyToOneAssociationType => this.associationType ??= (EnginesManyToOneAssociationType)this.EnginesMeta[this.MetaObject[this.M.MetaMeta.RoleTypeAssociationType()]!];
 }

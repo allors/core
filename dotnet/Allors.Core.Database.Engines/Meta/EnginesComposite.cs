@@ -3,6 +3,7 @@
 using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Linq;
+using Allors.Core.Database.Meta;
 using Allors.Core.Database.Meta.Domain;
 using Allors.Core.Meta;
 
@@ -18,7 +19,7 @@ public abstract class EnginesComposite(EnginesMeta enginesMeta, MetaObject metaO
     /// <summary>
     /// The supertypes.
     /// </summary>
-    public IReadOnlySet<EnginesInterface> Supertypes => this.supertypes ??= this.MetaObject[this.M.CompositeSupertypes]
+    public IReadOnlySet<EnginesInterface> Supertypes => this.supertypes ??= this.MetaObject[this.M.MetaMeta.CompositeSupertypes()]
         .Select(v => this.EnginesMeta[(Interface)v])
         .ToFrozenSet();
 

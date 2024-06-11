@@ -1,6 +1,7 @@
 ﻿namespace Allors.Core.Database.Engines.Meta;
 
 using System;
+using Allors.Core.Database.Meta;
 using Allors.Core.Database.Meta.Domain;
 using Allors.Core.Meta;
 
@@ -20,7 +21,7 @@ public sealed class EnginesDateTimeRoleType(EnginesMeta enginesMeta, MetaObject 
     /// The association type.
     /// </summary>
     public EnginesDateTimeAssociationType DateTimeAssociationType => this.associationType ??=
-        (EnginesDateTimeAssociationType)this.EnginesMeta[this.MetaObject[this.M.RoleTypeAssociationType]!];
+        (EnginesDateTimeAssociationType)this.EnginesMeta[this.MetaObject[this.M.MetaMeta.RoleTypeAssociationType()]!];
 
     /// <inheritdoc />
     public override EnginesObjectType ObjectType => this.Unit;
@@ -28,7 +29,7 @@ public sealed class EnginesDateTimeRoleType(EnginesMeta enginesMeta, MetaObject 
     /// <summary>
     /// The composite.
     /// </summary>
-    public EnginesUnit Unit => this.unit ??= this.EnginesMeta[(Unit)this.MetaObject[this.M.RoleTypeObjectType]!];
+    public EnginesUnit Unit => this.unit ??= this.EnginesMeta[(Unit)this.MetaObject[this.M.MetaMeta.RoleTypeObjectType()]!];
 
     /// <summary>
     /// Normalize the value.

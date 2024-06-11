@@ -1,6 +1,7 @@
 ﻿namespace Allors.Core.Database.Engines.Meta;
 
 using System;
+using Allors.Core.Database.Meta;
 using Allors.Core.Database.Meta.Domain;
 using Allors.Core.Meta;
 
@@ -21,7 +22,7 @@ public sealed class EnginesStringRoleType(EnginesMeta enginesMeta, MetaObject me
     /// The association type.
     /// </summary>
     public EnginesStringAssociationType StringAssociationType => this.associationType ??=
-        (EnginesStringAssociationType)this.EnginesMeta[this.MetaObject[this.M.RoleTypeAssociationType]!];
+        (EnginesStringAssociationType)this.EnginesMeta[this.MetaObject[this.M.MetaMeta.RoleTypeAssociationType()]!];
 
     /// <inheritdoc />
     public override EnginesObjectType ObjectType => this.Unit;
@@ -29,12 +30,12 @@ public sealed class EnginesStringRoleType(EnginesMeta enginesMeta, MetaObject me
     /// <summary>
     /// The composite.
     /// </summary>
-    public EnginesUnit Unit => this.unit ??= this.EnginesMeta[(Unit)this.MetaObject[this.M.RoleTypeObjectType]!];
+    public EnginesUnit Unit => this.unit ??= this.EnginesMeta[(Unit)this.MetaObject[this.M.MetaMeta.RoleTypeObjectType()]!];
 
     /// <summary>
     /// The size.
     /// </summary>
-    public int Size => this.size ??= (int)this.MetaObject[this.M.StringRoleTypeDerivedSize]!;
+    public int Size => this.size ??= (int)this.MetaObject[this.M.MetaMeta.StringRoleTypeDerivedSize()]!;
 
     /// <summary>
     /// Normalize the value.

@@ -1,5 +1,6 @@
 ﻿namespace Allors.Core.Database.Engines.Meta;
 
+using Allors.Core.Database.Meta;
 using Allors.Core.Database.Meta.Domain;
 using Allors.Core.Meta;
 
@@ -19,7 +20,7 @@ public sealed class EnginesBinaryRoleType(EnginesMeta enginesMeta, MetaObject me
     /// The association type.
     /// </summary>
     public EnginesBinaryAssociationType BinaryAssociationType => this.associationType ??=
-        (EnginesBinaryAssociationType)this.EnginesMeta[this.MetaObject[this.M.RoleTypeAssociationType]!];
+        (EnginesBinaryAssociationType)this.EnginesMeta[this.MetaObject[this.M.MetaMeta.RoleTypeAssociationType()]!];
 
     /// <inheritdoc />
     public override EnginesObjectType ObjectType => this.Unit;
@@ -27,5 +28,5 @@ public sealed class EnginesBinaryRoleType(EnginesMeta enginesMeta, MetaObject me
     /// <summary>
     /// The composite.
     /// </summary>
-    public EnginesUnit Unit => this.unit ??= this.EnginesMeta[(Unit)this.MetaObject[this.M.RoleTypeObjectType]!];
+    public EnginesUnit Unit => this.unit ??= this.EnginesMeta[(Unit)this.MetaObject[this.M.MetaMeta.RoleTypeObjectType()]!];
 }

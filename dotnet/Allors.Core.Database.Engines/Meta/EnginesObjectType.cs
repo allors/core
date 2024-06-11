@@ -1,5 +1,6 @@
 ﻿namespace Allors.Core.Database.Engines.Meta;
 
+using Allors.Core.Database.Meta;
 using Allors.Core.Meta;
 
 /// <summary>
@@ -12,5 +13,5 @@ public abstract class EnginesObjectType(EnginesMeta enginesMeta, MetaObject meta
     /// <summary>
     /// The name.
     /// </summary>
-    public string SingularName => this.singularName ??= (string)this.MetaObject[this.M.ObjectTypeSingularName]!;
+    public string SingularName => this.singularName ??= (string)this.MetaObject[this.M.MetaMeta.ObjectTypeSingularName()]!;
 }

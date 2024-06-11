@@ -13,7 +13,7 @@ public sealed class TestsMetaMeta
         this.MetaMeta = m.MetaMeta;
 
         this.AllorsTests = this.MetaMeta.AddDomain(new Guid("3d32f751-233a-4ce7-a444-c5a38b7fec22"), "AllorsTests");
-        this.AllorsTests.AddDirectSuperdomain(m.AllorsCore);
+        this.AllorsTests.AddDirectSuperdomain(m.MetaMeta.AllorsCore());
     }
 
     /// <summary>

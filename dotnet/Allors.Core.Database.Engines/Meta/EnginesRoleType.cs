@@ -1,5 +1,6 @@
 ﻿namespace Allors.Core.Database.Engines.Meta;
 
+using Allors.Core.Database.Meta;
 using Allors.Core.Meta;
 
 /// <summary>
@@ -22,5 +23,5 @@ public abstract class EnginesRoleType(EnginesMeta enginesMeta, MetaObject metaOb
     /// <summary>
     /// The name.
     /// </summary>
-    public string Name => this.name ??= (string)this.MetaObject[this.M.RoleTypeSingularName]!;
+    public string Name => this.name ??= (string)this.MetaObject[this.M.MetaMeta.RoleTypeSingularName()]!;
 }

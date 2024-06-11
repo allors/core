@@ -1,5 +1,6 @@
 ﻿namespace Allors.Core.Database.Engines.Meta;
 
+using Allors.Core.Database.Meta;
 using Allors.Core.Database.Meta.Domain;
 using Allors.Core.Meta;
 
@@ -16,5 +17,5 @@ public abstract class EnginesCompositeRoleType(EnginesMeta enginesMeta, MetaObje
     /// <summary>
     /// The composite.
     /// </summary>
-    public EnginesComposite Composite => this.composite ??= this.EnginesMeta[(IComposite)this.MetaObject[this.M.RoleTypeObjectType]!];
+    public EnginesComposite Composite => this.composite ??= this.EnginesMeta[(IComposite)this.MetaObject[this.M.MetaMeta.RoleTypeObjectType()]!];
 }
