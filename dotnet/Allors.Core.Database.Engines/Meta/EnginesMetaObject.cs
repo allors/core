@@ -3,6 +3,7 @@
 using System;
 using Allors.Core.Database.Meta;
 using Allors.Core.Meta;
+using Allors.Core.MetaMeta;
 
 /// <summary>
 /// An engine meta object.
@@ -19,7 +20,7 @@ public abstract class EnginesMetaObject(EnginesMeta enginesMeta, MetaObject meta
     /// <summary>
     /// The core meta meta.
     /// </summary>
-    public CoreMetaMeta M => this.EnginesMeta.CoreMeta.CoreMetaMeta;
+    public MetaMeta M => this.EnginesMeta.Meta.MetaMeta;
 
     /// <summary>
     /// The meta object.
@@ -29,5 +30,5 @@ public abstract class EnginesMetaObject(EnginesMeta enginesMeta, MetaObject meta
     /// <summary>
     /// The id.
     /// </summary>
-    public Guid Id => this.id ??= (Guid)this.MetaObject[this.M.MetaMeta.MetaObjectId()]!;
+    public Guid Id => this.id ??= (Guid)this.MetaObject[this.M.MetaObjectId()]!;
 }

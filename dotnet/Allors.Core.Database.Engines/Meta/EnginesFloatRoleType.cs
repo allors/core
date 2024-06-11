@@ -20,7 +20,7 @@ public sealed class EnginesFloatRoleType(EnginesMeta enginesMeta, MetaObject met
     /// The association type.
     /// </summary>
     public EnginesFloatAssociationType FloatAssociationType => this.associationType ??=
-        (EnginesFloatAssociationType)this.EnginesMeta[this.MetaObject[this.M.MetaMeta.RoleTypeAssociationType()]!];
+        (EnginesFloatAssociationType)this.EnginesMeta[this.MetaObject[this.M.RoleTypeAssociationType()]!];
 
     /// <inheritdoc />
     public override EnginesObjectType ObjectType => this.Unit;
@@ -28,5 +28,5 @@ public sealed class EnginesFloatRoleType(EnginesMeta enginesMeta, MetaObject met
     /// <summary>
     /// The composite.
     /// </summary>
-    public EnginesUnit Unit => this.unit ??= this.EnginesMeta[(Unit)this.MetaObject[this.M.MetaMeta.RoleTypeObjectType()]!];
+    public EnginesUnit Unit => this.unit ??= this.EnginesMeta[(Unit)this.MetaObject[this.M.RoleTypeObjectType()]!];
 }

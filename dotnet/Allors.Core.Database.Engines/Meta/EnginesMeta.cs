@@ -3,7 +3,6 @@
 using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Linq;
-using Allors.Core.Database.Meta;
 using Allors.Core.Database.Meta.Domain;
 using Allors.Core.Meta;
 
@@ -17,11 +16,11 @@ public sealed class EnginesMeta
     /// <summary>
     /// Initializes a new instance of the <see cref="EnginesMeta"/> class.
     /// </summary>
-    public EnginesMeta(CoreMeta coreMeta)
+    public EnginesMeta(Meta meta)
     {
-        this.CoreMeta = coreMeta;
+        this.Meta = meta;
 
-        this.mapping = this.CoreMeta.Meta.Objects
+        this.mapping = this.Meta.Objects
             .Select(v =>
             {
                 EnginesMetaObject metaObject = v switch
@@ -56,9 +55,9 @@ public sealed class EnginesMeta
     }
 
     /// <summary>
-    /// Core meta.
+    /// Meta.
     /// </summary>
-    public CoreMeta CoreMeta { get; }
+    public Meta Meta { get; }
 
     /// <summary>
     /// Lookup engines meta object.

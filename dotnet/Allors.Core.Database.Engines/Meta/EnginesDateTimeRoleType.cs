@@ -21,7 +21,7 @@ public sealed class EnginesDateTimeRoleType(EnginesMeta enginesMeta, MetaObject 
     /// The association type.
     /// </summary>
     public EnginesDateTimeAssociationType DateTimeAssociationType => this.associationType ??=
-        (EnginesDateTimeAssociationType)this.EnginesMeta[this.MetaObject[this.M.MetaMeta.RoleTypeAssociationType()]!];
+        (EnginesDateTimeAssociationType)this.EnginesMeta[this.MetaObject[this.M.RoleTypeAssociationType()]!];
 
     /// <inheritdoc />
     public override EnginesObjectType ObjectType => this.Unit;
@@ -29,7 +29,7 @@ public sealed class EnginesDateTimeRoleType(EnginesMeta enginesMeta, MetaObject 
     /// <summary>
     /// The composite.
     /// </summary>
-    public EnginesUnit Unit => this.unit ??= this.EnginesMeta[(Unit)this.MetaObject[this.M.MetaMeta.RoleTypeObjectType()]!];
+    public EnginesUnit Unit => this.unit ??= this.EnginesMeta[(Unit)this.MetaObject[this.M.RoleTypeObjectType()]!];
 
     /// <summary>
     /// Normalize the value.

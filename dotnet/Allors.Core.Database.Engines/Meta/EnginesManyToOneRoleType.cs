@@ -16,5 +16,5 @@ public sealed class EnginesManyToOneRoleType(EnginesMeta enginesMeta, MetaObject
     /// <summary>
     /// The association type.
     /// </summary>
-    public EnginesManyToOneAssociationType ManyToOneAssociationType => this.associationType ??= (EnginesManyToOneAssociationType)this.EnginesMeta[this.MetaObject[this.M.MetaMeta.RoleTypeAssociationType()]!];
+    public EnginesManyToOneAssociationType ManyToOneAssociationType => this.associationType ??= (EnginesManyToOneAssociationType)this.EnginesMeta[this.MetaObject[this.M.RoleTypeAssociationType()]!];
 }

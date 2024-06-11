@@ -17,5 +17,5 @@ public abstract class EnginesCompositeRoleType(EnginesMeta enginesMeta, MetaObje
     /// <summary>
     /// The composite.
     /// </summary>
-    public EnginesComposite Composite => this.composite ??= this.EnginesMeta[(IComposite)this.MetaObject[this.M.MetaMeta.RoleTypeObjectType()]!];
+    public EnginesComposite Composite => this.composite ??= this.EnginesMeta[(IComposite)this.MetaObject[this.M.RoleTypeObjectType()]!];
 }

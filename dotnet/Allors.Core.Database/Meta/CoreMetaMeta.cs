@@ -1,21 +1,20 @@
 ﻿namespace Allors.Core.Database.Meta;
 
 using System;
-using Allors.Core.Database.Meta.Derivations;
 using Allors.Core.Database.Meta.Domain;
-using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
 
 /// <summary>
 /// Core MetaMeta.
 /// </summary>
-public sealed class CoreMetaMeta
+public static class CoreMetaMeta
 {
-    internal CoreMetaMeta()
+    /// <summary>
+    /// Populates meta meta with Core types.
+    /// </summary>
+    public static void Populate(MetaMeta m)
     {
-        this.MetaMeta = new MetaMeta();
-        var m = this.MetaMeta;
-        var d = this.MetaMeta.AddDomain(CoreIds.AllorsCore, "AllorsCore");
+        var d = m.AddDomain(CoreIds.AllorsCore, "AllorsCore");
 
         // Units
         var boolean = m.AddUnit(d, CoreIds.Boolean, "Boolean");
@@ -151,27 +150,5 @@ public sealed class CoreMetaMeta
 
         m.AddUnitRelation(d, new Guid("da78d554-bb1b-451c-ade1-4f6efe651d7c"), CoreIds.StringRoleTypeAssignedSize, stringRoleType, integer, "AssignedSize");
         m.AddUnitRelation(d, new Guid("46d33068-969c-4a88-a703-fb5f0d8e0cd8"), CoreIds.StringRoleTypeDerivedSize, stringRoleType, integer, "DerivedSize");
-    }
-
-    /// <summary>
-    /// The meta meta.
-    /// </summary>
-    public MetaMeta MetaMeta { get; }
-
-    /// <summary>
-    /// Creates a new Meta
-    /// </summary>
-    public Meta CreateMetaPopulation()
-    {
-        var meta = new Meta(this.MetaMeta);
-
-        meta.DerivationById[nameof(CoreIds.CompositeDirectSupertypes)] = new CompositeDirectSupertypes(meta);
-        meta.DerivationById[nameof(CoreIds.CompositeSupertypes)] = new CompositeSupertypes(meta);
-        meta.DerivationById[nameof(CoreIds.DecimalRoleTypeDerivedPrecision)] = new DecimalRoleTypeDerivedPrecision(meta);
-        meta.DerivationById[nameof(CoreIds.DecimalRoleTypeDerivedScale)] = new DecimalRoleTypeDerivedScale(meta);
-        meta.DerivationById[nameof(CoreIds.RoleTypeName)] = new RoleTypeName(meta);
-        meta.DerivationById[nameof(CoreIds.StringRoleTypeDerivedSize)] = new StringRoleTypeDerivedSize(meta);
-
-        return meta;
     }
 }

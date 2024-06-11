@@ -24,7 +24,7 @@ public sealed class EnginesDecimalRoleType(EnginesMeta enginesMeta, MetaObject m
     /// The association type.
     /// </summary>
     public EnginesDecimalAssociationType DecimalAssociationType => this.associationType ??=
-        (EnginesDecimalAssociationType)this.EnginesMeta[this.MetaObject[this.M.MetaMeta.RoleTypeAssociationType()]!];
+        (EnginesDecimalAssociationType)this.EnginesMeta[this.MetaObject[this.M.RoleTypeAssociationType()]!];
 
     /// <inheritdoc />
     public override EnginesObjectType ObjectType => this.Unit;
@@ -32,17 +32,17 @@ public sealed class EnginesDecimalRoleType(EnginesMeta enginesMeta, MetaObject m
     /// <summary>
     /// The composite.
     /// </summary>
-    public EnginesUnit Unit => this.unit ??= this.EnginesMeta[(Unit)this.MetaObject[this.M.MetaMeta.RoleTypeObjectType()]!];
+    public EnginesUnit Unit => this.unit ??= this.EnginesMeta[(Unit)this.MetaObject[this.M.RoleTypeObjectType()]!];
 
     /// <summary>
     /// The precision.
     /// </summary>
-    public int Precision => this.precision ??= (int)this.MetaObject[this.M.MetaMeta.DecimalRoleTypeDerivedPrecision()]!;
+    public int Precision => this.precision ??= (int)this.MetaObject[this.M.DecimalRoleTypeDerivedPrecision()]!;
 
     /// <summary>
     /// The size.
     /// </summary>
-    public int Scale => this.scale ??= (int)this.MetaObject[this.M.MetaMeta.DecimalRoleTypeDerivedScale()]!;
+    public int Scale => this.scale ??= (int)this.MetaObject[this.M.DecimalRoleTypeDerivedScale()]!;
 
     /// <summary>
     /// Normalize the value.

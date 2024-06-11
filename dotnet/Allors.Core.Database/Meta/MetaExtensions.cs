@@ -5,12 +5,119 @@ using System.Collections.Generic;
 using System.Linq;
 using Allors.Core.Database.Meta.Domain;
 using Allors.Core.Meta;
+using Allors.Core.MetaMeta;
 
 /// <summary>
 /// Meta Extensions.
 /// </summary>
 public static class MetaExtensions
 {
+    /// <summary>
+    /// Populates meta with Core types.
+    /// </summary>
+    public static void Sync(this Meta @this)
+    {
+        var metaMeta = @this.MetaMeta;
+
+        foreach (var (id, domain) in metaMeta.DomainById)
+        {
+            @this.AddDomain(id, domain.Name);
+        }
+
+        var byId = @this.Objects.ToDictionary(v => (Guid)v[metaMeta.MetaObjectId()]!, v => v);
+
+        foreach (var (id, objectType) in metaMeta.ObjectTypeById)
+        {
+            var domain = (Domain.Domain)byId[objectType.Domain.Id];
+
+            switch (objectType.Kind)
+            {
+                case MetaObjectTypeKind.Unit:
+                    @this.AddUnit(domain, id, objectType.Name);
+                    break;
+                case MetaObjectTypeKind.Interface:
+                    @this.AddInterface(domain, id, objectType.Name);
+                    break;
+                case MetaObjectTypeKind.Class:
+                    @this.AddClass(domain, id, objectType.Name);
+                    break;
+            }
+        }
+
+        byId = @this.Objects.ToDictionary(v => (Guid)v[metaMeta.MetaObjectId()]!, v => v);
+
+        foreach (var (id, inheritance) in metaMeta.InheritanceById)
+        {
+            var domain = (Domain.Domain)byId[inheritance.Domain.Id];
+            var subtype = (IComposite)byId[inheritance.Subtype.Id];
+            var supertype = (Interface)byId[inheritance.Supertype.Id];
+            @this.AddInheritance(domain, id, subtype, supertype);
+        }
+
+        byId = @this.Objects.ToDictionary(v => (Guid)v[metaMeta.MetaObjectId()]!, v => v);
+
+        foreach (var (roleTypeId, roleType) in metaMeta.RoleTypeById)
+        {
+            var domain = (Domain.Domain)byId[roleType.Domain.Id];
+
+            if (roleType is MetaUnitRoleType unitRoleType)
+            {
+                var unitAssociationType = unitRoleType.AssociationType;
+                var associationObjectType = (IComposite)byId[unitAssociationType.ObjectType.Id];
+                var roleObjectType = (Unit)byId[roleType.ObjectType.Id];
+
+                if (unitRoleType.ObjectType.Id == CoreIds.Boolean)
+                {
+                    @this.AddBooleanRelation(domain, unitAssociationType.Id, roleTypeId, associationObjectType, roleObjectType, unitRoleType.SingularName, unitRoleType.PluralName);
+                }
+                else if (unitRoleType.ObjectType.Id == CoreIds.Integer)
+                {
+                    @this.AddIntegerRelation(domain, unitAssociationType.Id, roleTypeId, associationObjectType, roleObjectType, unitRoleType.SingularName, unitRoleType.PluralName);
+                }
+                else if (unitRoleType.ObjectType.Id == CoreIds.String)
+                {
+                    @this.AddStringRelation(domain, unitAssociationType.Id, roleTypeId, associationObjectType, roleObjectType, unitRoleType.SingularName, unitRoleType.PluralName);
+                }
+                else if (unitRoleType.ObjectType.Id == CoreIds.Unique)
+                {
+                    @this.AddUniqueRelation(domain, unitAssociationType.Id, roleTypeId, associationObjectType, roleObjectType, unitRoleType.SingularName, unitRoleType.PluralName);
+                }
+            }
+            else if (roleType is MetaOneToOneRoleType oneToOneRoleType)
+            {
+                var oneToOneAssociationType = oneToOneRoleType.AssociationType;
+                var associationObjectType = (IComposite)byId[oneToOneAssociationType.ObjectType.Id];
+                var roleObjectType = (IComposite)byId[roleType.ObjectType.Id];
+
+                @this.AddOneToOneRelation(domain, oneToOneAssociationType.Id, roleTypeId, associationObjectType, roleObjectType, oneToOneRoleType.SingularName, oneToOneRoleType.PluralName);
+            }
+            else if (roleType is MetaOneToManyRoleType oneToManyRoleType)
+            {
+                var oneToOneAssociationType = oneToManyRoleType.AssociationType;
+                var associationObjectType = (IComposite)byId[oneToOneAssociationType.ObjectType.Id];
+                var roleObjectType = (IComposite)byId[roleType.ObjectType.Id];
+
+                @this.AddOneToManyRelation(domain, oneToOneAssociationType.Id, roleTypeId, associationObjectType, roleObjectType, oneToManyRoleType.SingularName, oneToManyRoleType.PluralName);
+            }
+            else if (roleType is MetaManyToOneRoleType manyToOneRoleType)
+            {
+                var oneToOneAssociationType = manyToOneRoleType.AssociationType;
+                var associationObjectType = (IComposite)byId[oneToOneAssociationType.ObjectType.Id];
+                var roleObjectType = (IComposite)byId[roleType.ObjectType.Id];
+
+                @this.AddManyToOneRelation(domain, oneToOneAssociationType.Id, roleTypeId, associationObjectType, roleObjectType, manyToOneRoleType.SingularName, manyToOneRoleType.PluralName);
+            }
+            else if (roleType is MetaManyToManyRoleType manyToManyRoleType)
+            {
+                var oneToOneAssociationType = manyToManyRoleType.AssociationType;
+                var associationObjectType = (IComposite)byId[oneToOneAssociationType.ObjectType.Id];
+                var roleObjectType = (IComposite)byId[roleType.ObjectType.Id];
+
+                @this.AddManyToManyRelation(domain, oneToOneAssociationType.Id, roleTypeId, associationObjectType, roleObjectType, manyToManyRoleType.SingularName, manyToManyRoleType.PluralName);
+            }
+        }
+    }
+
     /// <summary>
     /// Creates a new domain.
     /// </summary>
@@ -549,7 +656,7 @@ public static class MetaExtensions
     /// <summary>
     /// An string.
     /// </summary>
-    public static IObjectType String(this Meta @this) => (IObjectType)@this.Get(CoreIds.String);
+    public static Unit String(this Meta @this) => (Unit)@this.Get(CoreIds.String);
 
     /// <summary>
     /// A unique.
@@ -584,7 +691,7 @@ public static class MetaExtensions
     /// <summary>
     /// A meta object.
     /// </summary>
-    public static IObjectType Object(this Meta @this) => (IObjectType)@this.Get(CoreIds.MetaObject);
+    public static Interface Object(this Meta @this) => (Interface)@this.Get(CoreIds.MetaObject);
 
     /// <summary>
     /// The id of a meta object.

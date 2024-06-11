@@ -20,7 +20,7 @@ public sealed class EnginesBooleanRoleType(EnginesMeta enginesMeta, MetaObject m
     /// The association type.
     /// </summary>
     public EnginesBooleanAssociationType BooleanAssociationType => this.associationType ??=
-        (EnginesBooleanAssociationType)this.EnginesMeta[this.MetaObject[this.M.MetaMeta.RoleTypeAssociationType()]!];
+        (EnginesBooleanAssociationType)this.EnginesMeta[this.MetaObject[this.M.RoleTypeAssociationType()]!];
 
     /// <inheritdoc />
     public override EnginesObjectType ObjectType => this.Unit;
@@ -28,5 +28,5 @@ public sealed class EnginesBooleanRoleType(EnginesMeta enginesMeta, MetaObject m
     /// <summary>
     /// The composite.
     /// </summary>
-    public EnginesUnit Unit => this.unit ??= this.EnginesMeta[(Unit)this.MetaObject[this.M.MetaMeta.RoleTypeObjectType()]!];
+    public EnginesUnit Unit => this.unit ??= this.EnginesMeta[(Unit)this.MetaObject[this.M.RoleTypeObjectType()]!];
 }

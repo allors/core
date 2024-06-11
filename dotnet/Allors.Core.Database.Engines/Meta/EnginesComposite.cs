@@ -19,7 +19,7 @@ public abstract class EnginesComposite(EnginesMeta enginesMeta, MetaObject metaO
     /// <summary>
     /// The supertypes.
     /// </summary>
-    public IReadOnlySet<EnginesInterface> Supertypes => this.supertypes ??= this.MetaObject[this.M.MetaMeta.CompositeSupertypes()]
+    public IReadOnlySet<EnginesInterface> Supertypes => this.supertypes ??= this.MetaObject[this.M.CompositeSupertypes()]
         .Select(v => this.EnginesMeta[(Interface)v])
         .ToFrozenSet();
 

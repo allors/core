@@ -2,6 +2,8 @@
 
 using System;
 using Allors.Core.Database.Meta;
+using Allors.Core.Meta;
+using Allors.Core.MetaMeta;
 using FluentAssertions;
 using Xunit;
 
@@ -10,21 +12,28 @@ public class CompositeTests
     [Fact]
     public void Supertypes()
     {
-        var m = new CoreMeta();
+        var metaMeta = new MetaMeta();
+        CoreMetaMeta.Populate(metaMeta);
 
-        var domain = m.AddDomain(Guid.NewGuid(), "MyDomain");
+        var meta = new Meta(metaMeta);
+        meta.Sync();
+        CoreMeta.Populate(meta);
 
-        var s1 = m.AddInterface(domain, Guid.NewGuid(), "S1");
-        var i1 = m.AddInterface(domain, Guid.NewGuid(), "I1");
-        var c1 = m.AddInterface(domain, Guid.NewGuid(), "C1");
+        meta.Derive();
 
-        m.AddInheritance(domain, i1, s1);
-        m.AddInheritance(domain, c1, i1);
+        var domain = meta.AddDomain(Guid.NewGuid(), "MyDomain");
 
-        m.Freeze();
+        var s1 = meta.AddInterface(domain, Guid.NewGuid(), "S1");
+        var i1 = meta.AddInterface(domain, Guid.NewGuid(), "I1");
+        var c1 = meta.AddInterface(domain, Guid.NewGuid(), "C1");
 
-        s1[m.Meta.MetaMeta.CompositeSupertypes()].Should().BeEmpty();
-        i1[m.Meta.MetaMeta.CompositeSupertypes()].Should().BeEquivalentTo([s1]);
-        c1[m.Meta.MetaMeta.CompositeSupertypes()].Should().BeEquivalentTo([i1, s1]);
+        meta.AddInheritance(domain, Guid.NewGuid(), i1, s1);
+        meta.AddInheritance(domain, Guid.NewGuid(), c1, i1);
+
+        meta.Derive();
+
+        s1[metaMeta.CompositeSupertypes()].Should().BeEmpty();
+        i1[metaMeta.CompositeSupertypes()].Should().BeEquivalentTo([s1]);
+        c1[metaMeta.CompositeSupertypes()].Should().BeEquivalentTo([i1, s1]);
     }
 }

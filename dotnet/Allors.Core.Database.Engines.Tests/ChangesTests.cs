@@ -14,7 +14,7 @@ public abstract class ChangesTests : Tests
 
         var m = this.Meta;
 
-        var a = transaction.Build(m.C1);
+        var a = transaction.Build(m.C1());
         var c = transaction.Build(m.C3);
 
         transaction.Commit();
