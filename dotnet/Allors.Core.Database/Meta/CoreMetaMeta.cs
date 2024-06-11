@@ -119,40 +119,40 @@ public sealed class CoreMetaMeta
         m.AddInheritance(d, new Guid("2f05d2cf-63b2-4f32-83c8-96403d934fef"), this.UnitRoleType, this.RoleType);
 
         // Relations
-        this.AssociationTypeComposite = m.AddManyToOneRelation(d, new Guid("cea0ed95-ae21-451d-bef3-2cd6ccb34c29"), new Guid("c1bfd18c-823b-4c23-9e2a-e5bb8e0609d9"), this.AssociationType, this.Composite);
+        this.AssociationTypeComposite = m.AddManyToOneRelation(d, new Guid("cea0ed95-ae21-451d-bef3-2cd6ccb34c29"), CoreIds.AssociationTypeComposite, this.AssociationType, this.Composite);
 
-        this.CompositeDirectSupertypes = m.AddManyToManyRelation(d, new Guid("960162a2-a902-4cd9-9576-ccb0e7c9e01c"), new Guid("e23b1087-1890-4741-b76f-aabea13ba7ee"), this.Composite, this.Interface, "DirectSupertype");
-        this.CompositeSupertypes = m.AddManyToManyRelation(d, new Guid("b0129926-2eb2-4ac7-80e0-93a2329964cf"), new Guid("c350727f-3b22-49a6-bea9-407e3acadb8d"), this.Composite, this.Interface, "Supertype");
+        this.CompositeDirectSupertypes = m.AddManyToManyRelation(d, new Guid("960162a2-a902-4cd9-9576-ccb0e7c9e01c"), CoreIds.CompositeDirectSupertypes, this.Composite, this.Interface, "DirectSupertype");
+        this.CompositeSupertypes = m.AddManyToManyRelation(d, new Guid("b0129926-2eb2-4ac7-80e0-93a2329964cf"), CoreIds.CompositeSupertypes, this.Composite, this.Interface, "Supertype");
 
-        this.DecimalRoleTypeAssignedPrecision = m.AddUnitRelation(d, new Guid("5b2ac86d-af09-46f6-a454-4d2a3bdeaed3"), new Guid("39de4b9c-0da9-46e0-a3fb-186f78014194"), this.DecimalRoleType, this.Integer, "AssignedPrecision");
-        this.DecimalRoleTypeDerivedPrecision = m.AddUnitRelation(d, new Guid("3c25e09b-6b89-46e9-b1bb-f89c4d2fa4db"), new Guid("4c80959c-f1b4-44df-abe2-980c74e64b56"), this.DecimalRoleType, this.Integer, "DerivedPrecision");
-        this.DecimalRoleTypeAssignedScale = m.AddUnitRelation(d, new Guid("ac79ed22-0a87-4370-9261-03b27ad8bbe6"), new Guid("de8eccfb-abac-4b36-8d1a-524c43ae1a72"), this.DecimalRoleType, this.Integer, "AssignedScale");
-        this.DecimalRoleTypeDerivedScale = m.AddUnitRelation(d, new Guid("ebb42e88-b2c0-48ba-8865-67e86ef6d84e"), new Guid("d8f2c868-d9c9-4ea7-90f6-1cd043c2e9d8"), this.DecimalRoleType, this.Integer, "DerivedScale");
+        this.DecimalRoleTypeAssignedPrecision = m.AddUnitRelation(d, new Guid("5b2ac86d-af09-46f6-a454-4d2a3bdeaed3"), CoreIds.DecimalRoleTypeAssignedPrecision, this.DecimalRoleType, this.Integer, "AssignedPrecision");
+        this.DecimalRoleTypeDerivedPrecision = m.AddUnitRelation(d, new Guid("3c25e09b-6b89-46e9-b1bb-f89c4d2fa4db"), CoreIds.DecimalRoleTypeDerivedPrecision, this.DecimalRoleType, this.Integer, "DerivedPrecision");
+        this.DecimalRoleTypeAssignedScale = m.AddUnitRelation(d, new Guid("ac79ed22-0a87-4370-9261-03b27ad8bbe6"), CoreIds.DecimalRoleTypeAssignedScale, this.DecimalRoleType, this.Integer, "AssignedScale");
+        this.DecimalRoleTypeDerivedScale = m.AddUnitRelation(d, new Guid("ebb42e88-b2c0-48ba-8865-67e86ef6d84e"), CoreIds.DecimalRoleTypeDerivedScale, this.DecimalRoleType, this.Integer, "DerivedScale");
 
-        this.DomainName = m.AddUnitRelation(d, new Guid("1dd008c4-755e-4f84-b52f-360afaf1a6cd"), new Guid("2b42b7b2-5ebc-42f6-9614-2e0f3a95c718"), this.Domain, this.String, "Name");
-        this.DomainSuperdomains = m.AddManyToManyRelation(d, new Guid("ae8311c8-75ea-426e-ad50-3f400accb264"), new Guid("25297ff9-2bc6-49a7-9409-46369388e6d7"), this.Domain, this.Domain, "Superdomain");
-        this.DomainTypes = m.AddManyToManyRelation(d, new Guid("93dcadad-f9e0-402a-bd4f-d150df5f5c26"), new Guid("57696f40-878b-4bbc-ad4f-d77f4b34ee09"), this.Domain, this.Type);
+        this.DomainName = m.AddUnitRelation(d, new Guid("1dd008c4-755e-4f84-b52f-360afaf1a6cd"), CoreIds.DomainName, this.Domain, this.String, "Name");
+        this.DomainSuperdomains = m.AddManyToManyRelation(d, new Guid("ae8311c8-75ea-426e-ad50-3f400accb264"), CoreIds.DomainSuperdomains, this.Domain, this.Domain, "Superdomain");
+        this.DomainTypes = m.AddManyToManyRelation(d, new Guid("93dcadad-f9e0-402a-bd4f-d150df5f5c26"), CoreIds.DomainTypes, this.Domain, this.Type);
 
-        this.InheritanceSubtype = m.AddManyToOneRelation(d, new Guid("e2cd96af-a436-439c-b02b-ecf23f19a96f"), new Guid("a9bac7e2-ccaa-4ff9-bcbb-401770e139b4"), this.Inheritance, this.Composite, "Subtype");
-        this.InheritanceSupertype = m.AddManyToOneRelation(d, new Guid("c9f8f651-5b6e-408d-b088-0ca925e8b2d5"), new Guid("331535e0-5afd-42dc-9251-7dea0c9d9d44"), this.Inheritance, this.Interface, "Supertype");
+        this.InheritanceSubtype = m.AddManyToOneRelation(d, new Guid("e2cd96af-a436-439c-b02b-ecf23f19a96f"), CoreIds.InheritanceSubtype, this.Inheritance, this.Composite, "Subtype");
+        this.InheritanceSupertype = m.AddManyToOneRelation(d, new Guid("c9f8f651-5b6e-408d-b088-0ca925e8b2d5"), CoreIds.InheritanceSupertype, this.Inheritance, this.Interface, "Supertype");
 
-        this.ObjectTypeAssignedPluralName = m.AddUnitRelation(d, new Guid("c45fcfac-5614-4a03-b86a-df2f75cc5fcb"), new Guid("25ab19cc-97dd-4fce-9a37-ffefb8cb4479"), this.ObjectType, this.String, "AssignedPluralName");
-        this.ObjectTypeDerivedPluralName = m.AddUnitRelation(d, new Guid("edb514d1-f0b6-44d0-a0ce-2ff9a132b4f7"), new Guid("dc3de909-e05e-46ff-af59-c639035aa23e"), this.ObjectType, this.String, "DerivedPluralName");
-        this.ObjectTypeSingularName = m.AddUnitRelation(d, new Guid("4ae8c269-d329-4d01-b48f-3df905c0a9e0"), new Guid("ef9d33ad-7390-4ee1-98d9-6e4410434eb3"), this.ObjectType, this.String, "SingularName");
+        this.ObjectTypeAssignedPluralName = m.AddUnitRelation(d, new Guid("c45fcfac-5614-4a03-b86a-df2f75cc5fcb"), CoreIds.ObjectTypeAssignedPluralName, this.ObjectType, this.String, "AssignedPluralName");
+        this.ObjectTypeDerivedPluralName = m.AddUnitRelation(d, new Guid("edb514d1-f0b6-44d0-a0ce-2ff9a132b4f7"), CoreIds.ObjectTypeDerivedPluralName, this.ObjectType, this.String, "DerivedPluralName");
+        this.ObjectTypeSingularName = m.AddUnitRelation(d, new Guid("4ae8c269-d329-4d01-b48f-3df905c0a9e0"), CoreIds.ObjectTypeSingularName, this.ObjectType, this.String, "SingularName");
 
-        this.MetaObjectId = m.AddUnitRelation(d, new Guid("3f24ceec-222a-4933-881c-3f85b6afebac"), new Guid("6df34d00-e78b-47e0-9a9c-bd5a3897efd4"), this.MetaObject, this.Unique, "Id");
+        this.MetaObjectId = m.AddUnitRelation(d, new Guid("3f24ceec-222a-4933-881c-3f85b6afebac"), CoreIds.MetaObjectId, this.MetaObject, this.Unique, "Id");
 
-        this.RelationEndTypeIsMany = m.AddUnitRelation(d, new Guid("1d3957c3-d1a7-45f4-b6a6-5554223d7326"), new Guid("b84e1f6a-fbee-4e90-8543-1a609149828a"), this.RelationEndType, this.Boolean, "IsMany");
+        this.RelationEndTypeIsMany = m.AddUnitRelation(d, new Guid("1d3957c3-d1a7-45f4-b6a6-5554223d7326"), CoreIds.RelationEndTypeIsMany, this.RelationEndType, this.Boolean, "IsMany");
 
-        this.RoleTypeAssociationType = m.AddOneToOneRelation(d, new Guid("ff05c66a-7a87-4b1e-8b77-c097285ec7ca"), new Guid("21df9d27-6b9b-4964-9938-1999929c5d32"), this.RoleType, this.AssociationType);
-        this.RoleTypeAssignedPluralName = m.AddUnitRelation(d, new Guid("39a5bdaf-3f44-436a-b9e8-a64a5bb770dd"), new Guid("0ae6a8fa-fb9c-4f93-b119-9286f4092ded"), this.RoleType, this.String, "AssignedPluralName");
-        this.RoleTypeDerivedPluralName = m.AddUnitRelation(d, new Guid("cd6a33fa-4537-4a83-a6b6-2d79725fb46e"), new Guid("48691ed8-59eb-41cd-b56a-e4ecd7605fb3"), this.RoleType, this.String, "DerivedPluralName");
-        this.RoleTypeObjectType = m.AddManyToOneRelation(d, new Guid("ff21b9ad-1a0b-40f5-a35f-5bfb9ed1ab02"), new Guid("8c48eea7-b828-414d-aca8-35d3aa15d804"), this.RoleType, this.ObjectType);
-        this.RoleTypeName = m.AddUnitRelation(d, new Guid("15e2d931-89d1-480a-8bb2-42e7902c7ba7"), new Guid("9983827c-23e7-4f9d-9e8b-688e319250e3"), this.RoleType, this.String, "Name");
-        this.RoleTypeSingularName = m.AddUnitRelation(d, new Guid("13ba399e-bf05-48fc-8489-b70fb19fba15"), new Guid("9c1ddde7-d9ce-4082-ba04-b69b759d19e5"), this.RoleType, this.String, "SingularName");
+        this.RoleTypeAssociationType = m.AddOneToOneRelation(d, new Guid("ff05c66a-7a87-4b1e-8b77-c097285ec7ca"), CoreIds.RoleTypeAssociationType, this.RoleType, this.AssociationType);
+        this.RoleTypeAssignedPluralName = m.AddUnitRelation(d, new Guid("39a5bdaf-3f44-436a-b9e8-a64a5bb770dd"), CoreIds.RoleTypeAssignedPluralName, this.RoleType, this.String, "AssignedPluralName");
+        this.RoleTypeDerivedPluralName = m.AddUnitRelation(d, new Guid("cd6a33fa-4537-4a83-a6b6-2d79725fb46e"), CoreIds.RoleTypeDerivedPluralName, this.RoleType, this.String, "DerivedPluralName");
+        this.RoleTypeObjectType = m.AddManyToOneRelation(d, new Guid("ff21b9ad-1a0b-40f5-a35f-5bfb9ed1ab02"), CoreIds.RoleTypeObjectType, this.RoleType, this.ObjectType);
+        this.RoleTypeName = m.AddUnitRelation(d, new Guid("15e2d931-89d1-480a-8bb2-42e7902c7ba7"), CoreIds.RoleTypeName, this.RoleType, this.String, "Name");
+        this.RoleTypeSingularName = m.AddUnitRelation(d, new Guid("13ba399e-bf05-48fc-8489-b70fb19fba15"), CoreIds.RoleTypeSingularName, this.RoleType, this.String, "SingularName");
 
-        this.StringRoleTypeAssignedSize = m.AddUnitRelation(d, new Guid("da78d554-bb1b-451c-ade1-4f6efe651d7c"), new Guid("321bb675-0298-42ae-842a-39131f4e1662"), this.StringRoleType, this.Integer, "AssignedSize");
-        this.StringRoleTypeDerivedSize = m.AddUnitRelation(d, new Guid("46d33068-969c-4a88-a703-fb5f0d8e0cd8"), new Guid("407e07f4-6d66-4845-9cdb-03e897166d0f"), this.StringRoleType, this.Integer, "DerivedSize");
+        this.StringRoleTypeAssignedSize = m.AddUnitRelation(d, new Guid("da78d554-bb1b-451c-ade1-4f6efe651d7c"), CoreIds.StringRoleTypeAssignedSize, this.StringRoleType, this.Integer, "AssignedSize");
+        this.StringRoleTypeDerivedSize = m.AddUnitRelation(d, new Guid("46d33068-969c-4a88-a703-fb5f0d8e0cd8"), CoreIds.StringRoleTypeDerivedSize, this.StringRoleType, this.Integer, "DerivedSize");
     }
 
     /// <summary>
