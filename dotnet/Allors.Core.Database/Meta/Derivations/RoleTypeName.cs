@@ -6,14 +6,16 @@ using Allors.Core.Meta;
 /// <summary>
 /// Derive the name of the role type.
 /// </summary>
-public sealed class RoleTypeName(CoreMetaMeta m) : IMetaDerivation
+public sealed class RoleTypeName(Meta meta) : IMetaDerivation
 {
     /// <inheritdoc/>
     public void Derive(MetaChangeSet changeSet)
     {
-        var singularNames = changeSet.ChangedRoles(m.RoleTypeSingularName);
-        var derivedPluralNames = changeSet.ChangedRoles(m.RoleTypeDerivedPluralName);
-        var newRoleTypes = changeSet.NewObjects.Where(v => m.RoleType.IsAssignableFrom(v.ObjectType)).ToArray();
+        var m = meta.MetaMeta;
+
+        var singularNames = changeSet.ChangedRoles(m.RoleTypeSingularName());
+        var derivedPluralNames = changeSet.ChangedRoles(m.RoleTypeDerivedPluralName());
+        var newRoleTypes = changeSet.NewObjects.Where(v => m.RoleType().IsAssignableFrom(v.ObjectType)).ToArray();
 
         if (singularNames.Any() || derivedPluralNames.Any() || newRoleTypes.Length != 0)
         {
@@ -25,13 +27,13 @@ public sealed class RoleTypeName(CoreMetaMeta m) : IMetaDerivation
         // TODO: Optimize
         foreach (var roleType in roleTypes)
         {
-            if (m.UnitRoleType.IsAssignableFrom(roleType.ObjectType) || m.ToOneRoleType.IsAssignableFrom(roleType.ObjectType))
+            if (m.UnitRoleType().IsAssignableFrom(roleType.ObjectType) || m.ToOneRoleType().IsAssignableFrom(roleType.ObjectType))
             {
-                roleType[m.RoleTypeName] = roleType[m.RoleTypeSingularName];
+                roleType[m.RoleTypeName()] = roleType[m.RoleTypeSingularName()];
             }
             else
             {
-                roleType[m.RoleTypeName] = roleType[m.RoleTypeDerivedPluralName];
+                roleType[m.RoleTypeName()] = roleType[m.RoleTypeDerivedPluralName()];
             }
         }
     }

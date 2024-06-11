@@ -7,12 +7,14 @@ using Allors.Core.Meta;
 /// <summary>
 /// Derive the supertypes of the composite.
 /// </summary>
-public sealed class CompositeSupertypes(Meta meta, CoreMetaMeta m) : IMetaDerivation
+public sealed class CompositeSupertypes(Meta meta) : IMetaDerivation
 {
     /// <inheritdoc/>
     public void Derive(MetaChangeSet changeSet)
     {
-        var changedCompositeDirectSupertypes = changeSet.ChangedRoles(m.CompositeDirectSupertypes);
+        var m = meta.MetaMeta;
+
+        var changedCompositeDirectSupertypes = changeSet.ChangedRoles(m.CompositeDirectSupertypes());
 
         if (!changedCompositeDirectSupertypes.Any())
         {
@@ -20,20 +22,22 @@ public sealed class CompositeSupertypes(Meta meta, CoreMetaMeta m) : IMetaDeriva
         }
 
         // TODO: Optimize
-        foreach (var composite in meta.Objects.Where(v => m.Composite.IsAssignableFrom(v.ObjectType)))
+        foreach (var composite in meta.Objects.Where(v => m.Composite().IsAssignableFrom(v.ObjectType)))
         {
             var supertypes = new HashSet<IMetaObject>();
-            this.AccumulateSupertypes(composite, supertypes);
-            composite[m.CompositeSupertypes] = supertypes;
+            AccumulateSupertypes(meta, composite, supertypes);
+            composite[m.CompositeSupertypes()] = supertypes;
         }
     }
 
-    private void AccumulateSupertypes(IMetaObject composite, HashSet<IMetaObject> acc)
+    private static void AccumulateSupertypes(Meta meta, IMetaObject composite, HashSet<IMetaObject> acc)
     {
-        foreach (var directSupertype in composite[m.CompositeDirectSupertypes])
+        var m = meta.MetaMeta;
+
+        foreach (var directSupertype in composite[m.CompositeDirectSupertypes()])
         {
             acc.Add(directSupertype);
-            this.AccumulateSupertypes(directSupertype, acc);
+            AccumulateSupertypes(meta, directSupertype, acc);
         }
     }
 }

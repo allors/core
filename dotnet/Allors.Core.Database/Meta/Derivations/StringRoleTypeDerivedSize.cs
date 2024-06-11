@@ -6,15 +6,17 @@ using Allors.Core.Meta;
 /// <summary>
 /// Derive the size of the string role.
 /// </summary>
-public sealed class StringRoleTypeDerivedSize(CoreMetaMeta m) : IMetaDerivation
+public sealed class StringRoleTypeDerivedSize(Meta meta) : IMetaDerivation
 {
     private const int DefaultSize = 256;
 
     /// <inheritdoc/>
     public void Derive(MetaChangeSet changeSet)
     {
-        var assignedSizes = changeSet.ChangedRoles(m.StringRoleTypeAssignedSize);
-        var newStringRoleTypes = changeSet.NewObjects.Where(v => v.ObjectType.Equals(m.StringRoleType)).ToArray();
+        var m = meta.MetaMeta;
+
+        var assignedSizes = changeSet.ChangedRoles(m.StringRoleTypeAssignedSize());
+        var newStringRoleTypes = changeSet.NewObjects.Where(v => v.ObjectType.Equals(m.StringRoleType())).ToArray();
 
         if (assignedSizes.Any() || newStringRoleTypes.Length != 0)
         {
@@ -23,8 +25,8 @@ public sealed class StringRoleTypeDerivedSize(CoreMetaMeta m) : IMetaDerivation
             // TODO: Optimize
             foreach (var stringRoleType in stringRoleTypes)
             {
-                var assignedSize = (int?)stringRoleType[m.StringRoleTypeAssignedSize];
-                stringRoleType[m.StringRoleTypeDerivedSize] = assignedSize ?? DefaultSize;
+                var assignedSize = (int?)stringRoleType[m.StringRoleTypeAssignedSize()];
+                stringRoleType[m.StringRoleTypeDerivedSize()] = assignedSize ?? DefaultSize;
             }
         }
     }

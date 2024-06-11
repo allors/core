@@ -536,19 +536,19 @@ public sealed class CoreMetaMeta
     public MetaObjectType UnitRoleType { get; set; }
 
     /// <summary>
-    /// Creates a new MetaMeta
+    /// Creates a new Meta
     /// </summary>
     public Meta CreateMetaPopulation()
     {
-        var metaPopulation = new Meta(this.MetaMeta);
+        var meta = new Meta(this.MetaMeta);
 
-        metaPopulation.DerivationById[nameof(this.CompositeDirectSupertypes)] = new CompositeDirectSupertypes(metaPopulation, this);
-        metaPopulation.DerivationById[nameof(this.CompositeSupertypes)] = new CompositeSupertypes(metaPopulation, this);
-        metaPopulation.DerivationById[nameof(this.DecimalRoleTypeDerivedPrecision)] = new DecimalRoleTypeDerivedPrecision(this);
-        metaPopulation.DerivationById[nameof(this.DecimalRoleTypeDerivedScale)] = new DecimalRoleTypeDerivedScale(this);
-        metaPopulation.DerivationById[nameof(this.RoleTypeName)] = new RoleTypeName(this);
-        metaPopulation.DerivationById[nameof(this.StringRoleTypeDerivedSize)] = new StringRoleTypeDerivedSize(this);
+        meta.DerivationById[nameof(this.CompositeDirectSupertypes)] = new CompositeDirectSupertypes(meta);
+        meta.DerivationById[nameof(this.CompositeSupertypes)] = new CompositeSupertypes(meta);
+        meta.DerivationById[nameof(this.DecimalRoleTypeDerivedPrecision)] = new DecimalRoleTypeDerivedPrecision(meta);
+        meta.DerivationById[nameof(this.DecimalRoleTypeDerivedScale)] = new DecimalRoleTypeDerivedScale(meta);
+        meta.DerivationById[nameof(this.RoleTypeName)] = new RoleTypeName(meta);
+        meta.DerivationById[nameof(this.StringRoleTypeDerivedSize)] = new StringRoleTypeDerivedSize(meta);
 
-        return metaPopulation;
+        return meta;
     }
 }

@@ -6,15 +6,17 @@ using Allors.Core.Meta;
 /// <summary>
 /// Derive the size of the string role.
 /// </summary>
-public sealed class DecimalRoleTypeDerivedPrecision(CoreMetaMeta m) : IMetaDerivation
+public sealed class DecimalRoleTypeDerivedPrecision(Meta meta) : IMetaDerivation
 {
     private const int DefaultPrecision = 19;
 
     /// <inheritdoc/>
     public void Derive(MetaChangeSet changeSet)
     {
-        var assignedPrecisions = changeSet.ChangedRoles(m.DecimalRoleTypeAssignedPrecision);
-        var newDecimalRoleTypes = changeSet.NewObjects.Where(v => v.ObjectType.Equals(m.DecimalRoleType)).ToArray();
+        var m = meta.MetaMeta;
+
+        var assignedPrecisions = changeSet.ChangedRoles(m.DecimalRoleTypeAssignedPrecision());
+        var newDecimalRoleTypes = changeSet.NewObjects.Where(v => v.ObjectType.Equals(m.DecimalRoleType())).ToArray();
 
         if (assignedPrecisions.Any() || newDecimalRoleTypes.Length != 0)
         {
@@ -26,8 +28,8 @@ public sealed class DecimalRoleTypeDerivedPrecision(CoreMetaMeta m) : IMetaDeriv
         // TODO: Optimize
         foreach (var decimalRoleType in decimalRoleTypes)
         {
-            var assignedPrecision = (int?)decimalRoleType[m.DecimalRoleTypeAssignedPrecision];
-            decimalRoleType[m.DecimalRoleTypeDerivedPrecision] = assignedPrecision ?? DefaultPrecision;
+            var assignedPrecision = (int?)decimalRoleType[m.DecimalRoleTypeAssignedPrecision()];
+            decimalRoleType[m.DecimalRoleTypeDerivedPrecision()] = assignedPrecision ?? DefaultPrecision;
         }
     }
 }
