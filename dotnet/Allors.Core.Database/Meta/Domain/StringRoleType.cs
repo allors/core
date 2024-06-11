@@ -4,7 +4,7 @@ using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
 
 /// <summary>
-/// A string role type handle.
+/// A string role type.
 /// </summary>
 public sealed class StringRoleType : MetaObject, IUnitRoleType
 {

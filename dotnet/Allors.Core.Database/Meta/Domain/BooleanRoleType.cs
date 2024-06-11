@@ -4,7 +4,7 @@ using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
 
 /// <summary>
-/// A boolean role type handle.
+/// A boolean role type.
 /// </summary>
 public sealed class BooleanRoleType : MetaObject, IUnitRoleType
 {

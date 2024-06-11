@@ -4,7 +4,7 @@ using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
 
 /// <summary>
-/// A unit role type handle.
+/// A unit role type.
 /// </summary>
 public sealed class UniqueRoleType : MetaObject, IUnitRoleType
 {

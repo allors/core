@@ -4,7 +4,7 @@ using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
 
 /// <summary>
-/// A dateTime role type handle.
+/// A dateTime role type.
 /// </summary>
 public sealed class DateTimeRoleType : MetaObject, IUnitRoleType
 {

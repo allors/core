@@ -1,6 +1,6 @@
 ﻿namespace Allors.Core.Database.Meta.Domain;
 
 /// <summary>
-/// An object type handle.
+/// An object type.
 /// </summary>
 public interface IComposite : IObjectType;

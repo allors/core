@@ -4,7 +4,7 @@ using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
 
 /// <summary>
-/// A domain handle.
+/// A domain.
 /// </summary>
 public class Domain : MetaObject
 {

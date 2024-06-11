@@ -4,7 +4,7 @@ using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
 
 /// <summary>
-/// A unit handle.
+/// A unit.
 /// </summary>
 public sealed class Interface : MetaObject, IComposite
 {

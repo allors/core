@@ -4,7 +4,7 @@ using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
 
 /// <summary>
-/// A decimal role type handle.
+/// A decimal role type.
 /// </summary>
 public sealed class DecimalRoleType : MetaObject, IUnitRoleType
 {

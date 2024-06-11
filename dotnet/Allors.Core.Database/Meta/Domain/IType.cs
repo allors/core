@@ -3,6 +3,6 @@
 using Allors.Core.Meta;
 
 /// <summary>
-/// A type handle.
+/// A type.
 /// </summary>
 public interface IType : IMetaObject;

@@ -7,70 +7,70 @@ using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
 
 /// <summary>
-/// Core MetaMeta MetaMeta.
+/// Core MetaMeta.
 /// </summary>
 public sealed class CoreMetaMeta
 {
     internal CoreMetaMeta()
     {
         this.MetaMeta = new MetaMeta();
-        this.AllorsCore = this.MetaMeta.AddDomain(new Guid("6b3e8142-b69e-440f-8869-a6aaf3b45420"), "AllorsCore");
+        this.AllorsCore = this.MetaMeta.AddDomain(CoreIds.AllorsCore, "AllorsCore");
 
         var m = this.MetaMeta;
         var d = this.AllorsCore;
 
         // Units
-        this.Boolean = m.AddUnit(d, new Guid("a5e75543-08e0-4fdc-a804-e3681ba5eae5"), "Boolean");
-        this.Integer = m.AddUnit(d, new Guid("bb6c48ad-0ae3-4788-ba80-18d8ffdf7018"), "Integer");
-        this.String = m.AddUnit(d, new Guid("be72ed5d-508c-4b7c-b385-90b74700f1c8"), "String");
-        this.Unique = m.AddUnit(d, new Guid("f60a1552-58a0-40b0-87b5-be468e4a256d"), "Unique");
+        this.Boolean = m.AddUnit(d, CoreIds.Boolean, "Boolean");
+        this.Integer = m.AddUnit(d, CoreIds.Integer, "Integer");
+        this.String = m.AddUnit(d, CoreIds.String, "String");
+        this.Unique = m.AddUnit(d, CoreIds.Unique, "Unique");
 
         // Composites
-        this.AssociationType = m.AddInterface(d, new Guid("e19973f8-ad9a-46f4-97e5-3e9640dee1b6"), "AssociationType");
-        this.Class = m.AddClass(d, new Guid("258ef66a-55d8-4aeb-96df-4651e8fc7d3a"), typeof(Class));
-        this.Composite = m.AddInterface(d, new Guid("b4b17450-9377-4b5c-9e34-9d27a35947c9"), "Composite");
-        this.CompositeAssociationType = m.AddInterface(d, new Guid("742e3899-a779-4c82-9166-9561ae15b734"), "CompositeRoleType");
-        this.CompositeRoleType = m.AddInterface(d, new Guid("eb7830e0-eead-4655-a76c-6b8b8724fa1c"), "CompositeAssociationType");
-        this.Domain = m.AddClass(d, new Guid("4e0633f5-c563-4034-be9c-ad8346a4a5c8"), typeof(Domain.Domain));
-        this.Interface = m.AddClass(d, new Guid("f22451ac-fafb-4465-9b32-0f6a3abe50d3"), typeof(Interface));
-        this.ManyToAssociationType = m.AddInterface(d, new Guid("bebcf6ef-ff0f-486a-a58d-135e60710bb5"), "ManyToAssociationType");
-        this.ManyToManyAssociationType = m.AddClass(d, new Guid("6caed1de-18ed-4ed8-85ff-92512affb077"), typeof(ManyToManyAssociationType));
-        this.ManyToManyRoleType = m.AddClass(d, new Guid("fc8945fc-9441-4fc8-a295-76a4af282e05"), typeof(ManyToManyRoleType));
-        this.ManyToOneAssociationType = m.AddClass(d, new Guid("b0c7762d-7638-4d18-87e4-48eb9053b156"), typeof(ManyToOneAssociationType));
-        this.ManyToOneRoleType = m.AddClass(d, new Guid("3900a114-55b6-42f8-aea9-b7937e38bc07"), typeof(ManyToOneRoleType));
-        this.MetaObject = m.AddInterface(d, new Guid("258b338e-a76f-4022-a431-6732ef7fc021"), "MetaObject");
-        this.ObjectType = m.AddInterface(d, new Guid("20088de8-27b2-4fe7-a016-502e7e096f4f"), "ObjectType");
-        this.OneToAssociationType = m.AddInterface(d, new Guid("0fd0f52e-9e79-440d-81a2-45513044aad4"), "OneToAssociationType");
-        this.OneToManyAssociationType = m.AddClass(d, new Guid("eb2e311d-b736-44e0-a283-05bc195a46be"), typeof(OneToManyAssociationType));
-        this.OneToManyRoleType = m.AddClass(d, new Guid("a4eb8af3-8d52-4e46-8b49-646a8a25e293"), typeof(OneToManyRoleType));
-        this.OneToOneAssociationType = m.AddClass(d, new Guid("8d081c3b-47bd-49aa-911d-3d537399383d"), typeof(OneToOneAssociationType));
-        this.OneToOneRoleType = m.AddClass(d, new Guid("fe392f1c-2674-4a1e-9e74-d0fb2afe0d95"), typeof(OneToOneRoleType));
-        this.OperandType = m.AddInterface(d, new Guid("ee1e80cf-7e36-46c4-9b8b-1fbcb2173299"), "OperandType");
-        this.RelationEndType = m.AddInterface(d, new Guid("a159dd87-bf9d-468d-9629-d345d8f59242"), "RelationEndType");
-        this.RoleType = m.AddInterface(d, new Guid("6b811301-cddc-456d-8614-ca9302f91e55"), "RoleType");
-        this.BinaryAssociationType = m.AddClass(d, new Guid("0ad616a3-aa2a-4851-9dd3-ebc58a11c0a1"), typeof(BinaryAssociationType));
-        this.BinaryRoleType = m.AddClass(d, new Guid("2a417adc-b471-408e-ab93-08f6a649a489"), typeof(BinaryRoleType));
-        this.BooleanAssociationType = m.AddClass(d, new Guid("e2ea3982-1548-4f0f-ae94-d555bf8f318e"), typeof(BooleanAssociationType));
-        this.BooleanRoleType = m.AddClass(d, new Guid("5c688a7a-0123-42ad-a642-45351382e213"), typeof(BooleanRoleType));
-        this.DateTimeAssociationType = m.AddClass(d, new Guid("03320d09-5062-403f-be64-1e09a856580c"), typeof(DateTimeAssociationType));
-        this.DateTimeRoleType = m.AddClass(d, new Guid("71533eaf-3894-45f9-b47d-1f6d8c8b61bc"), typeof(DateTimeRoleType));
-        this.DecimalAssociationType = m.AddClass(d, new Guid("3e50b873-4de6-46a3-9f9e-497285a77719"), typeof(DecimalAssociationType));
-        this.DecimalRoleType = m.AddClass(d, new Guid("8991761d-be85-4601-a67d-f85bcd5432e1"), typeof(DecimalRoleType));
-        this.FloatAssociationType = m.AddClass(d, new Guid("11c199c1-c2ba-4933-9455-643eebcb96f5"), typeof(FloatAssociationType));
-        this.FloatRoleType = m.AddClass(d, new Guid("2eada119-a35c-4076-b9ba-6b731684c2af"), typeof(FloatRoleType));
-        this.Inheritance = m.AddClass(d, new Guid("8fbe1a09-1883-4716-91d3-609190d9a23d"), typeof(Inheritance));
-        this.IntegerAssociationType = m.AddClass(d, new Guid("1e62c68e-d9ba-4169-add4-865b53136108"), typeof(IntegerAssociationType));
-        this.IntegerRoleType = m.AddClass(d, new Guid("65f77b86-5a2a-4961-b7e4-0eaa42b2a157"), typeof(IntegerRoleType));
-        this.StringAssociationType = m.AddClass(d, new Guid("0368b7c4-73f8-4f9b-8182-60e09771b62c"), typeof(StringAssociationType));
-        this.StringRoleType = m.AddClass(d, new Guid("b8d12288-b5aa-4b1a-9226-c8902cd684c1"), typeof(StringRoleType));
-        this.UniqueAssociationType = m.AddClass(d, new Guid("1e674346-ccff-43e5-a31d-842803e30957"), typeof(UniqueAssociationType));
-        this.UniqueRoleType = m.AddClass(d, new Guid("849fd4fa-951a-404e-b481-66db3dd43fd4"), typeof(UniqueRoleType));
-        this.ToManyRoleType = m.AddInterface(d, new Guid("7480bb35-30ad-47a6-8a70-e29d11b76539"), "ToManyRoleType ");
-        this.ToOneRoleType = m.AddInterface(d, new Guid("774a1bce-c414-423f-84a0-450be5eba46d"), "ToOneRoleType");
-        this.Type = m.AddInterface(d, new Guid("08768b55-1d35-427b-8209-9ad7c3c77d18"), "Type");
-        this.Unit = m.AddClass(d, new Guid("32c01fd7-9002-4a3a-b364-1b2ecae870a0"), typeof(Unit));
-        this.UnitAssociationType = m.AddInterface(d, new Guid("76e3b379-86c0-4015-b279-dfc8b272a128"), "UnitAssociationType");
-        this.UnitRoleType = m.AddInterface(d, new Guid("d295663a-1731-4c05-930b-a51002c25453"), "UnitRoleType");
+        this.AssociationType = m.AddInterface(d, CoreIds.AssociationType, "AssociationType");
+        this.Class = m.AddClass(d, CoreIds.Class, typeof(Class));
+        this.Composite = m.AddInterface(d, CoreIds.Composite, "Composite");
+        this.CompositeAssociationType = m.AddInterface(d, CoreIds.CompositeAssociationType, "CompositeAssociationType");
+        this.CompositeRoleType = m.AddInterface(d, CoreIds.CompositeRoleType, "CompositeRoleType");
+        this.Domain = m.AddClass(d, CoreIds.Domain, typeof(Domain.Domain));
+        this.Interface = m.AddClass(d, CoreIds.Interface, typeof(Interface));
+        this.ManyToAssociationType = m.AddInterface(d, CoreIds.ManyToAssociationType, "ManyToAssociationType");
+        this.ManyToManyAssociationType = m.AddClass(d, CoreIds.ManyToManyAssociationType, typeof(ManyToManyAssociationType));
+        this.ManyToManyRoleType = m.AddClass(d, CoreIds.ManyToManyRoleType, typeof(ManyToManyRoleType));
+        this.ManyToOneAssociationType = m.AddClass(d, CoreIds.ManyToOneAssociationType, typeof(ManyToOneAssociationType));
+        this.ManyToOneRoleType = m.AddClass(d, CoreIds.ManyToOneRoleType, typeof(ManyToOneRoleType));
+        this.MetaObject = m.AddInterface(d, CoreIds.MetaObject, "MetaObject");
+        this.ObjectType = m.AddInterface(d, CoreIds.ObjectType, "ObjectType");
+        this.OneToAssociationType = m.AddInterface(d, CoreIds.OneToAssociationType, "OneToAssociationType");
+        this.OneToManyAssociationType = m.AddClass(d, CoreIds.OneToManyAssociationType, typeof(OneToManyAssociationType));
+        this.OneToManyRoleType = m.AddClass(d, CoreIds.OneToManyRoleType, typeof(OneToManyRoleType));
+        this.OneToOneAssociationType = m.AddClass(d, CoreIds.OneToOneAssociationType, typeof(OneToOneAssociationType));
+        this.OneToOneRoleType = m.AddClass(d, CoreIds.OneToOneRoleType, typeof(OneToOneRoleType));
+        this.OperandType = m.AddInterface(d, CoreIds.OperandType, "OperandType");
+        this.RelationEndType = m.AddInterface(d, CoreIds.RelationEndType, "RelationEndType");
+        this.RoleType = m.AddInterface(d, CoreIds.RoleType, "RoleType");
+        this.BinaryAssociationType = m.AddClass(d, CoreIds.BinaryAssociationType, typeof(BinaryAssociationType));
+        this.BinaryRoleType = m.AddClass(d, CoreIds.BinaryRoleType, typeof(BinaryRoleType));
+        this.BooleanAssociationType = m.AddClass(d, CoreIds.BooleanAssociationType, typeof(BooleanAssociationType));
+        this.BooleanRoleType = m.AddClass(d, CoreIds.BooleanRoleType, typeof(BooleanRoleType));
+        this.DateTimeAssociationType = m.AddClass(d, CoreIds.DateTimeAssociationType, typeof(DateTimeAssociationType));
+        this.DateTimeRoleType = m.AddClass(d, CoreIds.DateTimeRoleType, typeof(DateTimeRoleType));
+        this.DecimalAssociationType = m.AddClass(d, CoreIds.DecimalAssociationType, typeof(DecimalAssociationType));
+        this.DecimalRoleType = m.AddClass(d, CoreIds.DecimalRoleType, typeof(DecimalRoleType));
+        this.FloatAssociationType = m.AddClass(d, CoreIds.FloatAssociationType, typeof(FloatAssociationType));
+        this.FloatRoleType = m.AddClass(d, CoreIds.FloatRoleType, typeof(FloatRoleType));
+        this.Inheritance = m.AddClass(d, CoreIds.Inheritance, typeof(Inheritance));
+        this.IntegerAssociationType = m.AddClass(d, CoreIds.IntegerAssociationType, typeof(IntegerAssociationType));
+        this.IntegerRoleType = m.AddClass(d, CoreIds.IntegerRoleType, typeof(IntegerRoleType));
+        this.StringAssociationType = m.AddClass(d, CoreIds.StringAssociationType, typeof(StringAssociationType));
+        this.StringRoleType = m.AddClass(d, CoreIds.StringRoleType, typeof(StringRoleType));
+        this.UniqueAssociationType = m.AddClass(d, CoreIds.UniqueAssociationType, typeof(UniqueAssociationType));
+        this.UniqueRoleType = m.AddClass(d, CoreIds.UniqueRoleType, typeof(UniqueRoleType));
+        this.ToManyRoleType = m.AddInterface(d, CoreIds.ToManyRoleType, "ToManyRoleType ");
+        this.ToOneRoleType = m.AddInterface(d, CoreIds.ToOneRoleType, "ToOneRoleType");
+        this.Type = m.AddInterface(d, CoreIds.Type, "Type");
+        this.Unit = m.AddClass(d, CoreIds.Unit, typeof(Unit));
+        this.UnitAssociationType = m.AddInterface(d, CoreIds.UnitAssociationType, "UnitAssociationType");
+        this.UnitRoleType = m.AddInterface(d, CoreIds.UnitRoleType, "UnitRoleType");
 
         // Inheritance
         m.AddInheritance(d, new Guid("12ec1d97-6208-4cf5-866b-58675aa8a38e"), this.AssociationType, this.RelationEndType);

@@ -4,7 +4,7 @@ using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
 
 /// <summary>
-/// A class handle.
+/// A class.
 /// </summary>
 public sealed class Class : MetaObject, IComposite
 {

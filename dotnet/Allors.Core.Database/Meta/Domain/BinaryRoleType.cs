@@ -4,7 +4,7 @@ using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
 
 /// <summary>
-/// A binary role type handle.
+/// A binary role type.
 /// </summary>
 public sealed class BinaryRoleType : MetaObject, IUnitRoleType
 {
