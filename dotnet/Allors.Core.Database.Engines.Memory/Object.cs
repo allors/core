@@ -112,81 +112,105 @@ public class Object : IObject
     /// </summary>
     private EnginesMeta Meta => this.Transaction.Meta;
 
+    IEnumerable<IObject> IObject.this[Func<IManyToAssociationType> associationType] => this[associationType()];
+
+    IObject? IObject.this[Func<IOneToAssociationType> associationType] => this[associationType()];
+
+    IEnumerable<IObject> IObject.this[Func<IToManyRoleType> roleType] { get => this[roleType()]; set => this[roleType()] = value; }
+
+    IObject? IObject.this[Func<IToOneRoleType> roleType] { get => this[roleType()]; set => this[roleType()] = value; }
+
+    Guid? IObject.this[Func<UniqueRoleType> roleType] { get => this[roleType()]; set => this[roleType()] = value; }
+
+    string? IObject.this[Func<StringRoleType> roleType] { get => this[roleType()]; set => this[roleType()] = value; }
+
+    int? IObject.this[Func<IntegerRoleType> roleType] { get => this[roleType()]; set => this[roleType()] = value; }
+
+    double? IObject.this[Func<FloatRoleType> roleType] { get => this[roleType()]; set => this[roleType()] = value; }
+
+    decimal? IObject.this[Func<DecimalRoleType> roleType] { get => this[roleType()]; set => this[roleType()] = value; }
+
+    DateTime? IObject.this[Func<DateTimeRoleType> roleType] { get => this[roleType()]; set => this[roleType()] = value; }
+
+    bool? IObject.this[Func<BooleanRoleType> roleType] { get => this[roleType()]; set => this[roleType()] = value; }
+
+    byte[]? IObject.this[Func<BinaryRoleType> roleType] { get => this[roleType()]; set => this[roleType()] = value; }
+
     /// <inheritdoc />
-    byte[]? IObject.this[BinaryRoleType roleType]
+    public byte[]? this[BinaryRoleType roleType]
     {
         get => this[this.Meta[roleType]];
         set => this[this.Meta[roleType]] = value;
     }
 
     /// <inheritdoc />
-    bool? IObject.this[BooleanRoleType roleType]
+    public bool? this[BooleanRoleType roleType]
     {
         get => this[this.Meta[roleType]];
         set => this[this.Meta[roleType]] = value;
     }
 
     /// <inheritdoc />
-    DateTime? IObject.this[DateTimeRoleType roleType]
+    public DateTime? this[DateTimeRoleType roleType]
     {
         get => this[this.Meta[roleType]];
         set => this[this.Meta[roleType]] = value;
     }
 
     /// <inheritdoc />
-    decimal? IObject.this[DecimalRoleType roleType]
+    public decimal? this[DecimalRoleType roleType]
     {
         get => this[this.Meta[roleType]];
         set => this[this.Meta[roleType]] = value;
     }
 
     /// <inheritdoc />
-    double? IObject.this[FloatRoleType roleType]
+    public double? this[FloatRoleType roleType]
     {
         get => this[this.Meta[roleType]];
         set => this[this.Meta[roleType]] = value;
     }
 
     /// <inheritdoc />
-    int? IObject.this[IntegerRoleType roleType]
+    public int? this[IntegerRoleType roleType]
     {
         get => this[this.Meta[roleType]];
         set => this[this.Meta[roleType]] = value;
     }
 
     /// <inheritdoc />
-    string? IObject.this[StringRoleType roleType]
+    public string? this[StringRoleType roleType]
     {
         get => this[this.Meta[roleType]];
         set => this[this.Meta[roleType]] = value;
     }
 
     /// <inheritdoc />
-    Guid? IObject.this[UniqueRoleType roleType]
+    public Guid? this[UniqueRoleType roleType]
     {
         get => this[this.Meta[roleType]];
         set => this[this.Meta[roleType]] = value;
     }
 
     /// <inheritdoc />
-    IObject? IObject.this[IToOneRoleType roleType]
+    public IObject? this[IToOneRoleType roleType]
     {
         get => this[this.Meta[roleType]];
         set => this[this.Meta[roleType]] = value;
     }
 
     /// <inheritdoc />
-    IEnumerable<IObject> IObject.this[IToManyRoleType roleType]
+    public IEnumerable<IObject> this[IToManyRoleType roleType]
     {
         get => this[this.Meta[roleType]];
         set => this[this.Meta[roleType]] = value;
     }
 
     /// <inheritdoc />
-    IObject? IObject.this[IOneToAssociationType associationType] => this[this.Meta[associationType]];
+    public IObject? this[IOneToAssociationType associationType] => this[this.Meta[associationType]];
 
     /// <inheritdoc />
-    IEnumerable<IObject> IObject.this[IManyToAssociationType associationType] => this[this.Meta[associationType]];
+    public IEnumerable<IObject> this[IManyToAssociationType associationType] => this[this.Meta[associationType]];
 
     private byte[]? this[EnginesBinaryRoleType roleType]
     {

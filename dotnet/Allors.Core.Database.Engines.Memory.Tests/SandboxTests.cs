@@ -6,7 +6,7 @@ using Allors.Core.Database.Meta;
 
 public class SandboxTests : Engines.Tests.SandboxTests
 {
-    protected override TestsMeta Meta { get; } = new(new CoreMeta());
+    protected override Core.Meta.Meta Meta { get; } = new(new CoreMeta());
 
     protected override IDatabase CreateDatabase() => new Database(new EnginesMeta(this.Meta.CoreMeta));
 }

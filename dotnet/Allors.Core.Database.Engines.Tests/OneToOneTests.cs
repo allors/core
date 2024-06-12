@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Allors.Core.Database.Engines.Tests.Meta;
 using Allors.Core.Database.Meta.Domain;
 using FluentAssertions;
 using MoreLinq;
@@ -30,8 +31,8 @@ public abstract class OneToOneTests : Tests
             {
                 // C1 <-> C1
                 Debugger.Log(0, null, $"C1 <-> C1\n");
-                var association = this.Meta.C1WhereC1OneToOne;
-                var role = this.Meta.C1C1OneToOne;
+                var association = this.Meta.C1WhereC1OneToOne();
+                var role = this.Meta.C1C1OneToOne();
 
                 return (association, role, [C1Builder], C1Builder, C1Builder, C1Builder, C1Builder);
 
@@ -41,8 +42,8 @@ public abstract class OneToOneTests : Tests
             {
                 // C1 <-> I1
                 Debugger.Log(0, null, $"C1 <-> I1\n");
-                var association = this.Meta.C1WhereI1OneToOne;
-                var role = this.Meta.C1I1OneToOne;
+                var association = this.Meta.C1WhereI1OneToOne();
+                var role = this.Meta.C1I1OneToOne();
 
                 return (association, role, [C1Builder], C1Builder, C1Builder, C1Builder, C1Builder);
 
@@ -52,8 +53,8 @@ public abstract class OneToOneTests : Tests
             {
                 // C1 <-> C2
                 Debugger.Log(0, null, $"C1 <-> C2\n");
-                var association = this.Meta.C1WhereC2OneToOne;
-                var role = this.Meta.C1C2OneToOne;
+                var association = this.Meta.C1WhereC2OneToOne();
+                var role = this.Meta.C1C2OneToOne();
 
                 return (association, role, [C1Builder, C2Builder],  C1Builder, C1Builder, C2Builder, C2Builder);
 
@@ -64,8 +65,8 @@ public abstract class OneToOneTests : Tests
             {
                 // C1 <-> I2
                 Debugger.Log(0, null, $"C1 <-> I2\n");
-                var association = this.Meta.C1WhereI2OneToOne;
-                var role = this.Meta.C1I2OneToOne;
+                var association = this.Meta.C1WhereI2OneToOne();
+                var role = this.Meta.C1I2OneToOne();
 
                 return (association, role, [C1Builder, C2Builder],  C1Builder, C1Builder, C2Builder, C2Builder);
 

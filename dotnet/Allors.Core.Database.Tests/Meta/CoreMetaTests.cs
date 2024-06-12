@@ -17,7 +17,6 @@ public class CoreMetaTests
         CoreMetaMeta.Populate(metaMeta);
 
         var meta = new Meta(metaMeta);
-        meta.Sync();
         CoreMeta.Populate(meta);
 
         meta.Derive();
@@ -34,7 +33,6 @@ public class CoreMetaTests
         CoreMetaMeta.Populate(metaMeta);
 
         var meta = new Meta(metaMeta);
-        meta.Sync();
         CoreMeta.Populate(meta);
 
         meta.Derive();

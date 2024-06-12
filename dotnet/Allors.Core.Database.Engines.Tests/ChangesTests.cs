@@ -2,6 +2,7 @@
 
 using System.Linq;
 using Allors.Core.Database.Engines.Tests.Extensions;
+using Allors.Core.Database.Engines.Tests.Meta;
 using Xunit;
 
 public abstract class ChangesTests : Tests
@@ -14,7 +15,7 @@ public abstract class ChangesTests : Tests
 
         var m = this.Meta;
 
-        var a = transaction.Build(m.C1());
+        var a = transaction.Build(m.C1);
         var c = transaction.Build(m.C3);
 
         transaction.Commit();
@@ -50,10 +51,10 @@ public abstract class ChangesTests : Tests
         Assert.Equal("b changed", b[m.C2AllorsString]);
 
         Assert.Single(changeSet.GetRoleTypes(a));
-        Assert.Equal(m.C1AllorsString, changeSet.GetRoleTypes(a).First());
+        Assert.Equal(m.C1AllorsString(), changeSet.GetRoleTypes(a).First());
 
         Assert.Single(changeSet.GetRoleTypes(b));
-        Assert.Equal(m.C2AllorsString, changeSet.GetRoleTypes(b).First());
+        Assert.Equal(m.C2AllorsString(), changeSet.GetRoleTypes(b).First());
 
         Assert.True(associations.Contains(a));
         Assert.True(associations.Contains(b));
@@ -87,10 +88,10 @@ public abstract class ChangesTests : Tests
         Assert.True(associations.Contains(a));
 
         Assert.Single(changeSet.GetRoleTypes(a));
-        Assert.Equal(m.C1AllorsString, changeSet.GetRoleTypes(a).First());
+        Assert.Equal(m.C1AllorsString(), changeSet.GetRoleTypes(a).First());
 
         Assert.Single(changeSet.GetRoleTypes(b));
-        Assert.Equal(m.C2AllorsString, changeSet.GetRoleTypes(b).First());
+        Assert.Equal(m.C2AllorsString(), changeSet.GetRoleTypes(b).First());
 
         Assert.True(associations.Contains(a));
         Assert.True(associations.Contains(b));
@@ -130,10 +131,10 @@ public abstract class ChangesTests : Tests
         Assert.True(associations.Contains(a));
 
         Assert.Single(changeSet.GetRoleTypes(a));
-        Assert.Equal(m.C1AllorsString, changeSet.GetRoleTypes(a).First());
+        Assert.Equal(m.C1AllorsString(), changeSet.GetRoleTypes(a).First());
 
         Assert.Single(changeSet.GetRoleTypes(b));
-        Assert.Equal(m.C2AllorsString, changeSet.GetRoleTypes(b).First());
+        Assert.Equal(m.C2AllorsString(), changeSet.GetRoleTypes(b).First());
 
         Assert.True(associations.Contains(a));
         Assert.True(associations.Contains(b));

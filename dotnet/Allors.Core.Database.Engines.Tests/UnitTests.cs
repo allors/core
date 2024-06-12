@@ -1,6 +1,7 @@
 ﻿namespace Allors.Core.Database.Engines.Tests;
 
 using System;
+using Allors.Core.Database.Engines.Tests.Meta;
 using Xunit;
 
 public abstract class UnitTests : Tests
@@ -45,7 +46,7 @@ public abstract class UnitTests : Tests
             var database = this.CreateDatabase();
             var transaction = database.CreateTransaction();
 
-            var c1a = transaction.Build(this.Meta.C1);
+            var c1a = transaction.Build(this.Meta.C1());
 
             preact(transaction);
 

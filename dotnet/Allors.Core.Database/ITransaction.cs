@@ -1,5 +1,6 @@
 ﻿namespace Allors.Core.Database;
 
+using System;
 using System.Collections.Generic;
 using Allors.Core.Database.Meta.Domain;
 
@@ -19,9 +20,19 @@ public interface ITransaction
     IObject Build(Class @class);
 
     /// <summary>
+    /// Builds a new object.
+    /// </summary>
+    IObject Build(Func<Class> @class);
+
+    /// <summary>
     /// Builds amount new objects.
     /// </summary>
     IEnumerable<IObject> Build(Class @class, int amount);
+
+    /// <summary>
+    /// Builds amount new objects.
+    /// </summary>
+    IEnumerable<IObject> Build(Func<Class> @class, int amount);
 
     /// <summary>
     /// Instantiates an object.

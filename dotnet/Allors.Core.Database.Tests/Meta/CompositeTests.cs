@@ -16,7 +16,6 @@ public class CompositeTests
         CoreMetaMeta.Populate(metaMeta);
 
         var meta = new Meta(metaMeta);
-        meta.Sync();
         CoreMeta.Populate(meta);
 
         meta.Derive();

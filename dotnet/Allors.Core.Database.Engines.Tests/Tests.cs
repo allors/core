@@ -14,7 +14,6 @@ public abstract class Tests
         TestsMetaMeta.Populate(metaMeta);
 
         var meta = new Core.Meta.Meta(metaMeta);
-        meta.Sync();
         CoreMeta.Populate(meta);
         TestsMeta.Populate(meta);
 

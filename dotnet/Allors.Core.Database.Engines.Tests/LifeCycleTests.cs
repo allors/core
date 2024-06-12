@@ -2,6 +2,7 @@
 
 using System;
 using System.Linq;
+using Allors.Core.Database.Engines.Tests.Meta;
 using Allors.Core.Database.Meta.Domain;
 using Xunit;
 
@@ -22,8 +23,8 @@ public abstract class LifeCycleTests : Tests
         [
             () =>
             {
-                var association = this.Meta.C1WhereC1OneToOne;
-                var role = this.Meta.C1C1OneToOne;
+                var association = this.Meta.C1WhereC1OneToOne();
+                var role = this.Meta.C1C1OneToOne();
 
                 return (association, role, [Builder], Builder, Builder, Builder, Builder);
 

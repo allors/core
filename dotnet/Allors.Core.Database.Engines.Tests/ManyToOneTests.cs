@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Allors.Core.Database.Engines.Tests.Meta;
 using Allors.Core.Database.Meta.Domain;
 using FluentAssertions;
 using MoreLinq;
@@ -32,8 +33,8 @@ public abstract class ManyToOneTests : Tests
                 {
                     // C1 <-> C1
                     Debugger.Log(0, null, $"C1 <-> C1\n");
-                    var association = this.Meta.C1sWhereC1ManyToOne;
-                    var role = this.Meta.C1C1ManyToOne;
+                    var association = this.Meta.C1sWhereC1ManyToOne();
+                    var role = this.Meta.C1C1ManyToOne();
 
                     return (association, role, [C1Builder], C1Builder, C1Builder, C1Builder, C1Builder, C1Builder, C1Builder);
 
