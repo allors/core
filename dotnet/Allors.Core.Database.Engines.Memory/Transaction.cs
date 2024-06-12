@@ -62,6 +62,10 @@ public class Transaction : ITransaction
 
     internal Database Database { get; }
 
+    IObject ITransaction.Build(Func<Class> @class) => this.Build(@class());
+
+    IEnumerable<IObject> ITransaction.Build(Func<Class> @class, int amount) => this.Build(@class(), amount);
+
     /// <inheritdoc/>
     public IObject Build(Class @class)
     {

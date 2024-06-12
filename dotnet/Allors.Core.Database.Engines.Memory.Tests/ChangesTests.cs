@@ -4,5 +4,5 @@ using Allors.Core.Database.Engines.Meta;
 
 public class ChangesTests : Engines.Tests.ChangesTests
 {
-    protected override IDatabase CreateDatabase() => new Database(new EnginesMeta(this.Meta.CoreMeta));
+    protected override IDatabase CreateDatabase() => new Database(new EnginesMeta(this.Meta));
 }

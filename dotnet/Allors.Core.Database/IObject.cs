@@ -159,7 +159,6 @@ public interface IObject
     /// </summary>
     void Add(IToManyRoleType roleType, IObject value);
 
-
     /// <summary>
     /// Add an object to the role.
     /// </summary>

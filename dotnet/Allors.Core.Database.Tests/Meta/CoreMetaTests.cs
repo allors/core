@@ -44,13 +44,13 @@ public class CoreMetaTests
         var associationTypes = meta.Objects.OfType<IAssociationType>().ToArray();
         var roleTypes = meta.Objects.OfType<IRoleType>().ToArray();
 
-        Assert.Equal(149, meta.Objects.Count);
+        Assert.Equal(10, meta.Objects.Count);
 
         Assert.Single(domains);
-        Assert.Equal(6, units.Length);
-        Assert.Equal(17, interfaces.Length);
-        Assert.Equal(29, classes.Length);
-        Assert.Equal(26, associationTypes.Length);
-        Assert.Equal(26, roleTypes.Length);
+        Assert.Equal(8, units.Length);
+        Assert.Single(interfaces);
+        Assert.Empty(classes);
+        Assert.Empty(associationTypes);
+        Assert.Empty(roleTypes);
     }
 }

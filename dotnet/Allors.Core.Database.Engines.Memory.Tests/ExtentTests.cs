@@ -4,5 +4,5 @@ using Allors.Core.Database.Engines.Meta;
 
 public class ExtentTests : Engines.Tests.ExtentTests
 {
-    protected override IDatabase CreateDatabase() => new Database(new EnginesMeta(this.Meta.CoreMeta));
+    protected override IDatabase CreateDatabase() => new Database(new EnginesMeta(this.Meta));
 }

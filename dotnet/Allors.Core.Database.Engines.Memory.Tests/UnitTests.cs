@@ -4,5 +4,5 @@ using Allors.Core.Database.Engines.Meta;
 
 public class UnitTests : Engines.Tests.UnitTests
 {
-    protected override IDatabase CreateDatabase() => new Database(new EnginesMeta(this.Meta.CoreMeta));
+    protected override IDatabase CreateDatabase() => new Database(new EnginesMeta(this.Meta));
 }

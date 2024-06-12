@@ -417,17 +417,25 @@ public class Object : IObject
 
     private IEnumerable<IObject> this[EnginesManyToAssociationType associationType] => this.ManyToAssociation(associationType)?.Select(this.Transaction.Instantiate) ?? [];
 
-    /// <inheritdoc />
-    void IObject.Add(IToManyRoleType roleType, IObject value) => this.Add(this.Meta[roleType], value);
+    void IObject.Add(Func<IToManyRoleType> roleType, IObject value) => this.Add(roleType(), value);
+
+    void IObject.Remove(Func<IToManyRoleType> roleType, IObject value) => this.Remove(roleType(), value);
+
+    bool IObject.Exist(Func<IRoleType> roleType) => this.Exist(roleType());
+
+    bool IObject.Exist(Func<IAssociationType> associationType) => this.Exist(associationType());
 
     /// <inheritdoc />
-    void IObject.Remove(IToManyRoleType roleType, IObject value) => this.Remove(this.Meta[roleType], value);
+    public void Add(IToManyRoleType roleType, IObject value) => this.Add(this.Meta[roleType], value);
 
     /// <inheritdoc />
-    bool IObject.Exist(IRoleType roleType) => this.Exist(this.Meta[roleType]);
+    public void Remove(IToManyRoleType roleType, IObject value) => this.Remove(this.Meta[roleType], value);
 
     /// <inheritdoc />
-    bool IObject.Exist(IAssociationType associationType) => this.Exist(this.Meta[associationType]);
+    public bool Exist(IRoleType roleType) => this.Exist(this.Meta[roleType]);
+
+    /// <inheritdoc />
+    public bool Exist(IAssociationType associationType) => this.Exist(this.Meta[associationType]);
 
     /// <inheritdoc/>
     public override string ToString() => $"{this.Class.SingularName}:{this.Id}";

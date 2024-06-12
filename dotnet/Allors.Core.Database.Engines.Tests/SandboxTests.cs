@@ -4,10 +4,8 @@ using Allors.Core.Database.Engines.Tests.Meta;
 using FluentAssertions;
 using Xunit;
 
-public abstract class SandboxTests
+public abstract class SandboxTests : Tests
 {
-    protected abstract Core.Meta.Meta Meta { get; }
-
     [Fact]
     public void OneToOne()
     {
