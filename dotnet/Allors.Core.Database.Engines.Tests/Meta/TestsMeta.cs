@@ -149,7 +149,7 @@ public static class TestsMeta
         m.AddStringRelation(d, new Guid("5B9E7A1B-4CA2-45D4-8FEB-829CF2115F33"), C3AllorsString, c3, m.String(), "C3AllorsString");
         m.AddStringRelation(d, new Guid("2B0B3AAE-0F9E-43CF-BF0C-2CD38C3D08F6"), C4AllorsString, c4, m.String(), "C4AllorsString");
 
-        m.AddOneToOneRelation(d, C1C1OneToOne, C1C1OneToOne, c1, c1, "C1OneToOne");
+        m.AddOneToOneRelation(d, C1WhereC1OneToOne, C1C1OneToOne, c1, c1, "C1OneToOne");
         m.AddOneToOneRelation(d, C1WhereI1OneToOne, C1I1OneToOne, c1, i1, "I1OneToOne");
         m.AddOneToOneRelation(d, C1WhereC2OneToOne, C1C2OneToOne, c1, c2, "C2OneToOne");
         m.AddOneToOneRelation(d, C1WhereI2OneToOne, C1I2OneToOne, c1, i2, "I2OneToOne");
@@ -160,8 +160,8 @@ public static class TestsMeta
         m.AddManyToOneRelation(d, C1sWhereC1ManyToOne, C1C1ManyToOne, c1, c1, "C1ManyToOne");
         m.AddManyToOneRelation(d, C1sWhereC2ManyToOne, C1C2ManyToOne, c1, c2, "C2ManyToOne");
         m.AddManyToOneRelation(d, C1sWhereI2ManyToOne, C1I2ManyToOne, c1, i2, "I2ManyToOne");
-        m.AddManyToOneRelation(d, C1sWhereI2ManyToOne, C1I2ManyToOne, c1, s2, "I2ManyToOne");
-        m.AddManyToOneRelation(d, C2sWhereC1ManyToOne, C2C1ManyToOne, c2, c1, "I2ManyToOne");
+        m.AddManyToOneRelation(d, C1sWhereS2ManyToOne, C1S2ManyToOne, c1, s2, "S2ManyToOne");
+        m.AddManyToOneRelation(d, C2sWhereC1ManyToOne, C2C1ManyToOne, c2, c1, "C1ManyToOne");
 
         m.AddOneToManyRelation(d, C1WhereC1OneToMany, C1C1OneToMany, c1, c1, "C1OneToMany");
         m.AddOneToManyRelation(d, C1WhereC2OneToMany, C1C2OneToMany, c1, c2, "C2OneToMany");
