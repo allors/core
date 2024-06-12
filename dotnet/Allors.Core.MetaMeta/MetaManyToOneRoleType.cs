@@ -60,6 +60,6 @@ public sealed class MetaManyToOneRoleType : IMetaToOneRoleType
 
     internal string PluralNameForAssociationType(MetaObjectType metaObjectType)
     {
-        return $"{this.ObjectType.Meta.Pluralize(metaObjectType.Name)}Where{this.SingularName}";
+        return $"{metaObjectType.Name.Pluralize()}Where{this.SingularName}";
     }
 }

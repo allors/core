@@ -134,50 +134,6 @@ public sealed class MetaMeta
         return inheritance;
     }
 
-    internal string Pluralize(string singular)
-    {
-        static bool EndsWith(string word, string ending) => word.EndsWith(ending, StringComparison.InvariantCultureIgnoreCase);
-
-        if (EndsWith(singular, "y") &&
-            !EndsWith(singular, "ay") &&
-            !EndsWith(singular, "ey") &&
-            !EndsWith(singular, "iy") &&
-            !EndsWith(singular, "oy") &&
-            !EndsWith(singular, "uy"))
-        {
-            return singular.Substring(0, singular.Length - 1) + "ies";
-        }
-
-        if (EndsWith(singular, "us"))
-        {
-            return singular + "es";
-        }
-
-        if (EndsWith(singular, "ss"))
-        {
-            return singular + "es";
-        }
-
-        if (EndsWith(singular, "x") ||
-            EndsWith(singular, "ch") ||
-            EndsWith(singular, "sh"))
-        {
-            return singular + "es";
-        }
-
-        if (EndsWith(singular, "f") && singular.Length > 1)
-        {
-            return singular.Substring(0, singular.Length - 1) + "ves";
-        }
-
-        if (EndsWith(singular, "fe") && singular.Length > 2)
-        {
-            return singular.Substring(0, singular.Length - 2) + "ves";
-        }
-
-        return singular + "s";
-    }
-
     internal void ResetDerivations()
     {
         foreach ((_, var objectType) in this.ObjectTypeById)

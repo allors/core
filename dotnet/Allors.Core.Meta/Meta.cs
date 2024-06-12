@@ -13,7 +13,7 @@ public sealed class Meta(MetaMeta meta)
     private readonly MetaRelations relations = new();
     private readonly MetaRelations changedRelations = new();
 
-    private IList<IMetaObject>? newObjects = null;
+    private List<IMetaObject>? newObjects;
     private IImmutableList<IMetaObject> objects = ImmutableArray<IMetaObject>.Empty;
 
     public MetaMeta MetaMeta { get; } = meta;
@@ -86,7 +86,7 @@ public sealed class Meta(MetaMeta meta)
 
     internal void SetUnitRole(MetaObject association, MetaUnitRoleType roleType, object? role)
     {
-        var normalizedRole = this.Normalize(roleType, role);
+        var normalizedRole = Normalize(roleType, role);
 
         var currentRole = this.GetUnitRole(association, roleType);
         if (Equals(currentRole, normalizedRole))
@@ -133,7 +133,7 @@ public sealed class Meta(MetaMeta meta)
 
     internal void SetToManyRole(MetaObject association, IMetaToManyRoleType roleType, IEnumerable<IMetaObject> items)
     {
-        var normalizedRole = this.Normalize(roleType, items);
+        var normalizedRole = Normalize(roleType, items);
 
         switch (roleType)
         {
@@ -224,7 +224,7 @@ public sealed class Meta(MetaMeta meta)
          *                ->                +        -        =       -
          *   A ----- PR         A --x-- PR       A --    PR       A --    PR
          */
-        var role = this.Normalize(roleType, value);
+        var role = Normalize(roleType, value);
         var previousRole = this.GetRole(association, roleType);
 
         // R = PR
@@ -288,7 +288,7 @@ public sealed class Meta(MetaMeta meta)
          *                ->                +        -        =       -
          *   A ----- PR         A --x-- PR       A --    PR       A --    PR
          */
-        var role = this.Normalize(roleType, value);
+        var role = Normalize(roleType, value);
 
         var associationType = roleType.AssociationType;
         var previousRole = this.GetToOneRole(association, roleType);
@@ -645,7 +645,7 @@ public sealed class Meta(MetaMeta meta)
         return role;
     }
 
-    private object? Normalize(MetaUnitRoleType roleType, object? value)
+    private static object? Normalize(MetaUnitRoleType roleType, object? value)
     {
         if (value == null)
         {
@@ -674,7 +674,7 @@ Use DateTimeKind.Utc or DateTimeKind.Local."),
         return value;
     }
 
-    private IMetaObject Normalize(IMetaToOneRoleType roleType, object value)
+    private static MetaObject Normalize(IMetaToOneRoleType roleType, object value)
     {
         if (value is MetaObject metaObject)
         {
@@ -689,7 +689,7 @@ Use DateTimeKind.Utc or DateTimeKind.Local."),
         throw new ArgumentException($"{roleType.Name} should be an meta object but was a {value.GetType()}");
     }
 
-    private IMetaObject[] Normalize(IMetaToManyRoleType roleType, IEnumerable<IMetaObject?> value)
+    private static IMetaObject[] Normalize(IMetaToManyRoleType roleType, IEnumerable<IMetaObject?> value)
         => value
             .Where(v =>
             {

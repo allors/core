@@ -1,5 +1,6 @@
 ﻿namespace Allors.Core.MetaMeta.Diagrams;
 
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using Allors.Core.MetaMeta;
@@ -12,7 +13,7 @@ public sealed class ClassDiagram(MetaMeta metaMeta, ClassDiagram.Config? config 
 
         if (config?.Title != null)
         {
-            diagram.Append($"""
+            diagram.Append(CultureInfo.InvariantCulture, $"""
              ---
              title: {config.Title}
              ---
@@ -31,12 +32,12 @@ public sealed class ClassDiagram(MetaMeta metaMeta, ClassDiagram.Config? config 
 
         foreach (var composite in composites)
         {
-            diagram.AppendLine($"    class {composite.Name}");
+            diagram.AppendLine(CultureInfo.InvariantCulture, $"    class {composite.Name}");
 
             var directSuperTypes = composite.DirectSupertypes;
             foreach (var directSuperType in directSuperTypes)
             {
-                diagram.AppendLine($"    {directSuperType.Name} <|-- {composite.Name}");
+                diagram.AppendLine(CultureInfo.InvariantCulture, $"    {directSuperType.Name} <|-- {composite.Name}");
             }
 
             var declaredRoleTypes = composite.DeclaredRoleTypeByName.Values.OrderBy(v => v.Name);
@@ -44,7 +45,7 @@ public sealed class ClassDiagram(MetaMeta metaMeta, ClassDiagram.Config? config 
             {
                 if (roleType is MetaUnitRoleType)
                 {
-                    diagram.AppendLine($"    {composite.Name} : {roleType.ObjectType.Name} {roleType.Name}");
+                    diagram.AppendLine(CultureInfo.InvariantCulture, $"    {composite.Name} : {roleType.ObjectType.Name} {roleType.Name}");
                 }
                 else if (roleType is IMetaCompositeRoleType compositeRoleType && roleType.AssociationType is IMetaCompositeAssociationType compositeAssociationType)
                 {
@@ -64,7 +65,7 @@ public sealed class ClassDiagram(MetaMeta metaMeta, ClassDiagram.Config? config 
                         roleTypeMultiplicity = $" \"{roleTypeMultiplicity}\"";
                     }
 
-                    diagram.AppendLine($"    {composite.Name} {associationTypeMultiplicity}o--{roleTypeMultiplicity} {roleType.ObjectType.Name} : {roleType.Name}");
+                    diagram.AppendLine(CultureInfo.InvariantCulture, $"    {composite.Name} {associationTypeMultiplicity}o--{roleTypeMultiplicity} {roleType.ObjectType.Name} : {roleType.Name}");
                 }
             }
         }

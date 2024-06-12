@@ -34,7 +34,7 @@ public sealed class EnginesUniqueRoleType(EnginesMeta enginesMeta, MetaObject me
     /// <summary>
     /// Normalize the value.
     /// </summary>
-    public Guid? Normalize(Guid? value)
+    public static Guid? Normalize(Guid? value)
     {
         return Guid.Empty.Equals(value) ? null : value;
     }

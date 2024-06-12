@@ -252,7 +252,7 @@ public class Object : IObject
         set
         {
             this.Assert(roleType);
-            value = roleType.Normalize(value);
+            value = EnginesDateTimeRoleType.Normalize(value);
 
             var currentRole = this[roleType];
             if (Equals(currentRole, value))
@@ -340,7 +340,7 @@ public class Object : IObject
         set
         {
             this.Assert(roleType);
-            value = roleType.Normalize(value);
+            value = EnginesUniqueRoleType.Normalize(value);
 
             var currentRole = this[roleType];
             if (Equals(currentRole, value))

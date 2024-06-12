@@ -1,9 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <IsPackable>false</IsPackable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>CS1573;CS1591;S1135;S125;</NoWarn>
@@ -18,10 +15,6 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.1" PrivateAssets="all" />
     <PackageReference Include="coverlet.msbuild" Version="6.0.2" PrivateAssets="all" />
     <PackageReference Include="coverlet.collector" Version="6.0.2" PrivateAssets="all" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556" PrivateAssets="all" />
-    <PackageReference Include="Roslynator.Analyzers" Version="4.12.4" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.CodeStyle" Version="4.10.0-3.final" PrivateAssets="all" />
-    
   </ItemGroup>
 
   <ItemGroup>

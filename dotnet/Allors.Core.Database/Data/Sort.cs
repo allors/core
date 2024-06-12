@@ -20,7 +20,7 @@ public record Sort : IVisitable
     /// <summary>
     /// The descending.
     /// </summary>
-    public bool Descending { get; init; } = false;
+    public bool Descending { get; init; }
 
     /// <inheritdoc/>
     public void Accept(IVisitor visitor) => visitor.VisitSort(this);

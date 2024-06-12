@@ -122,7 +122,7 @@ public sealed class MetaObjectType
     internal MetaUnitRoleType AddUnit(MetaDomain domain, Guid associationTypeId, Guid roleTypeId, MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
     {
         roleSingularName ??= objectType.Name;
-        var rolePluralName = this.Meta.Pluralize(roleSingularName);
+        var rolePluralName = roleSingularName.Pluralize();
 
         var roleType = new MetaUnitRoleType(
             domain,
@@ -135,7 +135,7 @@ public sealed class MetaObjectType
         string associationPluralName;
         if (associationSingularName != null)
         {
-            associationPluralName = this.Meta.Pluralize(associationSingularName);
+            associationPluralName = associationSingularName.Pluralize();
         }
         else
         {
@@ -163,7 +163,7 @@ public sealed class MetaObjectType
     internal MetaOneToOneRoleType AddOneToOne(MetaDomain domain, Guid associationTypeId, Guid roleTypeId, MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
     {
         roleSingularName ??= objectType.Name;
-        var rolePluralName = this.Meta.Pluralize(roleSingularName);
+        var rolePluralName = roleSingularName.Pluralize();
 
         var roleType = new MetaOneToOneRoleType(
             domain,
@@ -176,7 +176,7 @@ public sealed class MetaObjectType
         string associationPluralName;
         if (associationSingularName != null)
         {
-            associationPluralName = this.Meta.Pluralize(associationSingularName);
+            associationPluralName = associationSingularName.Pluralize();
         }
         else
         {
@@ -204,7 +204,7 @@ public sealed class MetaObjectType
     internal MetaManyToOneRoleType AddManyToOne(MetaDomain domain, Guid associationTypeId, Guid roleTypeId, MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
     {
         roleSingularName ??= objectType.Name;
-        var rolePluralName = this.Meta.Pluralize(roleSingularName);
+        var rolePluralName = roleSingularName.Pluralize();
 
         var roleType = new MetaManyToOneRoleType(
             domain,
@@ -217,7 +217,7 @@ public sealed class MetaObjectType
         string associationPluralName;
         if (associationSingularName != null)
         {
-            associationPluralName = this.Meta.Pluralize(associationSingularName);
+            associationPluralName = associationSingularName.Pluralize();
         }
         else
         {
@@ -245,7 +245,7 @@ public sealed class MetaObjectType
     internal MetaOneToManyRoleType AddOneToMany(MetaDomain domain, Guid associationTypeId, Guid roleTypeId, MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
     {
         roleSingularName ??= objectType.Name;
-        var rolePluralName = this.Meta.Pluralize(roleSingularName);
+        var rolePluralName = roleSingularName.Pluralize();
 
         var roleType = new MetaOneToManyRoleType(
             domain,
@@ -258,7 +258,7 @@ public sealed class MetaObjectType
         string associationPluralName;
         if (associationSingularName != null)
         {
-            associationPluralName = this.Meta.Pluralize(associationSingularName);
+            associationPluralName = associationSingularName.Pluralize();
         }
         else
         {
@@ -286,7 +286,7 @@ public sealed class MetaObjectType
     internal MetaManyToManyRoleType AddManyToMany(MetaDomain domain, Guid associationTypeId, Guid roleTypeId, MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
     {
         roleSingularName ??= objectType.Name;
-        var rolePluralName = this.Meta.Pluralize(roleSingularName);
+        var rolePluralName = roleSingularName.Pluralize();
 
         var roleType = new MetaManyToManyRoleType(
             domain,
@@ -299,7 +299,7 @@ public sealed class MetaObjectType
         string associationPluralName;
         if (associationSingularName != null)
         {
-            associationPluralName = this.Meta.Pluralize(associationSingularName);
+            associationPluralName = associationSingularName.Pluralize();
         }
         else
         {

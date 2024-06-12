@@ -34,7 +34,7 @@ public sealed class EnginesDateTimeRoleType(EnginesMeta enginesMeta, MetaObject 
     /// <summary>
     /// Normalize the value.
     /// </summary>
-    public DateTime? Normalize(DateTime? value)
+    public static DateTime? Normalize(DateTime? value)
     {
         if (value is not { } dateTime || dateTime == DateTime.MinValue || dateTime == DateTime.MaxValue)
         {
