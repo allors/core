@@ -11,11 +11,11 @@ public class SnapshotTests
     public void Unit()
     {
         var metaMeta = new MetaMeta();
-        var domain = metaMeta.AddDomain(Guid.NewGuid(), "Domain");
-        var @string = metaMeta.AddUnit(domain, Guid.NewGuid(), "String");
-        var person = metaMeta.AddClass(domain, Guid.NewGuid(), "Person");
-        var firstName = metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
-        var lastName = metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
+
+        var @string = metaMeta.AddUnit(Guid.NewGuid(), "String");
+        var person = metaMeta.AddClass(Guid.NewGuid(), "Person");
+        var firstName = metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
+        var lastName = metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
 
         var meta = new Meta(metaMeta);
 
@@ -53,14 +53,14 @@ public class SnapshotTests
     public void Composites()
     {
         var metaMeta = new MetaMeta();
-        var domain = metaMeta.AddDomain(Guid.NewGuid(), "Domain");
-        var @string = metaMeta.AddUnit(domain, Guid.NewGuid(), "String");
-        var person = metaMeta.AddClass(domain, Guid.NewGuid(), "Person");
-        var organization = metaMeta.AddClass(domain, Guid.NewGuid(), "Organization");
-        metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
-        metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
-        metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
-        var employees = metaMeta.AddManyToManyRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
+
+        var @string = metaMeta.AddUnit(Guid.NewGuid(), "String");
+        var person = metaMeta.AddClass(Guid.NewGuid(), "Person");
+        var organization = metaMeta.AddClass(Guid.NewGuid(), "Organization");
+        metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
+        metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
+        metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
+        var employees = metaMeta.AddManyToManyRelation(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var meta = new Meta(metaMeta);
 

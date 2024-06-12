@@ -4,9 +4,9 @@ using System;
 
 public sealed class MetaOneToOneAssociationType : IMetaOneToAssociationType
 {
-    internal MetaOneToOneAssociationType(MetaDomain domain, Guid id, MetaObjectType objectType, MetaOneToOneRoleType roleType, string singularName, string pluralName, string name)
+    internal MetaOneToOneAssociationType(MetaMeta metaMeta, Guid id, MetaObjectType objectType, MetaOneToOneRoleType roleType, string singularName, string pluralName, string name)
     {
-        this.Domain = domain;
+        this.MetaMeta = metaMeta;
         this.Id = id;
         this.ObjectType = objectType;
         this.RoleType = roleType;
@@ -15,7 +15,7 @@ public sealed class MetaOneToOneAssociationType : IMetaOneToAssociationType
         this.Name = name;
     }
 
-    public MetaDomain Domain { get; }
+    public MetaMeta MetaMeta { get; }
 
     public Guid Id { get; }
 

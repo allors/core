@@ -88,11 +88,6 @@ public static class MetaMetaExtensions
     public static MetaObjectType Interface(this MetaMeta @this) => @this.ObjectTypeById[CoreMetaMeta.Interface];
 
     /// <summary>
-    /// The allors core meta domain.
-    /// </summary>
-    public static MetaDomain AllorsCore(this MetaMeta @this) => @this.DomainById[CoreMetaMeta.AllorsCore];
-
-    /// <summary>
     /// A boolean.
     /// </summary>
     public static MetaObjectType Boolean(this MetaMeta @this) => @this.ObjectTypeById[CoreMetaMeta.Boolean];

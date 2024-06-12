@@ -4,9 +4,9 @@ using System;
 
 public sealed class MetaOneToManyRoleType : IMetaToManyRoleType
 {
-    internal MetaOneToManyRoleType(MetaDomain domain, Guid id, MetaObjectType objectType, string singularName, string pluralName, string name)
+    internal MetaOneToManyRoleType(MetaMeta metaMeta, Guid id, MetaObjectType objectType, string singularName, string pluralName, string name)
     {
-        this.Domain = domain;
+        this.MetaMeta = metaMeta;
         this.Id = id;
         this.ObjectType = objectType;
         this.SingularName = singularName;
@@ -14,7 +14,7 @@ public sealed class MetaOneToManyRoleType : IMetaToManyRoleType
         this.Name = name;
     }
 
-    public MetaDomain Domain { get; }
+    public MetaMeta MetaMeta { get; }
 
     public Guid Id { get; }
 

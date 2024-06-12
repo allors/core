@@ -12,11 +12,11 @@ public class ObjectsTests
     public void Filter()
     {
         var metaMeta = new MetaMeta();
-        var domain = metaMeta.AddDomain(Guid.NewGuid(), "Domain");
-        var @string = metaMeta.AddUnit(domain, Guid.NewGuid(), "String");
-        var person = metaMeta.AddClass(domain, Guid.NewGuid(), "Person");
-        metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
-        metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
+
+        var @string = metaMeta.AddUnit(Guid.NewGuid(), "String");
+        var person = metaMeta.AddClass(Guid.NewGuid(), "Person");
+        metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
+        metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
 
         var meta = new Meta(metaMeta);
 

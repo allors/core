@@ -12,15 +12,15 @@ public class DerivationOverrideTests
     public void Derivation()
     {
         var metaMeta = new MetaMeta();
-        var domain = metaMeta.AddDomain(Guid.NewGuid(), "Domain");
-        var @string = metaMeta.AddUnit(domain, Guid.NewGuid(), "String");
-        var @dateTime = metaMeta.AddUnit(domain, Guid.NewGuid(), "DateTime");
-        var person = metaMeta.AddClass(domain, Guid.NewGuid(), "Person");
-        var firstName = metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
-        var lastName = metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
-        var fullName = metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FullName");
-        metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, dateTime, "DerivedAt");
-        metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "Greeting");
+
+        var @string = metaMeta.AddUnit(Guid.NewGuid(), "String");
+        var @dateTime = metaMeta.AddUnit(Guid.NewGuid(), "DateTime");
+        var person = metaMeta.AddClass(Guid.NewGuid(), "Person");
+        var firstName = metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
+        var lastName = metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
+        var fullName = metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), person, @string, "FullName");
+        metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), person, dateTime, "DerivedAt");
+        metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), person, @string, "Greeting");
 
         var meta = new Meta(metaMeta)
         {

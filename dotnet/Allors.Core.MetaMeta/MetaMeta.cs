@@ -5,7 +5,6 @@ using System.Collections.Generic;
 
 public sealed class MetaMeta
 {
-    private readonly Dictionary<Guid, MetaDomain> domainById;
     private readonly Dictionary<Guid, MetaObjectType> objectTypeById;
     private readonly Dictionary<string, MetaObjectType> objectTypeByName;
     private readonly Dictionary<Guid, MetaInheritance> inheritanceById;
@@ -14,15 +13,12 @@ public sealed class MetaMeta
 
     public MetaMeta()
     {
-        this.domainById = [];
         this.objectTypeById = [];
         this.objectTypeByName = [];
         this.associationTypeById = [];
         this.roleTypeById = [];
         this.inheritanceById = [];
     }
-
-    public IReadOnlyDictionary<Guid, MetaDomain> DomainById => this.domainById;
 
     public IReadOnlyDictionary<Guid, MetaObjectType> ObjectTypeById => this.objectTypeById;
 
@@ -34,23 +30,16 @@ public sealed class MetaMeta
 
     public IReadOnlyDictionary<Guid, IMetaRoleType> RoleTypeById => this.roleTypeById;
 
-    public MetaDomain AddDomain(Guid id, string name)
+    public MetaObjectType AddUnit(Guid id, string name)
     {
-        var domain = new MetaDomain(this, id, name);
-        this.domainById.Add(domain.Id, domain);
-        return domain;
-    }
-
-    public MetaObjectType AddUnit(MetaDomain domain, Guid id, string name)
-    {
-        var objectType = new MetaObjectType(domain, MetaObjectTypeKind.Unit, id, name);
+        var objectType = new MetaObjectType(this, MetaObjectTypeKind.Unit, id, name);
         this.Add(objectType);
         return objectType;
     }
 
-    public MetaObjectType AddInterface(MetaDomain domain, Guid id, string name, params MetaObjectType[] directSupertypes)
+    public MetaObjectType AddInterface(Guid id, string name, params MetaObjectType[] directSupertypes)
     {
-        var objectType = new MetaObjectType(domain, MetaObjectTypeKind.Interface, id, name);
+        var objectType = new MetaObjectType(this, MetaObjectTypeKind.Interface, id, name);
         this.Add(objectType);
 
         foreach (var superType in directSupertypes)
@@ -61,9 +50,9 @@ public sealed class MetaMeta
         return objectType;
     }
 
-    public MetaObjectType AddClass(MetaDomain domain, Guid id, string name, params MetaObjectType[] directSupertypes)
+    public MetaObjectType AddClass(Guid id, string name, params MetaObjectType[] directSupertypes)
     {
-        var objectType = new MetaObjectType(domain, MetaObjectTypeKind.Class, id, name);
+        var objectType = new MetaObjectType(this, MetaObjectTypeKind.Class, id, name);
         this.Add(objectType);
 
         foreach (var superType in directSupertypes)
@@ -74,11 +63,11 @@ public sealed class MetaMeta
         return objectType;
     }
 
-    public MetaObjectType AddClass<T>(MetaDomain domain, Guid id, params MetaObjectType[] directSupertypes) => this.AddClass(domain, id, typeof(T), directSupertypes);
+    public MetaObjectType AddClass<T>(Guid id, params MetaObjectType[] directSupertypes) => this.AddClass(id, typeof(T), directSupertypes);
 
-    public MetaObjectType AddClass(MetaDomain domain, Guid id, Type type, params MetaObjectType[] directSupertypes)
+    public MetaObjectType AddClass(Guid id, Type type, params MetaObjectType[] directSupertypes)
     {
-        var objectType = new MetaObjectType(domain, MetaObjectTypeKind.Class, id, type);
+        var objectType = new MetaObjectType(this, MetaObjectTypeKind.Class, id, type);
         this.Add(objectType);
 
         foreach (var superType in directSupertypes)
@@ -89,44 +78,44 @@ public sealed class MetaMeta
         return objectType;
     }
 
-    public MetaUnitRoleType AddUnitRelation(MetaDomain domain, Guid associationTypeId, Guid roleTypeId, MetaObjectType associationObjectType, MetaObjectType roleObjectType, string roleName, string? associationName = null)
+    public MetaUnitRoleType AddUnitRelation(Guid associationTypeId, Guid roleTypeId, MetaObjectType associationObjectType, MetaObjectType roleObjectType, string roleName, string? associationName = null)
     {
-        var role = associationObjectType.AddUnit(domain, associationTypeId, roleTypeId, roleObjectType, roleName, associationName);
+        var role = associationObjectType.AddUnit(this, associationTypeId, roleTypeId, roleObjectType, roleName, associationName);
         this.Add(role);
         return role;
     }
 
-    public MetaOneToOneRoleType AddOneToOneRelation(MetaDomain domain, Guid associationTypeId, Guid roleTypeId, MetaObjectType associationObjectType, MetaObjectType roleObjectType, string? roleName = null, string? associationName = null)
+    public MetaOneToOneRoleType AddOneToOneRelation(Guid associationTypeId, Guid roleTypeId, MetaObjectType associationObjectType, MetaObjectType roleObjectType, string? roleName = null, string? associationName = null)
     {
-        var role = associationObjectType.AddOneToOne(domain, associationTypeId, roleTypeId, roleObjectType, roleName, associationName);
+        var role = associationObjectType.AddOneToOne(this, associationTypeId, roleTypeId, roleObjectType, roleName, associationName);
         this.Add(role);
         return role;
     }
 
-    public MetaManyToOneRoleType AddManyToOneRelation(MetaDomain domain, Guid associationTypeId, Guid roleTypeId, MetaObjectType associationObjectType, MetaObjectType roleObjectType, string? roleName = null, string? associationName = null)
+    public MetaManyToOneRoleType AddManyToOneRelation(Guid associationTypeId, Guid roleTypeId, MetaObjectType associationObjectType, MetaObjectType roleObjectType, string? roleName = null, string? associationName = null)
     {
-        var role = associationObjectType.AddManyToOne(domain, associationTypeId, roleTypeId, roleObjectType, roleName, associationName);
+        var role = associationObjectType.AddManyToOne(this, associationTypeId, roleTypeId, roleObjectType, roleName, associationName);
         this.Add(role);
         return role;
     }
 
-    public MetaOneToManyRoleType AddOneToManyRelation(MetaDomain domain, Guid associationTypeId, Guid roleTypeId, MetaObjectType associationObjectType, MetaObjectType roleObjectType, string? roleName = null, string? associationName = null)
+    public MetaOneToManyRoleType AddOneToManyRelation(Guid associationTypeId, Guid roleTypeId, MetaObjectType associationObjectType, MetaObjectType roleObjectType, string? roleName = null, string? associationName = null)
     {
-        var role = associationObjectType.AddOneToMany(domain, associationTypeId, roleTypeId, roleObjectType, roleName, associationName);
+        var role = associationObjectType.AddOneToMany(this, associationTypeId, roleTypeId, roleObjectType, roleName, associationName);
         this.Add(role);
         return role;
     }
 
-    public MetaManyToManyRoleType AddManyToManyRelation(MetaDomain domain, Guid associationTypeId, Guid roleTypeId, MetaObjectType associationObjectType, MetaObjectType roleObjectType, string? roleName = null, string? associationName = null)
+    public MetaManyToManyRoleType AddManyToManyRelation(Guid associationTypeId, Guid roleTypeId, MetaObjectType associationObjectType, MetaObjectType roleObjectType, string? roleName = null, string? associationName = null)
     {
-        var role = associationObjectType.AddManyToMany(domain, associationTypeId, roleTypeId, roleObjectType, roleName, associationName);
+        var role = associationObjectType.AddManyToMany(this, associationTypeId, roleTypeId, roleObjectType, roleName, associationName);
         this.Add(role);
         return role;
     }
 
-    public MetaInheritance AddInheritance(MetaDomain domain, Guid id, MetaObjectType subtype, MetaObjectType supertype)
+    public MetaInheritance AddInheritance(Guid id, MetaObjectType subtype, MetaObjectType supertype)
     {
-        var inheritance = new MetaInheritance(domain, id, subtype, supertype);
+        var inheritance = new MetaInheritance(this, id, subtype, supertype);
 
         subtype.AddDirectSupertype(supertype);
 
@@ -146,25 +135,16 @@ public sealed class MetaMeta
     {
         this.objectTypeById.Add(objectType.Id, objectType);
         this.objectTypeByName.Add(objectType.Name, objectType);
-
-        var domain = objectType.Domain;
-        domain.Add(objectType);
     }
 
     private void Add(IMetaRoleType roleType)
     {
         this.roleTypeById.Add(roleType.Id, roleType);
         this.associationTypeById.Add(roleType.AssociationType.Id, roleType.AssociationType);
-
-        var domain = roleType.Domain;
-        domain.Add(roleType);
     }
 
     private void Add(MetaInheritance inheritance)
     {
         this.inheritanceById.Add(inheritance.Id, inheritance);
-
-        var domain = inheritance.Domain;
-        domain.Add(inheritance);
     }
 }

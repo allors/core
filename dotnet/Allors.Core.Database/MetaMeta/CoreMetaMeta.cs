@@ -10,11 +10,6 @@ using Allors.Core.MetaMeta;
 public static class CoreMetaMeta
 {
     /// <summary>
-    /// Allors Core.
-    /// </summary>
-    public static readonly Guid Id6b3e8142B69e440f8869A6aaf3b45420 = new("6b3e8142-b69e-440f-8869-a6aaf3b45420");
-
-    /// <summary>
     /// Boolean.
     /// </summary>
     public static readonly Guid Ida5e7554308e04fdca804e3681ba5eae5 = new("a5e75543-08e0-4fdc-a804-e3681ba5eae5");
@@ -384,8 +379,6 @@ public static class CoreMetaMeta
     /// </summary>
     public static readonly Guid Id407e07f46d6648459cdb03e897166d0f = new("407e07f4-6d66-4845-9cdb-03e897166d0f");
 
-    internal static Guid AllorsCore => Id6b3e8142B69e440f8869A6aaf3b45420;
-
     internal static Guid Boolean => Ida5e7554308e04fdca804e3681ba5eae5;
 
     internal static Guid Integer => Idbb6c48ad0ae34788ba8018d8ffdf7018;
@@ -539,141 +532,139 @@ public static class CoreMetaMeta
     /// </summary>
     public static void Populate(MetaMeta m)
     {
-        var d = m.AddDomain(AllorsCore, nameof(AllorsCore));
-
         // Units
-        var boolean = m.AddUnit(d, Boolean, nameof(Boolean));
-        var integer = m.AddUnit(d, Integer, nameof(Integer));
-        var @string = m.AddUnit(d, String, nameof(String));
-        var unique = m.AddUnit(d, Unique, nameof(Unique));
+        var boolean = m.AddUnit(Boolean, nameof(Boolean));
+        var integer = m.AddUnit(Integer, nameof(Integer));
+        var @string = m.AddUnit(String, nameof(String));
+        var unique = m.AddUnit(Unique, nameof(Unique));
 
         // Composites
-        var associationType = m.AddInterface(d, AssociationType, "AssociationType");
-        var @class = m.AddClass(d, Class, typeof(Class));
-        var composite = m.AddInterface(d, Composite, "Composite");
-        var compositeAssociationType = m.AddInterface(d, CompositeAssociationType, "CompositeAssociationType");
-        var compositeRoleType = m.AddInterface(d, CompositeRoleType, "CompositeRoleType");
-        var domain = m.AddClass(d, Domain, typeof(Domain));
-        var @interface = m.AddClass(d, Interface, typeof(Interface));
-        var manyToAssociationType = m.AddInterface(d, ManyToAssociationType, "ManyToAssociationType");
-        var manyToManyAssociationType = m.AddClass(d, ManyToManyAssociationType, typeof(ManyToManyAssociationType));
-        var manyToManyRoleType = m.AddClass(d, ManyToManyRoleType, typeof(ManyToManyRoleType));
-        var manyToOneAssociationType = m.AddClass(d, ManyToOneAssociationType, typeof(ManyToOneAssociationType));
-        var manyToOneRoleType = m.AddClass(d, ManyToOneRoleType, typeof(ManyToOneRoleType));
-        var metaObject = m.AddInterface(d, MetaObject, "MetaObject");
-        var objectType = m.AddInterface(d, ObjectType, "ObjectType");
-        var oneToAssociationType = m.AddInterface(d, OneToAssociationType, "OneToAssociationType");
-        var oneToManyAssociationType = m.AddClass(d, OneToManyAssociationType, typeof(OneToManyAssociationType));
-        var oneToManyRoleType = m.AddClass(d, OneToManyRoleType, typeof(OneToManyRoleType));
-        var oneToOneAssociationType = m.AddClass(d, OneToOneAssociationType, typeof(OneToOneAssociationType));
-        var oneToOneRoleType = m.AddClass(d, OneToOneRoleType, typeof(OneToOneRoleType));
-        var operandType = m.AddInterface(d, OperandType, "OperandType");
-        var relationEndType = m.AddInterface(d, RelationEndType, "RelationEndType");
-        var roleType = m.AddInterface(d, RoleType, "RoleType");
-        var binaryAssociationType = m.AddClass(d, BinaryAssociationType, typeof(BinaryAssociationType));
-        var binaryRoleType = m.AddClass(d, BinaryRoleType, typeof(BinaryRoleType));
-        var booleanAssociationType = m.AddClass(d, BooleanAssociationType, typeof(BooleanAssociationType));
-        var booleanRoleType = m.AddClass(d, BooleanRoleType, typeof(BooleanRoleType));
-        var dateTimeAssociationType = m.AddClass(d, DateTimeAssociationType, typeof(DateTimeAssociationType));
-        var dateTimeRoleType = m.AddClass(d, DateTimeRoleType, typeof(DateTimeRoleType));
-        var decimalAssociationType = m.AddClass(d, DecimalAssociationType, typeof(DecimalAssociationType));
-        var decimalRoleType = m.AddClass(d, DecimalRoleType, typeof(DecimalRoleType));
-        var floatAssociationType = m.AddClass(d, FloatAssociationType, typeof(FloatAssociationType));
-        var floatRoleType = m.AddClass(d, FloatRoleType, typeof(FloatRoleType));
-        var inheritance = m.AddClass(d, Inheritance, typeof(Inheritance));
-        var integerAssociationType = m.AddClass(d, IntegerAssociationType, typeof(IntegerAssociationType));
-        var integerRoleType = m.AddClass(d, IntegerRoleType, typeof(IntegerRoleType));
-        var stringAssociationType = m.AddClass(d, StringAssociationType, typeof(StringAssociationType));
-        var stringRoleType = m.AddClass(d, StringRoleType, typeof(StringRoleType));
-        var uniqueAssociationType = m.AddClass(d, UniqueAssociationType, typeof(UniqueAssociationType));
-        var uniqueRoleType = m.AddClass(d, UniqueRoleType, typeof(UniqueRoleType));
-        var toManyRoleType = m.AddInterface(d, ToManyRoleType, "ToManyRoleType ");
-        var toOneRoleType = m.AddInterface(d, ToOneRoleType, "ToOneRoleType");
-        var type = m.AddInterface(d, Type, "Type");
-        var unit = m.AddClass(d, Unit, typeof(Unit));
-        var unitAssociationType = m.AddInterface(d, UnitAssociationType, "UnitAssociationType");
-        var unitRoleType = m.AddInterface(d, UnitRoleType, "UnitRoleType");
+        var associationType = m.AddInterface(AssociationType, "AssociationType");
+        var @class = m.AddClass(Class, typeof(Class));
+        var composite = m.AddInterface(Composite, "Composite");
+        var compositeAssociationType = m.AddInterface(CompositeAssociationType, "CompositeAssociationType");
+        var compositeRoleType = m.AddInterface(CompositeRoleType, "CompositeRoleType");
+        var domain = m.AddClass(Domain, typeof(Domain));
+        var @interface = m.AddClass(Interface, typeof(Interface));
+        var manyToAssociationType = m.AddInterface(ManyToAssociationType, "ManyToAssociationType");
+        var manyToManyAssociationType = m.AddClass(ManyToManyAssociationType, typeof(ManyToManyAssociationType));
+        var manyToManyRoleType = m.AddClass(ManyToManyRoleType, typeof(ManyToManyRoleType));
+        var manyToOneAssociationType = m.AddClass(ManyToOneAssociationType, typeof(ManyToOneAssociationType));
+        var manyToOneRoleType = m.AddClass(ManyToOneRoleType, typeof(ManyToOneRoleType));
+        var metaObject = m.AddInterface(MetaObject, "MetaObject");
+        var objectType = m.AddInterface(ObjectType, "ObjectType");
+        var oneToAssociationType = m.AddInterface(OneToAssociationType, "OneToAssociationType");
+        var oneToManyAssociationType = m.AddClass(OneToManyAssociationType, typeof(OneToManyAssociationType));
+        var oneToManyRoleType = m.AddClass(OneToManyRoleType, typeof(OneToManyRoleType));
+        var oneToOneAssociationType = m.AddClass(OneToOneAssociationType, typeof(OneToOneAssociationType));
+        var oneToOneRoleType = m.AddClass(OneToOneRoleType, typeof(OneToOneRoleType));
+        var operandType = m.AddInterface(OperandType, "OperandType");
+        var relationEndType = m.AddInterface(RelationEndType, "RelationEndType");
+        var roleType = m.AddInterface(RoleType, "RoleType");
+        var binaryAssociationType = m.AddClass(BinaryAssociationType, typeof(BinaryAssociationType));
+        var binaryRoleType = m.AddClass(BinaryRoleType, typeof(BinaryRoleType));
+        var booleanAssociationType = m.AddClass(BooleanAssociationType, typeof(BooleanAssociationType));
+        var booleanRoleType = m.AddClass(BooleanRoleType, typeof(BooleanRoleType));
+        var dateTimeAssociationType = m.AddClass(DateTimeAssociationType, typeof(DateTimeAssociationType));
+        var dateTimeRoleType = m.AddClass(DateTimeRoleType, typeof(DateTimeRoleType));
+        var decimalAssociationType = m.AddClass(DecimalAssociationType, typeof(DecimalAssociationType));
+        var decimalRoleType = m.AddClass(DecimalRoleType, typeof(DecimalRoleType));
+        var floatAssociationType = m.AddClass(FloatAssociationType, typeof(FloatAssociationType));
+        var floatRoleType = m.AddClass(FloatRoleType, typeof(FloatRoleType));
+        var inheritance = m.AddClass(Inheritance, typeof(Inheritance));
+        var integerAssociationType = m.AddClass(IntegerAssociationType, typeof(IntegerAssociationType));
+        var integerRoleType = m.AddClass(IntegerRoleType, typeof(IntegerRoleType));
+        var stringAssociationType = m.AddClass(StringAssociationType, typeof(StringAssociationType));
+        var stringRoleType = m.AddClass(StringRoleType, typeof(StringRoleType));
+        var uniqueAssociationType = m.AddClass(UniqueAssociationType, typeof(UniqueAssociationType));
+        var uniqueRoleType = m.AddClass(UniqueRoleType, typeof(UniqueRoleType));
+        var toManyRoleType = m.AddInterface(ToManyRoleType, "ToManyRoleType ");
+        var toOneRoleType = m.AddInterface(ToOneRoleType, "ToOneRoleType");
+        var type = m.AddInterface(Type, "Type");
+        var unit = m.AddClass(Unit, typeof(Unit));
+        var unitAssociationType = m.AddInterface(UnitAssociationType, "UnitAssociationType");
+        var unitRoleType = m.AddInterface(UnitRoleType, "UnitRoleType");
 
         // Inheritance
-        m.AddInheritance(d, new Guid("12ec1d97-6208-4cf5-866b-58675aa8a38e"), associationType, relationEndType);
-        m.AddInheritance(d, new Guid("6625058e-9338-4d1e-a7ce-6f241bd9aae7"), @class, composite);
-        m.AddInheritance(d, new Guid("fd3085a2-be84-44c0-941b-5cb3e161d4a1"), composite, objectType);
-        m.AddInheritance(d, new Guid("f4e20681-b5a4-4489-8aee-3d87367d89f3"), compositeAssociationType, associationType);
-        m.AddInheritance(d, new Guid("dba58e59-d8e6-4d48-8510-828bef2efd1c"), compositeRoleType, roleType);
-        m.AddInheritance(d, new Guid("73ba5162-5de9-40bd-8e86-beba99ee6d7a"), domain, metaObject);
-        m.AddInheritance(d, new Guid("954d70cd-86a2-45b6-8e6c-41302b07c946"), @interface, composite);
-        m.AddInheritance(d, new Guid("976a8fd0-07fc-4e49-886f-22de54335ff6"), manyToAssociationType, compositeAssociationType);
-        m.AddInheritance(d, new Guid("4a5f0a15-880d-4ce6-8802-f5b646f7d546"), manyToManyAssociationType, manyToAssociationType);
-        m.AddInheritance(d, new Guid("7adb90ba-5646-4e5d-b6b2-6ab2a812be82"), manyToManyRoleType, toManyRoleType);
-        m.AddInheritance(d, new Guid("ecda2eca-32d8-45f7-ab49-709357ff604f"), manyToOneAssociationType, manyToAssociationType);
-        m.AddInheritance(d, new Guid("a7e687d0-033d-4f33-9fec-20b6b29fac4a"), manyToOneRoleType, toOneRoleType);
-        m.AddInheritance(d, new Guid("ac7996e5-0480-4d63-82bd-5e0435f59a2d"), objectType, type);
-        m.AddInheritance(d, new Guid("3fb261ac-3de2-4cfc-843a-770c579d1152"), oneToAssociationType, compositeAssociationType);
-        m.AddInheritance(d, new Guid("8f893293-bb22-4c44-ac02-562263031c77"), oneToManyAssociationType, oneToAssociationType);
-        m.AddInheritance(d, new Guid("30e042db-6458-48f6-bb95-9702959d782b"), oneToManyRoleType, toManyRoleType);
-        m.AddInheritance(d, new Guid("d748f589-0bc7-4aa6-8ad7-7040c16eb60f"), oneToOneAssociationType, oneToAssociationType);
-        m.AddInheritance(d, new Guid("3840768c-2827-48d4-ab25-e365a134e2d6"), oneToOneRoleType, toOneRoleType);
-        m.AddInheritance(d, new Guid("04bf5359-45a3-4fee-9c4a-1701b706e90a"), operandType, type);
-        m.AddInheritance(d, new Guid("e4296e62-702e-40ba-a397-2daabf905880"), relationEndType, operandType);
-        m.AddInheritance(d, new Guid("054a729d-f4ff-47fc-bcec-7506116093a5"), roleType, relationEndType);
-        m.AddInheritance(d, new Guid("baa9f110-3ef3-43d9-b0a8-507eb072f204"), binaryAssociationType, unitAssociationType);
-        m.AddInheritance(d, new Guid("f8368952-f032-4310-b932-b4294b944e3b"), binaryRoleType, unitRoleType);
-        m.AddInheritance(d, new Guid("cd773c76-a9b5-4ed9-8009-849ca947fe53"), booleanAssociationType, unitAssociationType);
-        m.AddInheritance(d, new Guid("dc79c64b-1320-455d-b445-02cfd80a25dc"), booleanRoleType, unitRoleType);
-        m.AddInheritance(d, new Guid("8dedd0ab-2d24-4716-8c9e-078d2102205b"), dateTimeAssociationType, unitAssociationType);
-        m.AddInheritance(d, new Guid("3d08f874-93ad-4ccd-9d07-6b8fcaa56346"), dateTimeRoleType, unitRoleType);
-        m.AddInheritance(d, new Guid("f21e0dff-6a4a-4c3e-8668-2b829fa9441f"), decimalAssociationType, unitAssociationType);
-        m.AddInheritance(d, new Guid("7249f569-fc71-4383-b617-238f8f429f36"), decimalRoleType, unitRoleType);
-        m.AddInheritance(d, new Guid("42e6e55d-3b61-4c14-b3d4-831c7e31b51b"), floatAssociationType, unitAssociationType);
-        m.AddInheritance(d, new Guid("fb2e2ac7-327e-4dd6-a735-0c0656c2de10"), floatRoleType, unitRoleType);
-        m.AddInheritance(d, new Guid("8ae84e0e-c8dd-4315-824c-5e022796b3ea"), inheritance, metaObject);
-        m.AddInheritance(d, new Guid("0fbc3430-972d-4f0e-957c-64b35cc24df1"), integerAssociationType, unitAssociationType);
-        m.AddInheritance(d, new Guid("7cca3842-c6a1-433a-9e65-34d2ef116673"), integerRoleType, unitRoleType);
-        m.AddInheritance(d, new Guid("7df8b0b9-8bad-49f9-9300-a8c402a22f6d"), stringAssociationType, unitAssociationType);
-        m.AddInheritance(d, new Guid("215dbfb0-ce0a-4a19-992f-1f7112c53454"), stringRoleType, unitRoleType);
-        m.AddInheritance(d, new Guid("06bbf5f6-4859-4847-a90c-093fc9aee40a"), uniqueAssociationType, unitAssociationType);
-        m.AddInheritance(d, new Guid("fec15108-1b04-415a-8f9b-135d2db267f5"), uniqueRoleType, unitRoleType);
-        m.AddInheritance(d, new Guid("a68e3111-d057-4fed-956c-8a3612baeace"), toManyRoleType, compositeRoleType);
-        m.AddInheritance(d, new Guid("4bc01b4b-1cb3-493c-9e9a-62b8d0df42ef"), toOneRoleType, compositeRoleType);
-        m.AddInheritance(d, new Guid("9c5a71e4-be03-49f2-986f-1fff3078e18e"), type, metaObject);
-        m.AddInheritance(d, new Guid("3bc240cd-a431-41d2-bae3-fe6ef3dfc1f2"), unit, objectType);
-        m.AddInheritance(d, new Guid("75e71eea-aa9c-42ef-bd5b-9f61182bba29"), unitAssociationType, associationType);
-        m.AddInheritance(d, new Guid("2f05d2cf-63b2-4f32-83c8-96403d934fef"), unitRoleType, roleType);
+        m.AddInheritance(new Guid("12ec1d97-6208-4cf5-866b-58675aa8a38e"), associationType, relationEndType);
+        m.AddInheritance(new Guid("6625058e-9338-4d1e-a7ce-6f241bd9aae7"), @class, composite);
+        m.AddInheritance(new Guid("fd3085a2-be84-44c0-941b-5cb3e161d4a1"), composite, objectType);
+        m.AddInheritance(new Guid("f4e20681-b5a4-4489-8aee-3d87367d89f3"), compositeAssociationType, associationType);
+        m.AddInheritance(new Guid("dba58e59-d8e6-4d48-8510-828bef2efd1c"), compositeRoleType, roleType);
+        m.AddInheritance(new Guid("73ba5162-5de9-40bd-8e86-beba99ee6d7a"), domain, metaObject);
+        m.AddInheritance(new Guid("954d70cd-86a2-45b6-8e6c-41302b07c946"), @interface, composite);
+        m.AddInheritance(new Guid("976a8fd0-07fc-4e49-886f-22de54335ff6"), manyToAssociationType, compositeAssociationType);
+        m.AddInheritance(new Guid("4a5f0a15-880d-4ce6-8802-f5b646f7d546"), manyToManyAssociationType, manyToAssociationType);
+        m.AddInheritance(new Guid("7adb90ba-5646-4e5d-b6b2-6ab2a812be82"), manyToManyRoleType, toManyRoleType);
+        m.AddInheritance(new Guid("ecda2eca-32d8-45f7-ab49-709357ff604f"), manyToOneAssociationType, manyToAssociationType);
+        m.AddInheritance(new Guid("a7e687d0-033d-4f33-9fec-20b6b29fac4a"), manyToOneRoleType, toOneRoleType);
+        m.AddInheritance(new Guid("ac7996e5-0480-4d63-82bd-5e0435f59a2d"), objectType, type);
+        m.AddInheritance(new Guid("3fb261ac-3de2-4cfc-843a-770c579d1152"), oneToAssociationType, compositeAssociationType);
+        m.AddInheritance(new Guid("8f893293-bb22-4c44-ac02-562263031c77"), oneToManyAssociationType, oneToAssociationType);
+        m.AddInheritance(new Guid("30e042db-6458-48f6-bb95-9702959d782b"), oneToManyRoleType, toManyRoleType);
+        m.AddInheritance(new Guid("d748f589-0bc7-4aa6-8ad7-7040c16eb60f"), oneToOneAssociationType, oneToAssociationType);
+        m.AddInheritance(new Guid("3840768c-2827-48d4-ab25-e365a134e2d6"), oneToOneRoleType, toOneRoleType);
+        m.AddInheritance(new Guid("04bf5359-45a3-4fee-9c4a-1701b706e90a"), operandType, type);
+        m.AddInheritance(new Guid("e4296e62-702e-40ba-a397-2daabf905880"), relationEndType, operandType);
+        m.AddInheritance(new Guid("054a729d-f4ff-47fc-bcec-7506116093a5"), roleType, relationEndType);
+        m.AddInheritance(new Guid("baa9f110-3ef3-43d9-b0a8-507eb072f204"), binaryAssociationType, unitAssociationType);
+        m.AddInheritance(new Guid("f8368952-f032-4310-b932-b4294b944e3b"), binaryRoleType, unitRoleType);
+        m.AddInheritance(new Guid("cd773c76-a9b5-4ed9-8009-849ca947fe53"), booleanAssociationType, unitAssociationType);
+        m.AddInheritance(new Guid("dc79c64b-1320-455d-b445-02cfd80a25dc"), booleanRoleType, unitRoleType);
+        m.AddInheritance(new Guid("8dedd0ab-2d24-4716-8c9e-078d2102205b"), dateTimeAssociationType, unitAssociationType);
+        m.AddInheritance(new Guid("3d08f874-93ad-4ccd-9d07-6b8fcaa56346"), dateTimeRoleType, unitRoleType);
+        m.AddInheritance(new Guid("f21e0dff-6a4a-4c3e-8668-2b829fa9441f"), decimalAssociationType, unitAssociationType);
+        m.AddInheritance(new Guid("7249f569-fc71-4383-b617-238f8f429f36"), decimalRoleType, unitRoleType);
+        m.AddInheritance(new Guid("42e6e55d-3b61-4c14-b3d4-831c7e31b51b"), floatAssociationType, unitAssociationType);
+        m.AddInheritance(new Guid("fb2e2ac7-327e-4dd6-a735-0c0656c2de10"), floatRoleType, unitRoleType);
+        m.AddInheritance(new Guid("8ae84e0e-c8dd-4315-824c-5e022796b3ea"), inheritance, metaObject);
+        m.AddInheritance(new Guid("0fbc3430-972d-4f0e-957c-64b35cc24df1"), integerAssociationType, unitAssociationType);
+        m.AddInheritance(new Guid("7cca3842-c6a1-433a-9e65-34d2ef116673"), integerRoleType, unitRoleType);
+        m.AddInheritance(new Guid("7df8b0b9-8bad-49f9-9300-a8c402a22f6d"), stringAssociationType, unitAssociationType);
+        m.AddInheritance(new Guid("215dbfb0-ce0a-4a19-992f-1f7112c53454"), stringRoleType, unitRoleType);
+        m.AddInheritance(new Guid("06bbf5f6-4859-4847-a90c-093fc9aee40a"), uniqueAssociationType, unitAssociationType);
+        m.AddInheritance(new Guid("fec15108-1b04-415a-8f9b-135d2db267f5"), uniqueRoleType, unitRoleType);
+        m.AddInheritance(new Guid("a68e3111-d057-4fed-956c-8a3612baeace"), toManyRoleType, compositeRoleType);
+        m.AddInheritance(new Guid("4bc01b4b-1cb3-493c-9e9a-62b8d0df42ef"), toOneRoleType, compositeRoleType);
+        m.AddInheritance(new Guid("9c5a71e4-be03-49f2-986f-1fff3078e18e"), type, metaObject);
+        m.AddInheritance(new Guid("3bc240cd-a431-41d2-bae3-fe6ef3dfc1f2"), unit, objectType);
+        m.AddInheritance(new Guid("75e71eea-aa9c-42ef-bd5b-9f61182bba29"), unitAssociationType, associationType);
+        m.AddInheritance(new Guid("2f05d2cf-63b2-4f32-83c8-96403d934fef"), unitRoleType, roleType);
 
         // Relations
-        m.AddManyToOneRelation(d, new Guid("cea0ed95-ae21-451d-bef3-2cd6ccb34c29"), AssociationTypeComposite, associationType, composite);
+        m.AddManyToOneRelation(new Guid("cea0ed95-ae21-451d-bef3-2cd6ccb34c29"), AssociationTypeComposite, associationType, composite);
 
-        m.AddManyToManyRelation(d, new Guid("960162a2-a902-4cd9-9576-ccb0e7c9e01c"), CompositeDirectSupertypes, composite, @interface, "DirectSupertype");
-        m.AddManyToManyRelation(d, new Guid("b0129926-2eb2-4ac7-80e0-93a2329964cf"), CompositeSupertypes, composite, @interface, "Supertype");
+        m.AddManyToManyRelation(new Guid("960162a2-a902-4cd9-9576-ccb0e7c9e01c"), CompositeDirectSupertypes, composite, @interface, "DirectSupertype");
+        m.AddManyToManyRelation(new Guid("b0129926-2eb2-4ac7-80e0-93a2329964cf"), CompositeSupertypes, composite, @interface, "Supertype");
 
-        m.AddUnitRelation(d, new Guid("5b2ac86d-af09-46f6-a454-4d2a3bdeaed3"), DecimalRoleTypeAssignedPrecision, decimalRoleType, integer, "AssignedPrecision");
-        m.AddUnitRelation(d, new Guid("3c25e09b-6b89-46e9-b1bb-f89c4d2fa4db"), DecimalRoleTypeDerivedPrecision, decimalRoleType, integer, "DerivedPrecision");
-        m.AddUnitRelation(d, new Guid("ac79ed22-0a87-4370-9261-03b27ad8bbe6"), DecimalRoleTypeAssignedScale, decimalRoleType, integer, "AssignedScale");
-        m.AddUnitRelation(d, new Guid("ebb42e88-b2c0-48ba-8865-67e86ef6d84e"), DecimalRoleTypeDerivedScale, decimalRoleType, integer, "DerivedScale");
+        m.AddUnitRelation(new Guid("5b2ac86d-af09-46f6-a454-4d2a3bdeaed3"), DecimalRoleTypeAssignedPrecision, decimalRoleType, integer, "AssignedPrecision");
+        m.AddUnitRelation(new Guid("3c25e09b-6b89-46e9-b1bb-f89c4d2fa4db"), DecimalRoleTypeDerivedPrecision, decimalRoleType, integer, "DerivedPrecision");
+        m.AddUnitRelation(new Guid("ac79ed22-0a87-4370-9261-03b27ad8bbe6"), DecimalRoleTypeAssignedScale, decimalRoleType, integer, "AssignedScale");
+        m.AddUnitRelation(new Guid("ebb42e88-b2c0-48ba-8865-67e86ef6d84e"), DecimalRoleTypeDerivedScale, decimalRoleType, integer, "DerivedScale");
 
-        m.AddUnitRelation(d, new Guid("1dd008c4-755e-4f84-b52f-360afaf1a6cd"), DomainName, domain, @string, "Name");
-        m.AddManyToManyRelation(d, new Guid("ae8311c8-75ea-426e-ad50-3f400accb264"), DomainSuperdomains, domain, domain, "Superdomain");
-        m.AddManyToManyRelation(d, new Guid("93dcadad-f9e0-402a-bd4f-d150df5f5c26"), DomainTypes, domain, type);
+        m.AddUnitRelation(new Guid("1dd008c4-755e-4f84-b52f-360afaf1a6cd"), DomainName, domain, @string, "Name");
+        m.AddManyToManyRelation(new Guid("ae8311c8-75ea-426e-ad50-3f400accb264"), DomainSuperdomains, domain, domain, "Superdomain");
+        m.AddManyToManyRelation(new Guid("93dcadad-f9e0-402a-bd4f-d150df5f5c26"), DomainTypes, domain, type);
 
-        m.AddManyToOneRelation(d, new Guid("e2cd96af-a436-439c-b02b-ecf23f19a96f"), InheritanceSubtype, inheritance, composite, "Subtype");
-        m.AddManyToOneRelation(d, new Guid("c9f8f651-5b6e-408d-b088-0ca925e8b2d5"), InheritanceSupertype, inheritance, @interface, "Supertype");
+        m.AddManyToOneRelation(new Guid("e2cd96af-a436-439c-b02b-ecf23f19a96f"), InheritanceSubtype, inheritance, composite, "Subtype");
+        m.AddManyToOneRelation(new Guid("c9f8f651-5b6e-408d-b088-0ca925e8b2d5"), InheritanceSupertype, inheritance, @interface, "Supertype");
 
-        m.AddUnitRelation(d, new Guid("c45fcfac-5614-4a03-b86a-df2f75cc5fcb"), ObjectTypeAssignedPluralName, objectType, @string, "AssignedPluralName");
-        m.AddUnitRelation(d, new Guid("edb514d1-f0b6-44d0-a0ce-2ff9a132b4f7"), ObjectTypeDerivedPluralName, objectType, @string, "DerivedPluralName");
-        m.AddUnitRelation(d, new Guid("4ae8c269-d329-4d01-b48f-3df905c0a9e0"), ObjectTypeSingularName, objectType, @string, "SingularName");
+        m.AddUnitRelation(new Guid("c45fcfac-5614-4a03-b86a-df2f75cc5fcb"), ObjectTypeAssignedPluralName, objectType, @string, "AssignedPluralName");
+        m.AddUnitRelation(new Guid("edb514d1-f0b6-44d0-a0ce-2ff9a132b4f7"), ObjectTypeDerivedPluralName, objectType, @string, "DerivedPluralName");
+        m.AddUnitRelation(new Guid("4ae8c269-d329-4d01-b48f-3df905c0a9e0"), ObjectTypeSingularName, objectType, @string, "SingularName");
 
-        m.AddUnitRelation(d, new Guid("3f24ceec-222a-4933-881c-3f85b6afebac"), MetaObjectId, metaObject, unique, "Id");
+        m.AddUnitRelation(new Guid("3f24ceec-222a-4933-881c-3f85b6afebac"), MetaObjectId, metaObject, unique, "Id");
 
-        m.AddUnitRelation(d, new Guid("1d3957c3-d1a7-45f4-b6a6-5554223d7326"), RelationEndTypeIsMany, relationEndType, boolean, "IsMany");
+        m.AddUnitRelation(new Guid("1d3957c3-d1a7-45f4-b6a6-5554223d7326"), RelationEndTypeIsMany, relationEndType, boolean, "IsMany");
 
-        m.AddOneToOneRelation(d, new Guid("ff05c66a-7a87-4b1e-8b77-c097285ec7ca"), RoleTypeAssociationType, roleType, associationType);
-        m.AddUnitRelation(d, new Guid("39a5bdaf-3f44-436a-b9e8-a64a5bb770dd"), RoleTypeAssignedPluralName, roleType, @string, "AssignedPluralName");
-        m.AddUnitRelation(d, new Guid("cd6a33fa-4537-4a83-a6b6-2d79725fb46e"), RoleTypeDerivedPluralName, roleType, @string, "DerivedPluralName");
-        m.AddManyToOneRelation(d, new Guid("ff21b9ad-1a0b-40f5-a35f-5bfb9ed1ab02"), RoleTypeObjectType, roleType, objectType);
-        m.AddUnitRelation(d, new Guid("15e2d931-89d1-480a-8bb2-42e7902c7ba7"), RoleTypeName, roleType, @string, "Name");
-        m.AddUnitRelation(d, new Guid("13ba399e-bf05-48fc-8489-b70fb19fba15"), RoleTypeSingularName, roleType, @string, "SingularName");
+        m.AddOneToOneRelation(new Guid("ff05c66a-7a87-4b1e-8b77-c097285ec7ca"), RoleTypeAssociationType, roleType, associationType);
+        m.AddUnitRelation(new Guid("39a5bdaf-3f44-436a-b9e8-a64a5bb770dd"), RoleTypeAssignedPluralName, roleType, @string, "AssignedPluralName");
+        m.AddUnitRelation(new Guid("cd6a33fa-4537-4a83-a6b6-2d79725fb46e"), RoleTypeDerivedPluralName, roleType, @string, "DerivedPluralName");
+        m.AddManyToOneRelation(new Guid("ff21b9ad-1a0b-40f5-a35f-5bfb9ed1ab02"), RoleTypeObjectType, roleType, objectType);
+        m.AddUnitRelation(new Guid("15e2d931-89d1-480a-8bb2-42e7902c7ba7"), RoleTypeName, roleType, @string, "Name");
+        m.AddUnitRelation(new Guid("13ba399e-bf05-48fc-8489-b70fb19fba15"), RoleTypeSingularName, roleType, @string, "SingularName");
 
-        m.AddUnitRelation(d, new Guid("da78d554-bb1b-451c-ade1-4f6efe651d7c"), StringRoleTypeAssignedSize, stringRoleType, integer, "AssignedSize");
-        m.AddUnitRelation(d, new Guid("46d33068-969c-4a88-a703-fb5f0d8e0cd8"), StringRoleTypeDerivedSize, stringRoleType, integer, "DerivedSize");
+        m.AddUnitRelation(new Guid("da78d554-bb1b-451c-ade1-4f6efe651d7c"), StringRoleTypeAssignedSize, stringRoleType, integer, "AssignedSize");
+        m.AddUnitRelation(new Guid("46d33068-969c-4a88-a703-fb5f0d8e0cd8"), StringRoleTypeDerivedSize, stringRoleType, integer, "DerivedSize");
     }
 }

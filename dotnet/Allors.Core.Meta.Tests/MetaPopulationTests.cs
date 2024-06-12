@@ -11,13 +11,13 @@ public class MetaPopulationTests
     public void New()
     {
         var metaMeta = new MetaMeta();
-        var domain = metaMeta.AddDomain(Guid.NewGuid(), "Domain");
-        var @string = metaMeta.AddUnit(domain, Guid.NewGuid(), "String");
-        var named = metaMeta.AddInterface(domain, Guid.NewGuid(), "Named");
-        var organization = metaMeta.AddClass(domain, Guid.NewGuid(), "Organization", named);
-        var person = metaMeta.AddClass(domain, Guid.NewGuid(), "Person", named);
-        metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), named, @string, "Name");
-        metaMeta.AddOneToOneRelation(domain, Guid.NewGuid(), Guid.NewGuid(), organization, person, "Owner");
+
+        var @string = metaMeta.AddUnit(Guid.NewGuid(), "String");
+        var named = metaMeta.AddInterface(Guid.NewGuid(), "Named");
+        var organization = metaMeta.AddClass(Guid.NewGuid(), "Organization", named);
+        var person = metaMeta.AddClass(Guid.NewGuid(), "Person", named);
+        metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), named, @string, "Name");
+        metaMeta.AddOneToOneRelation(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Owner");
 
         var meta = new Meta(metaMeta);
 

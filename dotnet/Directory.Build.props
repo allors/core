@@ -4,6 +4,7 @@
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AnalysisLevel>latest-Recommended</AnalysisLevel>
+    <!--<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>-->
     <!--<AnalysisLevel>latest-All</AnalysisLevel>-->
     <!--<AnalysisLevel>preview-Recommended</AnalysisLevel>-->
     <!--<AnalysisLevel>preview-All</AnalysisLevel>-->

@@ -3,7 +3,6 @@
 using Allors.Core.Database.Engines.Tests.Meta;
 using Allors.Core.Database.Meta;
 using Allors.Core.Database.MetaMeta;
-using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
 
 public abstract class Tests
@@ -12,7 +11,6 @@ public abstract class Tests
     {
         var metaMeta = new MetaMeta();
         CoreMetaMeta.Populate(metaMeta);
-        TestsMetaMeta.Populate(metaMeta);
 
         var meta = new Core.Meta.Meta(metaMeta);
         CoreMeta.Populate(meta);

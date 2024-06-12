@@ -10,12 +10,12 @@ public class UnitTests
     public void SameRoleTypeName()
     {
         var metaMeta = new MetaMeta();
-        var domain = metaMeta.AddDomain(Guid.NewGuid(), "Domain");
-        var @string = metaMeta.AddUnit(domain, Guid.NewGuid(), "String");
-        var c1 = metaMeta.AddClass(domain, Guid.NewGuid(), "C1");
-        var c2 = metaMeta.AddClass(domain, Guid.NewGuid(), "C2");
-        metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), c1, @string, "Same");
-        metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), c2, @string, "Same");
+
+        var @string = metaMeta.AddUnit(Guid.NewGuid(), "String");
+        var c1 = metaMeta.AddClass(Guid.NewGuid(), "C1");
+        var c2 = metaMeta.AddClass(Guid.NewGuid(), "C2");
+        metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), c1, @string, "Same");
+        metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), c2, @string, "Same");
 
         var meta = new Meta(metaMeta);
 
@@ -37,10 +37,10 @@ public class UnitTests
     public void PropertySetByString()
     {
         var metaMeta = new MetaMeta();
-        var domain = metaMeta.AddDomain(Guid.NewGuid(), "Domain");
-        var @string = metaMeta.AddUnit(domain, Guid.NewGuid(), "String");
-        var person = metaMeta.AddClass(domain, Guid.NewGuid(), "Person");
-        var unitRoleType = metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
+
+        var @string = metaMeta.AddUnit(Guid.NewGuid(), "String");
+        var person = metaMeta.AddClass(Guid.NewGuid(), "Person");
+        var unitRoleType = metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
 
         var meta = new Meta(metaMeta);
 
@@ -67,10 +67,10 @@ public class UnitTests
     public void PropertySetByUnitRoleType()
     {
         var metaMeta = new MetaMeta();
-        var domain = metaMeta.AddDomain(Guid.NewGuid(), "Domain");
-        var @string = metaMeta.AddUnit(domain, Guid.NewGuid(), "String");
-        var person = metaMeta.AddClass(domain, Guid.NewGuid(), "Person");
-        var unitRoleType = metaMeta.AddUnitRelation(domain, Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
+
+        var @string = metaMeta.AddUnit(Guid.NewGuid(), "String");
+        var person = metaMeta.AddClass(Guid.NewGuid(), "Person");
+        var unitRoleType = metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
 
         var meta = new Meta(metaMeta);
 

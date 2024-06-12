@@ -4,7 +4,7 @@ using System;
 
 public interface IMetaAssociationType
 {
-    MetaDomain Domain { get; }
+    MetaMeta MetaMeta { get; }
 
     Guid Id { get; }
 

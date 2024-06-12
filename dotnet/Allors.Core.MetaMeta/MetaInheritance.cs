@@ -4,18 +4,15 @@ using System;
 
 public sealed class MetaInheritance
 {
-    internal MetaInheritance(MetaDomain domain, Guid id, MetaObjectType subtype, MetaObjectType supertype)
+    internal MetaInheritance(MetaMeta metaMeta, Guid id, MetaObjectType subtype, MetaObjectType supertype)
     {
-        this.Meta = domain.Meta;
-        this.Domain = domain;
+        this.MetaMeta = metaMeta;
         this.Id = id;
         this.Subtype = subtype;
         this.Supertype = supertype;
     }
 
-    public MetaMeta Meta { get; }
-
-    public MetaDomain Domain { get; }
+    public MetaMeta MetaMeta { get; }
 
     public Guid Id { get; set; }
 

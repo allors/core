@@ -143,11 +143,11 @@ public static class TestsMeta
         m.AddInheritance(d, new Guid("e890b0b3-1f02-4c5d-bd05-c23d36cefde9"), c1, i1);
         m.AddInheritance(d, new Guid("11ac4d4b-c835-4ef1-aafc-35a15d3f50ae"), c2, i2);
 
-        m.AddStringRelation(d, new Guid("1CCF5BAC-3ED4-490B-9B09-822E045FB0CE"), I1AllorsString, i1, m.String(), "I1AllorsString");
-        m.AddStringRelation(d, new Guid("B9434972-9B14-403F-91D3-EE2A0866A5D4"), C1AllorsString, c1, m.String(), "C1AllorsString");
-        m.AddStringRelation(d, new Guid("F86DC318-AEB0-4311-B26D-DC74003281F1"), C2AllorsString, c2, m.String(), "C2AllorsString");
-        m.AddStringRelation(d, new Guid("5B9E7A1B-4CA2-45D4-8FEB-829CF2115F33"), C3AllorsString, c3, m.String(), "C3AllorsString");
-        m.AddStringRelation(d, new Guid("2B0B3AAE-0F9E-43CF-BF0C-2CD38C3D08F6"), C4AllorsString, c4, m.String(), "C4AllorsString");
+        m.AddStringRelation(d, new Guid("1CCF5BAC-3ED4-490B-9B09-822E045FB0CE"), I1AllorsString, i1, "I1AllorsString");
+        m.AddStringRelation(d, new Guid("B9434972-9B14-403F-91D3-EE2A0866A5D4"), C1AllorsString, c1, "C1AllorsString");
+        m.AddStringRelation(d, new Guid("F86DC318-AEB0-4311-B26D-DC74003281F1"), C2AllorsString, c2, "C2AllorsString");
+        m.AddStringRelation(d, new Guid("5B9E7A1B-4CA2-45D4-8FEB-829CF2115F33"), C3AllorsString, c3, "C3AllorsString");
+        m.AddStringRelation(d, new Guid("2B0B3AAE-0F9E-43CF-BF0C-2CD38C3D08F6"), C4AllorsString, c4, "C4AllorsString");
 
         m.AddOneToOneRelation(d, C1WhereC1OneToOne, C1C1OneToOne, c1, c1, "C1OneToOne");
         m.AddOneToOneRelation(d, C1WhereI1OneToOne, C1I1OneToOne, c1, i1, "I1OneToOne");
