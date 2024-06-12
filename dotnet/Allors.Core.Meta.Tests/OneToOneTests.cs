@@ -24,7 +24,7 @@ public class OneToOneTests
 
     public OneToOneTests()
     {
-        this.Meta = new Static.TestsMeta();
+        this.Meta = new Domain.TestsMeta();
 
         this.fixtures =
         [
@@ -84,7 +84,7 @@ public class OneToOneTests
         ];
     }
 
-    public Static.TestsMeta Meta { get; }
+    public Domain.TestsMeta Meta { get; }
 
     [Fact]
     public void FromToInitial()

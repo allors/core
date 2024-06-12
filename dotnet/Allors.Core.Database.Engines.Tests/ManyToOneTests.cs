@@ -71,7 +71,7 @@ public abstract class ManyToOneTests : Tests
     }
 
     [Fact]
-    public void C1_C1many2one()
+    public void C1C1many2one()
     {
         var database = this.CreateDatabase();
         var transaction = database.CreateTransaction();

@@ -71,7 +71,7 @@ public abstract class OneToManyTests : Tests
     }
 
     [Fact]
-    public void C1_C1OneToManies()
+    public void C1C1OneToManies()
     {
         var database = this.CreateDatabase();
         var transaction = database.CreateTransaction();

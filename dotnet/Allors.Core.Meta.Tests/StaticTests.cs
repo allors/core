@@ -1,7 +1,7 @@
 ﻿namespace Allors.Core.Meta.Tests;
 
 using System;
-using Allors.Core.Meta.Tests.Static;
+using Allors.Core.Meta.Tests.Domain;
 using Allors.Core.MetaMeta;
 using Xunit;
 

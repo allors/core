@@ -48,7 +48,7 @@ public class DerivationTests
         Assert.Equal("Jane Doe Chained", jane[fullName]);
     }
 
-    private class FullNameDerivation(IMetaRoleType firstName, IMetaRoleType lastName) : IMetaDerivation
+    private sealed class FullNameDerivation(IMetaRoleType firstName, IMetaRoleType lastName) : IMetaDerivation
     {
         public void Derive(MetaChangeSet changeSet)
         {
@@ -77,7 +77,7 @@ public class DerivationTests
         }
     }
 
-    private class GreetingDerivation(IMetaDerivation derivation, IMetaRoleType firstName, IMetaRoleType lastName) : IMetaDerivation
+    private sealed class GreetingDerivation(IMetaDerivation derivation, IMetaRoleType firstName, IMetaRoleType lastName) : IMetaDerivation
     {
         public void Derive(MetaChangeSet changeSet)
         {

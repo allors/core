@@ -43,7 +43,7 @@ public abstract class ChangesTests : Tests
         associations = changeSet.Associations;
         roles = changeSet.Roles;
 
-        Assert.Equal(2, associations.Count());
+        Assert.Equal(2, associations.Count);
         Assert.Contains(a, associations.ToArray());
         Assert.Contains(b, associations.ToArray());
 
@@ -83,7 +83,7 @@ public abstract class ChangesTests : Tests
         associations = changeSet.Associations;
         roles = changeSet.Roles;
 
-        Assert.Equal(2, associations.Count());
+        Assert.Equal(2, associations.Count);
         Assert.True(associations.Contains(a));
         Assert.True(associations.Contains(a));
 
@@ -126,7 +126,7 @@ public abstract class ChangesTests : Tests
         associations = changeSet.Associations;
         roles = changeSet.Roles;
 
-        Assert.Equal(2, associations.Count());
+        Assert.Equal(2, associations.Count);
         Assert.True(associations.Contains(a));
         Assert.True(associations.Contains(a));
 

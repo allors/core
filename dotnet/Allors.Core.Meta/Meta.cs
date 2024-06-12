@@ -216,6 +216,70 @@ public sealed class Meta(MetaMeta meta)
         return (IImmutableSet<IMetaObject>?)association;
     }
 
+    private static object? Normalize(MetaUnitRoleType roleType, object? value)
+    {
+        if (value == null)
+        {
+            return value;
+        }
+
+        if (value is DateTime dateTime && dateTime != DateTime.MinValue && dateTime != DateTime.MaxValue)
+        {
+            dateTime = dateTime.Kind switch
+            {
+                DateTimeKind.Local => dateTime.ToUniversalTime(),
+                DateTimeKind.Unspecified => throw new ArgumentException(@"DateTime value is of DateTimeKind.Kind Unspecified.
+Unspecified is only allowed for DateTime.MaxValue and DateTime.MinValue. 
+Use DateTimeKind.Utc or DateTimeKind.Local."),
+                _ => dateTime,
+            };
+
+            return new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Hour, dateTime.Minute, dateTime.Second, dateTime.Millisecond, DateTimeKind.Utc);
+        }
+
+        if (value.GetType() != roleType.ObjectType.Type && roleType.ObjectType.TypeCode.HasValue)
+        {
+            value = Convert.ChangeType(value, roleType.ObjectType.TypeCode.Value, CultureInfo.InvariantCulture);
+        }
+
+        return value;
+    }
+
+    private static MetaObject Normalize(IMetaToOneRoleType roleType, object value)
+    {
+        if (value is MetaObject metaObject)
+        {
+            if (!roleType.ObjectType.IsAssignableFrom(metaObject.ObjectType))
+            {
+                throw new ArgumentException($"{roleType.Name} should be assignable to {roleType.ObjectType.Name} but was a {metaObject.ObjectType.Name}");
+            }
+
+            return metaObject;
+        }
+
+        throw new ArgumentException($"{roleType.Name} should be an meta object but was a {value.GetType()}");
+    }
+
+    private static IMetaObject[] Normalize(IMetaToManyRoleType roleType, IEnumerable<IMetaObject?> value)
+        => value
+            .Where(v =>
+            {
+                if (v == null)
+                {
+                    return false;
+                }
+
+                if (!roleType.ObjectType.IsAssignableFrom(v.ObjectType))
+                {
+                    throw new ArgumentException($"{roleType.Name} should be assignable to {roleType.ObjectType.Name} but was a {v.ObjectType.Name}");
+                }
+
+                return true;
+            })
+            .Cast<IMetaObject>()
+            .Distinct()
+            .ToArray();
+
     private void SetOneToOneRole(IMetaObject association, MetaOneToOneRoleType roleType, object value)
     {
         /*  [if exist]        [then remove]        set
@@ -644,68 +708,4 @@ public sealed class Meta(MetaMeta meta)
 
         return role;
     }
-
-    private static object? Normalize(MetaUnitRoleType roleType, object? value)
-    {
-        if (value == null)
-        {
-            return value;
-        }
-
-        if (value is DateTime dateTime && dateTime != DateTime.MinValue && dateTime != DateTime.MaxValue)
-        {
-            dateTime = dateTime.Kind switch
-            {
-                DateTimeKind.Local => dateTime.ToUniversalTime(),
-                DateTimeKind.Unspecified => throw new ArgumentException(@"DateTime value is of DateTimeKind.Kind Unspecified.
-Unspecified is only allowed for DateTime.MaxValue and DateTime.MinValue. 
-Use DateTimeKind.Utc or DateTimeKind.Local."),
-                _ => dateTime,
-            };
-
-            return new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Hour, dateTime.Minute, dateTime.Second, dateTime.Millisecond, DateTimeKind.Utc);
-        }
-
-        if (value.GetType() != roleType.ObjectType.Type && roleType.ObjectType.TypeCode.HasValue)
-        {
-            value = Convert.ChangeType(value, roleType.ObjectType.TypeCode.Value, CultureInfo.InvariantCulture);
-        }
-
-        return value;
-    }
-
-    private static MetaObject Normalize(IMetaToOneRoleType roleType, object value)
-    {
-        if (value is MetaObject metaObject)
-        {
-            if (!roleType.ObjectType.IsAssignableFrom(metaObject.ObjectType))
-            {
-                throw new ArgumentException($"{roleType.Name} should be assignable to {roleType.ObjectType.Name} but was a {metaObject.ObjectType.Name}");
-            }
-
-            return metaObject;
-        }
-
-        throw new ArgumentException($"{roleType.Name} should be an meta object but was a {value.GetType()}");
-    }
-
-    private static IMetaObject[] Normalize(IMetaToManyRoleType roleType, IEnumerable<IMetaObject?> value)
-        => value
-            .Where(v =>
-            {
-                if (v == null)
-                {
-                    return false;
-                }
-
-                if (!roleType.ObjectType.IsAssignableFrom(v.ObjectType))
-                {
-                    throw new ArgumentException($"{roleType.Name} should be assignable to {roleType.ObjectType.Name} but was a {v.ObjectType.Name}");
-                }
-
-                return true;
-            })
-            .Cast<IMetaObject>()
-            .Distinct()
-            .ToArray();
 }

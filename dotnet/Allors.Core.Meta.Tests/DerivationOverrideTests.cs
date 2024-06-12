@@ -40,7 +40,7 @@ public class DerivationOverrideTests
         Assert.Equal("Hello John Doe!", john["Greeting"]);
     }
 
-    private class FullNameDerivation(IMetaRoleType firstName, IMetaRoleType lastName) : IMetaDerivation
+    private sealed class FullNameDerivation(IMetaRoleType firstName, IMetaRoleType lastName) : IMetaDerivation
     {
         public void Derive(MetaChangeSet changeSet)
         {
@@ -69,7 +69,7 @@ public class DerivationOverrideTests
         }
     }
 
-    private class GreetingDerivation(IMetaRoleType fullName) : IMetaDerivation
+    private sealed class GreetingDerivation(IMetaRoleType fullName) : IMetaDerivation
     {
         public void Derive(MetaChangeSet changeSet)
         {

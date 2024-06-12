@@ -620,6 +620,31 @@ public class Object : IObject
         return objA.SetEquals(objB);
     }
 
+    private static void AssertRoleTypeIsAssignableFrom(EnginesCompositeRoleType roleType, Object[] objects)
+    {
+        var composite = roleType.Composite;
+
+        if (Array.Exists(objects, @object => !composite.IsAssignableFrom(@object.Class)))
+        {
+            throw new ArgumentException($"{roleType} should be assignable to {composite.SingularName}");
+        }
+    }
+
+    private static void AssertRoleTypeIsAssignableFrom(EnginesCompositeRoleType roleType, Object? @object)
+    {
+        if (@object == null)
+        {
+            return;
+        }
+
+        var composite = roleType.Composite;
+
+        if (!composite.IsAssignableFrom(@object.Class))
+        {
+            throw new ArgumentException($"{roleType} should be assignable to {composite.SingularName}");
+        }
+    }
+
     private void Add(EnginesToManyRoleType roleType, IObject value)
     {
         this.Assert(roleType, (Object?)value);
@@ -1090,13 +1115,13 @@ public class Object : IObject
     private void Assert(EnginesCompositeRoleType roleType, Object[] objects)
     {
         this.AssertAssociationTypeIsAssignableFrom(roleType.AssociationType);
-        this.AssertRoleTypeIsAssignableFrom(roleType, objects);
+        AssertRoleTypeIsAssignableFrom(roleType, objects);
     }
 
     private void Assert(EnginesCompositeRoleType roleType, Object? @object)
     {
         this.AssertAssociationTypeIsAssignableFrom(roleType.AssociationType);
-        this.AssertRoleTypeIsAssignableFrom(roleType, @object);
+        AssertRoleTypeIsAssignableFrom(roleType, @object);
     }
 
     private void AssertAssociationTypeIsAssignableFrom(EnginesAssociationType associationType)
@@ -1104,31 +1129,6 @@ public class Object : IObject
         if (!associationType.Composite.IsAssignableFrom(this.Class))
         {
             throw new ArgumentException($"{associationType.Composite} is not assignable from {this.Class}");
-        }
-    }
-
-    private void AssertRoleTypeIsAssignableFrom(EnginesCompositeRoleType roleType, Object[] objects)
-    {
-        var composite = roleType.Composite;
-
-        if (Array.Exists(objects, @object => !composite.IsAssignableFrom(@object.Class)))
-        {
-            throw new ArgumentException($"{roleType} should be assignable to {composite.SingularName}");
-        }
-    }
-
-    private void AssertRoleTypeIsAssignableFrom(EnginesCompositeRoleType roleType, Object? @object)
-    {
-        if (@object == null)
-        {
-            return;
-        }
-
-        var composite = roleType.Composite;
-
-        if (!composite.IsAssignableFrom(@object.Class))
-        {
-            throw new ArgumentException($"{roleType} should be assignable to {composite.SingularName}");
         }
     }
 }

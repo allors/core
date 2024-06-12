@@ -13,12 +13,13 @@ public sealed class ClassDiagram(MetaMeta metaMeta, ClassDiagram.Config? config 
 
         if (config?.Title != null)
         {
-            diagram.Append(CultureInfo.InvariantCulture, $"""
+            string title = $"""
              ---
              title: {config.Title}
              ---
 
-             """);
+             """;
+            diagram.Append(title);
         }
 
         diagram.Append("""

@@ -1,4 +1,4 @@
-﻿namespace Allors.Core.Meta.Tests.Static;
+﻿namespace Allors.Core.Meta.Tests.Domain;
 
 using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
