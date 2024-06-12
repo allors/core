@@ -28,8 +28,8 @@ public sealed class DecimalRoleTypeDerivedScale(Meta meta) : IMetaDerivation
         // TODO: Optimize
         foreach (var decimalRoleType in decimalRoleTypes)
         {
-            var assignedScale = (int?)decimalRoleType[m.DecimalRoleTypeAssignedScale()];
-            decimalRoleType[m.DecimalRoleTypeDerivedScale()] = assignedScale ?? DefaultScale;
+            var assignedScale = (int?)decimalRoleType[m.DecimalRoleTypeAssignedScale];
+            decimalRoleType[m.DecimalRoleTypeDerivedScale] = assignedScale ?? DefaultScale;
         }
     }
 }

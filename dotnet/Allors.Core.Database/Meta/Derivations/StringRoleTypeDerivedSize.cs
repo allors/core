@@ -25,8 +25,8 @@ public sealed class StringRoleTypeDerivedSize(Meta meta) : IMetaDerivation
             // TODO: Optimize
             foreach (var stringRoleType in stringRoleTypes)
             {
-                var assignedSize = (int?)stringRoleType[m.StringRoleTypeAssignedSize()];
-                stringRoleType[m.StringRoleTypeDerivedSize()] = assignedSize ?? DefaultSize;
+                var assignedSize = (int?)stringRoleType[m.StringRoleTypeAssignedSize];
+                stringRoleType[m.StringRoleTypeDerivedSize] = assignedSize ?? DefaultSize;
             }
         }
     }

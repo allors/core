@@ -20,8 +20,8 @@ public static class MetaExtensions
 
         var domain = @this.Build<Domain.Domain>(v =>
         {
-            v[m.MetaObjectId()] = id;
-            v[m.DomainName()] = name;
+            v[m.MetaObjectId] = id;
+            v[m.DomainName] = name;
         });
 
         domain.Add(m.DomainTypes(), domain);
@@ -49,9 +49,9 @@ public static class MetaExtensions
 
         var inheritance = @this.Build<Inheritance>(v =>
         {
-            v[m.MetaObjectId()] = id;
-            v[m.InheritanceSubtype()] = subtype;
-            v[m.InheritanceSupertype()] = supertype;
+            v[m.MetaObjectId] = id;
+            v[m.InheritanceSubtype] = subtype;
+            v[m.InheritanceSupertype] = supertype;
         });
 
         domain.Add(m.DomainTypes(), inheritance);
@@ -68,9 +68,9 @@ public static class MetaExtensions
 
         var unit = @this.Build<Unit>(v =>
         {
-            v[m.MetaObjectId()] = id;
-            v[m.ObjectTypeSingularName()] = singularName;
-            v[m.ObjectTypeAssignedPluralName()] = assignedPluralName;
+            v[m.MetaObjectId] = id;
+            v[m.ObjectTypeSingularName] = singularName;
+            v[m.ObjectTypeAssignedPluralName] = assignedPluralName;
         });
 
         domain.Add(m.DomainTypes(), unit);
@@ -87,9 +87,9 @@ public static class MetaExtensions
 
         var @interface = @this.Build<Interface>(v =>
         {
-            v[m.MetaObjectId()] = id;
-            v[m.ObjectTypeSingularName()] = singularName;
-            v[m.ObjectTypeAssignedPluralName()] = assignedPluralName;
+            v[m.MetaObjectId] = id;
+            v[m.ObjectTypeSingularName] = singularName;
+            v[m.ObjectTypeAssignedPluralName] = assignedPluralName;
         });
 
         domain.Add(m.DomainTypes(), @interface);
@@ -106,9 +106,9 @@ public static class MetaExtensions
 
         var @class = @this.Build<Class>(v =>
         {
-            v[m.MetaObjectId()] = id;
-            v[m.ObjectTypeSingularName()] = singularName;
-            v[m.ObjectTypeAssignedPluralName()] = assignedPluralName;
+            v[m.MetaObjectId] = id;
+            v[m.ObjectTypeSingularName] = singularName;
+            v[m.ObjectTypeAssignedPluralName] = assignedPluralName;
         });
 
         domain.Add(m.DomainTypes(), @class);
@@ -125,17 +125,17 @@ public static class MetaExtensions
 
         var associationType = @this.Build<BinaryAssociationType>(v =>
         {
-            v[m.MetaObjectId()] = associationTypeId;
-            v[m.AssociationTypeComposite()] = associationComposite;
+            v[m.MetaObjectId] = associationTypeId;
+            v[m.AssociationTypeComposite] = associationComposite;
         });
 
         var roleType = @this.Build<BinaryRoleType>(v =>
         {
-            v[m.MetaObjectId()] = roleTypeId;
-            v[m.RoleTypeAssociationType()] = associationType;
-            v[m.RoleTypeObjectType()] = unit;
-            v[m.RoleTypeSingularName()] = singularName;
-            v[m.RoleTypeAssignedPluralName()] = assignedPluralName;
+            v[m.MetaObjectId] = roleTypeId;
+            v[m.RoleTypeAssociationType] = associationType;
+            v[m.RoleTypeObjectType] = unit;
+            v[m.RoleTypeSingularName] = singularName;
+            v[m.RoleTypeAssignedPluralName] = assignedPluralName;
         });
 
         domain.Add(m.DomainTypes(), unit);
@@ -152,17 +152,17 @@ public static class MetaExtensions
 
         var associationType = @this.Build<BooleanAssociationType>(v =>
         {
-            v[m.MetaObjectId()] = associationTypeId;
-            v[m.AssociationTypeComposite()] = associationComposite;
+            v[m.MetaObjectId] = associationTypeId;
+            v[m.AssociationTypeComposite] = associationComposite;
         });
 
         var roleType = @this.Build<BooleanRoleType>(v =>
         {
-            v[m.MetaObjectId()] = roleTypeId;
-            v[m.RoleTypeAssociationType()] = associationType;
-            v[m.RoleTypeObjectType()] = unit;
-            v[m.RoleTypeSingularName()] = singularName;
-            v[m.RoleTypeAssignedPluralName()] = assignedPluralName;
+            v[m.MetaObjectId] = roleTypeId;
+            v[m.RoleTypeAssociationType] = associationType;
+            v[m.RoleTypeObjectType] = unit;
+            v[m.RoleTypeSingularName] = singularName;
+            v[m.RoleTypeAssignedPluralName] = assignedPluralName;
         });
 
         domain.Add(m.DomainTypes(), associationType);
@@ -180,17 +180,17 @@ public static class MetaExtensions
 
         var associationType = @this.Build<DateTimeAssociationType>(v =>
         {
-            v[m.MetaObjectId()] = associationTypeId;
-            v[m.AssociationTypeComposite()] = associationComposite;
+            v[m.MetaObjectId] = associationTypeId;
+            v[m.AssociationTypeComposite] = associationComposite;
         });
 
         var roleType = @this.Build<DateTimeRoleType>(v =>
         {
-            v[m.MetaObjectId()] = roleTypeId;
-            v[m.RoleTypeAssociationType()] = associationType;
-            v[m.RoleTypeObjectType()] = unit;
-            v[m.RoleTypeSingularName()] = singularName;
-            v[m.RoleTypeAssignedPluralName()] = assignedPluralName;
+            v[m.MetaObjectId] = roleTypeId;
+            v[m.RoleTypeAssociationType] = associationType;
+            v[m.RoleTypeObjectType] = unit;
+            v[m.RoleTypeSingularName] = singularName;
+            v[m.RoleTypeAssignedPluralName] = assignedPluralName;
         });
 
         domain.Add(m.DomainTypes(), associationType);
@@ -208,17 +208,17 @@ public static class MetaExtensions
 
         var associationType = @this.Build<DecimalAssociationType>(v =>
         {
-            v[m.MetaObjectId()] = associationTypeId;
-            v[m.AssociationTypeComposite()] = associationComposite;
+            v[m.MetaObjectId] = associationTypeId;
+            v[m.AssociationTypeComposite] = associationComposite;
         });
 
         var roleType = @this.Build<DecimalRoleType>(v =>
         {
-            v[m.MetaObjectId()] = roleTypeId;
-            v[m.RoleTypeAssociationType()] = associationType;
-            v[m.RoleTypeObjectType()] = unit;
-            v[m.RoleTypeSingularName()] = singularName;
-            v[m.RoleTypeAssignedPluralName()] = assignedPluralName;
+            v[m.MetaObjectId] = roleTypeId;
+            v[m.RoleTypeAssociationType] = associationType;
+            v[m.RoleTypeObjectType] = unit;
+            v[m.RoleTypeSingularName] = singularName;
+            v[m.RoleTypeAssignedPluralName] = assignedPluralName;
         });
 
         domain.Add(m.DomainTypes(), associationType);
@@ -236,17 +236,17 @@ public static class MetaExtensions
 
         var associationType = @this.Build<FloatAssociationType>(v =>
         {
-            v[m.MetaObjectId()] = associationTypeId;
-            v[m.AssociationTypeComposite()] = associationComposite;
+            v[m.MetaObjectId] = associationTypeId;
+            v[m.AssociationTypeComposite] = associationComposite;
         });
 
         var roleType = @this.Build<FloatRoleType>(v =>
         {
-            v[m.MetaObjectId()] = roleTypeId;
-            v[m.RoleTypeAssociationType()] = associationType;
-            v[m.RoleTypeObjectType()] = unit;
-            v[m.RoleTypeSingularName()] = singularName;
-            v[m.RoleTypeAssignedPluralName()] = assignedPluralName;
+            v[m.MetaObjectId] = roleTypeId;
+            v[m.RoleTypeAssociationType] = associationType;
+            v[m.RoleTypeObjectType] = unit;
+            v[m.RoleTypeSingularName] = singularName;
+            v[m.RoleTypeAssignedPluralName] = assignedPluralName;
         });
 
         domain.Add(m.DomainTypes(), associationType);
@@ -264,17 +264,17 @@ public static class MetaExtensions
 
         var associationType = @this.Build<IntegerAssociationType>(v =>
         {
-            v[m.MetaObjectId()] = associationTypeId;
-            v[m.AssociationTypeComposite()] = associationComposite;
+            v[m.MetaObjectId] = associationTypeId;
+            v[m.AssociationTypeComposite] = associationComposite;
         });
 
         var roleType = @this.Build<IntegerRoleType>(v =>
         {
-            v[m.MetaObjectId()] = roleTypeId;
-            v[m.RoleTypeAssociationType()] = associationType;
-            v[m.RoleTypeObjectType()] = unit;
-            v[m.RoleTypeSingularName()] = singularName;
-            v[m.RoleTypeAssignedPluralName()] = assignedPluralName;
+            v[m.MetaObjectId] = roleTypeId;
+            v[m.RoleTypeAssociationType] = associationType;
+            v[m.RoleTypeObjectType] = unit;
+            v[m.RoleTypeSingularName] = singularName;
+            v[m.RoleTypeAssignedPluralName] = assignedPluralName;
         });
 
         domain.Add(m.DomainTypes(), associationType);
@@ -292,17 +292,17 @@ public static class MetaExtensions
 
         var associationType = @this.Build<StringAssociationType>(v =>
         {
-            v[m.MetaObjectId()] = associationTypeId;
-            v[m.AssociationTypeComposite()] = associationComposite;
+            v[m.MetaObjectId] = associationTypeId;
+            v[m.AssociationTypeComposite] = associationComposite;
         });
 
         var roleType = @this.Build<StringRoleType>(v =>
         {
-            v[m.MetaObjectId()] = roleTypeId;
-            v[m.RoleTypeAssociationType()] = associationType;
-            v[m.RoleTypeObjectType()] = unit;
-            v[m.RoleTypeSingularName()] = singularName;
-            v[m.RoleTypeAssignedPluralName()] = assignedPluralName;
+            v[m.MetaObjectId] = roleTypeId;
+            v[m.RoleTypeAssociationType] = associationType;
+            v[m.RoleTypeObjectType] = unit;
+            v[m.RoleTypeSingularName] = singularName;
+            v[m.RoleTypeAssignedPluralName] = assignedPluralName;
         });
 
         domain.Add(m.DomainTypes(), associationType);
@@ -320,17 +320,17 @@ public static class MetaExtensions
 
         var associationType = @this.Build<UniqueAssociationType>(v =>
         {
-            v[m.MetaObjectId()] = associationTypeId;
-            v[m.AssociationTypeComposite()] = associationComposite;
+            v[m.MetaObjectId] = associationTypeId;
+            v[m.AssociationTypeComposite] = associationComposite;
         });
 
         var roleType = @this.Build<UniqueRoleType>(v =>
         {
-            v[m.MetaObjectId()] = roleTypeId;
-            v[m.RoleTypeAssociationType()] = associationType;
-            v[m.RoleTypeObjectType()] = unit;
-            v[m.RoleTypeSingularName()] = singularName;
-            v[m.RoleTypeAssignedPluralName()] = assignedPluralName;
+            v[m.MetaObjectId] = roleTypeId;
+            v[m.RoleTypeAssociationType] = associationType;
+            v[m.RoleTypeObjectType] = unit;
+            v[m.RoleTypeSingularName] = singularName;
+            v[m.RoleTypeAssignedPluralName] = assignedPluralName;
         });
 
         domain.Add(m.DomainTypes(), associationType);
@@ -348,17 +348,17 @@ public static class MetaExtensions
 
         var associationType = @this.Build<OneToOneAssociationType>(v =>
         {
-            v[m.MetaObjectId()] = associationTypeId;
-            v[m.AssociationTypeComposite()] = associationComposite;
+            v[m.MetaObjectId] = associationTypeId;
+            v[m.AssociationTypeComposite] = associationComposite;
         });
 
         var roleType = @this.Build<OneToOneRoleType>(v =>
         {
-            v[m.MetaObjectId()] = roleTypeId;
-            v[m.RoleTypeAssociationType()] = associationType;
-            v[m.RoleTypeObjectType()] = roleComposite;
-            v[m.RoleTypeSingularName()] = singularName;
-            v[m.RoleTypeAssignedPluralName()] = assignedPluralName;
+            v[m.MetaObjectId] = roleTypeId;
+            v[m.RoleTypeAssociationType] = associationType;
+            v[m.RoleTypeObjectType] = roleComposite;
+            v[m.RoleTypeSingularName] = singularName;
+            v[m.RoleTypeAssignedPluralName] = assignedPluralName;
         });
 
         domain.Add(m.DomainTypes(), associationType);
@@ -376,17 +376,17 @@ public static class MetaExtensions
 
         var associationType = @this.Build<ManyToOneAssociationType>(v =>
         {
-            v[m.MetaObjectId()] = associationTypeId;
-            v[m.AssociationTypeComposite()] = associationComposite;
+            v[m.MetaObjectId] = associationTypeId;
+            v[m.AssociationTypeComposite] = associationComposite;
         });
 
         var roleType = @this.Build<ManyToOneRoleType>(v =>
         {
-            v[m.MetaObjectId()] = roleTypeId;
-            v[m.RoleTypeAssociationType()] = associationType;
-            v[m.RoleTypeObjectType()] = roleComposite;
-            v[m.RoleTypeSingularName()] = singularName;
-            v[m.RoleTypeAssignedPluralName()] = assignedPluralName;
+            v[m.MetaObjectId] = roleTypeId;
+            v[m.RoleTypeAssociationType] = associationType;
+            v[m.RoleTypeObjectType] = roleComposite;
+            v[m.RoleTypeSingularName] = singularName;
+            v[m.RoleTypeAssignedPluralName] = assignedPluralName;
         });
 
         domain.Add(m.DomainTypes(), associationType);
@@ -404,17 +404,17 @@ public static class MetaExtensions
 
         var associationType = @this.Build<OneToManyAssociationType>(v =>
         {
-            v[m.MetaObjectId()] = associationTypeId;
-            v[m.AssociationTypeComposite()] = associationComposite;
+            v[m.MetaObjectId] = associationTypeId;
+            v[m.AssociationTypeComposite] = associationComposite;
         });
 
         var roleType = @this.Build<OneToManyRoleType>(v =>
         {
-            v[m.MetaObjectId()] = roleTypeId;
-            v[m.RoleTypeAssociationType()] = associationType;
-            v[m.RoleTypeObjectType()] = roleComposite;
-            v[m.RoleTypeSingularName()] = singularName;
-            v[m.RoleTypeAssignedPluralName()] = assignedPluralName;
+            v[m.MetaObjectId] = roleTypeId;
+            v[m.RoleTypeAssociationType] = associationType;
+            v[m.RoleTypeObjectType] = roleComposite;
+            v[m.RoleTypeSingularName] = singularName;
+            v[m.RoleTypeAssignedPluralName] = assignedPluralName;
         });
 
         domain.Add(m.DomainTypes(), associationType);
@@ -432,17 +432,17 @@ public static class MetaExtensions
 
         var associationType = @this.Build<ManyToManyAssociationType>(v =>
         {
-            v[m.MetaObjectId()] = associationTypeId;
-            v[m.AssociationTypeComposite()] = associationComposite;
+            v[m.MetaObjectId] = associationTypeId;
+            v[m.AssociationTypeComposite] = associationComposite;
         });
 
         var roleType = @this.Build<ManyToManyRoleType>(v =>
         {
-            v[m.MetaObjectId()] = roleTypeId;
-            v[m.RoleTypeAssociationType()] = associationType;
-            v[m.RoleTypeObjectType()] = roleComposite;
-            v[m.RoleTypeSingularName()] = singularName;
-            v[m.RoleTypeAssignedPluralName()] = assignedPluralName;
+            v[m.MetaObjectId] = roleTypeId;
+            v[m.RoleTypeAssociationType] = associationType;
+            v[m.RoleTypeObjectType] = roleComposite;
+            v[m.RoleTypeSingularName] = singularName;
+            v[m.RoleTypeAssignedPluralName] = assignedPluralName;
         });
 
         domain.Add(m.DomainTypes(), associationType);
@@ -496,5 +496,5 @@ public static class MetaExtensions
     /// </summary>
     public static Interface Object(this Meta @this) => (Interface)@this.Get(CoreMeta.Object);
 
-    private static IMetaObject Get(this Meta @this, Guid id) => @this.Objects.First(v => ((Guid)v[@this.MetaMeta.MetaObjectId()]!) == id);
+    private static IMetaObject Get(this Meta @this, Guid id) => @this.Objects.First(v => ((Guid)v[@this.MetaMeta.MetaObjectId]!) == id);
 }

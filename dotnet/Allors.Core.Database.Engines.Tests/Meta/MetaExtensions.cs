@@ -121,5 +121,5 @@ public static class MetaExtensions
 
     public static StringRoleType C4AllorsString(this Meta @this) => (StringRoleType)@this.Get(TestsMeta.C4AllorsString);
 
-    private static IMetaObject Get(this Meta @this, Guid id) => @this.Objects.First(v => ((Guid)v[@this.MetaMeta.MetaObjectId()]!) == id);
+    private static IMetaObject Get(this Meta @this, Guid id) => @this.Objects.First(v => ((Guid)v[@this.MetaMeta.MetaObjectId]!) == id);
 }

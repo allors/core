@@ -30,5 +30,5 @@ public abstract class EnginesMetaObject(EnginesMeta enginesMeta, MetaObject meta
     /// <summary>
     /// The id.
     /// </summary>
-    public Guid Id => this.id ??= (Guid)this.MetaObject[this.M.MetaObjectId()]!;
+    public Guid Id => this.id ??= (Guid)this.MetaObject[this.M.MetaObjectId]!;
 }

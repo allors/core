@@ -31,8 +31,8 @@ public class CompositeTests
 
         meta.Derive();
 
-        s1[metaMeta.CompositeSupertypes()].Should().BeEmpty();
-        i1[metaMeta.CompositeSupertypes()].Should().BeEquivalentTo([s1]);
-        c1[metaMeta.CompositeSupertypes()].Should().BeEquivalentTo([i1, s1]);
+        s1[metaMeta.CompositeSupertypes].Should().BeEmpty();
+        i1[metaMeta.CompositeSupertypes].Should().BeEquivalentTo([s1]);
+        c1[metaMeta.CompositeSupertypes].Should().BeEquivalentTo([i1, s1]);
     }
 }

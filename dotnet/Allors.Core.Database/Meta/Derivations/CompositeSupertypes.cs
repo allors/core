@@ -26,7 +26,7 @@ public sealed class CompositeSupertypes(Meta meta) : IMetaDerivation
         {
             var supertypes = new HashSet<IMetaObject>();
             AccumulateSupertypes(meta, composite, supertypes);
-            composite[m.CompositeSupertypes()] = supertypes;
+            composite[m.CompositeSupertypes] = supertypes;
         }
     }
 
@@ -34,7 +34,7 @@ public sealed class CompositeSupertypes(Meta meta) : IMetaDerivation
     {
         var m = meta.MetaMeta;
 
-        foreach (var directSupertype in composite[m.CompositeDirectSupertypes()])
+        foreach (var directSupertype in composite[m.CompositeDirectSupertypes])
         {
             acc.Add(directSupertype);
             AccumulateSupertypes(meta, directSupertype, acc);

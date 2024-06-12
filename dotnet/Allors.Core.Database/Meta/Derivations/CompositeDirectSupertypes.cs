@@ -23,13 +23,13 @@ public sealed class CompositeDirectSupertypes(Meta meta) : IMetaDerivation
 
         foreach (var composite in meta.Objects.Where(v => m.Composite().IsAssignableFrom(v.ObjectType)))
         {
-            composite[m.CompositeSupertypes()] = [];
+            composite[m.CompositeSupertypes] = [];
         }
 
         foreach (var inheritance in meta.Objects.Where(v => m.Inheritance().IsAssignableFrom(v.ObjectType)))
         {
-            var subtype = inheritance[m.InheritanceSubtype()];
-            var supertype = inheritance[m.InheritanceSupertype()];
+            var subtype = inheritance[m.InheritanceSubtype];
+            var supertype = inheritance[m.InheritanceSupertype];
 
             if (subtype == null || supertype == null)
             {

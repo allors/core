@@ -28,8 +28,8 @@ public sealed class DecimalRoleTypeDerivedPrecision(Meta meta) : IMetaDerivation
         // TODO: Optimize
         foreach (var decimalRoleType in decimalRoleTypes)
         {
-            var assignedPrecision = (int?)decimalRoleType[m.DecimalRoleTypeAssignedPrecision()];
-            decimalRoleType[m.DecimalRoleTypeDerivedPrecision()] = assignedPrecision ?? DefaultPrecision;
+            var assignedPrecision = (int?)decimalRoleType[m.DecimalRoleTypeAssignedPrecision];
+            decimalRoleType[m.DecimalRoleTypeDerivedPrecision] = assignedPrecision ?? DefaultPrecision;
         }
     }
 }

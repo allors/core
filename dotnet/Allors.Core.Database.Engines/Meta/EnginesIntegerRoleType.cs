@@ -20,7 +20,7 @@ public sealed class EnginesIntegerRoleType(EnginesMeta enginesMeta, MetaObject m
     /// The association type.
     /// </summary>
     public EnginesIntegerAssociationType IntegerAssociationType => this.associationType ??=
-        (EnginesIntegerAssociationType)this.EnginesMeta[this.MetaObject[this.M.RoleTypeAssociationType()]!];
+        (EnginesIntegerAssociationType)this.EnginesMeta[this.MetaObject[this.M.RoleTypeAssociationType]!];
 
     /// <inheritdoc />
     public override EnginesObjectType ObjectType => this.Unit;
@@ -28,5 +28,5 @@ public sealed class EnginesIntegerRoleType(EnginesMeta enginesMeta, MetaObject m
     /// <summary>
     /// The composite.
     /// </summary>
-    public EnginesUnit Unit => this.unit ??= this.EnginesMeta[(Unit)this.MetaObject[this.M.RoleTypeObjectType()]!];
+    public EnginesUnit Unit => this.unit ??= this.EnginesMeta[(Unit)this.MetaObject[this.M.RoleTypeObjectType]!];
 }

@@ -29,11 +29,11 @@ public sealed class RoleTypeName(Meta meta) : IMetaDerivation
         {
             if (m.UnitRoleType().IsAssignableFrom(roleType.ObjectType) || m.ToOneRoleType().IsAssignableFrom(roleType.ObjectType))
             {
-                roleType[m.RoleTypeName()] = roleType[m.RoleTypeSingularName()];
+                roleType[m.RoleTypeName] = roleType[m.RoleTypeSingularName];
             }
             else
             {
-                roleType[m.RoleTypeName()] = roleType[m.RoleTypeDerivedPluralName()];
+                roleType[m.RoleTypeName] = roleType[m.RoleTypeDerivedPluralName];
             }
         }
     }
