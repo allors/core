@@ -1,4 +1,4 @@
-﻿namespace Allors.Core.Database.Meta;
+﻿namespace Allors.Core.Database.MetaMeta;
 
 using System;
 using Allors.Core.Database.Meta.Domain;
@@ -553,7 +553,7 @@ public static class CoreMetaMeta
         var composite = m.AddInterface(d, Composite, "Composite");
         var compositeAssociationType = m.AddInterface(d, CompositeAssociationType, "CompositeAssociationType");
         var compositeRoleType = m.AddInterface(d, CompositeRoleType, "CompositeRoleType");
-        var domain = m.AddClass(d, Domain, typeof(Domain.Domain));
+        var domain = m.AddClass(d, Domain, typeof(Domain));
         var @interface = m.AddClass(d, Interface, typeof(Interface));
         var manyToAssociationType = m.AddInterface(d, ManyToAssociationType, "ManyToAssociationType");
         var manyToManyAssociationType = m.AddClass(d, ManyToManyAssociationType, typeof(ManyToManyAssociationType));

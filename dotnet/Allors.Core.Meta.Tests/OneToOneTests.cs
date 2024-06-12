@@ -54,7 +54,7 @@ public class OneToOneTests
                 var association = this.Meta.C1WhereC2OneToOne;
                 var role = this.Meta.C1C2OneToOne;
 
-                return (association, role, [C1Builder, C2Builder],  C1Builder, C1Builder, C2Builder, C2Builder);
+                return (association, role, [C1Builder, C2Builder], C1Builder, C1Builder, C2Builder, C2Builder);
 
                 IMetaObject C1Builder(Meta transaction) => transaction.Build(this.Meta.C1);
                 IMetaObject C2Builder(Meta transaction) => transaction.Build(this.Meta.C2);
@@ -65,7 +65,7 @@ public class OneToOneTests
                 var association = this.Meta.C1WhereI2OneToOne;
                 var role = this.Meta.C1I2OneToOne;
 
-                return (association, role, [C1Builder, C2Builder],  C1Builder, C1Builder, C2Builder, C2Builder);
+                return (association, role, [C1Builder, C2Builder], C1Builder, C1Builder, C2Builder, C2Builder);
 
                 IMetaObject C1Builder(Meta transaction) => transaction.Build(this.Meta.C1);
                 IMetaObject C2Builder(Meta transaction) => transaction.Build(this.Meta.C2);

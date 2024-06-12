@@ -1,4 +1,4 @@
-﻿namespace Allors.Core.Database.Meta;
+﻿namespace Allors.Core.Database.MetaMeta;
 
 using Allors.Core.MetaMeta;
 

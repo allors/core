@@ -40,34 +40,34 @@ public abstract class ManyToOneTests : Tests
 
                     IObject C1Builder(ITransaction transaction) => transaction.Build(this.Meta.C1);
                 },
-            ];
+        ];
 
         this.preActs =
         [
             ("Nothing", _ => { }),
-                ("Checkpoint", v => v.Checkpoint()),
-                ("Checkpoint Checkpoint", v =>
-                {
-                    v.Checkpoint();
-                    v.Checkpoint();
-                }),
-                ("Commit", v => v.Commit()),
-                ("Commit Commit", v =>
-                {
-                    v.Commit();
-                    v.Commit();
-                }),
-                ("Checkpoint Commit", v =>
-                {
-                    v.Checkpoint();
-                    v.Commit();
-                }),
-                ("Commit Checkpoint", v =>
-                {
-                    v.Commit();
-                    v.Checkpoint();
-                }),
-            ];
+            ("Checkpoint", v => v.Checkpoint()),
+            ("Checkpoint Checkpoint", v =>
+            {
+                v.Checkpoint();
+                v.Checkpoint();
+            }),
+            ("Commit", v => v.Commit()),
+            ("Commit Commit", v =>
+            {
+                v.Commit();
+                v.Commit();
+            }),
+            ("Checkpoint Commit", v =>
+            {
+                v.Checkpoint();
+                v.Commit();
+            }),
+            ("Commit Checkpoint", v =>
+            {
+                v.Commit();
+                v.Checkpoint();
+            }),
+        ];
     }
 
     [Fact]

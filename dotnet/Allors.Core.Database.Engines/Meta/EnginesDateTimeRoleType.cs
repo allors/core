@@ -1,8 +1,8 @@
 ﻿namespace Allors.Core.Database.Engines.Meta;
 
 using System;
-using Allors.Core.Database.Meta;
 using Allors.Core.Database.Meta.Domain;
+using Allors.Core.Database.MetaMeta;
 using Allors.Core.Meta;
 
 /// <summary>

@@ -1,7 +1,7 @@
 ﻿namespace Allors.Core.Database.Engines.Tests.Meta;
 
 using System;
-using Allors.Core.Database.Meta;
+using Allors.Core.Database.MetaMeta;
 using Allors.Core.MetaMeta;
 
 /// <summary>

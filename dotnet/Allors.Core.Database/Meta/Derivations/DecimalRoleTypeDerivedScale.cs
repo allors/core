@@ -1,6 +1,7 @@
 ﻿namespace Allors.Core.Database.Meta.Derivations;
 
 using System.Linq;
+using Allors.Core.Database.MetaMeta;
 using Allors.Core.Meta;
 
 /// <summary>
