@@ -1,7 +1,7 @@
 ﻿namespace Allors.Core.Database.MetaMeta;
 
 using System;
-using Allors.Core.Database.Meta.Domain;
+using Allors.Core.Database.Meta;
 using Allors.Core.MetaMeta;
 
 /// <summary>
@@ -379,6 +379,11 @@ public static class CoreMetaMeta
     /// </summary>
     public static readonly Guid Id407e07f46d6648459cdb03e897166d0f = new("407e07f4-6d66-4845-9cdb-03e897166d0f");
 
+    /// <summary>
+    /// MethodType.
+    /// </summary>
+    public static readonly Guid Id6c831d69337642e8828ad564d95d9f7c = new("6c831d69-3376-42e8-828a-d564d95d9f7c");
+
     internal static Guid Boolean => Ida5e7554308e04fdca804e3681ba5eae5;
 
     internal static Guid Integer => Idbb6c48ad0ae34788ba8018d8ffdf7018;
@@ -527,6 +532,8 @@ public static class CoreMetaMeta
 
     internal static Guid StringRoleTypeDerivedSize => Id407e07f46d6648459cdb03e897166d0f;
 
+    internal static Guid MethodType => Id6c831d69337642e8828ad564d95d9f7c;
+
     /// <summary>
     /// Populates meta meta with Core types.
     /// </summary>
@@ -584,6 +591,7 @@ public static class CoreMetaMeta
         var unit = m.AddClass(Unit, typeof(Unit));
         var unitAssociationType = m.AddInterface(UnitAssociationType, "UnitAssociationType");
         var unitRoleType = m.AddInterface(UnitRoleType, "UnitRoleType");
+        var methodType = m.AddClass(MethodType, nameof(MethodType));
 
         // Inheritance
         m.AddInheritance(new Guid("12ec1d97-6208-4cf5-866b-58675aa8a38e"), associationType, relationEndType);

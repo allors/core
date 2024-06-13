@@ -5,6 +5,8 @@
 
 namespace Allors.Core.Database.Data;
 
+using Allors.Core.Database.Meta;
+
 /// <summary>
 /// An extent.
 /// </summary>

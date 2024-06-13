@@ -5,7 +5,7 @@
 
 namespace Allors.Core.Database.Data;
 
-using Allors.Core.Database.Meta.Domain;
+using Allors.Core.Database.Meta;
 
 /// <summary>
 /// A like predicate.

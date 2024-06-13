@@ -2,7 +2,7 @@
 
 using System;
 using System.Collections.Generic;
-using Allors.Core.Database.Meta.Domain;
+using Allors.Core.Database.Meta;
 
 /// <summary>
 /// The transaction.

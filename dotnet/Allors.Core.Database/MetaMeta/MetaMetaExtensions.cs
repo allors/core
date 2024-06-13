@@ -376,4 +376,9 @@ public static class MetaMetaExtensions
     /// Unit role type.
     /// </summary>
     public static MetaObjectType UnitRoleType(this MetaMeta @this) => @this.ObjectTypeById[CoreMetaMeta.UnitRoleType];
+
+    /// <summary>
+    /// Method type.
+    /// </summary>
+    public static MetaObjectType MethodType(this MetaMeta @this) => @this.ObjectTypeById[CoreMetaMeta.MethodType];
 }

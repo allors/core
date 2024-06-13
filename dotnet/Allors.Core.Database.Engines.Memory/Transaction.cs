@@ -5,7 +5,7 @@ using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Linq;
 using Allors.Core.Database.Engines.Meta;
-using Allors.Core.Database.Meta.Domain;
+using Allors.Core.Database.Meta;
 
 /// <inheritdoc />
 public class Transaction : ITransaction

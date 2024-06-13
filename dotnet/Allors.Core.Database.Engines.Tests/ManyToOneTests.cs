@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Allors.Core.Database.Engines.Tests.Meta;
-using Allors.Core.Database.Meta.Domain;
+using Allors.Core.Database.Meta;
 using FluentAssertions;
 using MoreLinq;
 using Xunit;

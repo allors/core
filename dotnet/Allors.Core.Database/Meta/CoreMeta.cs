@@ -12,72 +12,52 @@ public static class CoreMeta
     /// <summary>
     /// Allors Core.
     /// </summary>
-    public static readonly Guid Ide3a07ac80a864f7a901c3f630f1050a9 = new("e3a07ac8-0a86-4f7a-901c-3f630f1050a9");
+    public static readonly Guid AllorsCore = new("6f14a4e3-af2d-4f82-bd60-b06c7228cf4a");
 
     /// <summary>
     /// Binary.
     /// </summary>
-    public static readonly Guid Idcc0e2b47d7d34a58b390e41f53b248a2 = new("cc0e2b47-d7d3-4a58-b390-e41f53b248a2");
+    public static readonly Guid Binary = new("ebfaa622-3ba0-4957-bf08-0cb10d0a8041");
 
-    /// <summary>
+     /// <summary>
     /// Boolean.
     /// </summary>
-    public static readonly Guid Id6d2123913bc94707a4f0c4612088f9da = new("6d212391-3bc9-4707-a4f0-c4612088f9da");
+    public static readonly Guid Boolean = new("e1d97d02-3ded-40a2-a5fa-ff9ece678ad6");
 
     /// <summary>
     /// DateTime.
     /// </summary>
-    public static readonly Guid Id7809b062412e42c58b5abaa1919ec156 = new("7809b062-412e-42c5-8b5a-baa1919ec156");
+    public static readonly Guid DateTime = new("c2549539-1a4f-4223-aedb-425b8ee1e8f2");
 
     /// <summary>
     /// Decimal.
     /// </summary>
-    public static readonly Guid Id083579BF2E7248CDB49137D776C70F44 = new("083579BF-2E72-48CD-B491-37D776C70F44");
+    public static readonly Guid Decimal = new("59c9d0c0-d516-47a3-b3c4-cc3ff0d996b6");
 
     /// <summary>
     /// Float.
     /// </summary>
-    public static readonly Guid Idb2f5d674e8ce455c9799e2794d1ec78e = new("b2f5d674-e8ce-455c-9799-e2794d1ec78e");
+    public static readonly Guid Float = new("d840e9ce-ed4e-44ee-8e07-76edc9a1e2b1");
 
     /// <summary>
     /// Integer.
     /// </summary>
-    public static readonly Guid Idb6f39681cc744cdb9edd1f96aa07bdab = new("b6f39681-cc74-4cdb-9edd-1f96aa07bdab");
+    public static readonly Guid Integer = new("f5e554ad-be4b-447f-aff7-526e58c7c651");
 
     /// <summary>
     /// String.
     /// </summary>
-    public static readonly Guid Id9a6dc34f47804a35b7d647497a0dc3d1 = new("9a6dc34f-4780-4a35-b7d6-47497a0dc3d1");
+    public static readonly Guid String = new("162b6dc7-d43d-45e6-a1ee-6c31f6d3cc62");
 
     /// <summary>
     /// Unique.
     /// </summary>
-    public static readonly Guid Ida45dde54f51f450b8cfa9bbb8090b936 = new("a45dde54-f51f-450b-8cfa-9bbb8090b936");
+    public static readonly Guid Unique = new("ffb37dfb-9e4e-4d25-b06c-83b261d87e0c");
 
     /// <summary>
     /// Object.
     /// </summary>
-    public static readonly Guid Idb9b23efefefb4867bce53fd78dd3617d = new("b9b23efe-fefb-4867-bce5-3fd78dd3617d");
-
-    internal static Guid AllorsCore => Ide3a07ac80a864f7a901c3f630f1050a9;
-
-    internal static Guid Binary => Idcc0e2b47d7d34a58b390e41f53b248a2;
-
-    internal static Guid Boolean => Id6d2123913bc94707a4f0c4612088f9da;
-
-    internal static Guid DateTime => Id7809b062412e42c58b5abaa1919ec156;
-
-    internal static Guid Decimal => Id083579BF2E7248CDB49137D776C70F44;
-
-    internal static Guid Float => Idb2f5d674e8ce455c9799e2794d1ec78e;
-
-    internal static Guid Integer => Idb6f39681cc744cdb9edd1f96aa07bdab;
-
-    internal static Guid String => Id9a6dc34f47804a35b7d647497a0dc3d1;
-
-    internal static Guid Unique => Ida45dde54f51f450b8cfa9bbb8090b936;
-
-    internal static Guid Object => Idb9b23efefefb4867bce53fd78dd3617d;
+    public static readonly Guid Object = new("89612710-ce42-4507-b1cf-cf48d63739a2");
 
     /// <summary>
     /// Populates meta with Core types.

@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Allors.Core.Database.Meta.Domain;
 using Allors.Core.Database.MetaMeta;
 using Allors.Core.Meta;
 
@@ -15,11 +14,11 @@ public static class MetaExtensions
     /// <summary>
     /// Creates a new domain.
     /// </summary>
-    public static Domain.Domain AddDomain(this Meta @this, Guid id, string name)
+    public static Domain AddDomain(this Meta @this, Guid id, string name)
     {
         var m = @this.MetaMeta;
 
-        var domain = @this.Build<Domain.Domain>(v =>
+        var domain = @this.Build<Domain>(v =>
         {
             v[m.MetaObjectId] = id;
             v[m.DomainName] = name;
@@ -33,7 +32,7 @@ public static class MetaExtensions
     /// <summary>
     /// Add an inheritance relation between a subtype and a supertype.
     /// </summary>
-    public static IEnumerable<Inheritance> AddInheritance(this Meta @this, Domain.Domain domain, Guid id, IComposite subtype, params Interface[] supertypes)
+    public static IEnumerable<Inheritance> AddInheritance(this Meta @this, Domain domain, Guid id, IComposite subtype, params Interface[] supertypes)
     {
         foreach (var supertype in supertypes)
         {
@@ -44,7 +43,7 @@ public static class MetaExtensions
     /// <summary>
     /// Add an inheritance relation between a subtype and a supertype.
     /// </summary>
-    public static Inheritance AddInheritance(this Meta @this, Domain.Domain domain, Guid id, IComposite subtype, Interface supertype)
+    public static Inheritance AddInheritance(this Meta @this, Domain domain, Guid id, IComposite subtype, Interface supertype)
     {
         var m = @this.MetaMeta;
 
@@ -63,7 +62,7 @@ public static class MetaExtensions
     /// <summary>
     /// Creates a new unit.
     /// </summary>
-    public static Unit AddUnit(this Meta @this, Domain.Domain domain, Guid id, string singularName, string? assignedPluralName = null)
+    public static Unit AddUnit(this Meta @this, Domain domain, Guid id, string singularName, string? assignedPluralName = null)
     {
         var m = @this.MetaMeta;
 
@@ -82,7 +81,7 @@ public static class MetaExtensions
     /// <summary>
     /// Creates a new interface.
     /// </summary>
-    public static Interface AddInterface(this Meta @this, Domain.Domain domain, Guid id, string singularName, string? assignedPluralName = null)
+    public static Interface AddInterface(this Meta @this, Domain domain, Guid id, string singularName, string? assignedPluralName = null)
     {
         var m = @this.MetaMeta;
 
@@ -101,7 +100,7 @@ public static class MetaExtensions
     /// <summary>
     /// Creates a new class.
     /// </summary>
-    public static Class AddClass(this Meta @this, Domain.Domain domain, Guid id, string singularName, string? assignedPluralName = null)
+    public static Class AddClass(this Meta @this, Domain domain, Guid id, string singularName, string? assignedPluralName = null)
     {
         var m = @this.MetaMeta;
 
@@ -120,7 +119,7 @@ public static class MetaExtensions
     /// <summary>
     /// Creates new binary relation end types.
     /// </summary>
-    public static (BinaryAssociationType AssociationType, BinaryRoleType RoleType) AddBinaryRelation(this Meta @this, Domain.Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, string singularName, string? assignedPluralName = null)
+    public static (BinaryAssociationType AssociationType, BinaryRoleType RoleType) AddBinaryRelation(this Meta @this, Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, string singularName, string? assignedPluralName = null)
     {
         var m = @this.MetaMeta;
 
@@ -148,7 +147,7 @@ public static class MetaExtensions
     /// <summary>
     /// Creates new boolean relation end types.
     /// </summary>
-    public static (BooleanAssociationType AssociationType, BooleanRoleType RoleType) AddBooleanRelation(this Meta @this, Domain.Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, string singularName, string? assignedPluralName = null)
+    public static (BooleanAssociationType AssociationType, BooleanRoleType RoleType) AddBooleanRelation(this Meta @this, Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, string singularName, string? assignedPluralName = null)
     {
         var m = @this.MetaMeta;
 
@@ -176,7 +175,7 @@ public static class MetaExtensions
     /// <summary>
     /// Creates new datetime relation end types.
     /// </summary>
-    public static (DateTimeAssociationType AssociationType, DateTimeRoleType RoleType) AddDateTimeRelation(this Meta @this, Domain.Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, string singularName, string? assignedPluralName = null)
+    public static (DateTimeAssociationType AssociationType, DateTimeRoleType RoleType) AddDateTimeRelation(this Meta @this, Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, string singularName, string? assignedPluralName = null)
     {
         var m = @this.MetaMeta;
 
@@ -204,7 +203,7 @@ public static class MetaExtensions
     /// <summary>
     /// Creates new decimal relation end types.
     /// </summary>
-    public static (DecimalAssociationType AssociationType, DecimalRoleType RoleType) AddDecimalRelation(this Meta @this, Domain.Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, string singularName, string? assignedPluralName = null)
+    public static (DecimalAssociationType AssociationType, DecimalRoleType RoleType) AddDecimalRelation(this Meta @this, Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, string singularName, string? assignedPluralName = null)
     {
         var m = @this.MetaMeta;
 
@@ -232,7 +231,7 @@ public static class MetaExtensions
     /// <summary>
     /// Creates new float relation end types.
     /// </summary>
-    public static (FloatAssociationType AssociationType, FloatRoleType RoleType) AddFloatRelation(this Meta @this, Domain.Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, string singularName, string? assignedPluralName = null)
+    public static (FloatAssociationType AssociationType, FloatRoleType RoleType) AddFloatRelation(this Meta @this, Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, string singularName, string? assignedPluralName = null)
     {
         var m = @this.MetaMeta;
 
@@ -260,7 +259,7 @@ public static class MetaExtensions
     /// <summary>
     /// Creates new integer relation end types.
     /// </summary>
-    public static (IntegerAssociationType AssociationType, IntegerRoleType RoleType) AddIntegerRelation(this Meta @this, Domain.Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, string singularName, string? assignedPluralName = null)
+    public static (IntegerAssociationType AssociationType, IntegerRoleType RoleType) AddIntegerRelation(this Meta @this, Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, string singularName, string? assignedPluralName = null)
     {
         var m = @this.MetaMeta;
 
@@ -288,7 +287,7 @@ public static class MetaExtensions
     /// <summary>
     /// Creates new string relation end types.
     /// </summary>
-    public static (StringAssociationType AssociationType, StringRoleType RoleType) AddStringRelation(this Meta @this, Domain.Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, string singularName, string? assignedPluralName = null)
+    public static (StringAssociationType AssociationType, StringRoleType RoleType) AddStringRelation(this Meta @this, Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, string singularName, string? assignedPluralName = null)
     {
         var m = @this.MetaMeta;
 
@@ -316,7 +315,7 @@ public static class MetaExtensions
     /// <summary>
     /// Creates new unique relation end types.
     /// </summary>
-    public static (UniqueAssociationType AssociationType, UniqueRoleType RoleType) AddUniqueRelation(this Meta @this, Domain.Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, string singularName, string? assignedPluralName = null)
+    public static (UniqueAssociationType AssociationType, UniqueRoleType RoleType) AddUniqueRelation(this Meta @this, Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, string singularName, string? assignedPluralName = null)
     {
         var m = @this.MetaMeta;
 
@@ -344,7 +343,7 @@ public static class MetaExtensions
     /// <summary>
     /// Creates new OneToOne relation end types.
     /// </summary>
-    public static (OneToOneAssociationType AssociationType, OneToOneRoleType RoleType) AddOneToOneRelation(this Meta @this, Domain.Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, IComposite roleComposite, string? singularName = null, string? assignedPluralName = null)
+    public static (OneToOneAssociationType AssociationType, OneToOneRoleType RoleType) AddOneToOneRelation(this Meta @this, Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, IComposite roleComposite, string? singularName = null, string? assignedPluralName = null)
     {
         var m = @this.MetaMeta;
 
@@ -372,7 +371,7 @@ public static class MetaExtensions
     /// <summary>
     /// Creates new ManyToOne relation end types.
     /// </summary>
-    public static (ManyToOneAssociationType AssociationType, ManyToOneRoleType RoleType) AddManyToOneRelation(this Meta @this, Domain.Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, IComposite roleComposite, string? singularName = null, string? assignedPluralName = null)
+    public static (ManyToOneAssociationType AssociationType, ManyToOneRoleType RoleType) AddManyToOneRelation(this Meta @this, Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, IComposite roleComposite, string? singularName = null, string? assignedPluralName = null)
     {
         var m = @this.MetaMeta;
 
@@ -400,7 +399,7 @@ public static class MetaExtensions
     /// <summary>
     /// Creates new OneToMany relation end types.
     /// </summary>
-    public static (OneToManyAssociationType AssociationType, OneToManyRoleType RoleType) AddOneToManyRelation(this Meta @this, Domain.Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, IComposite roleComposite, string? singularName = null, string? assignedPluralName = null)
+    public static (OneToManyAssociationType AssociationType, OneToManyRoleType RoleType) AddOneToManyRelation(this Meta @this, Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, IComposite roleComposite, string? singularName = null, string? assignedPluralName = null)
     {
         var m = @this.MetaMeta;
 
@@ -428,7 +427,7 @@ public static class MetaExtensions
     /// <summary>
     /// Creates new ManyToMany relation end types.
     /// </summary>
-    public static (ManyToManyAssociationType AssociationType, ManyToManyRoleType RoleType) AddManyToManyRelation(this Meta @this, Domain.Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, IComposite roleComposite, string? singularName = null, string? assignedPluralName = null)
+    public static (ManyToManyAssociationType AssociationType, ManyToManyRoleType RoleType) AddManyToManyRelation(this Meta @this, Domain domain, Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, IComposite roleComposite, string? singularName = null, string? assignedPluralName = null)
     {
         var m = @this.MetaMeta;
 
