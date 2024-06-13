@@ -442,6 +442,25 @@ public class Domain : MetaObject
         return (associationType, roleType);
     }
 
+    /// <summary>
+    /// Adds a new unit.
+    /// </summary>
+    public MethodType AddMethod(Guid id, IComposite composite, string name)
+    {
+        var m = this.Meta.MetaMeta;
+
+        var methodType = this.Meta.Build<MethodType>(v =>
+        {
+            v[m.MetaObjectId] = id;
+            v[m.MethodTypeName] = name;
+        });
+
+        composite.Add(m.CompositeMethodTypes, methodType);
+        this.Add(m.DomainTypes(), methodType);
+
+        return methodType;
+    }
+
     /// <inheritdoc/>
     public override string ToString() => (string)this[this.Meta.MetaMeta.DomainName]!;
 }

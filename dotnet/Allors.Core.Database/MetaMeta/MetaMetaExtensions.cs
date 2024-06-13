@@ -48,6 +48,11 @@ public static class MetaMetaExtensions
     public static MetaManyToManyRoleType CompositeDirectSupertypes(this MetaMeta @this) => (MetaManyToManyRoleType)@this.RoleTypeById[CoreMetaMeta.CompositeDirectSupertypes];
 
     /// <summary>
+    /// The method types of a composite.
+    /// </summary>
+    public static MetaOneToManyRoleType CompositeMethodTypes(this MetaMeta @this) => (MetaOneToManyRoleType)@this.RoleTypeById[CoreMetaMeta.CompositeMethodTypes];
+
+    /// <summary>
     /// A domain.
     /// </summary>
     public static MetaObjectType Domain(this MetaMeta @this) => @this.ObjectTypeById[CoreMetaMeta.Domain];
@@ -381,4 +386,9 @@ public static class MetaMetaExtensions
     /// Method type.
     /// </summary>
     public static MetaObjectType MethodType(this MetaMeta @this) => @this.ObjectTypeById[CoreMetaMeta.MethodType];
+
+    /// <summary>
+    /// The name of a method type.
+    /// </summary>
+    public static MetaUnitRoleType MethodTypeName(this MetaMeta @this) => (MetaUnitRoleType)@this.RoleTypeById[CoreMetaMeta.MethodTypeName];
 }

@@ -60,6 +60,11 @@ public static class CoreMeta
     public static readonly Guid Object = new("89612710-ce42-4507-b1cf-cf48d63739a2");
 
     /// <summary>
+    /// Composite.OnInit.
+    /// </summary>
+    public static readonly Guid CompositeOnInit = new("03f3e559-f275-4bee-8036-1cf6e930804b");
+
+    /// <summary>
     /// Populates meta with Core types.
     /// </summary>
     public static void Populate(Meta meta)
@@ -84,6 +89,8 @@ public static class CoreMeta
         core.AddUnit(String, nameof(String));
         core.AddUnit(Unique, nameof(Unique));
 
-        core.AddInterface(Object, nameof(Object));
+        var @object = core.AddInterface(Object, nameof(Object));
+
+        core.AddMethod(CompositeOnInit, @object, "OnInit");
     }
 }

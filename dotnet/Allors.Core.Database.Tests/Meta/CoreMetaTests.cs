@@ -44,7 +44,7 @@ public class CoreMetaTests
         var associationTypes = meta.Objects.OfType<IAssociationType>().ToArray();
         var roleTypes = meta.Objects.OfType<IRoleType>().ToArray();
 
-        Assert.Equal(10, meta.Objects.Count);
+        Assert.Equal(11, meta.Objects.Count);
 
         Assert.Single(domains);
         Assert.Equal(8, units.Length);

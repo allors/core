@@ -12,527 +12,387 @@ public static class CoreMetaMeta
     /// <summary>
     /// Boolean.
     /// </summary>
-    public static readonly Guid Ida5e7554308e04fdca804e3681ba5eae5 = new("a5e75543-08e0-4fdc-a804-e3681ba5eae5");
+    public static readonly Guid Boolean = new("511ba257-f539-4358-a40f-5bf1e9b02d12");
 
     /// <summary>
     /// Integer.
     /// </summary>
-    public static readonly Guid Idbb6c48ad0ae34788ba8018d8ffdf7018 = new("bb6c48ad-0ae3-4788-ba80-18d8ffdf7018");
+    public static readonly Guid Integer = new("1e05bec5-0ad6-43b2-9228-87a5b1aee26c");
 
     /// <summary>
     /// String.
     /// </summary>
-    public static readonly Guid Idbe72ed5d508c4b7cb38590b74700f1c8 = new("be72ed5d-508c-4b7c-b385-90b74700f1c8");
+    public static readonly Guid String = new("8ae49724-21a4-4d8a-b9f8-a7c2ced4ee42");
 
     /// <summary>
     /// Unique.
     /// </summary>
-    public static readonly Guid Idf60a155258a040b087b5be468e4a256d = new("f60a1552-58a0-40b0-87b5-be468e4a256d");
+    public static readonly Guid Unique = new("12e9b779-f5c0-4226-ad43-3d11a9fbcffe");
 
     /// <summary>
     /// AssociationType.
     /// </summary>
-    public static readonly Guid Ide19973f8ad9a46f497e53e9640dee1b6 = new("e19973f8-ad9a-46f4-97e5-3e9640dee1b6");
+    public static readonly Guid AssociationType = new("4287897c-2e35-4c76-ab38-55240f245b84");
 
     /// <summary>
     /// Class.
     /// </summary>
-    public static readonly Guid Id258ef66a55d84aeb96df4651e8fc7d3a = new("258ef66a-55d8-4aeb-96df-4651e8fc7d3a");
+    public static readonly Guid Class = new("55dacce6-01fc-42ff-a220-5d6793a877d1");
 
     /// <summary>
     /// Composite.
     /// </summary>
-    public static readonly Guid Idb4b1745093774b5c9e349d27a35947c9 = new("b4b17450-9377-4b5c-9e34-9d27a35947c9");
+    public static readonly Guid Composite = new("91f76f9b-8398-45f0-bf85-96dfff762f19");
 
     /// <summary>
     /// CompositeAssociationType.
     /// </summary>
-    public static readonly Guid Id742e3899a7794c8291669561ae15b734 = new("742e3899-a779-4c82-9166-9561ae15b734");
+    public static readonly Guid CompositeAssociationType = new("bf69a88a-567d-4a58-8a73-6cb193a39abe");
 
     /// <summary>
     /// CompositeRoleType.
     /// </summary>
-    public static readonly Guid Ideb7830e0eead4655a76c6b8b8724fa1c = new("eb7830e0-eead-4655-a76c-6b8b8724fa1c");
+    public static readonly Guid CompositeRoleType = new("0e6a0520-a598-4955-9dda-9c30340bb445");
 
     /// <summary>
     /// Domain.
     /// </summary>
-    public static readonly Guid Id4e0633f5c5634034be9cad8346a4a5c8 = new("4e0633f5-c563-4034-be9c-ad8346a4a5c8");
+    public static readonly Guid Domain = new("a9a3bdcd-c263-4f0c-972e-ba0d289d38e5");
 
     /// <summary>
     /// Interface.
     /// </summary>
-    public static readonly Guid Idf22451acfafb44659b320f6a3abe50d3 = new("f22451ac-fafb-4465-9b32-0f6a3abe50d3");
+    public static readonly Guid Interface = new("aef007be-b33c-4bc9-bd85-57ac7780cfde");
 
     /// <summary>
     /// ManyToAssociationType.
     /// </summary>
-    public static readonly Guid Idbebcf6efff0f486aa58d135e60710bb5 = new("bebcf6ef-ff0f-486a-a58d-135e60710bb5");
+    public static readonly Guid ManyToAssociationType = new("10c62385-1fb1-47e2-93ce-a089bef00023");
 
     /// <summary>
     /// ManyToManyAssociationType.
     /// </summary>
-    public static readonly Guid Id6caed1de18ed4ed885ff92512affb077 = new("6caed1de-18ed-4ed8-85ff-92512affb077");
+    public static readonly Guid ManyToManyAssociationType = new("b687f8ff-1e29-4de5-a6b3-e763f613c987");
 
     /// <summary>
     /// ManyToManyRoleType.
     /// </summary>
-    public static readonly Guid Idfc8945fc94414fc8a29576a4af282e05 = new("fc8945fc-9441-4fc8-a295-76a4af282e05");
+    public static readonly Guid ManyToManyRoleType = new("154c174d-ee91-4bba-8f30-499131cf956f");
 
     /// <summary>
     /// ManyToOneAssociationType.
     /// </summary>
-    public static readonly Guid Idb0c7762d76384d1887e448eb9053b156 = new("b0c7762d-7638-4d18-87e4-48eb9053b156");
+    public static readonly Guid ManyToOneAssociationType = new("1cc0f9ce-bfc2-4396-b8aa-e52de6e432e9");
 
     /// <summary>
     /// ManyToOneRoleType.
     /// </summary>
-    public static readonly Guid Id3900a11455b642f8aea9b7937e38bc07 = new("3900a114-55b6-42f8-aea9-b7937e38bc07");
+    public static readonly Guid ManyToOneRoleType = new("467df2ed-9a71-4fe5-987d-b898022daba6");
 
     /// <summary>
     /// MetaObject.
     /// </summary>
-    public static readonly Guid Id258b338ea76f4022a4316732ef7fc021 = new("258b338e-a76f-4022-a431-6732ef7fc021");
+    public static readonly Guid MetaObject = new("f6ef46de-4c73-49b7-8207-41fa8882bc71");
 
     /// <summary>
     /// ObjectType.
     /// </summary>
-    public static readonly Guid Id20088de827b24fe7a016502e7e096f4f = new("20088de8-27b2-4fe7-a016-502e7e096f4f");
+    public static readonly Guid ObjectType = new("206b83d6-1f15-4a65-a63c-3b3ba0a13ebf");
 
     /// <summary>
     /// OneToAssociationType.
     /// </summary>
-    public static readonly Guid Id0fd0f52e9e79440d81a245513044aad4 = new("0fd0f52e-9e79-440d-81a2-45513044aad4");
+    public static readonly Guid OneToAssociationType = new("43c52aa6-581d-483f-be2a-c02bcb898e41");
 
     /// <summary>
     /// OneToManyAssociationType.
     /// </summary>
-    public static readonly Guid Ideb2e311db73644e0a28305bc195a46be = new("eb2e311d-b736-44e0-a283-05bc195a46be");
+    public static readonly Guid OneToManyAssociationType = new("594bb46b-9f53-4cd6-8b0d-9b14df7f3bab");
 
     /// <summary>
     /// OneToManyRoleType.
     /// </summary>
-    public static readonly Guid Ida4eb8af38d524e468b49646a8a25e293 = new("a4eb8af3-8d52-4e46-8b49-646a8a25e293");
+    public static readonly Guid OneToManyRoleType = new("178bfdc2-c7f3-4826-a301-2510083b59fc");
 
     /// <summary>
     /// OneToOneAssociationType.
     /// </summary>
-    public static readonly Guid Id8d081c3b47bd49aa911d3d537399383d = new("8d081c3b-47bd-49aa-911d-3d537399383d");
+    public static readonly Guid OneToOneAssociationType = new("04f43b50-9820-43b7-b833-a008ef99590d");
 
     /// <summary>
     /// OneToOneRoleType.
     /// </summary>
-    public static readonly Guid Idfe392f1c26744a1e9e74d0fb2afe0d95 = new("fe392f1c-2674-4a1e-9e74-d0fb2afe0d95");
+    public static readonly Guid OneToOneRoleType = new("3479e71f-dcb2-4529-b73e-4b35b0969d6b");
 
     /// <summary>
     /// OperandType.
     /// </summary>
-    public static readonly Guid Idee1e80cf7e3646c49b8b1fbcb2173299 = new("ee1e80cf-7e36-46c4-9b8b-1fbcb2173299");
+    public static readonly Guid OperandType = new("ab119a1b-4e69-4b4f-967d-e4b2b6ac2358");
 
     /// <summary>
     /// RelationEndType.
     /// </summary>
-    public static readonly Guid Ida159dd87bf9d468d9629d345d8f59242 = new("a159dd87-bf9d-468d-9629-d345d8f59242");
+    public static readonly Guid RelationEndType = new("61ff9f30-8fc4-4cb5-ba55-0cf246cae23e");
 
     /// <summary>
     /// RoleType.
     /// </summary>
-    public static readonly Guid Id6b811301cddc456d8614ca9302f91e55 = new("6b811301-cddc-456d-8614-ca9302f91e55");
+    public static readonly Guid RoleType = new("c96d1e6f-82d4-45e5-ac09-0b5d80644122");
 
     /// <summary>
     /// BinaryAssociationType.
     /// </summary>
-    public static readonly Guid Id0ad616a3aa2a48519dd3ebc58a11c0a1 = new("0ad616a3-aa2a-4851-9dd3-ebc58a11c0a1");
+    public static readonly Guid BinaryAssociationType = new("224dc6d7-fac5-425b-b724-9b97b278c23f");
 
     /// <summary>
     /// BinaryRoleType.
     /// </summary>
-    public static readonly Guid Id2a417adcb471408eab9308f6a649a489 = new("2a417adc-b471-408e-ab93-08f6a649a489");
+    public static readonly Guid BinaryRoleType = new("51beeb05-35bd-4aa4-822c-92286c2e3902");
 
     /// <summary>
     /// BooleanAssociationType.
     /// </summary>
-    public static readonly Guid Ide2ea398215484f0fae94d555bf8f318e = new("e2ea3982-1548-4f0f-ae94-d555bf8f318e");
+    public static readonly Guid BooleanAssociationType = new("ed6dfb08-137d-4caf-99cc-182040e258f4");
 
     /// <summary>
     /// BooleanRoleType.
     /// </summary>
-    public static readonly Guid Id5c688a7a012342ada64245351382e213 = new("5c688a7a-0123-42ad-a642-45351382e213");
+    public static readonly Guid BooleanRoleType = new("747ba7b0-b359-4986-866d-d3bc9dd3beed");
 
     /// <summary>
     /// Unique unit.
     /// </summary>
-    public static readonly Guid Id03320d095062403fbe641e09a856580c = new("03320d09-5062-403f-be64-1e09a856580c");
+    public static readonly Guid DateTimeAssociationType = new("299c28fc-3346-4306-93f1-5c4819912584");
 
     /// <summary>
     /// DateTimeRoleType.
     /// </summary>
-    public static readonly Guid Id71533eaf389445f9b47d1f6d8c8b61bc = new("71533eaf-3894-45f9-b47d-1f6d8c8b61bc");
+    public static readonly Guid DateTimeRoleType = new("dbba8db5-3d87-43ff-a2db-46f91bc06179");
 
     /// <summary>
     /// DecimalAssociationType
     /// </summary>
-    public static readonly Guid Id3e50b8734de646a39f9e497285a77719 = new("3e50b873-4de6-46a3-9f9e-497285a77719");
+    public static readonly Guid DecimalAssociationType = new("e1d1e1e7-2787-4661-b9b1-73513673161a");
 
     /// <summary>
     /// DecimalRoleType.
     /// </summary>
-    public static readonly Guid Id8991761dbe854601a67df85bcd5432e1 = new("8991761d-be85-4601-a67d-f85bcd5432e1");
+    public static readonly Guid DecimalRoleType = new("ff32465e-cc19-4b84-ac0d-c0ad692df850");
 
     /// <summary>
     /// FloatAssociationType.
     /// </summary>
-    public static readonly Guid Id11c199c1c2ba49339455643eebcb96f5 = new("11c199c1-c2ba-4933-9455-643eebcb96f5");
+    public static readonly Guid FloatAssociationType = new("33008ba3-3aa1-4459-a78b-5477bdc40caa");
 
     /// <summary>
     /// FloatRoleType.
     /// </summary>
-    public static readonly Guid Id2eada119a35c4076b9ba6b731684c2af = new("2eada119-a35c-4076-b9ba-6b731684c2af");
+    public static readonly Guid FloatRoleType = new("e9010410-c8ea-43dc-b6ec-8acafcca9fba");
 
     /// <summary>
-    /// Unique unit.
+    /// Inheritance.
     /// </summary>
-    public static readonly Guid Id8fbe1a091883471691d3609190d9a23d = new("8fbe1a09-1883-4716-91d3-609190d9a23d");
+    public static readonly Guid Inheritance = new("b0c7a79c-7d42-4d2c-8ce0-04e8082667d7");
 
     /// <summary>
-    /// Unique unit.
+    /// Integer association type.
     /// </summary>
-    public static readonly Guid Id1e62c68ed9ba4169add4865b53136108 = new("1e62c68e-d9ba-4169-add4-865b53136108");
+    public static readonly Guid IntegerAssociationType = new("1320da26-cf7f-49d7-9931-3715cb7b7f2b");
 
     /// <summary>
-    /// Unique unit.
+    /// Integer role type.
     /// </summary>
-    public static readonly Guid Id65f77b865a2a4961b7e40eaa42b2a157 = new("65f77b86-5a2a-4961-b7e4-0eaa42b2a157");
+    public static readonly Guid IntegerRoleType = new("fbc6fd09-16a3-4f4b-9bce-f3ccad7cc5ad");
 
     /// <summary>
     /// StringAssociationType.
     /// </summary>
-    public static readonly Guid Id0368b7c473f84f9b818260e09771b62c = new("0368b7c4-73f8-4f9b-8182-60e09771b62c");
+    public static readonly Guid StringAssociationType = new("cf362c23-e0ba-4a92-a185-f51ef848e239");
 
     /// <summary>
     /// StringRoleType.
     /// </summary>
-    public static readonly Guid Idb8d12288b5aa4b1a9226c8902cd684c1 = new("b8d12288-b5aa-4b1a-9226-c8902cd684c1");
+    public static readonly Guid StringRoleType = new("aabaeeb7-470e-449d-b8ca-70331ef08a4d");
 
     /// <summary>
     /// UniqueAssociationType.
     /// </summary>
-    public static readonly Guid Id1e674346ccff43e5a31d842803e30957 = new("1e674346-ccff-43e5-a31d-842803e30957");
+    public static readonly Guid UniqueAssociationType = new("6652495f-7788-47ec-b55a-02bbb07052a7");
 
     /// <summary>
     /// Unique unit.
     /// </summary>
-    public static readonly Guid Id849fd4fa951a404eb48166db3dd43fd4 = new("849fd4fa-951a-404e-b481-66db3dd43fd4");
+    public static readonly Guid UniqueRoleType = new("8d5116dd-71c7-48db-acf2-6df54bf748aa");
 
     /// <summary>
     /// ToManyRoleType.
     /// </summary>
-    public static readonly Guid Id7480bb3530ad47a68a70e29d11b76539 = new("7480bb35-30ad-47a6-8a70-e29d11b76539");
+    public static readonly Guid ToManyRoleType = new("a8794a9c-bf6e-4758-9412-aa9888bd62de");
 
     /// <summary>
     /// ToOneRoleType.
     /// </summary>
-    public static readonly Guid Id774a1bcec414423f84a0450be5eba46d = new("774a1bce-c414-423f-84a0-450be5eba46d");
+    public static readonly Guid ToOneRoleType = new("6e562fe4-3f79-4261-abd4-14e6449d0725");
 
     /// <summary>
     /// Type.
     /// </summary>
-    public static readonly Guid Id08768b551d35427b82099ad7c3c77d18 = new("08768b55-1d35-427b-8209-9ad7c3c77d18");
+    public static readonly Guid Type = new("8a79ad47-0898-45ac-8f2f-cf54b8f55dec");
 
     /// <summary>
     /// Unit.
     /// </summary>
-    public static readonly Guid Id32c01fd790024a3ab3641b2ecae870a0 = new("32c01fd7-9002-4a3a-b364-1b2ecae870a0");
+    public static readonly Guid Unit = new("036f1e32-4fe8-4d6b-94ec-bc44b924891a");
 
     /// <summary>
     /// UnitAssociationType.
     /// </summary>
-    public static readonly Guid Id76e3b37986c04015b279dfc8b272a128 = new("76e3b379-86c0-4015-b279-dfc8b272a128");
+    public static readonly Guid UnitAssociationType = new("5afbc950-84ea-4111-97a7-33d0504b881e");
 
     /// <summary>
     /// UnitRoleType.
     /// </summary>
-    public static readonly Guid Idd295663a17314c05930ba51002c25453 = new("d295663a-1731-4c05-930b-a51002c25453");
+    public static readonly Guid UnitRoleType = new("48c1a7fb-6247-4ee4-9c4d-21bb6cb7d15e");
 
     /// <summary>
     /// AssociationType.Composite.
     /// </summary>
-    public static readonly Guid Idc1bfd18c823b4c239e2ae5bb8e0609d9 = new("c1bfd18c-823b-4c23-9e2a-e5bb8e0609d9");
+    public static readonly Guid AssociationTypeComposite = new("0576ea29-8b60-44c5-bc3b-ac74a527482a");
 
     /// <summary>
     /// Composite.DirectSupertype.
     /// </summary>
-    public static readonly Guid Ide23b108718904741b76faabea13ba7ee = new("e23b1087-1890-4741-b76f-aabea13ba7ee");
+    public static readonly Guid CompositeDirectSupertypes = new("028079f1-96dc-4149-b853-01b18f849a8f");
 
     /// <summary>
     /// Composite.Supertype.
     /// </summary>
-    public static readonly Guid Idc350727f3b2249a6bea9407e3acadb8d = new("c350727f-3b22-49a6-bea9-407e3acadb8d");
+    public static readonly Guid CompositeSupertypes = new("e6fc7f17-9355-4558-ad4a-d2d27770fa2a");
+
+    /// <summary>
+    /// Composite.MethodTypes.
+    /// </summary>
+    public static readonly Guid CompositeMethodTypes = new("060d51a9-2f82-4b90-b90f-85b9c13d0277");
 
     /// <summary>
     /// DecimalRoleType.AssignedPrecision.
     /// </summary>
-    public static readonly Guid Id39de4b9c0da946e0a3fb186f78014194 = new("39de4b9c-0da9-46e0-a3fb-186f78014194");
+    public static readonly Guid DecimalRoleTypeAssignedPrecision = new("a7de3651-0d6a-43ab-864d-2f9ef428c39e");
 
     /// <summary>
     /// DecimalRoleType.DerivedPrecision.
     /// </summary>
-    public static readonly Guid Id4c80959cf1b444dfabe2980c74e64b56 = new("4c80959c-f1b4-44df-abe2-980c74e64b56");
+    public static readonly Guid DecimalRoleTypeDerivedPrecision = new("5430d1f6-871f-4c3a-9568-a202cbe41e58");
 
     /// <summary>
     /// DecimalRoleType.AssignedScale.
     /// </summary>
-    public static readonly Guid Idde8eccfbabac4b368d1a524c43ae1a72 = new("de8eccfb-abac-4b36-8d1a-524c43ae1a72");
+    public static readonly Guid DecimalRoleTypeAssignedScale = new("f122521b-4280-4074-aa25-38e7fd6f834b");
 
     /// <summary>
     /// DecimalRoleType.DerivedScale.
     /// </summary>
-    public static readonly Guid Idd8f2c868d9c94ea790f61cd043c2e9d8 = new("d8f2c868-d9c9-4ea7-90f6-1cd043c2e9d8");
+    public static readonly Guid DecimalRoleTypeDerivedScale = new("4515cc49-a00b-48d2-92b2-bba88457db94");
 
     /// <summary>
     ///  Domain.Name.
     /// </summary>
-    public static readonly Guid Id2b42b7b25ebc42f696142e0f3a95c718 = new("2b42b7b2-5ebc-42f6-9614-2e0f3a95c718");
+    public static readonly Guid DomainName = new("31a2c5f1-98c7-41dd-953e-f6296ea4a442");
 
     /// <summary>
-    ///  Domain.Superdomain.
+    ///  Domain.Superdomains.
     /// </summary>
-    public static readonly Guid Id25297ff92bc649a7940946369388e6d7 = new("25297ff9-2bc6-49a7-9409-46369388e6d7");
+    public static readonly Guid DomainSuperdomains = new("2cf50569-4218-47d0-98be-c580d6468553");
 
     /// <summary>
-    /// Domain.Type.
+    /// Domain.Types.
     /// </summary>
-    public static readonly Guid Id57696f40878b4bbcad4fd77f4b34ee09 = new("57696f40-878b-4bbc-ad4f-d77f4b34ee09");
+    public static readonly Guid DomainTypes = new("2aa85f9f-9396-4bed-8b3c-979a57d7af12");
 
     /// <summary>
     /// Inheritance.Subtype.
     /// </summary>
-    public static readonly Guid Ida9bac7e2ccaa4ff9bcbb401770e139b4 = new("a9bac7e2-ccaa-4ff9-bcbb-401770e139b4");
+    public static readonly Guid InheritanceSubtype = new("9fb0fab6-59cb-4fe4-bbb7-931b6028b95d");
 
     /// <summary>
     /// Inheritance.Supertype.
     /// </summary>
-    public static readonly Guid Id331535e05afd42dc92517dea0c9d9d44 = new("331535e0-5afd-42dc-9251-7dea0c9d9d44");
+    public static readonly Guid InheritanceSupertype = new("da19a471-a3e4-4651-89c7-1a496bdd158c");
 
     /// <summary>
     /// ObjectType.AssignedPluralName.
     /// </summary>
-    public static readonly Guid Id25ab19cc97dd4fce9a37ffefb8cb4479 = new("25ab19cc-97dd-4fce-9a37-ffefb8cb4479");
+    public static readonly Guid ObjectTypeAssignedPluralName = new("5add121d-86fe-4736-8a42-f3e4bafb2850");
 
     /// <summary>
     /// ObjectType.DerivedPluralName.
     /// </summary>
-    public static readonly Guid Iddc3de909e05e46ffaf59c639035aa23e = new("dc3de909-e05e-46ff-af59-c639035aa23e");
+    public static readonly Guid ObjectTypeDerivedPluralName = new("daddf3b8-d7e9-480e-a034-a9b99d3d25a3");
 
     /// <summary>
     /// ObjectType.SingularName.
     /// </summary>
-    public static readonly Guid Idef9d33ad73904ee198d96e4410434eb3 = new("ef9d33ad-7390-4ee1-98d9-6e4410434eb3");
+    public static readonly Guid ObjectTypeSingularName = new("876932da-afb6-4e2c-91b9-abd1fccee3fe");
 
     /// <summary>
     /// MetaObject.Id.
     /// </summary>
-    public static readonly Guid Id6df34d00e78b47e09a9cbd5a3897efd4 = new("6df34d00-e78b-47e0-9a9c-bd5a3897efd4");
+    public static readonly Guid MetaObjectId = new("7f7763ab-2e91-4d68-8745-b3dec3780875");
 
     /// <summary>
     /// RelationEndType.IsMany.
     /// </summary>
-    public static readonly Guid Idb84e1f6afbee4e9085431a609149828a = new("b84e1f6a-fbee-4e90-8543-1a609149828a");
+    public static readonly Guid RelationEndTypeIsMany = new("666fc147-630d-4527-8816-5829df92ff2e");
 
     /// <summary>
     /// RoleType.AssociationType.
     /// </summary>
-    public static readonly Guid Id21df9d276b9b496499381999929c5d32 = new("21df9d27-6b9b-4964-9938-1999929c5d32");
+    public static readonly Guid RoleTypeAssociationType = new("8478320e-e136-485c-ba18-1787858b1182");
 
     /// <summary>
     ///  RoleType.AssignedPluralName.
     /// </summary>
-    public static readonly Guid Id0ae6a8fafb9c4f93b1199286f4092ded = new("0ae6a8fa-fb9c-4f93-b119-9286f4092ded");
+    public static readonly Guid RoleTypeAssignedPluralName = new("701925a3-a4a6-40ba-800f-585d38a4d681");
 
     /// <summary>
     /// this.RoleType.DerivedPluralName.
     /// </summary>
-    public static readonly Guid Id48691ed859eb41cdb56ae4ecd7605fb3 = new("48691ed8-59eb-41cd-b56a-e4ecd7605fb3");
+    public static readonly Guid RoleTypeDerivedPluralName = new("73e2c90f-5e33-4972-9e96-d7c3e0448626");
 
     /// <summary>
     /// RoleType.ObjectType.
     /// </summary>
-    public static readonly Guid Id8c48eea7b828414daca835d3aa15d804 = new("8c48eea7-b828-414d-aca8-35d3aa15d804");
+    public static readonly Guid RoleTypeObjectType = new("623f0c02-ff2d-4ae2-a8f8-17904145ca37");
 
     /// <summary>
     /// RoleType.Name.
     /// </summary>
-    public static readonly Guid Id9983827c23e74f9d9e8b688e319250e3 = new("9983827c-23e7-4f9d-9e8b-688e319250e3");
+    public static readonly Guid RoleTypeName = new("6a0bc21b-89e1-4725-b549-e09db91dd4bb");
 
     /// <summary>
     /// RoleType.SingularName.
     /// </summary>
-    public static readonly Guid Id9c1ddde7d9ce4082ba04b69b759d19e5 = new("9c1ddde7-d9ce-4082-ba04-b69b759d19e5");
+    public static readonly Guid RoleTypeSingularName = new("5894a7a9-d82a-4725-8440-15966a642147");
 
     /// <summary>
     /// StringRoleType.AssignedSize.
     /// </summary>
-    public static readonly Guid Id321bb675029842ae842a39131f4e1662 = new("321bb675-0298-42ae-842a-39131f4e1662");
+    public static readonly Guid StringRoleTypeAssignedSize = new("2c83f218-2322-4d20-b685-841c12f2c5c7");
 
     /// <summary>
     /// StringRoleType.DerivedSize.
     /// </summary>
-    public static readonly Guid Id407e07f46d6648459cdb03e897166d0f = new("407e07f4-6d66-4845-9cdb-03e897166d0f");
+    public static readonly Guid StringRoleTypeDerivedSize = new("317ff448-82e1-4788-93f4-d61b9e48ce34");
 
     /// <summary>
     /// MethodType.
     /// </summary>
-    public static readonly Guid Id6c831d69337642e8828ad564d95d9f7c = new("6c831d69-3376-42e8-828a-d564d95d9f7c");
-
-    internal static Guid Boolean => Ida5e7554308e04fdca804e3681ba5eae5;
-
-    internal static Guid Integer => Idbb6c48ad0ae34788ba8018d8ffdf7018;
-
-    internal static Guid String => Idbe72ed5d508c4b7cb38590b74700f1c8;
-
-    internal static Guid Unique => Idf60a155258a040b087b5be468e4a256d;
-
-    internal static Guid AssociationType => Ide19973f8ad9a46f497e53e9640dee1b6;
-
-    internal static Guid Class => Id258ef66a55d84aeb96df4651e8fc7d3a;
-
-    internal static Guid Composite => Idb4b1745093774b5c9e349d27a35947c9;
-
-    internal static Guid CompositeAssociationType => Id742e3899a7794c8291669561ae15b734;
-
-    internal static Guid CompositeRoleType => Ideb7830e0eead4655a76c6b8b8724fa1c;
-
-    internal static Guid Domain => Id4e0633f5c5634034be9cad8346a4a5c8;
-
-    internal static Guid Interface => Idf22451acfafb44659b320f6a3abe50d3;
-
-    internal static Guid ManyToAssociationType => Idbebcf6efff0f486aa58d135e60710bb5;
-
-    internal static Guid ManyToManyAssociationType => Id6caed1de18ed4ed885ff92512affb077;
-
-    internal static Guid ManyToManyRoleType => Idfc8945fc94414fc8a29576a4af282e05;
-
-    internal static Guid ManyToOneAssociationType => Idb0c7762d76384d1887e448eb9053b156;
-
-    internal static Guid ManyToOneRoleType => Id3900a11455b642f8aea9b7937e38bc07;
-
-    internal static Guid MetaObject => Id258b338ea76f4022a4316732ef7fc021;
-
-    internal static Guid ObjectType => Id20088de827b24fe7a016502e7e096f4f;
-
-    internal static Guid OneToAssociationType => Id0fd0f52e9e79440d81a245513044aad4;
-
-    internal static Guid OneToManyAssociationType => Ideb2e311db73644e0a28305bc195a46be;
-
-    internal static Guid OneToManyRoleType => Ida4eb8af38d524e468b49646a8a25e293;
-
-    internal static Guid OneToOneAssociationType => Id8d081c3b47bd49aa911d3d537399383d;
-
-    internal static Guid OneToOneRoleType => Idfe392f1c26744a1e9e74d0fb2afe0d95;
-
-    internal static Guid OperandType => Idee1e80cf7e3646c49b8b1fbcb2173299;
-
-    internal static Guid RelationEndType => Ida159dd87bf9d468d9629d345d8f59242;
-
-    internal static Guid RoleType => Id6b811301cddc456d8614ca9302f91e55;
-
-    internal static Guid BinaryAssociationType => Id0ad616a3aa2a48519dd3ebc58a11c0a1;
-
-    internal static Guid BinaryRoleType => Id2a417adcb471408eab9308f6a649a489;
-
-    internal static Guid BooleanAssociationType => Ide2ea398215484f0fae94d555bf8f318e;
-
-    internal static Guid BooleanRoleType => Id5c688a7a012342ada64245351382e213;
-
-    internal static Guid DateTimeAssociationType => Id03320d095062403fbe641e09a856580c;
-
-    internal static Guid DateTimeRoleType => Id71533eaf389445f9b47d1f6d8c8b61bc;
-
-    internal static Guid DecimalAssociationType => Id3e50b8734de646a39f9e497285a77719;
-
-    internal static Guid DecimalRoleType => Id8991761dbe854601a67df85bcd5432e1;
-
-    internal static Guid FloatAssociationType => Id11c199c1c2ba49339455643eebcb96f5;
-
-    internal static Guid FloatRoleType => Id2eada119a35c4076b9ba6b731684c2af;
-
-    internal static Guid Inheritance => Id8fbe1a091883471691d3609190d9a23d;
-
-    internal static Guid IntegerAssociationType => Id1e62c68ed9ba4169add4865b53136108;
-
-    internal static Guid IntegerRoleType => Id65f77b865a2a4961b7e40eaa42b2a157;
-
-    internal static Guid StringAssociationType => Id0368b7c473f84f9b818260e09771b62c;
-
-    internal static Guid StringRoleType => Idb8d12288b5aa4b1a9226c8902cd684c1;
-
-    internal static Guid UniqueAssociationType => Id1e674346ccff43e5a31d842803e30957;
-
-    internal static Guid UniqueRoleType => Id849fd4fa951a404eb48166db3dd43fd4;
-
-    internal static Guid ToManyRoleType => Id7480bb3530ad47a68a70e29d11b76539;
-
-    internal static Guid ToOneRoleType => Id774a1bcec414423f84a0450be5eba46d;
-
-    internal static Guid Type => Id08768b551d35427b82099ad7c3c77d18;
-
-    internal static Guid Unit => Id32c01fd790024a3ab3641b2ecae870a0;
-
-    internal static Guid UnitAssociationType => Id76e3b37986c04015b279dfc8b272a128;
-
-    internal static Guid UnitRoleType => Idd295663a17314c05930ba51002c25453;
-
-    internal static Guid AssociationTypeComposite => Idc1bfd18c823b4c239e2ae5bb8e0609d9;
-
-    internal static Guid CompositeDirectSupertypes => Ide23b108718904741b76faabea13ba7ee;
-
-    internal static Guid CompositeSupertypes => Idc350727f3b2249a6bea9407e3acadb8d;
-
-    internal static Guid DecimalRoleTypeAssignedPrecision => Id39de4b9c0da946e0a3fb186f78014194;
-
-    internal static Guid DecimalRoleTypeDerivedPrecision => Id4c80959cf1b444dfabe2980c74e64b56;
-
-    internal static Guid DecimalRoleTypeAssignedScale => Idde8eccfbabac4b368d1a524c43ae1a72;
-
-    internal static Guid DecimalRoleTypeDerivedScale => Idd8f2c868d9c94ea790f61cd043c2e9d8;
-
-    internal static Guid DomainName => Id2b42b7b25ebc42f696142e0f3a95c718;
-
-    internal static Guid DomainSuperdomains => Id25297ff92bc649a7940946369388e6d7;
-
-    internal static Guid DomainTypes => Id57696f40878b4bbcad4fd77f4b34ee09;
-
-    internal static Guid InheritanceSubtype => Ida9bac7e2ccaa4ff9bcbb401770e139b4;
-
-    internal static Guid InheritanceSupertype => Id331535e05afd42dc92517dea0c9d9d44;
-
-    internal static Guid ObjectTypeAssignedPluralName => Id25ab19cc97dd4fce9a37ffefb8cb4479;
-
-    internal static Guid ObjectTypeDerivedPluralName => Iddc3de909e05e46ffaf59c639035aa23e;
-
-    internal static Guid ObjectTypeSingularName => Idef9d33ad73904ee198d96e4410434eb3;
-
-    internal static Guid MetaObjectId => Id6df34d00e78b47e09a9cbd5a3897efd4;
-
-    internal static Guid RelationEndTypeIsMany => Idb84e1f6afbee4e9085431a609149828a;
-
-    internal static Guid RoleTypeAssociationType => Id21df9d276b9b496499381999929c5d32;
-
-    internal static Guid RoleTypeAssignedPluralName => Id0ae6a8fafb9c4f93b1199286f4092ded;
-
-    internal static Guid RoleTypeDerivedPluralName => Id48691ed859eb41cdb56ae4ecd7605fb3;
-
-    internal static Guid RoleTypeObjectType => Id8c48eea7b828414daca835d3aa15d804;
-
-    internal static Guid RoleTypeName => Id9983827c23e74f9d9e8b688e319250e3;
-
-    internal static Guid RoleTypeSingularName => Id9c1ddde7d9ce4082ba04b69b759d19e5;
-
-    internal static Guid StringRoleTypeAssignedSize => Id321bb675029842ae842a39131f4e1662;
-
-    internal static Guid StringRoleTypeDerivedSize => Id407e07f46d6648459cdb03e897166d0f;
-
-    internal static Guid MethodType => Id6c831d69337642e8828ad564d95d9f7c;
+    public static readonly Guid MethodType = new("5768954e-012b-4b2e-bb22-992806ad973d");
+
+    /// <summary>
+    /// MethodType.Name.
+    /// </summary>
+    public static readonly Guid MethodTypeName = new("4ce1c11d-ce95-43cb-89d2-c0f2ebe84493");
 
     /// <summary>
     /// Populates meta meta with Core types.
@@ -546,28 +406,28 @@ public static class CoreMetaMeta
         var unique = m.AddUnit(Unique, nameof(Unique));
 
         // Composites
-        var associationType = m.AddInterface(AssociationType, "AssociationType");
+        var associationType = m.AddInterface(AssociationType, nameof(AssociationType));
         var @class = m.AddClass(Class, typeof(Class));
-        var composite = m.AddInterface(Composite, "Composite");
-        var compositeAssociationType = m.AddInterface(CompositeAssociationType, "CompositeAssociationType");
-        var compositeRoleType = m.AddInterface(CompositeRoleType, "CompositeRoleType");
+        var composite = m.AddInterface(Composite, nameof(Composite));
+        var compositeAssociationType = m.AddInterface(CompositeAssociationType, nameof(CompositeAssociationType));
+        var compositeRoleType = m.AddInterface(CompositeRoleType, nameof(CompositeRoleType));
         var domain = m.AddClass(Domain, typeof(Domain));
         var @interface = m.AddClass(Interface, typeof(Interface));
-        var manyToAssociationType = m.AddInterface(ManyToAssociationType, "ManyToAssociationType");
+        var manyToAssociationType = m.AddInterface(ManyToAssociationType, nameof(ManyToAssociationType));
         var manyToManyAssociationType = m.AddClass(ManyToManyAssociationType, typeof(ManyToManyAssociationType));
         var manyToManyRoleType = m.AddClass(ManyToManyRoleType, typeof(ManyToManyRoleType));
         var manyToOneAssociationType = m.AddClass(ManyToOneAssociationType, typeof(ManyToOneAssociationType));
         var manyToOneRoleType = m.AddClass(ManyToOneRoleType, typeof(ManyToOneRoleType));
-        var metaObject = m.AddInterface(MetaObject, "MetaObject");
-        var objectType = m.AddInterface(ObjectType, "ObjectType");
-        var oneToAssociationType = m.AddInterface(OneToAssociationType, "OneToAssociationType");
+        var metaObject = m.AddInterface(MetaObject, nameof(MetaObject));
+        var objectType = m.AddInterface(ObjectType, nameof(ObjectType));
+        var oneToAssociationType = m.AddInterface(OneToAssociationType, nameof(OneToAssociationType));
         var oneToManyAssociationType = m.AddClass(OneToManyAssociationType, typeof(OneToManyAssociationType));
         var oneToManyRoleType = m.AddClass(OneToManyRoleType, typeof(OneToManyRoleType));
         var oneToOneAssociationType = m.AddClass(OneToOneAssociationType, typeof(OneToOneAssociationType));
         var oneToOneRoleType = m.AddClass(OneToOneRoleType, typeof(OneToOneRoleType));
-        var operandType = m.AddInterface(OperandType, "OperandType");
-        var relationEndType = m.AddInterface(RelationEndType, "RelationEndType");
-        var roleType = m.AddInterface(RoleType, "RoleType");
+        var operandType = m.AddInterface(OperandType, nameof(OperandType));
+        var relationEndType = m.AddInterface(RelationEndType, nameof(RelationEndType));
+        var roleType = m.AddInterface(RoleType, nameof(RoleType));
         var binaryAssociationType = m.AddClass(BinaryAssociationType, typeof(BinaryAssociationType));
         var binaryRoleType = m.AddClass(BinaryRoleType, typeof(BinaryRoleType));
         var booleanAssociationType = m.AddClass(BooleanAssociationType, typeof(BooleanAssociationType));
@@ -585,13 +445,13 @@ public static class CoreMetaMeta
         var stringRoleType = m.AddClass(StringRoleType, typeof(StringRoleType));
         var uniqueAssociationType = m.AddClass(UniqueAssociationType, typeof(UniqueAssociationType));
         var uniqueRoleType = m.AddClass(UniqueRoleType, typeof(UniqueRoleType));
-        var toManyRoleType = m.AddInterface(ToManyRoleType, "ToManyRoleType ");
-        var toOneRoleType = m.AddInterface(ToOneRoleType, "ToOneRoleType");
-        var type = m.AddInterface(Type, "Type");
+        var toManyRoleType = m.AddInterface(ToManyRoleType, nameof(ToManyRoleType));
+        var toOneRoleType = m.AddInterface(ToOneRoleType, nameof(ToOneRoleType));
+        var type = m.AddInterface(Type, nameof(Type));
         var unit = m.AddClass(Unit, typeof(Unit));
-        var unitAssociationType = m.AddInterface(UnitAssociationType, "UnitAssociationType");
-        var unitRoleType = m.AddInterface(UnitRoleType, "UnitRoleType");
-        var methodType = m.AddClass(MethodType, nameof(MethodType));
+        var unitAssociationType = m.AddInterface(UnitAssociationType, nameof(UnitAssociationType));
+        var unitRoleType = m.AddInterface(UnitRoleType, nameof(UnitRoleType));
+        var methodType = m.AddClass(MethodType, typeof(MethodType));
 
         // Inheritance
         m.AddInheritance(new Guid("12ec1d97-6208-4cf5-866b-58675aa8a38e"), associationType, relationEndType);
@@ -644,6 +504,7 @@ public static class CoreMetaMeta
 
         m.AddManyToManyRelation(new Guid("960162a2-a902-4cd9-9576-ccb0e7c9e01c"), CompositeDirectSupertypes, composite, @interface, "DirectSupertype");
         m.AddManyToManyRelation(new Guid("b0129926-2eb2-4ac7-80e0-93a2329964cf"), CompositeSupertypes, composite, @interface, "Supertype");
+        m.AddOneToManyRelation(new Guid("1883f701-6037-442c-9ae9-140b715110a6"), CompositeMethodTypes, composite, methodType);
 
         m.AddUnitRelation(new Guid("5b2ac86d-af09-46f6-a454-4d2a3bdeaed3"), DecimalRoleTypeAssignedPrecision, decimalRoleType, integer, "AssignedPrecision");
         m.AddUnitRelation(new Guid("3c25e09b-6b89-46e9-b1bb-f89c4d2fa4db"), DecimalRoleTypeDerivedPrecision, decimalRoleType, integer, "DerivedPrecision");
@@ -656,6 +517,8 @@ public static class CoreMetaMeta
 
         m.AddManyToOneRelation(new Guid("e2cd96af-a436-439c-b02b-ecf23f19a96f"), InheritanceSubtype, inheritance, composite, "Subtype");
         m.AddManyToOneRelation(new Guid("c9f8f651-5b6e-408d-b088-0ca925e8b2d5"), InheritanceSupertype, inheritance, @interface, "Supertype");
+
+        m.AddUnitRelation(new Guid("d8a5df00-b3d8-4a9b-a2b6-27b94ba4e6ab"), MethodTypeName, methodType, @string, "Name");
 
         m.AddUnitRelation(new Guid("c45fcfac-5614-4a03-b86a-df2f75cc5fcb"), ObjectTypeAssignedPluralName, objectType, @string, "AssignedPluralName");
         m.AddUnitRelation(new Guid("edb514d1-f0b6-44d0-a0ce-2ff9a132b4f7"), ObjectTypeDerivedPluralName, objectType, @string, "DerivedPluralName");
