@@ -23,12 +23,12 @@ public class CompositeTests
 
         var domain = meta.AddDomain(Guid.NewGuid(), "MyDomain");
 
-        var s1 = meta.AddInterface(domain, Guid.NewGuid(), "S1");
-        var i1 = meta.AddInterface(domain, Guid.NewGuid(), "I1");
-        var c1 = meta.AddInterface(domain, Guid.NewGuid(), "C1");
+        var s1 = domain.AddInterface(Guid.NewGuid(), "S1");
+        var i1 = domain.AddInterface(Guid.NewGuid(), "I1");
+        var c1 = domain.AddInterface(Guid.NewGuid(), "C1");
 
-        meta.AddInheritance(domain, Guid.NewGuid(), i1, s1);
-        meta.AddInheritance(domain, Guid.NewGuid(), c1, i1);
+        domain.AddInheritance(Guid.NewGuid(), i1, s1);
+        domain.AddInheritance(Guid.NewGuid(), c1, i1);
 
         meta.Derive();
 

@@ -19,7 +19,7 @@ public static class CoreMeta
     /// </summary>
     public static readonly Guid Binary = new("ebfaa622-3ba0-4957-bf08-0cb10d0a8041");
 
-     /// <summary>
+    /// <summary>
     /// Boolean.
     /// </summary>
     public static readonly Guid Boolean = new("e1d97d02-3ded-40a2-a5fa-ff9ece678ad6");
@@ -73,17 +73,17 @@ public static class CoreMeta
         meta.DerivationById[nameof(StringRoleTypeDerivedSize)] = new StringRoleTypeDerivedSize(meta);
 
         // Domain
-        var d = meta.AddDomain(AllorsCore, nameof(AllorsCore));
+        var core = meta.AddDomain(AllorsCore, nameof(AllorsCore));
 
-        meta.AddUnit(d, Binary, nameof(Binary));
-        meta.AddUnit(d, Boolean, nameof(Boolean));
-        meta.AddUnit(d, DateTime, nameof(DateTime));
-        meta.AddUnit(d, Decimal, nameof(Decimal));
-        meta.AddUnit(d, Float, nameof(Float));
-        meta.AddUnit(d, Integer, nameof(Integer));
-        meta.AddUnit(d, String, nameof(String));
-        meta.AddUnit(d, Unique, nameof(Unique));
+        core.AddUnit(Binary, nameof(Binary));
+        core.AddUnit(Boolean, nameof(Boolean));
+        core.AddUnit(DateTime, nameof(DateTime));
+        core.AddUnit(Decimal, nameof(Decimal));
+        core.AddUnit(Float, nameof(Float));
+        core.AddUnit(Integer, nameof(Integer));
+        core.AddUnit(String, nameof(String));
+        core.AddUnit(Unique, nameof(Unique));
 
-        meta.AddInterface(d, Object, nameof(Object));
+        core.AddInterface(Object, nameof(Object));
     }
 }

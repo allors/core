@@ -126,51 +126,51 @@ public static class TestsMeta
     {
         var d = m.AddDomain(AllorsTests, nameof(AllorsTests));
 
-        var i1 = m.AddInterface(d, I1, nameof(I1));
-        var i2 = m.AddInterface(d, I2, nameof(I2));
-        var i12 = m.AddInterface(d, I12, nameof(I2));
-        var s1 = m.AddInterface(d, S1, nameof(S1));
-        var s2 = m.AddInterface(d, S2, nameof(S2));
+        var i1 = d.AddInterface(I1, nameof(I1));
+        var i2 = d.AddInterface(I2, nameof(I2));
+        var i12 = d.AddInterface(I12, nameof(I2));
+        var s1 = d.AddInterface(S1, nameof(S1));
+        var s2 = d.AddInterface(S2, nameof(S2));
 
-        var c1 = m.AddClass(d, C1, nameof(C1));
-        var c2 = m.AddClass(d, C2, nameof(C2));
-        var c3 = m.AddClass(d, C3, nameof(C3));
-        var c4 = m.AddClass(d, C4, nameof(C4));
+        var c1 = d.AddClass(C1, nameof(C1));
+        var c2 = d.AddClass(C2, nameof(C2));
+        var c3 = d.AddClass(C3, nameof(C3));
+        var c4 = d.AddClass(C4, nameof(C4));
 
-        m.AddInheritance(d, new Guid("9b0d35eb-c635-43d4-92fc-3e5352c51272"), i12, m.Object());
-        m.AddInheritance(d, new Guid("1823df02-c77a-412e-87f3-36457b6f60ac"), i1, s1, i12);
-        m.AddInheritance(d, new Guid("1685a94f-14d6-45e7-98e3-b897959e0328"), i2, s2, i12);
-        m.AddInheritance(d, new Guid("e890b0b3-1f02-4c5d-bd05-c23d36cefde9"), c1, i1);
-        m.AddInheritance(d, new Guid("11ac4d4b-c835-4ef1-aafc-35a15d3f50ae"), c2, i2);
+        d.AddInheritance(new Guid("9b0d35eb-c635-43d4-92fc-3e5352c51272"), i12, m.Object());
+        d.AddInheritance(new Guid("1823df02-c77a-412e-87f3-36457b6f60ac"), i1, s1, i12);
+        d.AddInheritance(new Guid("1685a94f-14d6-45e7-98e3-b897959e0328"), i2, s2, i12);
+        d.AddInheritance(new Guid("e890b0b3-1f02-4c5d-bd05-c23d36cefde9"), c1, i1);
+        d.AddInheritance(new Guid("11ac4d4b-c835-4ef1-aafc-35a15d3f50ae"), c2, i2);
 
-        m.AddStringRelation(d, new Guid("1CCF5BAC-3ED4-490B-9B09-822E045FB0CE"), I1AllorsString, i1, "I1AllorsString");
-        m.AddStringRelation(d, new Guid("B9434972-9B14-403F-91D3-EE2A0866A5D4"), C1AllorsString, c1, "C1AllorsString");
-        m.AddStringRelation(d, new Guid("F86DC318-AEB0-4311-B26D-DC74003281F1"), C2AllorsString, c2, "C2AllorsString");
-        m.AddStringRelation(d, new Guid("5B9E7A1B-4CA2-45D4-8FEB-829CF2115F33"), C3AllorsString, c3, "C3AllorsString");
-        m.AddStringRelation(d, new Guid("2B0B3AAE-0F9E-43CF-BF0C-2CD38C3D08F6"), C4AllorsString, c4, "C4AllorsString");
+        d.AddStringRelation(new Guid("1CCF5BAC-3ED4-490B-9B09-822E045FB0CE"), I1AllorsString, i1, "I1AllorsString");
+        d.AddStringRelation(new Guid("B9434972-9B14-403F-91D3-EE2A0866A5D4"), C1AllorsString, c1, "C1AllorsString");
+        d.AddStringRelation(new Guid("F86DC318-AEB0-4311-B26D-DC74003281F1"), C2AllorsString, c2, "C2AllorsString");
+        d.AddStringRelation(new Guid("5B9E7A1B-4CA2-45D4-8FEB-829CF2115F33"), C3AllorsString, c3, "C3AllorsString");
+        d.AddStringRelation(new Guid("2B0B3AAE-0F9E-43CF-BF0C-2CD38C3D08F6"), C4AllorsString, c4, "C4AllorsString");
 
-        m.AddOneToOneRelation(d, C1WhereC1OneToOne, C1C1OneToOne, c1, c1, "C1OneToOne");
-        m.AddOneToOneRelation(d, C1WhereI1OneToOne, C1I1OneToOne, c1, i1, "I1OneToOne");
-        m.AddOneToOneRelation(d, C1WhereC2OneToOne, C1C2OneToOne, c1, c2, "C2OneToOne");
-        m.AddOneToOneRelation(d, C1WhereI2OneToOne, C1I2OneToOne, c1, i2, "I2OneToOne");
-        m.AddOneToOneRelation(d, C1WhereS2OneToOne, C1S2OneToOne, c1, s2, "S2OneToOne");
-        m.AddOneToOneRelation(d, C2WhereC1OneToOne, C2C1OneToOne, c2, c1, "C1OneToOne");
-        m.AddOneToOneRelation(d, C2WhereC2OneToOne, C2C2OneToOne, c2, c2, "C2OneToOne");
+        d.AddOneToOneRelation(C1WhereC1OneToOne, C1C1OneToOne, c1, c1, "C1OneToOne");
+        d.AddOneToOneRelation(C1WhereI1OneToOne, C1I1OneToOne, c1, i1, "I1OneToOne");
+        d.AddOneToOneRelation(C1WhereC2OneToOne, C1C2OneToOne, c1, c2, "C2OneToOne");
+        d.AddOneToOneRelation(C1WhereI2OneToOne, C1I2OneToOne, c1, i2, "I2OneToOne");
+        d.AddOneToOneRelation(C1WhereS2OneToOne, C1S2OneToOne, c1, s2, "S2OneToOne");
+        d.AddOneToOneRelation(C2WhereC1OneToOne, C2C1OneToOne, c2, c1, "C1OneToOne");
+        d.AddOneToOneRelation(C2WhereC2OneToOne, C2C2OneToOne, c2, c2, "C2OneToOne");
 
-        m.AddManyToOneRelation(d, C1sWhereC1ManyToOne, C1C1ManyToOne, c1, c1, "C1ManyToOne");
-        m.AddManyToOneRelation(d, C1sWhereC2ManyToOne, C1C2ManyToOne, c1, c2, "C2ManyToOne");
-        m.AddManyToOneRelation(d, C1sWhereI2ManyToOne, C1I2ManyToOne, c1, i2, "I2ManyToOne");
-        m.AddManyToOneRelation(d, C1sWhereS2ManyToOne, C1S2ManyToOne, c1, s2, "S2ManyToOne");
-        m.AddManyToOneRelation(d, C2sWhereC1ManyToOne, C2C1ManyToOne, c2, c1, "C1ManyToOne");
+        d.AddManyToOneRelation(C1sWhereC1ManyToOne, C1C1ManyToOne, c1, c1, "C1ManyToOne");
+        d.AddManyToOneRelation(C1sWhereC2ManyToOne, C1C2ManyToOne, c1, c2, "C2ManyToOne");
+        d.AddManyToOneRelation(C1sWhereI2ManyToOne, C1I2ManyToOne, c1, i2, "I2ManyToOne");
+        d.AddManyToOneRelation(C1sWhereS2ManyToOne, C1S2ManyToOne, c1, s2, "S2ManyToOne");
+        d.AddManyToOneRelation(C2sWhereC1ManyToOne, C2C1ManyToOne, c2, c1, "C1ManyToOne");
 
-        m.AddOneToManyRelation(d, C1WhereC1OneToMany, C1C1OneToMany, c1, c1, "C1OneToMany");
-        m.AddOneToManyRelation(d, C1WhereC2OneToMany, C1C2OneToMany, c1, c2, "C2OneToMany");
-        m.AddOneToManyRelation(d, C1WhereI2OneToMany, C1I2OneToMany, c1, i2, "I2OneToMany");
-        m.AddOneToManyRelation(d, C2WhereC1OneToMany, C2C1OneToMany, c2, c1, "C1OneToMany");
+        d.AddOneToManyRelation(C1WhereC1OneToMany, C1C1OneToMany, c1, c1, "C1OneToMany");
+        d.AddOneToManyRelation(C1WhereC2OneToMany, C1C2OneToMany, c1, c2, "C2OneToMany");
+        d.AddOneToManyRelation(C1WhereI2OneToMany, C1I2OneToMany, c1, i2, "I2OneToMany");
+        d.AddOneToManyRelation(C2WhereC1OneToMany, C2C1OneToMany, c2, c1, "C1OneToMany");
 
-        m.AddManyToManyRelation(d, C1sWhereC1ManyToMany, C1C1ManyToMany, c1, c1, "C1ManyToMany");
-        m.AddManyToManyRelation(d, C1sWhereC2ManyToMany, C1C2ManyToMany, c1, c2, "C2ManyToMany");
-        m.AddManyToManyRelation(d, C1sWhereI2ManyToMany, C1I2ManyToMany, c1, i2, "I2ManyToMany");
-        m.AddManyToManyRelation(d, C2sWhereC1ManyToMany, C2C1ManyToMany, c2, c1, "C1ManyToMany");
+        d.AddManyToManyRelation(C1sWhereC1ManyToMany, C1C1ManyToMany, c1, c1, "C1ManyToMany");
+        d.AddManyToManyRelation(C1sWhereC2ManyToMany, C1C2ManyToMany, c1, c2, "C2ManyToMany");
+        d.AddManyToManyRelation(C1sWhereI2ManyToMany, C1I2ManyToMany, c1, i2, "I2ManyToMany");
+        d.AddManyToManyRelation(C2sWhereC1ManyToMany, C2C1ManyToMany, c2, c1, "C1ManyToMany");
     }
 }
