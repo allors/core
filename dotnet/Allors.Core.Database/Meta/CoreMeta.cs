@@ -91,6 +91,9 @@ public static class CoreMeta
 
         var @object = core.AddInterface(Object, nameof(Object));
 
+        core.AddMethod(CompositeOnInit, @object, "OnBuild");
+        core.AddMethod(CompositeOnInit, @object, "OnPostBuild");
         core.AddMethod(CompositeOnInit, @object, "OnInit");
+        core.AddMethod(CompositeOnInit, @object, "OnPostDerive");
     }
 }
