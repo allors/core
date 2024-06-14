@@ -1,8 +1,6 @@
 ﻿namespace Allors.Core.Meta.Tests;
 
 using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
 using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
 using FluentAssertions;
@@ -17,7 +15,7 @@ public class OneToManyTests
 
         var organization = metaMeta.AddClass(Guid.NewGuid(), "Organization");
         var person = metaMeta.AddClass(Guid.NewGuid(), "Person");
-        var employees = metaMeta.AddOneToManyRelation(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
+        var (employers, employees) = metaMeta.AddOneToManyRelation(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var meta = new Meta(metaMeta);
 
@@ -30,13 +28,13 @@ public class OneToManyTests
         acme.Add(employees, john);
         acme.Add(employees, jenny);
 
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jane);
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(john);
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jenny);
+        acme[employees].Should().Contain(jane);
+        acme[employees].Should().Contain(john);
+        acme[employees].Should().Contain(jenny);
 
-        jane["OrganizationWhereEmployee"].Should().Be(acme);
-        john["OrganizationWhereEmployee"].Should().Be(acme);
-        jenny["OrganizationWhereEmployee"].Should().Be(acme);
+        jane[employers].Should().Be(acme);
+        john[employers].Should().Be(acme);
+        jenny[employers].Should().Be(acme);
     }
 
     [Fact]
@@ -47,7 +45,7 @@ public class OneToManyTests
         var named = metaMeta.AddInterface(Guid.NewGuid(), "Named");
         var organization = metaMeta.AddClass(Guid.NewGuid(), "Organization", named);
         var person = metaMeta.AddClass(Guid.NewGuid(), "Person", named);
-        var employees = metaMeta.AddOneToManyRelation(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
+        var (employers, employees) = metaMeta.AddOneToManyRelation(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var meta = new Meta(metaMeta);
 
@@ -65,17 +63,17 @@ public class OneToManyTests
 
         hooli.Add(employees, jane);
 
-        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().Contain(jane);
+        hooli[employees].Should().Contain(jane);
 
-        Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(john);
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jenny);
+        acme[employees].Should().NotContain(jane);
+        acme[employees].Should().Contain(john);
+        acme[employees].Should().Contain(jenny);
 
-        jane["OrganizationWhereEmployee"].Should().Be(hooli);
+        jane[employers].Should().Be(hooli);
 
-        Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
-        john["OrganizationWhereEmployee"].Should().Be(acme);
-        jenny["OrganizationWhereEmployee"].Should().Be(acme);
+        jane[employers].Should().NotBe(acme);
+        john[employers].Should().Be(acme);
+        jenny[employers].Should().Be(acme);
     }
 
     [Fact]
@@ -85,7 +83,7 @@ public class OneToManyTests
 
         var organization = metaMeta.AddClass(Guid.NewGuid(), "Organization");
         var person = metaMeta.AddClass(Guid.NewGuid(), "Person");
-        var employees = metaMeta.AddOneToManyRelation(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
+        var (employers, employees) = metaMeta.AddOneToManyRelation(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var meta = new Meta(metaMeta);
 
@@ -100,33 +98,33 @@ public class OneToManyTests
 
         acme.Remove(employees, jane);
 
-        Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(john);
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jenny);
+        acme[employees].Should().NotContain(jane);
+        acme[employees].Should().Contain(john);
+        acme[employees].Should().Contain(jenny);
 
-        Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
-        john["OrganizationWhereEmployee"].Should().Be(acme);
-        jenny["OrganizationWhereEmployee"].Should().Be(acme);
+        jane[employers].Should().NotBe(acme);
+        john[employers].Should().Be(acme);
+        jenny[employers].Should().Be(acme);
 
         acme.Remove(employees, john);
 
-        Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.DoesNotContain(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jenny);
+        acme[employees].Should().NotContain(jane);
+        acme[employees].Should().NotContain(john);
+        acme[employees].Should().Contain(jenny);
 
-        Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
-        Assert.NotEqual(acme, john["OrganizationWhereEmployee"]);
-        jenny["OrganizationWhereEmployee"].Should().Be(acme);
+        jane[employers].Should().NotBe(acme);
+        john[employers].Should().NotBe(acme);
+        jenny[employers].Should().Be(acme);
 
         acme.Remove(employees, jenny);
 
-        Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.DoesNotContain(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.DoesNotContain(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        acme[employees].Should().NotContain(jane);
+        acme[employees].Should().NotContain(john);
+        acme[employees].Should().NotContain(jenny);
 
-        Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
-        Assert.NotEqual(acme, john["OrganizationWhereEmployee"]);
-        Assert.NotEqual(acme, jenny["OrganizationWhereEmployee"]);
+        jane[employers].Should().NotBe(acme);
+        john[employers].Should().NotBe(acme);
+        jenny[employers].Should().NotBe(acme);
     }
 
     [Fact]
@@ -136,7 +134,7 @@ public class OneToManyTests
 
         var organization = metaMeta.AddClass(Guid.NewGuid(), "Organization");
         var person = metaMeta.AddClass(Guid.NewGuid(), "Person");
-        var employees = metaMeta.AddOneToManyRelation(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
+        var (employers, employees) = metaMeta.AddOneToManyRelation(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var meta = new Meta(metaMeta);
 
@@ -149,42 +147,42 @@ public class OneToManyTests
         acme.Add(employees, john);
         acme.Add(employees, jenny);
 
-        acme["Employees"] = null;
+        acme[employees] = [];
 
-        Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.DoesNotContain(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.DoesNotContain(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        acme[employees].Should().NotContain(jane);
+        acme[employees].Should().NotContain(john);
+        acme[employees].Should().NotContain(jenny);
 
-        Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
-        Assert.NotEqual(acme, john["OrganizationWhereEmployee"]);
-        Assert.NotEqual(acme, jenny["OrganizationWhereEmployee"]);
-
-        acme.Add(employees, jane);
-        acme.Add(employees, john);
-        acme.Add(employees, jenny);
-
-        acme["Employees"] = Array.Empty<IMetaObject>();
-
-        Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.DoesNotContain(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.DoesNotContain(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
-
-        Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
-        Assert.NotEqual(acme, john["OrganizationWhereEmployee"]);
-        Assert.NotEqual(acme, jenny["OrganizationWhereEmployee"]);
+        jane[employers].Should().NotBe(acme);
+        john[employers].Should().NotBe(acme);
+        jenny[employers].Should().NotBe(acme);
 
         acme.Add(employees, jane);
         acme.Add(employees, john);
         acme.Add(employees, jenny);
 
-        acme["Employees"] = ImmutableHashSet<IMetaObject>.Empty;
+        acme[employees] = [];
 
-        Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.DoesNotContain(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.DoesNotContain(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        acme[employees].Should().NotContain(jane);
+        acme[employees].Should().NotContain(john);
+        acme[employees].Should().NotContain(jenny);
 
-        Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
-        Assert.NotEqual(acme, john["OrganizationWhereEmployee"]);
-        Assert.NotEqual(acme, jenny["OrganizationWhereEmployee"]);
+        jane[employers].Should().NotBe(acme);
+        john[employers].Should().NotBe(acme);
+        jenny[employers].Should().NotBe(acme);
+
+        acme.Add(employees, jane);
+        acme.Add(employees, john);
+        acme.Add(employees, jenny);
+
+        acme[employees] = [];
+
+        acme[employees].Should().NotContain(jane);
+        acme[employees].Should().NotContain(john);
+        acme[employees].Should().NotContain(jenny);
+
+        jane[employers].Should().NotBe(acme);
+        john[employers].Should().NotBe(acme);
+        jenny[employers].Should().NotBe(acme);
     }
 }

@@ -23,13 +23,13 @@ public class SnapshotTests
         var john = meta.Build(person);
         var jane = meta.Build(person);
 
-        john["FirstName"] = "John";
-        john["LastName"] = "Doe";
+        john[firstName] = "John";
+        john[lastName] = "Doe";
 
         var snapshot1 = meta.Checkpoint();
 
-        jane["FirstName"] = "Jane";
-        jane["LastName"] = "Doe";
+        jane[firstName] = "Jane";
+        jane[lastName] = "Doe";
 
         var changedFirstNames = snapshot1.ChangedRoles(firstName);
         var changedLastNames = snapshot1.ChangedRoles(lastName);
@@ -58,9 +58,9 @@ public class SnapshotTests
         var @string = metaMeta.AddUnit(Guid.NewGuid(), "String");
         var person = metaMeta.AddClass(Guid.NewGuid(), "Person");
         var organization = metaMeta.AddClass(Guid.NewGuid(), "Organization");
-        metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
-        metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
-        metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
+        var firstName = metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
+        var lastName = metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
+        var name = metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
         var employees = metaMeta.AddManyToManyRelation(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var meta = new Meta(metaMeta);
@@ -68,31 +68,31 @@ public class SnapshotTests
         var john = meta.Build(person);
         var jane = meta.Build(person);
 
-        john["FirstName"] = "John";
-        john["LastName"] = "Doe";
+        john[firstName] = "John";
+        john[lastName] = "Doe";
 
-        jane["FirstName"] = "Jane";
-        jane["LastName"] = "Doe";
+        jane[firstName] = "Jane";
+        jane[lastName] = "Doe";
 
         var acme = meta.Build(organization);
 
-        acme["Name"] = "Acme";
+        acme[name] = "Acme";
 
-        acme["Employees"] = new[] { john, jane };
+        acme[employees] = new[] { john, jane };
 
         var snapshot = meta.Checkpoint();
         var changedEmployees = snapshot.ChangedRoles(employees);
         changedEmployees.Should().HaveCount(1);
 
-        acme["Employees"] = new[] { jane, john };
+        acme[employees] = new[] { jane, john };
 
         snapshot = meta.Checkpoint();
         changedEmployees = snapshot.ChangedRoles(employees);
         changedEmployees.Should().BeEmpty();
 
-        acme["Employees"] = Array.Empty<IMetaObject>();
+        acme[employees] = Array.Empty<IMetaObject>();
 
-        acme["Employees"] = new[] { jane, john };
+        acme[employees] = new[] { jane, john };
 
         snapshot = meta.Checkpoint();
         changedEmployees = snapshot.ChangedRoles(employees);

@@ -16,8 +16,8 @@ public class ObjectsTests
 
         var @string = metaMeta.AddUnit(Guid.NewGuid(), "String");
         var person = metaMeta.AddClass(Guid.NewGuid(), "Person");
-        metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
-        metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
+        var firstName = metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), person, @string, "FirstName");
+        var lastName = metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), person, @string, "LastName");
 
         var meta = new Meta(metaMeta);
 
@@ -25,8 +25,8 @@ public class ObjectsTests
         {
             return meta.Build(person, v =>
             {
-                v["FirstName"] = firstName;
-                v["LastName"] = lastName;
+                v[firstName] = firstName;
+                v[lastName] = lastName;
             });
         }
 
@@ -34,24 +34,24 @@ public class ObjectsTests
         var john = NewPerson("John", "Doe");
         var jenny = NewPerson("Jenny", "Doe");
 
-        var lastNameDoe = meta.Objects.Where(v => (string)v["LastName"]! == "Doe").ToArray();
+        var lastNameDoe = meta.Objects.Where(v => (string)v[lastName]! == "Doe").ToArray();
 
         lastNameDoe.Length.Should().Be(3);
         lastNameDoe.Should().Contain(jane);
         lastNameDoe.Should().Contain(john);
         lastNameDoe.Should().Contain(jenny);
 
-        var lessThanFourLetterFirstNames = meta.Objects.Where(v => ((string)v["FirstName"]!).Length < 4).ToArray();
+        var lessThanFourLetterFirstNames = meta.Objects.Where(v => ((string)v[firstName]!).Length < 4).ToArray();
 
         lessThanFourLetterFirstNames.Should().BeEmpty();
 
-        var fourLetterFirstNames = meta.Objects.Where(v => ((string)v["FirstName"]!).Length == 4).ToArray();
+        var fourLetterFirstNames = meta.Objects.Where(v => ((string)v[firstName]!).Length == 4).ToArray();
 
         fourLetterFirstNames.Length.Should().Be(2);
         fourLetterFirstNames.Should().Contain(jane);
         fourLetterFirstNames.Should().Contain(john);
 
-        var fiveLetterFirstNames = meta.Objects.Where(v => ((string)v["FirstName"]!).Length == 5).ToArray();
+        var fiveLetterFirstNames = meta.Objects.Where(v => ((string)v[firstName]!).Length == 5).ToArray();
         fiveLetterFirstNames.Should().HaveCount(1);
         fiveLetterFirstNames.Should().Contain(jenny);
     }

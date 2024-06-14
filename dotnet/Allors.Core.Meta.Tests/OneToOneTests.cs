@@ -96,8 +96,8 @@ public class OneToOneTests
             ],
             () =>
             [
-                (association, _, _, to) => Assert.Null(to[association]),
-                (_, role, from, _) => Assert.Null(from[role])
+                (association, _, _, to) => to[association].Should().BeNull(),
+                (_, role, from, _) => from[role].Should().BeNull()
             ]);
     }
 
@@ -127,8 +127,8 @@ public class OneToOneTests
             ],
             () =>
             [
-                (association, _, _, to) => Assert.Null(to[association]),
-                (_, role, from, _) => Assert.Null(from[role])
+                (association, _, _, to) => to[association].Should().BeNull(),
+                (_, role, from, _) => from[role].Should().BeNull()
             ]);
     }
 
@@ -146,8 +146,8 @@ public class OneToOneTests
             ],
             () =>
             [
-                (association, _, _, to) => Assert.Null(to[association]),
-                (_, role, from, _) => Assert.Null(from[role])
+                (association, _, _, to) => to[association].Should().BeNull(),
+                (_, role, from, _) => from[role].Should().BeNull()
             ]);
     }
 
@@ -160,9 +160,9 @@ public class OneToOneTests
             ],
             () =>
             [
-                (association, _, _, _, to) => Assert.Null(to[association]),
-                (_, role, from, _, _) => Assert.Null(from[role]),
-                (_, role, _, fromAnother, _) => Assert.Null(fromAnother[role])
+                (association, _, _, _, to) => to[association].Should().BeNull(),
+                (_, role, from, _, _) => from[role].Should().BeNull(),
+                (_, role, _, fromAnother, _) => fromAnother[role].Should().BeNull()
             ]);
     }
 
@@ -178,7 +178,7 @@ public class OneToOneTests
             () =>
             [
                 (association, _, _, fromAnother, to) => Assert.Equal(fromAnother, to[association]),
-                (_, role, from, _, _) => Assert.Null(from[role]),
+                (_, role, from, _, _) => from[role].Should().BeNull(),
                 (_, role, _, fromAnother, to) =>
                 {
                     if (!Equals(to, fromAnother[role]))
@@ -206,7 +206,7 @@ public class OneToOneTests
             () =>
             [
                 (association, _, _, fromAnother, to) => Assert.Equal(fromAnother, to[association]),
-                (_, role, from, _, _) => Assert.Null(from[role]),
+                (_, role, from, _, _) => from[role].Should().BeNull(),
                 (_, role, _, fromAnother, to) => Assert.Equal(to, fromAnother[role])
             ]);
     }
@@ -223,9 +223,9 @@ public class OneToOneTests
             ],
             () =>
             [
-                (association, _, _, _, to) => Assert.Null(to[association]),
-                (_, role, from, _, _) => Assert.Null(from[role]),
-                (_, role, _, fromAnother, _) => Assert.Null(fromAnother[role])
+                (association, _, _, _, to) => to[association].Should().BeNull(),
+                (_, role, from, _, _) => from[role].Should().BeNull(),
+                (_, role, _, fromAnother, _) => fromAnother[role].Should().BeNull()
             ]);
     }
 
@@ -244,9 +244,9 @@ public class OneToOneTests
             ],
             () =>
             [
-                (association, _, _, _, to) => Assert.Null(to[association]),
-                (_, role, from, _, _) => Assert.Null(from[role]),
-                (_, role, _, fromAnother, _) => Assert.Null(fromAnother[role])
+                (association, _, _, _, to) => to[association].Should().BeNull(),
+                (_, role, from, _, _) => from[role].Should().BeNull(),
+                (_, role, _, fromAnother, _) => fromAnother[role].Should().BeNull()
             ]);
     }
 
@@ -259,9 +259,9 @@ public class OneToOneTests
             ],
             () =>
             [
-                (association, _, _, to, _) => Assert.Null(to[association]),
-                (association, _, _, _, toAnother) => Assert.Null(toAnother[association]),
-                (_, role, from, _, _) => Assert.Null(from[role]),
+                (association, _, _, to, _) => to[association].Should().BeNull(),
+                (association, _, _, _, toAnother) => toAnother[association].Should().BeNull(),
+                (_, role, from, _, _) => from[role].Should().BeNull(),
             ]);
     }
 
@@ -276,7 +276,7 @@ public class OneToOneTests
             ],
             () =>
             [
-                (association, _, _, to, _) => Assert.Null(to[association]),
+                (association, _, _, to, _) => to[association].Should().BeNull(),
                 (association, _, from, _, toAnother) => Assert.Equal(from, toAnother[association]),
                 (_, role, from, _, toAnother) => Assert.Equal(toAnother, from[role])
             ]);
@@ -296,7 +296,7 @@ public class OneToOneTests
             ],
             () =>
             [
-                (association, _, _, to, _) => Assert.Null(to[association]),
+                (association, _, _, to, _) => to[association].Should().BeNull(),
                 (association, _, from, _, toAnother) => Assert.Equal(from, toAnother[association]),
                 (_, role, from, _, toAnother) => Assert.Equal(toAnother, from[role])
             ]);
@@ -314,9 +314,9 @@ public class OneToOneTests
             ],
             () =>
             [
-                (association, _, _, to, _) => Assert.Null(to[association]),
-                (association, _, _, _, toAnother) => Assert.Null(toAnother[association]),
-                (_, role, from, _, _) => Assert.Null(from[role]),
+                (association, _, _, to, _) => to[association].Should().BeNull(),
+                (association, _, _, _, toAnother) => toAnother[association].Should().BeNull(),
+                (_, role, from, _, _) => from[role].Should().BeNull(),
             ]);
     }
 
@@ -335,9 +335,9 @@ public class OneToOneTests
             ],
             () =>
             [
-                (association, _, _, to, _) => Assert.Null(to[association]),
-                (association, _, _, _, toAnother) => Assert.Null(toAnother[association]),
-                (_, role, from, _, _) => Assert.Null(from[role]),
+                (association, _, _, to, _) => to[association].Should().BeNull(),
+                (association, _, _, _, toAnother) => toAnother[association].Should().BeNull(),
+                (_, role, from, _, _) => from[role].Should().BeNull(),
             ]);
     }
 
@@ -350,10 +350,10 @@ public class OneToOneTests
             ],
             () =>
             [
-                (association, _, _, _, to, _) => Assert.Null(to[association]),
-                (association, _, _, _, _, toAnother) => Assert.Null(toAnother[association]),
-                (_, role, from, _, _, _) => Assert.Null(from[role]),
-                (_, role, _, fromAnother, _, _) => Assert.Null(fromAnother[role]),
+                (association, _, _, _, to, _) => to[association].Should().BeNull(),
+                (association, _, _, _, _, toAnother) => toAnother[association].Should().BeNull(),
+                (_, role, from, _, _, _) => from[role].Should().BeNull(),
+                (_, role, _, fromAnother, _, _) => fromAnother[role].Should().BeNull(),
             ]);
     }
 
@@ -369,10 +369,10 @@ public class OneToOneTests
             ],
             () =>
             [
-                (association, _, _, _, to, _) => Assert.Null(to[association]),
+                (association, _, _, _, to, _) => to[association].Should().BeNull(),
                 (association, _, from, _, _, toAnother) => Assert.Equal(from, toAnother[association]),
                 (_, role, from, _, _, toAnother) => Assert.Equal(toAnother, from[role]),
-                (_, role, _, fromAnother, _, _) => Assert.Null(fromAnother[role]),
+                (_, role, _, fromAnother, _, _) => fromAnother[role].Should().BeNull(),
             ]);
     }
 
@@ -391,10 +391,10 @@ public class OneToOneTests
             ],
             () =>
             [
-                (association, _, _, _, to, _) => Assert.Null(to[association]),
+                (association, _, _, _, to, _) => to[association].Should().BeNull(),
                 (association, _, from, _, _, toAnother) => Assert.Equal(from, toAnother[association]),
                 (_, role, from, _, _, toAnother) => Assert.Equal(toAnother, from[role]),
-                (_, role, _, fromAnother, _, _) => Assert.Null(fromAnother[role]),
+                (_, role, _, fromAnother, _, _) => fromAnother[role].Should().BeNull(),
             ]);
     }
 
@@ -411,10 +411,10 @@ public class OneToOneTests
             ],
             () =>
             [
-                (association, _, _, _, to, _) => Assert.Null(to[association]),
-                (association, _, _, _, _, toAnother) => Assert.Null(toAnother[association]),
-                (_, role, from, _, _, _) => Assert.Null(from[role]),
-                (_, role, _, fromAnother, _, _) => Assert.Null(fromAnother[role]),
+                (association, _, _, _, to, _) => to[association].Should().BeNull(),
+                (association, _, _, _, _, toAnother) => toAnother[association].Should().BeNull(),
+                (_, role, from, _, _, _) => from[role].Should().BeNull(),
+                (_, role, _, fromAnother, _, _) => fromAnother[role].Should().BeNull(),
             ]);
     }
 
@@ -434,10 +434,10 @@ public class OneToOneTests
             ],
             () =>
             [
-                (association, _, _, _, to, _) => Assert.Null(to[association]),
-                (association, _, _, _, _, toAnother) => Assert.Null(toAnother[association]),
-                (_, role, from, _, _, _) => Assert.Null(from[role]),
-                (_, role, _, fromAnother, _, _) => Assert.Null(fromAnother[role]),
+                (association, _, _, _, to, _) => to[association].Should().BeNull(),
+                (association, _, _, _, _, toAnother) => toAnother[association].Should().BeNull(),
+                (_, role, from, _, _, _) => from[role].Should().BeNull(),
+                (_, role, _, fromAnother, _, _) => fromAnother[role].Should().BeNull(),
             ]);
     }
 

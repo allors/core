@@ -61,7 +61,7 @@ public class ManyToManyTests
         var organization = metaMeta.AddClass(Guid.NewGuid(), "Organization");
         var person = metaMeta.AddClass(Guid.NewGuid(), "Person");
         var name = metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
-        var employees = metaMeta.AddManyToManyRelation(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
+        var (employers, employees) = metaMeta.AddManyToManyRelation(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var meta = new Meta(metaMeta);
 
@@ -74,60 +74,60 @@ public class ManyToManyTests
 
         acme[employees] = new[] { jane }.ToFrozenSet();
 
-        ((IReadOnlySet<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().HaveCount(1);
-        ((IReadOnlySet<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().Contain(acme);
+        jane[employers].Should().HaveCount(1);
+        jane[employers].Should().Contain(acme);
 
-        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().BeEmpty();
+        john[employers].Should().BeEmpty();
 
-        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Should().BeEmpty();
+        jenny[employers].Should().BeEmpty();
 
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().HaveCount(1);
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jane);
+        acme[employees].Should().HaveCount(1);
+        acme[employees].Should().Contain(jane);
 
-        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().BeEmpty();
+        hooli[employees].Should().BeEmpty();
 
-        acme["Employees"] = new[] { jane, john };
+        acme[employees] = new[] { jane, john };
 
-        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().HaveCount(1);
-        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().Contain(acme);
+        jane[employers].Should().HaveCount(1);
+        jane[employers].Should().Contain(acme);
 
-        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().HaveCount(1);
-        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().Contain(acme);
+        john[employers].Should().HaveCount(1);
+        john[employers].Should().Contain(acme);
 
-        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Should().BeEmpty();
+        jenny[employers].Should().BeEmpty();
 
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Count().Should().Be(2);
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jane);
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(john);
+        acme[employees].Count().Should().Be(2);
+        acme[employees].Should().Contain(jane);
+        acme[employees].Should().Contain(john);
 
-        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().BeEmpty();
+        hooli[employees].Should().BeEmpty();
 
-        acme["Employees"] = new[] { jane, john, jenny };
+        acme[employees] = new[] { jane, john, jenny };
 
-        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().HaveCount(1);
-        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().Contain(acme);
+        jane[employers].Should().HaveCount(1);
+        jane[employers].Should().Contain(acme);
 
-        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().HaveCount(1);
-        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().Contain(acme);
+        john[employers].Should().HaveCount(1);
+        john[employers].Should().Contain(acme);
 
-        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Should().HaveCount(1);
-        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Should().Contain(acme);
+        jenny[employers].Should().HaveCount(1);
+        jenny[employers].Should().Contain(acme);
 
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Count().Should().Be(3);
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jane);
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(john);
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jenny);
+        acme[employees].Count().Should().Be(3);
+        acme[employees].Should().Contain(jane);
+        acme[employees].Should().Contain(john);
+        acme[employees].Should().Contain(jenny);
 
-        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().BeEmpty();
+        hooli[employees].Should().BeEmpty();
 
-        acme["Employees"] = Array.Empty<IMetaObject>();
+        acme[employees] = [];
 
-        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().BeEmpty();
-        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().BeEmpty();
-        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Should().BeEmpty();
+        jane[employers].Should().BeEmpty();
+        john[employers].Should().BeEmpty();
+        jenny[employers].Should().BeEmpty();
 
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().BeEmpty();
-        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().BeEmpty();
+        acme[employees].Should().BeEmpty();
+        hooli[employees].Should().BeEmpty();
     }
 
     [Fact]
@@ -139,7 +139,7 @@ public class ManyToManyTests
         var organization = metaMeta.AddClass(Guid.NewGuid(), "Organization");
         var person = metaMeta.AddClass(Guid.NewGuid(), "Person");
         metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
-        var employees = metaMeta.AddManyToManyRelation(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
+        var (employers, employees) = metaMeta.AddManyToManyRelation(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var meta = new Meta(metaMeta);
 
@@ -150,46 +150,46 @@ public class ManyToManyTests
         var john = meta.Build(person);
         var jenny = meta.Build(person);
 
-        acme["Employees"] = new[] { jane, john, jenny };
+        acme[employees] = new[] { jane, john, jenny };
 
         acme.Remove(employees, jenny);
 
-        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().HaveCount(1);
-        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().Contain(acme);
+        jane[employers].Should().HaveCount(1);
+        jane[employers].Should().Contain(acme);
 
-        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().HaveCount(1);
-        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().Contain(acme);
+        john[employers].Should().HaveCount(1);
+        john[employers].Should().Contain(acme);
 
-        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Should().BeEmpty();
+        jenny[employers].Should().BeEmpty();
 
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Count().Should().Be(2);
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jane);
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(john);
+        acme[employees].Count().Should().Be(2);
+        acme[employees].Should().Contain(jane);
+        acme[employees].Should().Contain(john);
 
-        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().BeEmpty();
+        hooli[employees].Should().BeEmpty();
 
         acme.Remove(employees, john);
 
-        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().HaveCount(1);
-        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().Contain(acme);
+        jane[employers].Should().HaveCount(1);
+        jane[employers].Should().Contain(acme);
 
-        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().BeEmpty();
+        john[employers].Should().BeEmpty();
 
-        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Should().BeEmpty();
+        jenny[employers].Should().BeEmpty();
 
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().HaveCount(1);
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jane);
+        acme[employees].Should().HaveCount(1);
+        acme[employees].Should().Contain(jane);
 
-        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().BeEmpty();
+        hooli[employees].Should().BeEmpty();
 
         acme.Remove(employees, jane);
 
-        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().BeEmpty();
-        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().BeEmpty();
-        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Should().BeEmpty();
+        jane[employers].Should().BeEmpty();
+        john[employers].Should().BeEmpty();
+        jenny[employers].Should().BeEmpty();
 
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().BeEmpty();
-        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().BeEmpty();
+        acme[employees].Should().BeEmpty();
+        hooli[employees].Should().BeEmpty();
     }
 
     [Fact]
@@ -201,7 +201,7 @@ public class ManyToManyTests
         var organization = metaMeta.AddClass(Guid.NewGuid(), "Organization");
         var person = metaMeta.AddClass(Guid.NewGuid(), "Person");
         metaMeta.AddUnitRelation(Guid.NewGuid(), Guid.NewGuid(), organization, @string, "Name");
-        var employees = metaMeta.AddManyToManyRelation(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
+        var (employers, employees) = metaMeta.AddManyToManyRelation(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var meta = new Meta(metaMeta);
 
@@ -218,69 +218,69 @@ public class ManyToManyTests
 
         hooli.Add(employees, jane);
 
-        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Count().Should().Be(2);
-        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().Contain(acme);
-        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().Contain(hooli);
+        jane[employers].Count().Should().Be(2);
+        jane[employers].Should().Contain(acme);
+        jane[employers].Should().Contain(hooli);
 
-        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().HaveCount(1);
-        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().Contain(acme);
+        john[employers].Should().HaveCount(1);
+        john[employers].Should().Contain(acme);
 
-        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Should().HaveCount(1);
-        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Should().Contain(acme);
+        jenny[employers].Should().HaveCount(1);
+        jenny[employers].Should().Contain(acme);
 
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Count().Should().Be(3);
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jane);
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(john);
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jenny);
+        acme[employees].Count().Should().Be(3);
+        acme[employees].Should().Contain(jane);
+        acme[employees].Should().Contain(john);
+        acme[employees].Should().Contain(jenny);
 
-        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().HaveCount(1);
-        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().Contain(jane);
+        hooli[employees].Should().HaveCount(1);
+        hooli[employees].Should().Contain(jane);
 
         hooli.Add(employees, john);
 
-        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Count().Should().Be(2);
-        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().Contain(acme);
-        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().Contain(hooli);
+        jane[employers].Count().Should().Be(2);
+        jane[employers].Should().Contain(acme);
+        jane[employers].Should().Contain(hooli);
 
-        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Count().Should().Be(2);
-        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().Contain(acme);
-        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().Contain(hooli);
+        john[employers].Count().Should().Be(2);
+        john[employers].Should().Contain(acme);
+        john[employers].Should().Contain(hooli);
 
-        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Should().HaveCount(1);
-        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Should().Contain(acme);
+        jenny[employers].Should().HaveCount(1);
+        jenny[employers].Should().Contain(acme);
 
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Count().Should().Be(3);
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jane);
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(john);
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jenny);
+        acme[employees].Count().Should().Be(3);
+        acme[employees].Should().Contain(jane);
+        acme[employees].Should().Contain(john);
+        acme[employees].Should().Contain(jenny);
 
-        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Count().Should().Be(2);
-        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().Contain(jane);
-        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().Contain(john);
+        hooli[employees].Count().Should().Be(2);
+        hooli[employees].Should().Contain(jane);
+        hooli[employees].Should().Contain(john);
 
         hooli.Add(employees, jenny);
 
-        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Count().Should().Be(2);
-        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().Contain(acme);
-        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().Contain(hooli);
+        jane[employers].Count().Should().Be(2);
+        jane[employers].Should().Contain(acme);
+        jane[employers].Should().Contain(hooli);
 
-        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Count().Should().Be(2);
-        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().Contain(acme);
-        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().Contain(hooli);
+        john[employers].Count().Should().Be(2);
+        john[employers].Should().Contain(acme);
+        john[employers].Should().Contain(hooli);
 
-        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Count().Should().Be(2);
-        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Should().Contain(acme);
-        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Should().Contain(hooli);
+        jenny[employers].Count().Should().Be(2);
+        jenny[employers].Should().Contain(acme);
+        jenny[employers].Should().Contain(hooli);
 
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Count().Should().Be(3);
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jane);
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(john);
-        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jenny);
+        acme[employees].Count().Should().Be(3);
+        acme[employees].Should().Contain(jane);
+        acme[employees].Should().Contain(john);
+        acme[employees].Should().Contain(jenny);
 
-        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Count().Should().Be(3);
-        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().Contain(jane);
-        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().Contain(john);
-        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().Contain(jenny);
+        hooli[employees].Count().Should().Be(3);
+        hooli[employees].Should().Contain(jane);
+        hooli[employees].Should().Contain(john);
+        hooli[employees].Should().Contain(jenny);
     }
 
     [Fact]

@@ -632,8 +632,8 @@ public abstract class ManyToOneTests : Tests
         to[m.C1sWhereC1ManyToOne].ToArray().Should().HaveCount(1);
         to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from1);
         to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from1);
-        Assert.DoesNotContain(from2, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.DoesNotContain(from2, to[m.C1sWhereC1ManyToOne].ToArray());
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().NotContain(from2);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().NotContain(from2);
 
         from2[m.C1C1ManyToOne] = to;
         from2[m.C1C1ManyToOne] = to; // Twice

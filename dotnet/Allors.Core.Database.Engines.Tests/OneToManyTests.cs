@@ -515,7 +515,7 @@ public abstract class OneToManyTests : Tests
 
         // Null & Empty Array
         // Set Empty Array
-        from[m.C1C1OneToMany] = Array.Empty<IObject>();
+        from[m.C1C1OneToMany] = [];
 
         from[m.C1C1OneToMany].Should().BeEmpty();
 
