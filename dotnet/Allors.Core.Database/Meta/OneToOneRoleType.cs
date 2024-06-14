@@ -1,5 +1,6 @@
 ﻿namespace Allors.Core.Database.Meta;
 
+using Allors.Core.Database.MetaMeta;
 using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
 
@@ -17,5 +18,5 @@ public sealed class OneToOneRoleType : MetaObject, IToOneRoleType
     }
 
     /// <inheritdoc/>
-    public override string ToString() => (string)this["SingularName"]!;
+    public override string ToString() => (string)this[this.MetaMeta.RoleTypeSingularName]!;
 }

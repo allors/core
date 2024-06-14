@@ -9,6 +9,8 @@ public class MetaObject(Meta meta, MetaObjectType objectType)
 {
     public Meta Meta { get; } = meta;
 
+    public MetaMeta MetaMeta { get; } = meta.MetaMeta;
+
     public MetaObjectType ObjectType { get; } = objectType;
 
     public object? this[string name]

@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using Allors.Core.Database.Meta;
+using Allors.Core.Database.Methods;
 
 /// <summary>
 /// The object.

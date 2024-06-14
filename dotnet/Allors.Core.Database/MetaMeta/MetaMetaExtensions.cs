@@ -391,4 +391,29 @@ public static class MetaMetaExtensions
     /// The name of a method type.
     /// </summary>
     public static MetaUnitRoleType MethodTypeName(this MetaMeta @this) => (MetaUnitRoleType)@this.RoleTypeById[CoreMetaMeta.MethodTypeName];
+
+    /// <summary>
+    /// The method parts of a method type.
+    /// </summary>
+    public static MetaOneToManyRoleType MethodTypeMethodPart(this MetaMeta @this) => (MetaOneToManyRoleType)@this.RoleTypeById[CoreMetaMeta.MethodTypeMethodParts];
+
+    /// <summary>
+    /// Method part.
+    /// </summary>
+    public static MetaObjectType MethodPart(this MetaMeta @this) => @this.ObjectTypeById[CoreMetaMeta.MethodPart];
+
+    /// <summary>
+    /// The domain of a method part.
+    /// </summary>
+    public static MetaManyToOneRoleType MethodPartDomain(this MetaMeta @this) => (MetaManyToOneRoleType)@this.RoleTypeById[CoreMetaMeta.MethodPartDomain];
+
+    /// <summary>
+    /// The composite of a method part.
+    /// </summary>
+    public static MetaManyToOneRoleType MethodPartComposite(this MetaMeta @this) => (MetaManyToOneRoleType)@this.RoleTypeById[CoreMetaMeta.MethodPartComposite];
+
+    /// <summary>
+    /// The action of a method part.
+    /// </summary>
+    public static MetaUnitRoleType MethodPartAction(this MetaMeta @this) => (MetaUnitRoleType)@this.RoleTypeById[CoreMetaMeta.MethodPartAction];
 }

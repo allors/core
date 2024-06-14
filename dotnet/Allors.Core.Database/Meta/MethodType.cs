@@ -1,10 +1,12 @@
 ﻿namespace Allors.Core.Database.Meta;
 
+using System;
+using Allors.Core.Database.MetaMeta;
 using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
 
 /// <summary>
-/// A mehtod type.
+/// A method type.
 /// </summary>
 public sealed class MethodType : MetaObject, IComposite
 {
@@ -16,6 +18,25 @@ public sealed class MethodType : MetaObject, IComposite
     {
     }
 
+    /// <summary>
+    /// Adds a method definition.
+    /// </summary>
+    public MethodPart AddMethodPart(Domain domain, IComposite composite, Action<IObject, object> action)
+    {
+        var m = this.MetaMeta;
+
+        var methodPart = this.Meta.Build<MethodPart>(v =>
+        {
+            v[m.MethodPartDomain] = domain;
+            v[m.MethodPartComposite] = composite;
+            v[m.MethodPartAction] = action;
+        });
+
+        this.Add(m.MethodTypeMethodPart, methodPart);
+
+        return methodPart;
+    }
+
     /// <inheritdoc/>
-    public override string ToString() => (string)this["Name"]!;
+    public override string ToString() => (string)this[this.MetaMeta.MethodTypeName]!;
 }

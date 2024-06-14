@@ -395,6 +395,31 @@ public static class CoreMetaMeta
     public static readonly Guid MethodTypeName = new("4ce1c11d-ce95-43cb-89d2-c0f2ebe84493");
 
     /// <summary>
+    /// MethodType.MethodPart.
+    /// </summary>
+    public static readonly Guid MethodTypeMethodParts = new("d099756d-c69c-4f27-8aaa-4d2112d11ee9");
+
+    /// <summary>
+    /// MethodPart.
+    /// </summary>
+    public static readonly Guid MethodPart = new("75f57bf4-fa08-4d4b-87c1-e17e4aa880d2");
+
+    /// <summary>
+    /// MethodPart.Domain.
+    /// </summary>
+    public static readonly Guid MethodPartDomain = new("3662665e-d9a3-40f2-9434-0be43db33ffe");
+
+    /// <summary>
+    /// MethodPart.Composite.
+    /// </summary>
+    public static readonly Guid MethodPartComposite = new("e18bbd64-7ee9-4b38-89a3-7766557fbdcc");
+
+    /// <summary>
+    /// MethodPart.Lambda.
+    /// </summary>
+    public static readonly Guid MethodPartAction = new("7eaac824-46f7-4b54-af11-903b2e2ca433");
+
+    /// <summary>
     /// Populates meta meta with Core types.
     /// </summary>
     public static void Populate(MetaMeta m)
@@ -452,6 +477,7 @@ public static class CoreMetaMeta
         var unitAssociationType = m.AddInterface(UnitAssociationType, nameof(UnitAssociationType));
         var unitRoleType = m.AddInterface(UnitRoleType, nameof(UnitRoleType));
         var methodType = m.AddClass(MethodType, typeof(MethodType));
+        var methodPart = m.AddClass(MethodPart, typeof(MethodPart));
 
         // Inheritance
         m.AddInheritance(new Guid("12ec1d97-6208-4cf5-866b-58675aa8a38e"), associationType, relationEndType);
@@ -518,7 +544,12 @@ public static class CoreMetaMeta
         m.AddManyToOneRelation(new Guid("e2cd96af-a436-439c-b02b-ecf23f19a96f"), InheritanceSubtype, inheritance, composite, "Subtype");
         m.AddManyToOneRelation(new Guid("c9f8f651-5b6e-408d-b088-0ca925e8b2d5"), InheritanceSupertype, inheritance, @interface, "Supertype");
 
+        m.AddManyToOneRelation(new Guid("3ce0e2da-bc02-46c6-8f8a-ff71c3ea4baa"), MethodPartDomain, methodPart, domain);
+        m.AddManyToOneRelation(new Guid("d6e96210-7b83-419b-bc74-26093a13a628"), MethodPartComposite, methodPart, composite);
+        m.AddUnitRelation(new Guid("d5ce7d7d-8f88-4657-82d3-20d7fbd43702"), MethodPartAction, methodPart, @string, "Action");
+
         m.AddUnitRelation(new Guid("d8a5df00-b3d8-4a9b-a2b6-27b94ba4e6ab"), MethodTypeName, methodType, @string, "Name");
+        m.AddOneToManyRelation(new Guid("8a16775d-fb56-4e9c-b328-929cbfc032ed"), MethodTypeMethodParts, methodType, methodPart);
 
         m.AddUnitRelation(new Guid("c45fcfac-5614-4a03-b86a-df2f75cc5fcb"), ObjectTypeAssignedPluralName, objectType, @string, "AssignedPluralName");
         m.AddUnitRelation(new Guid("edb514d1-f0b6-44d0-a0ce-2ff9a132b4f7"), ObjectTypeDerivedPluralName, objectType, @string, "DerivedPluralName");

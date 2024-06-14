@@ -21,11 +21,12 @@ classDiagram
     class Composite
     ObjectType <|-- Composite
     Composite o-- Interface : DirectSupertypes
+    Composite o-- MethodType : MethodTypes
     Composite o-- Interface : Supertypes
     class CompositeAssociationType
-    RoleType <|-- CompositeAssociationType
+    AssociationType <|-- CompositeAssociationType
     class CompositeRoleType
-    AssociationType <|-- CompositeRoleType
+    RoleType <|-- CompositeRoleType
     class DateTimeAssociationType
     UnitAssociationType <|-- DateTimeAssociationType
     class DateTimeRoleType
@@ -41,6 +42,7 @@ classDiagram
     class Domain
     MetaObject <|-- Domain
     Domain : String Name
+    Domain o-- Domain : Superdomains
     Domain o-- Type : Types
     class FloatAssociationType
     UnitAssociationType <|-- FloatAssociationType
@@ -57,28 +59,35 @@ classDiagram
     class Interface
     Composite <|-- Interface
     class ManyToAssociationType
-    CompositeRoleType <|-- ManyToAssociationType
+    CompositeAssociationType <|-- ManyToAssociationType
     class ManyToManyAssociationType
     ManyToAssociationType <|-- ManyToManyAssociationType
     class ManyToManyRoleType
-    ToManyRoleType  <|-- ManyToManyRoleType
+    ToManyRoleType <|-- ManyToManyRoleType
     class ManyToOneAssociationType
     ManyToAssociationType <|-- ManyToOneAssociationType
     class ManyToOneRoleType
     ToOneRoleType <|-- ManyToOneRoleType
     class MetaObject
     MetaObject : Unique Id
+    class MethodPart
+    MethodPart : String Action
+    MethodPart o-- Composite : Composite
+    MethodPart o-- Domain : Domain
+    class MethodType
+    MethodType o-- MethodPart : MethodParts
+    MethodType : String Name
     class ObjectType
     Type <|-- ObjectType
     ObjectType : String AssignedPluralName
     ObjectType : String DerivedPluralName
     ObjectType : String SingularName
     class OneToAssociationType
-    CompositeRoleType <|-- OneToAssociationType
+    CompositeAssociationType <|-- OneToAssociationType
     class OneToManyAssociationType
     OneToAssociationType <|-- OneToManyAssociationType
     class OneToManyRoleType
-    ToManyRoleType  <|-- OneToManyRoleType
+    ToManyRoleType <|-- OneToManyRoleType
     class OneToOneAssociationType
     OneToAssociationType <|-- OneToOneAssociationType
     class OneToOneRoleType
@@ -102,10 +111,10 @@ classDiagram
     UnitRoleType <|-- StringRoleType
     StringRoleType : Integer AssignedSize
     StringRoleType : Integer DerivedSize
-    class ToManyRoleType 
-    CompositeAssociationType <|-- ToManyRoleType 
+    class ToManyRoleType
+    CompositeRoleType <|-- ToManyRoleType
     class ToOneRoleType
-    CompositeAssociationType <|-- ToOneRoleType
+    CompositeRoleType <|-- ToOneRoleType
     class Type
     MetaObject <|-- Type
     class UniqueAssociationType
@@ -118,5 +127,4 @@ classDiagram
     AssociationType <|-- UnitAssociationType
     class UnitRoleType
     RoleType <|-- UnitRoleType
-
 ```

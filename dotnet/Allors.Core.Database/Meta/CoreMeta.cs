@@ -60,9 +60,24 @@ public static class CoreMeta
     public static readonly Guid Object = new("89612710-ce42-4507-b1cf-cf48d63739a2");
 
     /// <summary>
+    /// Composite.OnBuild.
+    /// </summary>
+    public static readonly Guid CompositeOnBuild = new("5d64b1bf-5bea-43dd-8cbe-87aaf0d88d8b");
+
+    /// <summary>
+    /// Composite.OnPostBuild.
+    /// </summary>
+    public static readonly Guid CompositeOnPostBuild = new("90133ea6-2444-43bb-8c74-1390571a412d");
+
+    /// <summary>
     /// Composite.OnInit.
     /// </summary>
     public static readonly Guid CompositeOnInit = new("03f3e559-f275-4bee-8036-1cf6e930804b");
+
+    /// <summary>
+    /// Composite.OnPostDerive.
+    /// </summary>
+    public static readonly Guid CompositeOnPostDerive = new("03f3e559-f275-4bee-8036-1cf6e930804b");
 
     /// <summary>
     /// Populates meta with Core types.
@@ -91,9 +106,11 @@ public static class CoreMeta
 
         var @object = core.AddInterface(Object, nameof(Object));
 
-        core.AddMethod(CompositeOnInit, @object, "OnBuild");
-        core.AddMethod(CompositeOnInit, @object, "OnPostBuild");
-        core.AddMethod(CompositeOnInit, @object, "OnInit");
-        core.AddMethod(CompositeOnInit, @object, "OnPostDerive");
+        var compositeOnBuild = core.AddMethodType(CompositeOnBuild, @object, "OnBuild");
+        core.AddMethodType(CompositeOnPostBuild, @object, "OnPostBuild");
+        core.AddMethodType(CompositeOnInit, @object, "OnInit");
+        core.AddMethodType(CompositeOnPostDerive, @object, "OnPostDerive");
+
+        compositeOnBuild.AddMethodPart(core, @object, Methods.Object.OnBuild);
     }
 }

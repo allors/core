@@ -35,7 +35,7 @@ public class Domain : MetaObject
     /// </summary>
     public Inheritance AddInheritance(Guid id, IComposite subtype, Interface supertype)
     {
-        var m = this.Meta.MetaMeta;
+        var m = this.MetaMeta;
 
         var inheritance = this.Meta.Build<Inheritance>(v =>
         {
@@ -54,7 +54,7 @@ public class Domain : MetaObject
     /// </summary>
     public Unit AddUnit(Guid id, string singularName, string? assignedPluralName = null)
     {
-        var m = this.Meta.MetaMeta;
+        var m = this.MetaMeta;
 
         var unit = this.Meta.Build<Unit>(v =>
         {
@@ -73,7 +73,7 @@ public class Domain : MetaObject
     /// </summary>
     public Interface AddInterface(Guid id, string singularName, string? assignedPluralName = null)
     {
-        var m = this.Meta.MetaMeta;
+        var m = this.MetaMeta;
 
         var @interface = this.Meta.Build<Interface>(v =>
         {
@@ -92,7 +92,7 @@ public class Domain : MetaObject
     /// </summary>
     public Class AddClass(Guid id, string singularName, string? assignedPluralName = null)
     {
-        var m = this.Meta.MetaMeta;
+        var m = this.MetaMeta;
 
         var @class = this.Meta.Build<Class>(v =>
         {
@@ -111,7 +111,7 @@ public class Domain : MetaObject
     /// </summary>
     public (BinaryAssociationType AssociationType, BinaryRoleType RoleType) AddBinaryRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, string singularName, string? assignedPluralName = null)
     {
-        var m = this.Meta.MetaMeta;
+        var m = this.MetaMeta;
 
         var associationType = this.Meta.Build<BinaryAssociationType>(v =>
         {
@@ -139,7 +139,7 @@ public class Domain : MetaObject
     /// </summary>
     public (BooleanAssociationType AssociationType, BooleanRoleType RoleType) AddBooleanRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, string singularName, string? assignedPluralName = null)
     {
-        var m = this.Meta.MetaMeta;
+        var m = this.MetaMeta;
 
         var associationType = this.Meta.Build<BooleanAssociationType>(v =>
         {
@@ -167,7 +167,7 @@ public class Domain : MetaObject
     /// </summary>
     public (DateTimeAssociationType AssociationType, DateTimeRoleType RoleType) AddDateTimeRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, string singularName, string? assignedPluralName = null)
     {
-        var m = this.Meta.MetaMeta;
+        var m = this.MetaMeta;
 
         var associationType = this.Meta.Build<DateTimeAssociationType>(v =>
         {
@@ -195,7 +195,7 @@ public class Domain : MetaObject
     /// </summary>
     public (DecimalAssociationType AssociationType, DecimalRoleType RoleType) AddDecimalRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, string singularName, string? assignedPluralName = null)
     {
-        var m = this.Meta.MetaMeta;
+        var m = this.MetaMeta;
 
         var associationType = this.Meta.Build<DecimalAssociationType>(v =>
         {
@@ -223,7 +223,7 @@ public class Domain : MetaObject
     /// </summary>
     public (FloatAssociationType AssociationType, FloatRoleType RoleType) AddFloatRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, string singularName, string? assignedPluralName = null)
     {
-        var m = this.Meta.MetaMeta;
+        var m = this.MetaMeta;
 
         var associationType = this.Meta.Build<FloatAssociationType>(v =>
         {
@@ -251,7 +251,7 @@ public class Domain : MetaObject
     /// </summary>
     public (IntegerAssociationType AssociationType, IntegerRoleType RoleType) AddIntegerRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, string singularName, string? assignedPluralName = null)
     {
-        var m = this.Meta.MetaMeta;
+        var m = this.MetaMeta;
 
         var associationType = this.Meta.Build<IntegerAssociationType>(v =>
         {
@@ -279,7 +279,7 @@ public class Domain : MetaObject
     /// </summary>
     public (StringAssociationType AssociationType, StringRoleType RoleType) AddStringRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, string singularName, string? assignedPluralName = null)
     {
-        var m = this.Meta.MetaMeta;
+        var m = this.MetaMeta;
 
         var associationType = this.Meta.Build<StringAssociationType>(v =>
         {
@@ -307,7 +307,7 @@ public class Domain : MetaObject
     /// </summary>
     public (UniqueAssociationType AssociationType, UniqueRoleType RoleType) AddUniqueRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, string singularName, string? assignedPluralName = null)
     {
-        var m = this.Meta.MetaMeta;
+        var m = this.MetaMeta;
 
         var associationType = this.Meta.Build<UniqueAssociationType>(v =>
         {
@@ -335,7 +335,7 @@ public class Domain : MetaObject
     /// </summary>
     public (OneToOneAssociationType AssociationType, OneToOneRoleType RoleType) AddOneToOneRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, IComposite roleComposite, string? singularName = null, string? assignedPluralName = null)
     {
-        var m = this.Meta.MetaMeta;
+        var m = this.MetaMeta;
 
         var associationType = this.Meta.Build<OneToOneAssociationType>(v =>
         {
@@ -363,7 +363,7 @@ public class Domain : MetaObject
     /// </summary>
     public (ManyToOneAssociationType AssociationType, ManyToOneRoleType RoleType) AddManyToOneRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, IComposite roleComposite, string? singularName = null, string? assignedPluralName = null)
     {
-        var m = this.Meta.MetaMeta;
+        var m = this.MetaMeta;
 
         var associationType = this.Meta.Build<ManyToOneAssociationType>(v =>
         {
@@ -391,7 +391,7 @@ public class Domain : MetaObject
     /// </summary>
     public (OneToManyAssociationType AssociationType, OneToManyRoleType RoleType) AddOneToManyRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, IComposite roleComposite, string? singularName = null, string? assignedPluralName = null)
     {
-        var m = this.Meta.MetaMeta;
+        var m = this.MetaMeta;
 
         var associationType = this.Meta.Build<OneToManyAssociationType>(v =>
         {
@@ -419,7 +419,7 @@ public class Domain : MetaObject
     /// </summary>
     public (ManyToManyAssociationType AssociationType, ManyToManyRoleType RoleType) AddManyToManyRelation(Guid associationTypeId, Guid roleTypeId, IComposite associationComposite, IComposite roleComposite, string? singularName = null, string? assignedPluralName = null)
     {
-        var m = this.Meta.MetaMeta;
+        var m = this.MetaMeta;
 
         var associationType = this.Meta.Build<ManyToManyAssociationType>(v =>
         {
@@ -443,11 +443,11 @@ public class Domain : MetaObject
     }
 
     /// <summary>
-    /// Adds a new unit.
+    /// Adds a method type.
     /// </summary>
-    public MethodType AddMethod(Guid id, IComposite composite, string name)
+    public MethodType AddMethodType(Guid id, IComposite composite, string name)
     {
-        var m = this.Meta.MetaMeta;
+        var m = this.MetaMeta;
 
         var methodType = this.Meta.Build<MethodType>(v =>
         {
@@ -462,5 +462,5 @@ public class Domain : MetaObject
     }
 
     /// <inheritdoc/>
-    public override string ToString() => (string)this[this.Meta.MetaMeta.DomainName]!;
+    public override string ToString() => (string)this[this.MetaMeta.DomainName]!;
 }

@@ -45,8 +45,9 @@ public class CoreMetaTests
         var associationTypes = meta.Objects.OfType<IAssociationType>().ToArray();
         var roleTypes = meta.Objects.OfType<IRoleType>().ToArray();
         var methodTypes = meta.Objects.OfType<MethodType>().ToArray();
+        var methodParts = meta.Objects.OfType<MethodPart>().ToArray();
 
-        meta.Objects.Count.Should().Be(14);
+        meta.Objects.Count.Should().Be(15);
 
         domains.Should().HaveCount(1);
         units.Should().HaveCount(8);
@@ -55,5 +56,6 @@ public class CoreMetaTests
         associationTypes.Should().BeEmpty();
         roleTypes.Should().BeEmpty();
         methodTypes.Should().HaveCount(4);
+        methodParts.Should().HaveCount(1);
     }
 }

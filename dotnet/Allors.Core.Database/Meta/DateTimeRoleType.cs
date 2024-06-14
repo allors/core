@@ -1,5 +1,6 @@
 ﻿namespace Allors.Core.Database.Meta;
 
+using Allors.Core.Database.MetaMeta;
 using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
 
@@ -15,4 +16,7 @@ public sealed class DateTimeRoleType : MetaObject, IUnitRoleType
         : base(meta, objectType)
     {
     }
+
+    /// <inheritdoc/>
+    public override string ToString() => (string)this[this.MetaMeta.RoleTypeSingularName]!;
 }
