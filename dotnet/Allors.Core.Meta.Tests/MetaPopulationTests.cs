@@ -3,6 +3,7 @@
 using System;
 using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
+using FluentAssertions;
 using Xunit;
 
 public class MetaPopulationTests
@@ -29,9 +30,9 @@ public class MetaPopulationTests
 
         var jane = (MetaObject)acme["Owner"]!;
 
-        Assert.Equal("Acme", acme["Name"]);
-        Assert.Equal("Jane", jane["Name"]);
+        acme["Name"].Should().Be("Acme");
+        jane["Name"].Should().Be("Jane");
 
-        Assert.Equal(acme, jane["OrganizationWhereOwner"]);
+        jane["OrganizationWhereOwner"].Should().Be(acme);
     }
 }

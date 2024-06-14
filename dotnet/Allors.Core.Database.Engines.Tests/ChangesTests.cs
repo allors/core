@@ -3,6 +3,7 @@
 using System.Linq;
 using Allors.Core.Database.Engines.Tests.Extensions;
 using Allors.Core.Database.Engines.Tests.Meta;
+using FluentAssertions;
 using Xunit;
 
 public abstract class ChangesTests : Tests
@@ -32,8 +33,8 @@ public abstract class ChangesTests : Tests
         var associations = changeSet.Associations;
         var roles = changeSet.Roles;
 
-        Assert.Empty(associations);
-        Assert.Empty(roles);
+        associations.Should().BeEmpty();
+        roles.Should().BeEmpty();
 
         a[m.C1AllorsString] = "a changed";
         b[m.C2AllorsString] = "b changed";
@@ -43,26 +44,26 @@ public abstract class ChangesTests : Tests
         associations = changeSet.Associations;
         roles = changeSet.Roles;
 
-        Assert.Equal(2, associations.Count);
-        Assert.Contains(a, associations.ToArray());
-        Assert.Contains(b, associations.ToArray());
+        associations.Count.Should().Be(2);
+        associations.ToArray().Should().Contain(a);
+        associations.ToArray().Should().Contain(b);
 
-        Assert.Equal("a changed", a[m.C1AllorsString]);
-        Assert.Equal("b changed", b[m.C2AllorsString]);
+        a[m.C1AllorsString].Should().Be("a changed");
+        b[m.C2AllorsString].Should().Be("b changed");
 
-        Assert.Single(changeSet.GetRoleTypes(a));
-        Assert.Equal(m.C1AllorsString(), changeSet.GetRoleTypes(a).First());
+        changeSet.GetRoleTypes(a).Should().HaveCount(1);
+        changeSet.GetRoleTypes(a).First().Should().Be(m.C1AllorsString());
 
-        Assert.Single(changeSet.GetRoleTypes(b));
-        Assert.Equal(m.C2AllorsString(), changeSet.GetRoleTypes(b).First());
+        changeSet.GetRoleTypes(b).Should().HaveCount(1);
+        changeSet.GetRoleTypes(b).First().Should().Be(m.C2AllorsString());
 
-        Assert.True(associations.Contains(a));
-        Assert.True(associations.Contains(b));
-        Assert.False(associations.Contains(c));
+        associations.Contains(a).Should().BeTrue();
+        associations.Contains(b).Should().BeTrue();
+        associations.Contains(c).Should().BeFalse();
 
-        Assert.False(roles.Contains(a));
-        Assert.False(roles.Contains(b));
-        Assert.False(roles.Contains(c));
+        roles.Contains(a).Should().BeFalse();
+        roles.Contains(b).Should().BeFalse();
+        roles.Contains(c).Should().BeFalse();
 
         a[m.C1AllorsString] = "a changed";
         b[m.C2AllorsString] = "b changed";
@@ -72,8 +73,8 @@ public abstract class ChangesTests : Tests
         associations = changeSet.Associations;
         roles = changeSet.Roles;
 
-        Assert.Empty(associations);
-        Assert.Empty(roles);
+        associations.Should().BeEmpty();
+        roles.Should().BeEmpty();
 
         a[m.C1AllorsString] = "a changed again";
         b[m.C2AllorsString] = "b changed again";
@@ -83,40 +84,40 @@ public abstract class ChangesTests : Tests
         associations = changeSet.Associations;
         roles = changeSet.Roles;
 
-        Assert.Equal(2, associations.Count);
-        Assert.True(associations.Contains(a));
-        Assert.True(associations.Contains(a));
+        associations.Count.Should().Be(2);
+        associations.Contains(a).Should().BeTrue();
+        associations.Contains(a).Should().BeTrue();
 
-        Assert.Single(changeSet.GetRoleTypes(a));
-        Assert.Equal(m.C1AllorsString(), changeSet.GetRoleTypes(a).First());
+        changeSet.GetRoleTypes(a).Should().HaveCount(1);
+        changeSet.GetRoleTypes(a).First().Should().Be(m.C1AllorsString());
 
-        Assert.Single(changeSet.GetRoleTypes(b));
-        Assert.Equal(m.C2AllorsString(), changeSet.GetRoleTypes(b).First());
+        changeSet.GetRoleTypes(b).Should().HaveCount(1);
+        changeSet.GetRoleTypes(b).First().Should().Be(m.C2AllorsString());
 
-        Assert.True(associations.Contains(a));
-        Assert.True(associations.Contains(b));
-        Assert.False(associations.Contains(c));
+        associations.Contains(a).Should().BeTrue();
+        associations.Contains(b).Should().BeTrue();
+        associations.Contains(c).Should().BeFalse();
 
-        Assert.False(roles.Contains(a));
-        Assert.False(roles.Contains(b));
-        Assert.False(roles.Contains(c));
+        roles.Contains(a).Should().BeFalse();
+        roles.Contains(b).Should().BeFalse();
+        roles.Contains(c).Should().BeFalse();
 
         changeSet = transaction.Checkpoint();
 
         associations = changeSet.Associations;
         roles = changeSet.Roles;
 
-        Assert.Empty(associations);
-        Assert.Empty(changeSet.GetRoleTypes(a));
-        Assert.Empty(changeSet.GetRoleTypes(b));
+        associations.Should().BeEmpty();
+        changeSet.GetRoleTypes(a).Should().BeEmpty();
+        changeSet.GetRoleTypes(b).Should().BeEmpty();
 
-        Assert.False(associations.Contains(a));
-        Assert.False(associations.Contains(b));
-        Assert.False(associations.Contains(c));
+        associations.Contains(a).Should().BeFalse();
+        associations.Contains(b).Should().BeFalse();
+        associations.Contains(c).Should().BeFalse();
 
-        Assert.False(roles.Contains(a));
-        Assert.False(roles.Contains(b));
-        Assert.False(roles.Contains(c));
+        roles.Contains(a).Should().BeFalse();
+        roles.Contains(b).Should().BeFalse();
+        roles.Contains(c).Should().BeFalse();
 
         a[m.C1AllorsString] = null;
         b[m.C2AllorsString] = null;
@@ -126,39 +127,39 @@ public abstract class ChangesTests : Tests
         associations = changeSet.Associations;
         roles = changeSet.Roles;
 
-        Assert.Equal(2, associations.Count);
-        Assert.True(associations.Contains(a));
-        Assert.True(associations.Contains(a));
+        associations.Count.Should().Be(2);
+        associations.Contains(a).Should().BeTrue();
+        associations.Contains(a).Should().BeTrue();
 
-        Assert.Single(changeSet.GetRoleTypes(a));
-        Assert.Equal(m.C1AllorsString(), changeSet.GetRoleTypes(a).First());
+        changeSet.GetRoleTypes(a).Should().HaveCount(1);
+        changeSet.GetRoleTypes(a).First().Should().Be(m.C1AllorsString());
 
-        Assert.Single(changeSet.GetRoleTypes(b));
-        Assert.Equal(m.C2AllorsString(), changeSet.GetRoleTypes(b).First());
+        changeSet.GetRoleTypes(b).Should().HaveCount(1);
+        changeSet.GetRoleTypes(b).First().Should().Be(m.C2AllorsString());
 
-        Assert.True(associations.Contains(a));
-        Assert.True(associations.Contains(b));
-        Assert.False(associations.Contains(c));
+        associations.Contains(a).Should().BeTrue();
+        associations.Contains(b).Should().BeTrue();
+        associations.Contains(c).Should().BeFalse();
 
-        Assert.False(roles.Contains(a));
-        Assert.False(roles.Contains(b));
-        Assert.False(roles.Contains(c));
+        roles.Contains(a).Should().BeFalse();
+        roles.Contains(b).Should().BeFalse();
+        roles.Contains(c).Should().BeFalse();
 
         changeSet = transaction.Checkpoint();
 
         associations = changeSet.Associations;
         roles = changeSet.Roles;
 
-        Assert.Empty(associations);
-        Assert.Empty(changeSet.GetRoleTypes(a));
-        Assert.Empty(changeSet.GetRoleTypes(b));
+        associations.Should().BeEmpty();
+        changeSet.GetRoleTypes(a).Should().BeEmpty();
+        changeSet.GetRoleTypes(b).Should().BeEmpty();
 
-        Assert.False(associations.Contains(a));
-        Assert.False(associations.Contains(b));
-        Assert.False(associations.Contains(c));
+        associations.Contains(a).Should().BeFalse();
+        associations.Contains(b).Should().BeFalse();
+        associations.Contains(c).Should().BeFalse();
 
-        Assert.False(roles.Contains(a));
-        Assert.False(roles.Contains(b));
+        roles.Contains(a).Should().BeFalse();
+        roles.Contains(b).Should().BeFalse();
 
         transaction.Rollback();
 
@@ -167,16 +168,16 @@ public abstract class ChangesTests : Tests
         associations = changeSet.Associations;
         roles = changeSet.Roles;
 
-        Assert.Empty(associations);
-        Assert.Empty(changeSet.GetRoleTypes(a));
-        Assert.Empty(changeSet.GetRoleTypes(b));
+        associations.Should().BeEmpty();
+        changeSet.GetRoleTypes(a).Should().BeEmpty();
+        changeSet.GetRoleTypes(b).Should().BeEmpty();
 
-        Assert.False(associations.Contains(a));
-        Assert.False(associations.Contains(b));
-        Assert.False(associations.Contains(c));
+        associations.Contains(a).Should().BeFalse();
+        associations.Contains(b).Should().BeFalse();
+        associations.Contains(c).Should().BeFalse();
 
-        Assert.False(roles.Contains(a));
-        Assert.False(roles.Contains(b));
+        roles.Contains(a).Should().BeFalse();
+        roles.Contains(b).Should().BeFalse();
 
         a[m.C1AllorsString] = "a changed";
 
@@ -187,16 +188,16 @@ public abstract class ChangesTests : Tests
         associations = changeSet.Associations;
         roles = changeSet.Roles;
 
-        Assert.Empty(associations);
-        Assert.Empty(changeSet.GetRoleTypes(a));
-        Assert.Empty(changeSet.GetRoleTypes(b));
+        associations.Should().BeEmpty();
+        changeSet.GetRoleTypes(a).Should().BeEmpty();
+        changeSet.GetRoleTypes(b).Should().BeEmpty();
 
-        Assert.False(associations.Contains(a));
-        Assert.False(associations.Contains(b));
-        Assert.False(associations.Contains(c));
+        associations.Contains(a).Should().BeFalse();
+        associations.Contains(b).Should().BeFalse();
+        associations.Contains(c).Should().BeFalse();
 
-        Assert.False(roles.Contains(a));
-        Assert.False(roles.Contains(b));
+        roles.Contains(a).Should().BeFalse();
+        roles.Contains(b).Should().BeFalse();
 
         a[m.C1AllorsString] = null;
         a[m.C1AllorsString] = "a changed";
@@ -208,16 +209,16 @@ public abstract class ChangesTests : Tests
         associations = changeSet.Associations;
         roles = changeSet.Roles;
 
-        Assert.Empty(associations);
-        Assert.Empty(changeSet.GetRoleTypes(a));
-        Assert.Empty(changeSet.GetRoleTypes(b));
+        associations.Should().BeEmpty();
+        changeSet.GetRoleTypes(a).Should().BeEmpty();
+        changeSet.GetRoleTypes(b).Should().BeEmpty();
 
-        Assert.False(associations.Contains(a));
-        Assert.False(associations.Contains(b));
-        Assert.False(associations.Contains(c));
+        associations.Contains(a).Should().BeFalse();
+        associations.Contains(b).Should().BeFalse();
+        associations.Contains(c).Should().BeFalse();
 
-        Assert.False(roles.Contains(a));
-        Assert.False(roles.Contains(b));
+        roles.Contains(a).Should().BeFalse();
+        roles.Contains(b).Should().BeFalse();
     }
 
     protected abstract IDatabase CreateDatabase();

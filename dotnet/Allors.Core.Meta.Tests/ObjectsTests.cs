@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
+using FluentAssertions;
 using Xunit;
 
 public class ObjectsTests
@@ -35,23 +36,23 @@ public class ObjectsTests
 
         var lastNameDoe = meta.Objects.Where(v => (string)v["LastName"]! == "Doe").ToArray();
 
-        Assert.Equal(3, lastNameDoe.Length);
-        Assert.Contains(jane, lastNameDoe);
-        Assert.Contains(john, lastNameDoe);
-        Assert.Contains(jenny, lastNameDoe);
+        lastNameDoe.Length.Should().Be(3);
+        lastNameDoe.Should().Contain(jane);
+        lastNameDoe.Should().Contain(john);
+        lastNameDoe.Should().Contain(jenny);
 
         var lessThanFourLetterFirstNames = meta.Objects.Where(v => ((string)v["FirstName"]!).Length < 4).ToArray();
 
-        Assert.Empty(lessThanFourLetterFirstNames);
+        lessThanFourLetterFirstNames.Should().BeEmpty();
 
         var fourLetterFirstNames = meta.Objects.Where(v => ((string)v["FirstName"]!).Length == 4).ToArray();
 
-        Assert.Equal(2, fourLetterFirstNames.Length);
-        Assert.Contains(jane, fourLetterFirstNames);
-        Assert.Contains(john, fourLetterFirstNames);
+        fourLetterFirstNames.Length.Should().Be(2);
+        fourLetterFirstNames.Should().Contain(jane);
+        fourLetterFirstNames.Should().Contain(john);
 
         var fiveLetterFirstNames = meta.Objects.Where(v => ((string)v["FirstName"]!).Length == 5).ToArray();
-        Assert.Single(fiveLetterFirstNames);
-        Assert.Contains(jenny, fiveLetterFirstNames);
+        fiveLetterFirstNames.Should().HaveCount(1);
+        fiveLetterFirstNames.Should().Contain(jenny);
     }
 }

@@ -3,6 +3,7 @@
 using System;
 using Allors.Core.Meta.Tests.Domain;
 using Allors.Core.MetaMeta;
+using FluentAssertions;
 using Xunit;
 
 public class StaticTests
@@ -24,8 +25,8 @@ public class StaticTests
 
         c1a[c1C2OneToOne] = c2a;
 
-        Assert.Equal(c2a, c1a[c1C2OneToOne]);
-        Assert.Null(c1b[c1C2OneToOne]);
-        Assert.Equal(c1a, c2a[c1C2OneToOne.AssociationType]);
+        c1a[c1C2OneToOne].Should().Be(c2a);
+        c1b[c1C2OneToOne].Should().BeNull();
+        c2a[c1C2OneToOne.AssociationType].Should().Be(c1a);
     }
 }

@@ -2,6 +2,7 @@
 
 using System;
 using Allors.Core.MetaMeta;
+using FluentAssertions;
 using Xunit;
 
 public class UnitTests
@@ -29,8 +30,8 @@ public class UnitTests
             v["Same"] = "c2";
         });
 
-        Assert.Equal("c1", c1a["Same"]);
-        Assert.Equal("c2", c2a["Same"]);
+        c1a["Same"].Should().Be("c1");
+        c2a["Same"].Should().Be("c2");
     }
 
     [Fact]
@@ -50,17 +51,17 @@ public class UnitTests
         john["FirstName"] = "John";
         jane["FirstName"] = "Jane";
 
-        Assert.Equal("John", john["FirstName"]);
-        Assert.Equal("Jane", jane["FirstName"]);
-        Assert.Equal("John", john[unitRoleType]);
-        Assert.Equal("Jane", jane[unitRoleType]);
+        john["FirstName"].Should().Be("John");
+        jane["FirstName"].Should().Be("Jane");
+        john[unitRoleType].Should().Be("John");
+        jane[unitRoleType].Should().Be("Jane");
 
         jane["FirstName"] = null;
 
-        Assert.Equal("John", john["FirstName"]);
-        Assert.Null(jane["FirstName"]);
-        Assert.Equal("John", john[unitRoleType]);
-        Assert.Null(jane[unitRoleType]);
+        john["FirstName"].Should().Be("John");
+        jane["FirstName"].Should().BeNull();
+        john[unitRoleType].Should().Be("John");
+        jane[unitRoleType].Should().BeNull();
     }
 
     [Fact]
@@ -80,16 +81,16 @@ public class UnitTests
         john[unitRoleType] = "John";
         jane[unitRoleType] = "Jane";
 
-        Assert.Equal("John", john["FirstName"]);
-        Assert.Equal("Jane", jane["FirstName"]);
-        Assert.Equal("John", john[unitRoleType]);
-        Assert.Equal("Jane", jane[unitRoleType]);
+        john["FirstName"].Should().Be("John");
+        jane["FirstName"].Should().Be("Jane");
+        john[unitRoleType].Should().Be("John");
+        jane[unitRoleType].Should().Be("Jane");
 
         jane[unitRoleType] = null;
 
-        Assert.Equal("John", john["FirstName"]);
-        Assert.Null(jane["FirstName"]);
-        Assert.Equal("John", john[unitRoleType]);
-        Assert.Null(jane[unitRoleType]);
+        john["FirstName"].Should().Be("John");
+        jane["FirstName"].Should().BeNull();
+        john[unitRoleType].Should().Be("John");
+        jane[unitRoleType].Should().BeNull();
     }
 }

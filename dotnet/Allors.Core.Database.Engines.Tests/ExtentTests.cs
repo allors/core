@@ -1,5 +1,6 @@
 ﻿namespace Allors.Core.Database.Engines.Tests;
 
+using FluentAssertions;
 using Xunit;
 
 public abstract class ExtentTests : Tests
@@ -7,7 +8,7 @@ public abstract class ExtentTests : Tests
     [Fact]
     public void ToDo()
     {
-        Assert.True(true);
+        true.Should().BeTrue();
     }
 
     protected abstract IDatabase CreateDatabase();

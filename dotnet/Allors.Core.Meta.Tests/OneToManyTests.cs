@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
+using FluentAssertions;
 using Xunit;
 
 public class OneToManyTests
@@ -29,13 +30,13 @@ public class OneToManyTests
         acme.Add(employees, john);
         acme.Add(employees, jenny);
 
-        Assert.Contains(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.Contains(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.Contains(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jane);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(john);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jenny);
 
-        Assert.Equal(acme, jane["OrganizationWhereEmployee"]);
-        Assert.Equal(acme, john["OrganizationWhereEmployee"]);
-        Assert.Equal(acme, jenny["OrganizationWhereEmployee"]);
+        jane["OrganizationWhereEmployee"].Should().Be(acme);
+        john["OrganizationWhereEmployee"].Should().Be(acme);
+        jenny["OrganizationWhereEmployee"].Should().Be(acme);
     }
 
     [Fact]
@@ -64,17 +65,17 @@ public class OneToManyTests
 
         hooli.Add(employees, jane);
 
-        Assert.Contains(jane, (IEnumerable<IMetaObject>)hooli["Employees"]!);
+        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().Contain(jane);
 
         Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.Contains(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.Contains(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(john);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jenny);
 
-        Assert.Equal(hooli, jane["OrganizationWhereEmployee"]);
+        jane["OrganizationWhereEmployee"].Should().Be(hooli);
 
         Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
-        Assert.Equal(acme, john["OrganizationWhereEmployee"]);
-        Assert.Equal(acme, jenny["OrganizationWhereEmployee"]);
+        john["OrganizationWhereEmployee"].Should().Be(acme);
+        jenny["OrganizationWhereEmployee"].Should().Be(acme);
     }
 
     [Fact]
@@ -100,22 +101,22 @@ public class OneToManyTests
         acme.Remove(employees, jane);
 
         Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.Contains(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.Contains(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(john);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jenny);
 
         Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
-        Assert.Equal(acme, john["OrganizationWhereEmployee"]);
-        Assert.Equal(acme, jenny["OrganizationWhereEmployee"]);
+        john["OrganizationWhereEmployee"].Should().Be(acme);
+        jenny["OrganizationWhereEmployee"].Should().Be(acme);
 
         acme.Remove(employees, john);
 
         Assert.DoesNotContain(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
         Assert.DoesNotContain(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.Contains(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jenny);
 
         Assert.NotEqual(acme, jane["OrganizationWhereEmployee"]);
         Assert.NotEqual(acme, john["OrganizationWhereEmployee"]);
-        Assert.Equal(acme, jenny["OrganizationWhereEmployee"]);
+        jenny["OrganizationWhereEmployee"].Should().Be(acme);
 
         acme.Remove(employees, jenny);
 

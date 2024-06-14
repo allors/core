@@ -819,13 +819,13 @@ public abstract class OneToOneTests : Tests
                 middle[role] = end;
                 begin[role] = end;
 
-                Assert.Null(middle[association]);
-                Assert.Equal(begin, end[association]);
-                Assert.Null(begin[association]);
+                middle[association].Should().BeNull();
+                end[association].Should().Be(begin);
+                begin[association].Should().BeNull();
 
-                Assert.Equal(end, begin[role]);
-                Assert.Null(middle[role]);
-                Assert.Null(end[role]);
+                begin[role].Should().Be(end);
+                middle[role].Should().BeNull();
+                end[role].Should().BeNull();
             }
         }
     }
@@ -853,13 +853,13 @@ public abstract class OneToOneTests : Tests
                 middle[role] = end;
                 end[role] = begin;
 
-                Assert.Equal(begin, middle[association]);
-                Assert.Equal(middle, end[association]);
-                Assert.Equal(end, begin[association]);
+                middle[association].Should().Be(begin);
+                end[association].Should().Be(middle);
+                begin[association].Should().Be(end);
 
-                Assert.Equal(middle, begin[role]);
-                Assert.Equal(end, middle[role]);
-                Assert.Equal(begin, end[role]);
+                begin[role].Should().Be(middle);
+                middle[role].Should().Be(end);
+                end[role].Should().Be(begin);
             }
         }
     }

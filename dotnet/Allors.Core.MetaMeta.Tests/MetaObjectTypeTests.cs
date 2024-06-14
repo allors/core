@@ -1,6 +1,7 @@
 ﻿namespace Allors.Core.MetaMeta.Tests;
 
 using System;
+using FluentAssertions;
 using Xunit;
 
 public class MetaObjectTypeTests
@@ -14,14 +15,14 @@ public class MetaObjectTypeTests
         var i1 = meta.AddInterface(Guid.NewGuid(), "I1", s1);
         var c1 = meta.AddClass(Guid.NewGuid(), "C1", i1);
 
-        Assert.Equal(2, c1.Supertypes.Count);
-        Assert.Contains(i1, c1.Supertypes);
-        Assert.Contains(s1, c1.Supertypes);
+        c1.Supertypes.Count.Should().Be(2);
+        c1.Supertypes.Should().Contain(i1);
+        c1.Supertypes.Should().Contain(s1);
 
-        Assert.Single(i1.Supertypes);
-        Assert.Contains(s1, i1.Supertypes);
+        i1.Supertypes.Should().HaveCount(1);
+        i1.Supertypes.Should().Contain(s1);
 
-        Assert.Empty(s1.Supertypes);
+        s1.Supertypes.Should().BeEmpty();
     }
 
     [Fact]
@@ -33,16 +34,16 @@ public class MetaObjectTypeTests
         var i1 = meta.AddInterface(Guid.NewGuid(), "I1", s1);
         var c1 = meta.AddClass(Guid.NewGuid(), "C1", i1);
 
-        Assert.True(c1.IsAssignableFrom(c1));
-        Assert.True(i1.IsAssignableFrom(c1));
-        Assert.True(s1.IsAssignableFrom(c1));
+        c1.IsAssignableFrom(c1).Should().BeTrue();
+        i1.IsAssignableFrom(c1).Should().BeTrue();
+        s1.IsAssignableFrom(c1).Should().BeTrue();
 
-        Assert.False(c1.IsAssignableFrom(i1));
-        Assert.True(i1.IsAssignableFrom(i1));
-        Assert.True(s1.IsAssignableFrom(i1));
+        c1.IsAssignableFrom(i1).Should().BeFalse();
+        i1.IsAssignableFrom(i1).Should().BeTrue();
+        s1.IsAssignableFrom(i1).Should().BeTrue();
 
-        Assert.False(c1.IsAssignableFrom(s1));
-        Assert.False(i1.IsAssignableFrom(s1));
-        Assert.True(s1.IsAssignableFrom(s1));
+        c1.IsAssignableFrom(s1).Should().BeFalse();
+        i1.IsAssignableFrom(s1).Should().BeFalse();
+        s1.IsAssignableFrom(s1).Should().BeTrue();
     }
 }

@@ -3,6 +3,7 @@
 using System;
 using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
+using FluentAssertions;
 using Xunit;
 
 public class SnapshotTests
@@ -33,20 +34,20 @@ public class SnapshotTests
         var changedFirstNames = snapshot1.ChangedRoles(firstName);
         var changedLastNames = snapshot1.ChangedRoles(lastName);
 
-        Assert.Single(changedFirstNames.Keys);
-        Assert.Single(changedLastNames.Keys);
-        Assert.Contains(john, changedFirstNames.Keys);
-        Assert.Contains(john, changedLastNames.Keys);
+        changedFirstNames.Keys.Should().HaveCount(1);
+        changedLastNames.Keys.Should().HaveCount(1);
+        changedFirstNames.Keys.Should().Contain(john);
+        changedLastNames.Keys.Should().Contain(john);
 
         var snapshot2 = meta.Checkpoint();
 
         changedFirstNames = snapshot2.ChangedRoles(firstName);
         changedLastNames = snapshot2.ChangedRoles(lastName);
 
-        Assert.Single(changedFirstNames.Keys);
-        Assert.Single(changedLastNames.Keys);
-        Assert.Contains(jane, changedFirstNames.Keys);
-        Assert.Contains(jane, changedLastNames.Keys);
+        changedFirstNames.Keys.Should().HaveCount(1);
+        changedLastNames.Keys.Should().HaveCount(1);
+        changedFirstNames.Keys.Should().Contain(jane);
+        changedLastNames.Keys.Should().Contain(jane);
     }
 
     [Fact]
@@ -81,13 +82,13 @@ public class SnapshotTests
 
         var snapshot = meta.Checkpoint();
         var changedEmployees = snapshot.ChangedRoles(employees);
-        Assert.Single(changedEmployees);
+        changedEmployees.Should().HaveCount(1);
 
         acme["Employees"] = new[] { jane, john };
 
         snapshot = meta.Checkpoint();
         changedEmployees = snapshot.ChangedRoles(employees);
-        Assert.Empty(changedEmployees);
+        changedEmployees.Should().BeEmpty();
 
         acme["Employees"] = Array.Empty<IMetaObject>();
 
@@ -95,6 +96,6 @@ public class SnapshotTests
 
         snapshot = meta.Checkpoint();
         changedEmployees = snapshot.ChangedRoles(employees);
-        Assert.Empty(changedEmployees);
+        changedEmployees.Should().BeEmpty();
     }
 }

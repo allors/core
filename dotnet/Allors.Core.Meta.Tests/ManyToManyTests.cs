@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
+using FluentAssertions;
 using Xunit;
 
 public class ManyToManyTests
@@ -34,21 +35,21 @@ public class ManyToManyTests
         acme.Add(employees, john);
         acme.Add(employees, jenny);
 
-        Assert.Single(jane[organizationWhereEmployee]);
-        Assert.Contains(acme, jane[organizationWhereEmployee]);
+        jane[organizationWhereEmployee].Should().HaveCount(1);
+        jane[organizationWhereEmployee].Should().Contain(acme);
 
-        Assert.Single(john[organizationWhereEmployee]);
-        Assert.Contains(acme, john[organizationWhereEmployee]);
+        john[organizationWhereEmployee].Should().HaveCount(1);
+        john[organizationWhereEmployee].Should().Contain(acme);
 
-        Assert.Single(jenny[organizationWhereEmployee]);
-        Assert.Contains(acme, jenny[organizationWhereEmployee]);
+        jenny[organizationWhereEmployee].Should().HaveCount(1);
+        jenny[organizationWhereEmployee].Should().Contain(acme);
 
-        Assert.Equal(3, acme[employees].Count());
-        Assert.Contains(jane, acme[employees]);
-        Assert.Contains(john, acme[employees]);
-        Assert.Contains(jenny, acme[employees]);
+        acme[employees].Count().Should().Be(3);
+        acme[employees].Should().Contain(jane);
+        acme[employees].Should().Contain(john);
+        acme[employees].Should().Contain(jenny);
 
-        Assert.Empty(hooli[employees]);
+        hooli[employees].Should().BeEmpty();
     }
 
     [Fact]
@@ -73,60 +74,60 @@ public class ManyToManyTests
 
         acme[employees] = new[] { jane }.ToFrozenSet();
 
-        Assert.Single((IReadOnlySet<IMetaObject>)jane["OrganizationsWhereEmployee"]!);
-        Assert.Contains(acme, (IReadOnlySet<IMetaObject>)jane["OrganizationsWhereEmployee"]!);
+        ((IReadOnlySet<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().HaveCount(1);
+        ((IReadOnlySet<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().Contain(acme);
 
-        Assert.Empty((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!);
+        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().BeEmpty();
 
-        Assert.Empty((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!);
+        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Should().BeEmpty();
 
-        Assert.Single((IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.Contains(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().HaveCount(1);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jane);
 
-        Assert.Empty((IEnumerable<IMetaObject>)hooli["Employees"]!);
+        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().BeEmpty();
 
         acme["Employees"] = new[] { jane, john };
 
-        Assert.Single((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!);
-        Assert.Contains(acme, (IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!);
+        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().HaveCount(1);
+        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().Contain(acme);
 
-        Assert.Single((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!);
-        Assert.Contains(acme, (IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!);
+        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().HaveCount(1);
+        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().Contain(acme);
 
-        Assert.Empty((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!);
+        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Should().BeEmpty();
 
-        Assert.Equal(2, ((IEnumerable<IMetaObject>)acme["Employees"]!).Count());
-        Assert.Contains(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.Contains(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Count().Should().Be(2);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jane);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(john);
 
-        Assert.Empty((IEnumerable<IMetaObject>)hooli["Employees"]!);
+        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().BeEmpty();
 
         acme["Employees"] = new[] { jane, john, jenny };
 
-        Assert.Single((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!);
-        Assert.Contains(acme, (IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!);
+        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().HaveCount(1);
+        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().Contain(acme);
 
-        Assert.Single((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!);
-        Assert.Contains(acme, (IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!);
+        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().HaveCount(1);
+        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().Contain(acme);
 
-        Assert.Single((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!);
-        Assert.Contains(acme, (IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!);
+        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Should().HaveCount(1);
+        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Should().Contain(acme);
 
-        Assert.Equal(3, ((IEnumerable<IMetaObject>)acme["Employees"]!).Count());
-        Assert.Contains(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.Contains(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.Contains(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Count().Should().Be(3);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jane);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(john);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jenny);
 
-        Assert.Empty((IEnumerable<IMetaObject>)hooli["Employees"]!);
+        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().BeEmpty();
 
         acme["Employees"] = Array.Empty<IMetaObject>();
 
-        Assert.Empty((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!);
-        Assert.Empty((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!);
-        Assert.Empty((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!);
+        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().BeEmpty();
+        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().BeEmpty();
+        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Should().BeEmpty();
 
-        Assert.Empty((IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.Empty((IEnumerable<IMetaObject>)hooli["Employees"]!);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().BeEmpty();
+        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().BeEmpty();
     }
 
     [Fact]
@@ -153,42 +154,42 @@ public class ManyToManyTests
 
         acme.Remove(employees, jenny);
 
-        Assert.Single((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!);
-        Assert.Contains(acme, (IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!);
+        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().HaveCount(1);
+        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().Contain(acme);
 
-        Assert.Single((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!);
-        Assert.Contains(acme, (IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!);
+        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().HaveCount(1);
+        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().Contain(acme);
 
-        Assert.Empty((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!);
+        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Should().BeEmpty();
 
-        Assert.Equal(2, ((IEnumerable<IMetaObject>)acme["Employees"]!).Count());
-        Assert.Contains(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.Contains(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Count().Should().Be(2);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jane);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(john);
 
-        Assert.Empty((IEnumerable<IMetaObject>)hooli["Employees"]!);
+        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().BeEmpty();
 
         acme.Remove(employees, john);
 
-        Assert.Single((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!);
-        Assert.Contains(acme, (IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!);
+        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().HaveCount(1);
+        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().Contain(acme);
 
-        Assert.Empty((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!);
+        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().BeEmpty();
 
-        Assert.Empty((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!);
+        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Should().BeEmpty();
 
-        Assert.Single((IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.Contains(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().HaveCount(1);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jane);
 
-        Assert.Empty((IEnumerable<IMetaObject>)hooli["Employees"]!);
+        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().BeEmpty();
 
         acme.Remove(employees, jane);
 
-        Assert.Empty((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!);
-        Assert.Empty((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!);
-        Assert.Empty((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!);
+        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().BeEmpty();
+        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().BeEmpty();
+        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Should().BeEmpty();
 
-        Assert.Empty((IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.Empty((IEnumerable<IMetaObject>)hooli["Employees"]!);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().BeEmpty();
+        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().BeEmpty();
     }
 
     [Fact]
@@ -217,69 +218,69 @@ public class ManyToManyTests
 
         hooli.Add(employees, jane);
 
-        Assert.Equal(2, ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Count());
-        Assert.Contains(acme, (IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!);
-        Assert.Contains(hooli, (IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!);
+        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Count().Should().Be(2);
+        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().Contain(acme);
+        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().Contain(hooli);
 
-        Assert.Single((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!);
-        Assert.Contains(acme, (IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!);
+        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().HaveCount(1);
+        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().Contain(acme);
 
-        Assert.Single((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!);
-        Assert.Contains(acme, (IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!);
+        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Should().HaveCount(1);
+        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Should().Contain(acme);
 
-        Assert.Equal(3, ((IEnumerable<IMetaObject>)acme["Employees"]!).Count());
-        Assert.Contains(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.Contains(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.Contains(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Count().Should().Be(3);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jane);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(john);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jenny);
 
-        Assert.Single((IEnumerable<IMetaObject>)hooli["Employees"]!);
-        Assert.Contains(jane, (IEnumerable<IMetaObject>)hooli["Employees"]!);
+        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().HaveCount(1);
+        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().Contain(jane);
 
         hooli.Add(employees, john);
 
-        Assert.Equal(2, ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Count());
-        Assert.Contains(acme, (IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!);
-        Assert.Contains(hooli, (IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!);
+        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Count().Should().Be(2);
+        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().Contain(acme);
+        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().Contain(hooli);
 
-        Assert.Equal(2, ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Count());
-        Assert.Contains(acme, (IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!);
-        Assert.Contains(hooli, (IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!);
+        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Count().Should().Be(2);
+        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().Contain(acme);
+        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().Contain(hooli);
 
-        Assert.Single((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!);
-        Assert.Contains(acme, (IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!);
+        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Should().HaveCount(1);
+        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Should().Contain(acme);
 
-        Assert.Equal(3, ((IEnumerable<IMetaObject>)acme["Employees"]!).Count());
-        Assert.Contains(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.Contains(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.Contains(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Count().Should().Be(3);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jane);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(john);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jenny);
 
-        Assert.Equal(2, ((IEnumerable<IMetaObject>)hooli["Employees"]!).Count());
-        Assert.Contains(jane, (IEnumerable<IMetaObject>)hooli["Employees"]!);
-        Assert.Contains(john, (IEnumerable<IMetaObject>)hooli["Employees"]!);
+        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Count().Should().Be(2);
+        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().Contain(jane);
+        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().Contain(john);
 
         hooli.Add(employees, jenny);
 
-        Assert.Equal(2, ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Count());
-        Assert.Contains(acme, (IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!);
-        Assert.Contains(hooli, (IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!);
+        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Count().Should().Be(2);
+        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().Contain(acme);
+        ((IEnumerable<IMetaObject>)jane["OrganizationsWhereEmployee"]!).Should().Contain(hooli);
 
-        Assert.Equal(2, ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Count());
-        Assert.Contains(acme, (IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!);
-        Assert.Contains(hooli, (IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!);
+        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Count().Should().Be(2);
+        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().Contain(acme);
+        ((IEnumerable<IMetaObject>)john["OrganizationsWhereEmployee"]!).Should().Contain(hooli);
 
-        Assert.Equal(2, ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Count());
-        Assert.Contains(acme, (IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!);
-        Assert.Contains(hooli, (IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!);
+        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Count().Should().Be(2);
+        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Should().Contain(acme);
+        ((IEnumerable<IMetaObject>)jenny["OrganizationsWhereEmployee"]!).Should().Contain(hooli);
 
-        Assert.Equal(3, ((IEnumerable<IMetaObject>)acme["Employees"]!).Count());
-        Assert.Contains(jane, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.Contains(john, (IEnumerable<IMetaObject>)acme["Employees"]!);
-        Assert.Contains(jenny, (IEnumerable<IMetaObject>)acme["Employees"]!);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Count().Should().Be(3);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jane);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(john);
+        ((IEnumerable<IMetaObject>)acme["Employees"]!).Should().Contain(jenny);
 
-        Assert.Equal(3, ((IEnumerable<IMetaObject>)hooli["Employees"]!).Count());
-        Assert.Contains(jane, (IEnumerable<IMetaObject>)hooli["Employees"]!);
-        Assert.Contains(john, (IEnumerable<IMetaObject>)hooli["Employees"]!);
-        Assert.Contains(jenny, (IEnumerable<IMetaObject>)hooli["Employees"]!);
+        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Count().Should().Be(3);
+        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().Contain(jane);
+        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().Contain(john);
+        ((IEnumerable<IMetaObject>)hooli["Employees"]!).Should().Contain(jenny);
     }
 
     [Fact]
@@ -301,10 +302,10 @@ public class ManyToManyTests
 
         acme.Add(people, jane);
 
-        Assert.Single((IEnumerable<IMetaObject>)jane["OrganizationsWherePerson"]!);
-        Assert.Contains(acme, (IEnumerable<IMetaObject>)jane["OrganizationsWherePerson"]!);
+        ((IEnumerable<IMetaObject>)jane["OrganizationsWherePerson"]!).Should().HaveCount(1);
+        ((IEnumerable<IMetaObject>)jane["OrganizationsWherePerson"]!).Should().Contain(acme);
 
-        Assert.Single((IEnumerable<IMetaObject>)acme["Persons"]!);
-        Assert.Contains(jane, (IEnumerable<IMetaObject>)acme["Persons"]!);
+        ((IEnumerable<IMetaObject>)acme["Persons"]!).Should().HaveCount(1);
+        ((IEnumerable<IMetaObject>)acme["Persons"]!).Should().Contain(jane);
     }
 }

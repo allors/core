@@ -87,653 +87,653 @@ public abstract class ManyToOneTests : Tests
 
         // New 0-4-0
         // Get
-        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Null(from3[m.C1C1ManyToOne]);
-        Assert.Null(from3[m.C1C1ManyToOne]);
-        Assert.Null(from4[m.C1C1ManyToOne]);
-        Assert.Null(from4[m.C1C1ManyToOne]);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
+        from1[m.C1C1ManyToOne].Should().BeNull();
+        from1[m.C1C1ManyToOne].Should().BeNull();
+        from2[m.C1C1ManyToOne].Should().BeNull();
+        from2[m.C1C1ManyToOne].Should().BeNull();
+        from3[m.C1C1ManyToOne].Should().BeNull();
+        from3[m.C1C1ManyToOne].Should().BeNull();
+        from4[m.C1C1ManyToOne].Should().BeNull();
+        from4[m.C1C1ManyToOne].Should().BeNull();
 
         // 1-1
         from1[m.C1C1ManyToOne] = to;
         from1[m.C1C1ManyToOne] = to; // Twice
 
-        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Equal(from1, to[m.C1sWhereC1ManyToOne].ElementAt(0));
-        Assert.Equal(from1, to[m.C1sWhereC1ManyToOne].ElementAt(0));
-        Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Null(from3[m.C1C1ManyToOne]);
-        Assert.Null(from3[m.C1C1ManyToOne]);
-        Assert.Null(from4[m.C1C1ManyToOne]);
-        Assert.Null(from4[m.C1C1ManyToOne]);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().HaveCount(1);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().HaveCount(1);
+        to[m.C1sWhereC1ManyToOne].ElementAt(0).Should().Be(from1);
+        to[m.C1sWhereC1ManyToOne].ElementAt(0).Should().Be(from1);
+        from1[m.C1C1ManyToOne].Should().Be(to);
+        from1[m.C1C1ManyToOne].Should().Be(to);
+        from2[m.C1C1ManyToOne].Should().BeNull();
+        from2[m.C1C1ManyToOne].Should().BeNull();
+        from3[m.C1C1ManyToOne].Should().BeNull();
+        from3[m.C1C1ManyToOne].Should().BeNull();
+        from4[m.C1C1ManyToOne].Should().BeNull();
+        from4[m.C1C1ManyToOne].Should().BeNull();
 
         // 1-2
         from2[m.C1C1ManyToOne] = to;
         from2[m.C1C1ManyToOne] = to; // Twice
 
-        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].ToArray().Length);
-        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].ToArray().Length);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Equal(to, from2[m.C1C1ManyToOne]);
-        Assert.Equal(to, from2[m.C1C1ManyToOne]);
-        Assert.Null(from3[m.C1C1ManyToOne]);
-        Assert.Null(from3[m.C1C1ManyToOne]);
-        Assert.Null(from4[m.C1C1ManyToOne]);
-        Assert.Null(from4[m.C1C1ManyToOne]);
+        to[m.C1sWhereC1ManyToOne].ToArray().Length.Should().Be(2);
+        to[m.C1sWhereC1ManyToOne].ToArray().Length.Should().Be(2);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from1);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from1);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from2);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from2);
+        from1[m.C1C1ManyToOne].Should().Be(to);
+        from1[m.C1C1ManyToOne].Should().Be(to);
+        from2[m.C1C1ManyToOne].Should().Be(to);
+        from2[m.C1C1ManyToOne].Should().Be(to);
+        from3[m.C1C1ManyToOne].Should().BeNull();
+        from3[m.C1C1ManyToOne].Should().BeNull();
+        from4[m.C1C1ManyToOne].Should().BeNull();
+        from4[m.C1C1ManyToOne].Should().BeNull();
 
         // 1-3
         from3[m.C1C1ManyToOne] = to;
         from3[m.C1C1ManyToOne] = to; // Twice
 
-        Assert.Equal(3, to[m.C1sWhereC1ManyToOne].ToArray().Length);
-        Assert.Equal(3, to[m.C1sWhereC1ManyToOne].ToArray().Length);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Equal(to, from2[m.C1C1ManyToOne]);
-        Assert.Equal(to, from2[m.C1C1ManyToOne]);
-        Assert.Equal(to, from3[m.C1C1ManyToOne]);
-        Assert.Equal(to, from3[m.C1C1ManyToOne]);
-        Assert.Null(from4[m.C1C1ManyToOne]);
-        Assert.Null(from4[m.C1C1ManyToOne]);
+        to[m.C1sWhereC1ManyToOne].ToArray().Length.Should().Be(3);
+        to[m.C1sWhereC1ManyToOne].ToArray().Length.Should().Be(3);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from1);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from1);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from2);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from2);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from3);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from3);
+        from1[m.C1C1ManyToOne].Should().Be(to);
+        from1[m.C1C1ManyToOne].Should().Be(to);
+        from2[m.C1C1ManyToOne].Should().Be(to);
+        from2[m.C1C1ManyToOne].Should().Be(to);
+        from3[m.C1C1ManyToOne].Should().Be(to);
+        from3[m.C1C1ManyToOne].Should().Be(to);
+        from4[m.C1C1ManyToOne].Should().BeNull();
+        from4[m.C1C1ManyToOne].Should().BeNull();
 
         // 1-4
         from4[m.C1C1ManyToOne] = to;
         from4[m.C1C1ManyToOne] = to; // Twice
 
-        Assert.Equal(4, to[m.C1sWhereC1ManyToOne].ToArray().Length);
-        Assert.Equal(4, to[m.C1sWhereC1ManyToOne].ToArray().Length);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from4, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from4, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Equal(to, from2[m.C1C1ManyToOne]);
-        Assert.Equal(to, from2[m.C1C1ManyToOne]);
-        Assert.Equal(to, from3[m.C1C1ManyToOne]);
-        Assert.Equal(to, from3[m.C1C1ManyToOne]);
-        Assert.Equal(to, from4[m.C1C1ManyToOne]);
-        Assert.Equal(to, from4[m.C1C1ManyToOne]);
+        to[m.C1sWhereC1ManyToOne].ToArray().Length.Should().Be(4);
+        to[m.C1sWhereC1ManyToOne].ToArray().Length.Should().Be(4);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from1);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from1);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from2);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from2);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from3);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from3);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from4);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from4);
+        from1[m.C1C1ManyToOne].Should().Be(to);
+        from1[m.C1C1ManyToOne].Should().Be(to);
+        from2[m.C1C1ManyToOne].Should().Be(to);
+        from2[m.C1C1ManyToOne].Should().Be(to);
+        from3[m.C1C1ManyToOne].Should().Be(to);
+        from3[m.C1C1ManyToOne].Should().Be(to);
+        from4[m.C1C1ManyToOne].Should().Be(to);
+        from4[m.C1C1ManyToOne].Should().Be(to);
 
         // 1-3
         from4[m.C1C1ManyToOne] = null;
         from4[m.C1C1ManyToOne] = null; // Twice
 
-        Assert.Equal(3, to[m.C1sWhereC1ManyToOne].ToArray().Length);
-        Assert.Equal(3, to[m.C1sWhereC1ManyToOne].ToArray().Length);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from3, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Equal(to, from2[m.C1C1ManyToOne]);
-        Assert.Equal(to, from2[m.C1C1ManyToOne]);
-        Assert.Equal(to, from3[m.C1C1ManyToOne]);
-        Assert.Equal(to, from3[m.C1C1ManyToOne]);
-        Assert.Null(from4[m.C1C1ManyToOne]);
-        Assert.Null(from4[m.C1C1ManyToOne]);
+        to[m.C1sWhereC1ManyToOne].ToArray().Length.Should().Be(3);
+        to[m.C1sWhereC1ManyToOne].ToArray().Length.Should().Be(3);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from1);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from1);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from2);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from2);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from3);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from3);
+        from1[m.C1C1ManyToOne].Should().Be(to);
+        from1[m.C1C1ManyToOne].Should().Be(to);
+        from2[m.C1C1ManyToOne].Should().Be(to);
+        from2[m.C1C1ManyToOne].Should().Be(to);
+        from3[m.C1C1ManyToOne].Should().Be(to);
+        from3[m.C1C1ManyToOne].Should().Be(to);
+        from4[m.C1C1ManyToOne].Should().BeNull();
+        from4[m.C1C1ManyToOne].Should().BeNull();
 
         // 1-2
         from3[m.C1C1ManyToOne] = null;
         from3[m.C1C1ManyToOne] = null; // Twice
 
-        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].ToArray().Length);
-        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].ToArray().Length);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Equal(to, from2[m.C1C1ManyToOne]);
-        Assert.Equal(to, from2[m.C1C1ManyToOne]);
-        Assert.Null(from3[m.C1C1ManyToOne]);
-        Assert.Null(from3[m.C1C1ManyToOne]);
-        Assert.Null(from4[m.C1C1ManyToOne]);
-        Assert.Null(from4[m.C1C1ManyToOne]);
+        to[m.C1sWhereC1ManyToOne].ToArray().Length.Should().Be(2);
+        to[m.C1sWhereC1ManyToOne].ToArray().Length.Should().Be(2);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from1);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from1);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from2);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from2);
+        from1[m.C1C1ManyToOne].Should().Be(to);
+        from1[m.C1C1ManyToOne].Should().Be(to);
+        from2[m.C1C1ManyToOne].Should().Be(to);
+        from2[m.C1C1ManyToOne].Should().Be(to);
+        from3[m.C1C1ManyToOne].Should().BeNull();
+        from3[m.C1C1ManyToOne].Should().BeNull();
+        from4[m.C1C1ManyToOne].Should().BeNull();
+        from4[m.C1C1ManyToOne].Should().BeNull();
 
         // 1-1
         from2[m.C1C1ManyToOne] = null;
         from2[m.C1C1ManyToOne] = null; // Twice
 
-        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Equal(from1, to[m.C1sWhereC1ManyToOne].ElementAt(0));
-        Assert.Equal(from1, to[m.C1sWhereC1ManyToOne].ElementAt(0));
-        Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Null(from3[m.C1C1ManyToOne]);
-        Assert.Null(from3[m.C1C1ManyToOne]);
-        Assert.Null(from4[m.C1C1ManyToOne]);
-        Assert.Null(from4[m.C1C1ManyToOne]);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().HaveCount(1);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().HaveCount(1);
+        to[m.C1sWhereC1ManyToOne].ElementAt(0).Should().Be(from1);
+        to[m.C1sWhereC1ManyToOne].ElementAt(0).Should().Be(from1);
+        from1[m.C1C1ManyToOne].Should().Be(to);
+        from1[m.C1C1ManyToOne].Should().Be(to);
+        from2[m.C1C1ManyToOne].Should().BeNull();
+        from2[m.C1C1ManyToOne].Should().BeNull();
+        from3[m.C1C1ManyToOne].Should().BeNull();
+        from3[m.C1C1ManyToOne].Should().BeNull();
+        from4[m.C1C1ManyToOne].Should().BeNull();
+        from4[m.C1C1ManyToOne].Should().BeNull();
 
         // 0-0
         from1[m.C1C1ManyToOne] = null;
         from1[m.C1C1ManyToOne] = null; // Twice
 
-        Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Null(from3[m.C1C1ManyToOne]);
-        Assert.Null(from3[m.C1C1ManyToOne]);
-        Assert.Null(from4[m.C1C1ManyToOne]);
-        Assert.Null(from4[m.C1C1ManyToOne]);
+        from1[m.C1C1ManyToOne].Should().BeNull();
+        from1[m.C1C1ManyToOne].Should().BeNull();
+        from2[m.C1C1ManyToOne].Should().BeNull();
+        from2[m.C1C1ManyToOne].Should().BeNull();
+        from3[m.C1C1ManyToOne].Should().BeNull();
+        from3[m.C1C1ManyToOne].Should().BeNull();
+        from4[m.C1C1ManyToOne].Should().BeNull();
+        from4[m.C1C1ManyToOne].Should().BeNull();
 
         // Exist
-        Assert.False(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.False(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.False(from1.Exist(m.C1C1ManyToOne));
-        Assert.False(from1.Exist(m.C1C1ManyToOne));
-        Assert.False(from2.Exist(m.C1C1ManyToOne));
-        Assert.False(from2.Exist(m.C1C1ManyToOne));
-        Assert.False(from3.Exist(m.C1C1ManyToOne));
-        Assert.False(from3.Exist(m.C1C1ManyToOne));
-        Assert.False(from4.Exist(m.C1C1ManyToOne));
-        Assert.False(from4.Exist(m.C1C1ManyToOne));
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
+        from1.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from1.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from2.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from2.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from3.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from3.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from4.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from4.Exist(m.C1C1ManyToOne).Should().BeFalse();
 
         // 1-1
         from1[m.C1C1ManyToOne] = to;
         from1[m.C1C1ManyToOne] = to; // Twice
 
-        Assert.True(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.True(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.True(from1.Exist(m.C1C1ManyToOne));
-        Assert.True(from1.Exist(m.C1C1ManyToOne));
-        Assert.False(from2.Exist(m.C1C1ManyToOne));
-        Assert.False(from2.Exist(m.C1C1ManyToOne));
-        Assert.False(from3.Exist(m.C1C1ManyToOne));
-        Assert.False(from3.Exist(m.C1C1ManyToOne));
-        Assert.False(from4.Exist(m.C1C1ManyToOne));
-        Assert.False(from4.Exist(m.C1C1ManyToOne));
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
+        from1.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from1.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from2.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from2.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from3.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from3.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from4.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from4.Exist(m.C1C1ManyToOne).Should().BeFalse();
 
         // 1-2
         from2[m.C1C1ManyToOne] = to;
         from2[m.C1C1ManyToOne] = to; // Twice
 
-        Assert.True(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.True(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.True(from1.Exist(m.C1C1ManyToOne));
-        Assert.True(from1.Exist(m.C1C1ManyToOne));
-        Assert.True(from2.Exist(m.C1C1ManyToOne));
-        Assert.True(from2.Exist(m.C1C1ManyToOne));
-        Assert.False(from3.Exist(m.C1C1ManyToOne));
-        Assert.False(from3.Exist(m.C1C1ManyToOne));
-        Assert.False(from4.Exist(m.C1C1ManyToOne));
-        Assert.False(from4.Exist(m.C1C1ManyToOne));
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
+        from1.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from1.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from2.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from2.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from3.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from3.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from4.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from4.Exist(m.C1C1ManyToOne).Should().BeFalse();
 
         // 1-3
         from3[m.C1C1ManyToOne] = to;
         from3[m.C1C1ManyToOne] = to; // Twice
 
-        Assert.True(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.True(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.True(from1.Exist(m.C1C1ManyToOne));
-        Assert.True(from1.Exist(m.C1C1ManyToOne));
-        Assert.True(from2.Exist(m.C1C1ManyToOne));
-        Assert.True(from2.Exist(m.C1C1ManyToOne));
-        Assert.True(from3.Exist(m.C1C1ManyToOne));
-        Assert.True(from3.Exist(m.C1C1ManyToOne));
-        Assert.False(from4.Exist(m.C1C1ManyToOne));
-        Assert.False(from4.Exist(m.C1C1ManyToOne));
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
+        from1.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from1.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from2.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from2.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from3.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from3.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from4.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from4.Exist(m.C1C1ManyToOne).Should().BeFalse();
 
         // 1-4
         from4[m.C1C1ManyToOne] = to;
         from4[m.C1C1ManyToOne] = to; // Twice
 
-        Assert.True(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.True(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.True(from1.Exist(m.C1C1ManyToOne));
-        Assert.True(from1.Exist(m.C1C1ManyToOne));
-        Assert.True(from2.Exist(m.C1C1ManyToOne));
-        Assert.True(from2.Exist(m.C1C1ManyToOne));
-        Assert.True(from3.Exist(m.C1C1ManyToOne));
-        Assert.True(from3.Exist(m.C1C1ManyToOne));
-        Assert.True(from4.Exist(m.C1C1ManyToOne));
-        Assert.True(from4.Exist(m.C1C1ManyToOne));
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
+        from1.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from1.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from2.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from2.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from3.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from3.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from4.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from4.Exist(m.C1C1ManyToOne).Should().BeTrue();
 
         // 1-3
         from4[m.C1C1ManyToOne] = null;
         from4[m.C1C1ManyToOne] = null; // Twice
 
-        Assert.True(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.True(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.True(from1.Exist(m.C1C1ManyToOne));
-        Assert.True(from1.Exist(m.C1C1ManyToOne));
-        Assert.True(from2.Exist(m.C1C1ManyToOne));
-        Assert.True(from2.Exist(m.C1C1ManyToOne));
-        Assert.True(from3.Exist(m.C1C1ManyToOne));
-        Assert.True(from3.Exist(m.C1C1ManyToOne));
-        Assert.False(from4.Exist(m.C1C1ManyToOne));
-        Assert.False(from4.Exist(m.C1C1ManyToOne));
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
+        from1.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from1.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from2.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from2.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from3.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from3.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from4.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from4.Exist(m.C1C1ManyToOne).Should().BeFalse();
 
         // 1-2
         from3[m.C1C1ManyToOne] = null;
         from3[m.C1C1ManyToOne] = null; // Twice
 
-        Assert.True(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.True(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.True(from1.Exist(m.C1C1ManyToOne));
-        Assert.True(from1.Exist(m.C1C1ManyToOne));
-        Assert.True(from2.Exist(m.C1C1ManyToOne));
-        Assert.True(from2.Exist(m.C1C1ManyToOne));
-        Assert.False(from3.Exist(m.C1C1ManyToOne));
-        Assert.False(from3.Exist(m.C1C1ManyToOne));
-        Assert.False(from4.Exist(m.C1C1ManyToOne));
-        Assert.False(from4.Exist(m.C1C1ManyToOne));
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
+        from1.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from1.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from2.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from2.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from3.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from3.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from4.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from4.Exist(m.C1C1ManyToOne).Should().BeFalse();
 
         // 1-1
         from2[m.C1C1ManyToOne] = null;
         from2[m.C1C1ManyToOne] = null; // Twice
 
-        Assert.True(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.True(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.True(from1.Exist(m.C1C1ManyToOne));
-        Assert.True(from1.Exist(m.C1C1ManyToOne));
-        Assert.False(from2.Exist(m.C1C1ManyToOne));
-        Assert.False(from2.Exist(m.C1C1ManyToOne));
-        Assert.False(from3.Exist(m.C1C1ManyToOne));
-        Assert.False(from3.Exist(m.C1C1ManyToOne));
-        Assert.False(from4.Exist(m.C1C1ManyToOne));
-        Assert.False(from4.Exist(m.C1C1ManyToOne));
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
+        from1.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from1.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from2.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from2.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from3.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from3.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from4.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from4.Exist(m.C1C1ManyToOne).Should().BeFalse();
 
         // 0-0
         from1[m.C1C1ManyToOne] = null;
         from1[m.C1C1ManyToOne] = null; // Twice
 
-        Assert.False(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.False(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.False(from1.Exist(m.C1C1ManyToOne));
-        Assert.False(from1.Exist(m.C1C1ManyToOne));
-        Assert.False(from2.Exist(m.C1C1ManyToOne));
-        Assert.False(from2.Exist(m.C1C1ManyToOne));
-        Assert.False(from3.Exist(m.C1C1ManyToOne));
-        Assert.False(from3.Exist(m.C1C1ManyToOne));
-        Assert.False(from4.Exist(m.C1C1ManyToOne));
-        Assert.False(from4.Exist(m.C1C1ManyToOne));
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
+        from1.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from1.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from2.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from2.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from3.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from3.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from4.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from4.Exist(m.C1C1ManyToOne).Should().BeFalse();
 
         // Multiplicity
         // Same New / Same To
         // Get
-        Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
+        from1[m.C1C1ManyToOne].Should().BeNull();
+        from1[m.C1C1ManyToOne].Should().BeNull();
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
 
         from1[m.C1C1ManyToOne] = to;
         from1[m.C1C1ManyToOne] = to; // Twice
 
-        Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        from1[m.C1C1ManyToOne].Should().Be(to);
+        from1[m.C1C1ManyToOne].Should().Be(to);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().HaveCount(1);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().HaveCount(1);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from1);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from1);
 
         from1[m.C1C1ManyToOne] = null;
 
-        Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
+        from1[m.C1C1ManyToOne].Should().BeNull();
+        from1[m.C1C1ManyToOne].Should().BeNull();
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
 
         // Exist
-        Assert.False(from1.Exist(m.C1C1ManyToOne));
-        Assert.False(from1.Exist(m.C1C1ManyToOne));
-        Assert.False(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.False(to.Exist(m.C1sWhereC1ManyToOne));
+        from1.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from1.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
 
         from1[m.C1C1ManyToOne] = to;
         from1[m.C1C1ManyToOne] = to; // Twice
 
-        Assert.True(from1.Exist(m.C1C1ManyToOne));
-        Assert.True(from1.Exist(m.C1C1ManyToOne));
-        Assert.True(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.True(to.Exist(m.C1sWhereC1ManyToOne));
+        from1.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from1.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
 
         from1[m.C1C1ManyToOne] = null;
 
-        Assert.False(from1.Exist(m.C1C1ManyToOne));
-        Assert.False(from1.Exist(m.C1C1ManyToOne));
-        Assert.False(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.False(to.Exist(m.C1sWhereC1ManyToOne));
+        from1.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from1.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
 
         // Same New / Different To
         // Get
-        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
+        from1[m.C1C1ManyToOne].Should().BeNull();
+        from1[m.C1C1ManyToOne].Should().BeNull();
+        toAnother[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
+        toAnother[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
 
         from1[m.C1C1ManyToOne] = to;
         from1[m.C1C1ManyToOne] = to; // Twice
 
-        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().HaveCount(1);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().HaveCount(1);
+        from1[m.C1C1ManyToOne].Should().Be(to);
+        from1[m.C1C1ManyToOne].Should().Be(to);
+        toAnother[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
+        toAnother[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from1);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from1);
 
         from1[m.C1C1ManyToOne] = toAnother;
         from1[m.C1C1ManyToOne] = toAnother; // Twice
 
-        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Equal(toAnother, from1[m.C1C1ManyToOne]);
-        Assert.Equal(toAnother, from1[m.C1C1ManyToOne]);
-        Assert.Single(toAnother[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Single(toAnother[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from1, toAnother[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from1, toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
+        from1[m.C1C1ManyToOne].Should().Be(toAnother);
+        from1[m.C1C1ManyToOne].Should().Be(toAnother);
+        toAnother[m.C1sWhereC1ManyToOne].ToArray().Should().HaveCount(1);
+        toAnother[m.C1sWhereC1ManyToOne].ToArray().Should().HaveCount(1);
+        toAnother[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from1);
+        toAnother[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from1);
 
         from1[m.C1C1ManyToOne] = null;
         from1[m.C1C1ManyToOne] = null; // Twice
 
-        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
+        from1[m.C1C1ManyToOne].Should().BeNull();
+        from1[m.C1C1ManyToOne].Should().BeNull();
+        toAnother[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
+        toAnother[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
 
         // Exist
-        Assert.False(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.False(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.False(from1.Exist(m.C1C1ManyToOne));
-        Assert.False(from1.Exist(m.C1C1ManyToOne));
-        Assert.False(toAnother.Exist(m.C1sWhereC1ManyToOne));
-        Assert.False(toAnother.Exist(m.C1sWhereC1ManyToOne));
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
+        from1.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from1.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        toAnother.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
+        toAnother.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
 
         from1[m.C1C1ManyToOne] = to;
         from1[m.C1C1ManyToOne] = to; // Twice
 
-        Assert.True(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.True(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.True(from1.Exist(m.C1C1ManyToOne));
-        Assert.True(from1.Exist(m.C1C1ManyToOne));
-        Assert.False(toAnother.Exist(m.C1sWhereC1ManyToOne));
-        Assert.False(toAnother.Exist(m.C1sWhereC1ManyToOne));
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
+        from1.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from1.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        toAnother.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
+        toAnother.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
 
         from1[m.C1C1ManyToOne] = toAnother;
         from1[m.C1C1ManyToOne] = toAnother; // Twice
 
-        Assert.False(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.False(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.True(from1.Exist(m.C1C1ManyToOne));
-        Assert.True(from1.Exist(m.C1C1ManyToOne));
-        Assert.True(toAnother.Exist(m.C1sWhereC1ManyToOne));
-        Assert.True(toAnother.Exist(m.C1sWhereC1ManyToOne));
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
+        from1.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from1.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        toAnother.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
+        toAnother.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
 
         from1[m.C1C1ManyToOne] = null;
         from1[m.C1C1ManyToOne] = null; // Twice
         from1[m.C1C1ManyToOne] = null;
         from1[m.C1C1ManyToOne] = null; // Twice
 
-        Assert.False(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.False(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.False(from1.Exist(m.C1C1ManyToOne));
-        Assert.False(from1.Exist(m.C1C1ManyToOne));
-        Assert.False(toAnother.Exist(m.C1sWhereC1ManyToOne));
-        Assert.False(toAnother.Exist(m.C1sWhereC1ManyToOne));
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
+        from1.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from1.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        toAnother.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
+        toAnother.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
 
         // Different New / Different To
         // Get
-        Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        from1[m.C1C1ManyToOne].Should().BeNull();
+        from1[m.C1C1ManyToOne].Should().BeNull();
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
+        from2[m.C1C1ManyToOne].Should().BeNull();
+        from2[m.C1C1ManyToOne].Should().BeNull();
+        toAnother[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
+        toAnother[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
 
         from1[m.C1C1ManyToOne] = to;
         from1[m.C1C1ManyToOne] = to; // Twice
 
-        Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        from1[m.C1C1ManyToOne].Should().Be(to);
+        from1[m.C1C1ManyToOne].Should().Be(to);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().HaveCount(1);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().HaveCount(1);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from1);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from1);
+        from2[m.C1C1ManyToOne].Should().BeNull();
+        from2[m.C1C1ManyToOne].Should().BeNull();
+        toAnother[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
+        toAnother[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
 
         from2[m.C1C1ManyToOne] = toAnother;
         from2[m.C1C1ManyToOne] = toAnother; // Twice
 
-        Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Equal(toAnother, from2[m.C1C1ManyToOne]);
-        Assert.Equal(toAnother, from2[m.C1C1ManyToOne]);
-        Assert.Single(toAnother[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Single(toAnother[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from2, toAnother[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from2, toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        from1[m.C1C1ManyToOne].Should().Be(to);
+        from1[m.C1C1ManyToOne].Should().Be(to);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().HaveCount(1);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().HaveCount(1);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from1);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from1);
+        from2[m.C1C1ManyToOne].Should().Be(toAnother);
+        from2[m.C1C1ManyToOne].Should().Be(toAnother);
+        toAnother[m.C1sWhereC1ManyToOne].ToArray().Should().HaveCount(1);
+        toAnother[m.C1sWhereC1ManyToOne].ToArray().Should().HaveCount(1);
+        toAnother[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from2);
+        toAnother[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from2);
 
         from1[m.C1C1ManyToOne] = null;
         from1[m.C1C1ManyToOne] = null; // Twice
         from2[m.C1C1ManyToOne] = null;
         from2[m.C1C1ManyToOne] = null; // Twice
 
-        Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Empty(toAnother[m.C1sWhereC1ManyToOne].ToArray());
+        from1[m.C1C1ManyToOne].Should().BeNull();
+        from1[m.C1C1ManyToOne].Should().BeNull();
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
+        from2[m.C1C1ManyToOne].Should().BeNull();
+        from2[m.C1C1ManyToOne].Should().BeNull();
+        toAnother[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
+        toAnother[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
 
         // Exist
-        Assert.False(from1.Exist(m.C1C1ManyToOne));
-        Assert.False(from1.Exist(m.C1C1ManyToOne));
-        Assert.False(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.False(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.False(from2.Exist(m.C1C1ManyToOne));
-        Assert.False(from2.Exist(m.C1C1ManyToOne));
-        Assert.False(toAnother.Exist(m.C1sWhereC1ManyToOne));
-        Assert.False(toAnother.Exist(m.C1sWhereC1ManyToOne));
+        from1.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from1.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
+        from2.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from2.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        toAnother.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
+        toAnother.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
 
         from1[m.C1C1ManyToOne] = to;
         from1[m.C1C1ManyToOne] = to; // Twice
 
-        Assert.True(from1.Exist(m.C1C1ManyToOne));
-        Assert.True(from1.Exist(m.C1C1ManyToOne));
-        Assert.True(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.True(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.False(from2.Exist(m.C1C1ManyToOne));
-        Assert.False(from2.Exist(m.C1C1ManyToOne));
-        Assert.False(toAnother.Exist(m.C1sWhereC1ManyToOne));
-        Assert.False(toAnother.Exist(m.C1sWhereC1ManyToOne));
+        from1.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from1.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
+        from2.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from2.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        toAnother.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
+        toAnother.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
 
         from2[m.C1C1ManyToOne] = toAnother;
         from2[m.C1C1ManyToOne] = toAnother; // Twice
 
-        Assert.True(from1.Exist(m.C1C1ManyToOne));
-        Assert.True(from1.Exist(m.C1C1ManyToOne));
-        Assert.True(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.True(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.True(from2.Exist(m.C1C1ManyToOne));
-        Assert.True(from2.Exist(m.C1C1ManyToOne));
-        Assert.True(toAnother.Exist(m.C1sWhereC1ManyToOne));
-        Assert.True(toAnother.Exist(m.C1sWhereC1ManyToOne));
+        from1.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from1.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
+        from2.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from2.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        toAnother.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
+        toAnother.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
 
         from1[m.C1C1ManyToOne] = null;
         from1[m.C1C1ManyToOne] = null; // Twice
         from2[m.C1C1ManyToOne] = null;
         from2[m.C1C1ManyToOne] = null; // Twice
 
-        Assert.False(from1.Exist(m.C1C1ManyToOne));
-        Assert.False(from1.Exist(m.C1C1ManyToOne));
-        Assert.False(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.False(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.False(from2.Exist(m.C1C1ManyToOne));
-        Assert.False(from2.Exist(m.C1C1ManyToOne));
-        Assert.False(toAnother.Exist(m.C1sWhereC1ManyToOne));
-        Assert.False(toAnother.Exist(m.C1sWhereC1ManyToOne));
+        from1.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from1.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
+        from2.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from2.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        toAnother.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
+        toAnother.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
 
         // Different New / Same To
         // Get
-        Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
+        from1[m.C1C1ManyToOne].Should().BeNull();
+        from1[m.C1C1ManyToOne].Should().BeNull();
+        from2[m.C1C1ManyToOne].Should().BeNull();
+        from2[m.C1C1ManyToOne].Should().BeNull();
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
 
         from1[m.C1C1ManyToOne] = to;
         from1[m.C1C1ManyToOne] = to; // Twice
 
-        Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Single(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
+        from1[m.C1C1ManyToOne].Should().Be(to);
+        from1[m.C1C1ManyToOne].Should().Be(to);
+        from2[m.C1C1ManyToOne].Should().BeNull();
+        from2[m.C1C1ManyToOne].Should().BeNull();
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().HaveCount(1);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().HaveCount(1);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from1);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from1);
         Assert.DoesNotContain(from2, to[m.C1sWhereC1ManyToOne].ToArray());
         Assert.DoesNotContain(from2, to[m.C1sWhereC1ManyToOne].ToArray());
 
         from2[m.C1C1ManyToOne] = to;
         from2[m.C1C1ManyToOne] = to; // Twice
 
-        Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Equal(to, from1[m.C1C1ManyToOne]);
-        Assert.Equal(to, from2[m.C1C1ManyToOne]);
-        Assert.Equal(to, from2[m.C1C1ManyToOne]);
-        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].ToArray().Length);
-        Assert.Equal(2, to[m.C1sWhereC1ManyToOne].ToArray().Length);
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from1, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Contains(from2, to[m.C1sWhereC1ManyToOne].ToArray());
+        from1[m.C1C1ManyToOne].Should().Be(to);
+        from1[m.C1C1ManyToOne].Should().Be(to);
+        from2[m.C1C1ManyToOne].Should().Be(to);
+        from2[m.C1C1ManyToOne].Should().Be(to);
+        to[m.C1sWhereC1ManyToOne].ToArray().Length.Should().Be(2);
+        to[m.C1sWhereC1ManyToOne].ToArray().Length.Should().Be(2);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from1);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from1);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from2);
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().Contain(from2);
 
         from1[m.C1C1ManyToOne] = null;
         from2[m.C1C1ManyToOne] = null;
 
-        Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
+        from1[m.C1C1ManyToOne].Should().BeNull();
+        from1[m.C1C1ManyToOne].Should().BeNull();
+        from2[m.C1C1ManyToOne].Should().BeNull();
+        from2[m.C1C1ManyToOne].Should().BeNull();
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
 
         // Exist
-        Assert.False(from1.Exist(m.C1C1ManyToOne));
-        Assert.False(from1.Exist(m.C1C1ManyToOne));
-        Assert.False(from2.Exist(m.C1C1ManyToOne));
-        Assert.False(from2.Exist(m.C1C1ManyToOne));
-        Assert.False(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.False(to.Exist(m.C1sWhereC1ManyToOne));
+        from1.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from1.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from2.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from2.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeFalse();
 
         from1[m.C1C1ManyToOne] = to;
         from1[m.C1C1ManyToOne] = to; // Twice
 
-        Assert.True(from1.Exist(m.C1C1ManyToOne));
-        Assert.True(from1.Exist(m.C1C1ManyToOne));
-        Assert.False(from2.Exist(m.C1C1ManyToOne));
-        Assert.False(from2.Exist(m.C1C1ManyToOne));
-        Assert.True(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.True(to.Exist(m.C1sWhereC1ManyToOne));
+        from1.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from1.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from2.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from2.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
 
         from2[m.C1C1ManyToOne] = to;
         from2[m.C1C1ManyToOne] = to; // Twice
 
-        Assert.True(from1.Exist(m.C1C1ManyToOne));
-        Assert.True(from1.Exist(m.C1C1ManyToOne));
-        Assert.True(from2.Exist(m.C1C1ManyToOne));
-        Assert.True(from2.Exist(m.C1C1ManyToOne));
-        Assert.True(to.Exist(m.C1sWhereC1ManyToOne));
-        Assert.True(to.Exist(m.C1sWhereC1ManyToOne));
+        from1.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from1.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from2.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        from2.Exist(m.C1C1ManyToOne).Should().BeTrue();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
+        to.Exist(m.C1sWhereC1ManyToOne).Should().BeTrue();
 
         from1[m.C1C1ManyToOne] = null;
         from2[m.C1C1ManyToOne] = null;
 
-        Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Null(from2[m.C1C1ManyToOne]);
-        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
-        Assert.Empty(to[m.C1sWhereC1ManyToOne].ToArray());
+        from1[m.C1C1ManyToOne].Should().BeNull();
+        from1[m.C1C1ManyToOne].Should().BeNull();
+        from2[m.C1C1ManyToOne].Should().BeNull();
+        from2[m.C1C1ManyToOne].Should().BeNull();
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
+        to[m.C1sWhereC1ManyToOne].ToArray().Should().BeEmpty();
 
         // Null & Empty Array
         // Set Null
         // Get
-        Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Null(from1[m.C1C1ManyToOne]);
+        from1[m.C1C1ManyToOne].Should().BeNull();
+        from1[m.C1C1ManyToOne].Should().BeNull();
 
         from1[m.C1C1ManyToOne] = null;
         from1[m.C1C1ManyToOne] = null; // Twice
 
-        Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Null(from1[m.C1C1ManyToOne]);
+        from1[m.C1C1ManyToOne].Should().BeNull();
+        from1[m.C1C1ManyToOne].Should().BeNull();
 
         from1[m.C1C1ManyToOne] = to;
         from1[m.C1C1ManyToOne] = to; // Twice
         from1[m.C1C1ManyToOne] = null;
         from1[m.C1C1ManyToOne] = null; // Twice
 
-        Assert.Null(from1[m.C1C1ManyToOne]);
-        Assert.Null(from1[m.C1C1ManyToOne]);
+        from1[m.C1C1ManyToOne].Should().BeNull();
+        from1[m.C1C1ManyToOne].Should().BeNull();
 
         // Exist
-        Assert.False(from1.Exist(m.C1C1ManyToOne));
-        Assert.False(from1.Exist(m.C1C1ManyToOne));
+        from1.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from1.Exist(m.C1C1ManyToOne).Should().BeFalse();
 
         from1[m.C1C1ManyToOne] = null;
         from1[m.C1C1ManyToOne] = null; // Twice
 
-        Assert.False(from1.Exist(m.C1C1ManyToOne));
-        Assert.False(from1.Exist(m.C1C1ManyToOne));
+        from1.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from1.Exist(m.C1C1ManyToOne).Should().BeFalse();
 
         from1[m.C1C1ManyToOne] = to;
         from1[m.C1C1ManyToOne] = to; // Twice
         from1[m.C1C1ManyToOne] = null;
         from1[m.C1C1ManyToOne] = null; // Twice
 
-        Assert.False(from1.Exist(m.C1C1ManyToOne));
-        Assert.False(from1.Exist(m.C1C1ManyToOne));
+        from1.Exist(m.C1C1ManyToOne).Should().BeFalse();
+        from1.Exist(m.C1C1ManyToOne).Should().BeFalse();
     }
 
     [Fact]

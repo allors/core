@@ -2,6 +2,7 @@
 
 using System;
 using Allors.Core.Database.Engines.Tests.Meta;
+using FluentAssertions;
 using Xunit;
 
 public abstract class UnitTests : Tests
@@ -52,7 +53,7 @@ public abstract class UnitTests : Tests
 
             c1a[this.Meta.I1AllorsString] = "A string";
 
-            Assert.Equal("A string", c1a[this.Meta.I1AllorsString]);
+            c1a[this.Meta.I1AllorsString].Should().Be("A string");
         }
     }
 

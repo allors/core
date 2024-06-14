@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
+using FluentAssertions;
 using Xunit;
 
 public class DerivationOverrideTests
@@ -37,7 +38,7 @@ public class DerivationOverrideTests
 
         meta.Derive();
 
-        Assert.Equal("Hello John Doe!", john["Greeting"]);
+        john["Greeting"].Should().Be("Hello John Doe!");
     }
 
     private sealed class FullNameDerivation(IMetaRoleType firstName, IMetaRoleType lastName) : IMetaDerivation

@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using Allors.Core.Database.Engines.Tests.Meta;
 using Allors.Core.Database.Meta;
+using FluentAssertions;
 using Xunit;
 
 public abstract class LifeCycleTests : Tests
@@ -47,7 +48,7 @@ public abstract class LifeCycleTests : Tests
 
             foreach (var @object in objects)
             {
-                Assert.NotNull(@object);
+                @object.Should().NotBeNull();
             }
         }
     }
