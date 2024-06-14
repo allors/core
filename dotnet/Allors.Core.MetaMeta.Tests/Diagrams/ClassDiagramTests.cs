@@ -2,6 +2,7 @@
 
 using System;
 using Allors.Core.MetaMeta.Diagrams;
+using FluentAssertions;
 using Xunit;
 
 public class ClassDiagramTests
@@ -15,17 +16,16 @@ public class ClassDiagramTests
         var i1 = meta.AddInterface(Guid.NewGuid(), "I1", s1);
         meta.AddClass(Guid.NewGuid(), "C1", i1);
 
-        var diagram = new ClassDiagram(meta).Render();
-
-        Assert.Equal(
-            @"classDiagram
+        new ClassDiagram(meta)
+            .Render()
+            .Should()
+            .Be(@"classDiagram
     class C1
     I1 <|-- C1
     class I1
     S1 <|-- I1
     class S1
-",
-            diagram);
+");
     }
 
     [Fact]
@@ -37,17 +37,16 @@ public class ClassDiagramTests
         var person = meta.AddClass(Guid.NewGuid(), "Person");
         meta.AddOneToManyRelation(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
-        var diagram = new ClassDiagram(meta).Render();
-
-        Assert.Equal(
-            """
+        new ClassDiagram(meta)
+            .Render()
+            .Should()
+            .Be("""
             classDiagram
                 class Organization
                 Organization o-- Person : Employees
                 class Person
 
-            """,
-            diagram);
+            """);
     }
 
     [Fact]
@@ -64,10 +63,10 @@ public class ClassDiagramTests
         meta.AddOneToManyRelation(Guid.NewGuid(), Guid.NewGuid(), internalOrganization, person, "Employee");
         meta.AddOneToManyRelation(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Customer");
 
-        var diagram = new ClassDiagram(meta).Render();
-
-        Assert.Equal(
-            """
+        new ClassDiagram(meta)
+            .Render()
+            .Should()
+            .Be("""
             classDiagram
                 class InternalOrganization
                 InternalOrganization o-- Person : Employees
@@ -76,8 +75,7 @@ public class ClassDiagramTests
                 Organization o-- Person : Customers
                 class Person
 
-            """,
-            diagram);
+            """);
     }
 
     [Fact]
@@ -86,17 +84,16 @@ public class ClassDiagramTests
         var meta = new MetaMeta();
 
         var config = new ClassDiagram.Config { Title = "My Empty Diagram" };
-        var diagram = new ClassDiagram(meta, config).Render();
-
-        Assert.Equal(
-            """
+        new ClassDiagram(meta, config)
+            .Render()
+            .Should()
+            .Be("""
             ---
             title: My Empty Diagram
             ---
             classDiagram
 
-            """,
-            diagram);
+            """);
     }
 
     [Fact]
@@ -109,17 +106,16 @@ public class ClassDiagramTests
         meta.AddOneToManyRelation(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var config = new ClassDiagram.Config { OneMultiplicity = "1", ManyMultiplicity = "1..*" };
-        var diagram = new ClassDiagram(meta, config).Render();
-
-        Assert.Equal(
-            """
+        new ClassDiagram(meta, config)
+            .Render()
+            .Should()
+            .Be("""
             classDiagram
                 class Organization
                 Organization "1" o-- "1..*" Person : Employees
                 class Person
 
-            """,
-            diagram);
+            """);
     }
 
     [Fact]
@@ -132,17 +128,16 @@ public class ClassDiagramTests
         meta.AddOneToManyRelation(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var config = new ClassDiagram.Config { OneMultiplicity = "one" };
-        var diagram = new ClassDiagram(meta, config).Render();
-
-        Assert.Equal(
-            """
+        new ClassDiagram(meta, config)
+            .Render()
+            .Should()
+            .Be("""
             classDiagram
                 class Organization
                 Organization "one" o-- Person : Employees
                 class Person
 
-            """,
-            diagram);
+            """);
     }
 
     [Fact]
@@ -155,16 +150,15 @@ public class ClassDiagramTests
         meta.AddOneToManyRelation(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
         var config = new ClassDiagram.Config { ManyMultiplicity = "many" };
-        var diagram = new ClassDiagram(meta, config).Render();
-
-        Assert.Equal(
-            """
+        new ClassDiagram(meta, config)
+            .Render()
+            .Should()
+            .Be("""
             classDiagram
                 class Organization
                 Organization o-- "many" Person : Employees
                 class Person
 
-            """,
-            diagram);
+            """);
     }
 }

@@ -21,12 +21,12 @@ public class ObjectsTests
 
         var meta = new Meta(metaMeta);
 
-        IMetaObject NewPerson(string firstName, string lastName)
+        IMetaObject NewPerson(string firstNameValue, string lastNameValue)
         {
             return meta.Build(person, v =>
             {
-                v[firstName] = firstName;
-                v[lastName] = lastName;
+                v[firstName] = firstNameValue;
+                v[lastName] = lastNameValue;
             });
         }
 
