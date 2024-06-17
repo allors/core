@@ -33,14 +33,14 @@ public static class MetaMetaExtensions
     public static MetaObjectType CompositeAssociationType(this MetaMeta @this) => @this.ObjectTypeById[CoreMetaMeta.CompositeAssociationType];
 
     /// <summary>
-    /// Composite role type.
+    /// The concrete method types of a composite.
     /// </summary>
-    public static MetaObjectType CompositeRoleType(this MetaMeta @this) => @this.ObjectTypeById[CoreMetaMeta.CompositeRoleType];
+    public static MetaManyToManyRoleType CompositeConcreteMethodTypes(this MetaMeta @this) => (MetaManyToManyRoleType)@this.RoleTypeById[CoreMetaMeta.CompositeConcreteMethodTypes];
 
     /// <summary>
-    /// The supertypes of a composite.
+    /// The concretes (subclasses in case of an interface, the class iteself in case of a class) of a composite.
     /// </summary>
-    public static MetaManyToManyRoleType CompositeSupertypes(this MetaMeta @this) => (MetaManyToManyRoleType)@this.RoleTypeById[CoreMetaMeta.CompositeSupertypes];
+    public static MetaManyToManyRoleType CompositeConcretes(this MetaMeta @this) => (MetaManyToManyRoleType)@this.RoleTypeById[CoreMetaMeta.CompositeConcretes];
 
     /// <summary>
     /// The direct supertypes of a composite.
@@ -51,6 +51,36 @@ public static class MetaMetaExtensions
     /// The method types of a composite.
     /// </summary>
     public static MetaOneToManyRoleType CompositeMethodTypes(this MetaMeta @this) => (MetaOneToManyRoleType)@this.RoleTypeById[CoreMetaMeta.CompositeMethodTypes];
+
+    /// <summary>
+    /// Composite role type.
+    /// </summary>
+    public static MetaObjectType CompositeRoleType(this MetaMeta @this) => @this.ObjectTypeById[CoreMetaMeta.CompositeRoleType];
+
+    /// <summary>
+    /// The supertypes of a composite.
+    /// </summary>
+    public static MetaManyToManyRoleType CompositeSupertypes(this MetaMeta @this) => (MetaManyToManyRoleType)@this.RoleTypeById[CoreMetaMeta.CompositeSupertypes];
+
+    /// <summary>
+    /// A concrete method type.
+    /// </summary>
+    public static MetaObjectType ConcreteMethodType(this MetaMeta @this) => @this.ObjectTypeById[CoreMetaMeta.ConcreteMethodType];
+
+    /// <summary>
+    /// A class of a concrete method type.
+    /// </summary>
+    public static MetaManyToOneRoleType ConcreteMethodTypeClass(this MetaMeta @this) => (MetaManyToOneRoleType)@this.RoleTypeById[CoreMetaMeta.ConcreteMethodTypeClass];
+
+    /// <summary>
+    /// A method type of a concrete method type.
+    /// </summary>
+    public static MetaManyToOneRoleType ConcreteMethodTypeMethodType(this MetaMeta @this) => (MetaManyToOneRoleType)@this.RoleTypeById[CoreMetaMeta.ConcreteMethodTypeMethodType];
+
+    /// <summary>
+    /// The action of the concrete method type.
+    /// </summary>
+    public static MetaUnitRoleType ConcreteMethodTypeAction(this MetaMeta @this) => (MetaUnitRoleType)@this.RoleTypeById[CoreMetaMeta.ConcreteMethodTypeAction];
 
     /// <summary>
     /// A domain.

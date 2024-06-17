@@ -85,8 +85,10 @@ public static class CoreMeta
     public static void Populate(Meta meta)
     {
         // Derivations
+        meta.DerivationById[nameof(CompositeConcreteMethodTypes)] = new CompositeConcreteMethodTypes(meta);
         meta.DerivationById[nameof(CompositeDirectSupertypes)] = new CompositeDirectSupertypes(meta);
         meta.DerivationById[nameof(CompositeSupertypes)] = new CompositeSupertypes(meta);
+        meta.DerivationById[nameof(ConcreteMethodAction)] = new ConcreteMethodAction(meta);
         meta.DerivationById[nameof(DecimalRoleTypeDerivedPrecision)] = new DecimalRoleTypeDerivedPrecision(meta);
         meta.DerivationById[nameof(DecimalRoleTypeDerivedScale)] = new DecimalRoleTypeDerivedScale(meta);
         meta.DerivationById[nameof(RoleTypeName)] = new RoleTypeName(meta);

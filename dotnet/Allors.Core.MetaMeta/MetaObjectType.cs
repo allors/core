@@ -31,7 +31,6 @@ public sealed class MetaObjectType
         : this(metaMeta, kind, id, type.Name)
     {
         this.Type = type;
-        this.TypeCode = Type.GetTypeCode(type);
     }
 
     public MetaMeta MetaMeta { get; }
@@ -43,8 +42,6 @@ public sealed class MetaObjectType
     public string Name { get; }
 
     public Type? Type { get; }
-
-    public TypeCode? TypeCode { get; }
 
     public IReadOnlySet<MetaObjectType> DirectSupertypes => this.directSupertypes;
 
@@ -116,7 +113,7 @@ public sealed class MetaObjectType
         this.MetaMeta.ResetDerivations();
     }
 
-    internal MetaUnitRoleType AddUnit(MetaMeta metaMeta, Guid associationTypeId, Guid roleTypeId, MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
+    internal MetaUnitRoleType AddUnitRelation(MetaMeta metaMeta, Guid associationTypeId, Guid roleTypeId, MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
     {
         roleSingularName ??= objectType.Name;
         var rolePluralName = roleSingularName.Pluralize();
@@ -157,7 +154,7 @@ public sealed class MetaObjectType
         return roleType;
     }
 
-    internal MetaOneToOneRoleType AddOneToOne(MetaMeta metaMeta, Guid associationTypeId, Guid roleTypeId, MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
+    internal MetaOneToOneRoleType AddOneToOneRelation(MetaMeta metaMeta, Guid associationTypeId, Guid roleTypeId, MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
     {
         roleSingularName ??= objectType.Name;
         var rolePluralName = roleSingularName.Pluralize();
@@ -198,7 +195,7 @@ public sealed class MetaObjectType
         return roleType;
     }
 
-    internal MetaManyToOneRoleType AddManyToOne(MetaMeta metaMeta, Guid associationTypeId, Guid roleTypeId, MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
+    internal MetaManyToOneRoleType AddManyToOneRelation(MetaMeta metaMeta, Guid associationTypeId, Guid roleTypeId, MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
     {
         roleSingularName ??= objectType.Name;
         var rolePluralName = roleSingularName.Pluralize();
@@ -239,7 +236,7 @@ public sealed class MetaObjectType
         return roleType;
     }
 
-    internal MetaOneToManyRoleType AddOneToMany(MetaMeta metaMeta, Guid associationTypeId, Guid roleTypeId, MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
+    internal MetaOneToManyRoleType AddOneToManyRelation(MetaMeta metaMeta, Guid associationTypeId, Guid roleTypeId, MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
     {
         roleSingularName ??= objectType.Name;
         var rolePluralName = roleSingularName.Pluralize();
@@ -280,7 +277,7 @@ public sealed class MetaObjectType
         return roleType;
     }
 
-    internal MetaManyToManyRoleType AddManyToMany(MetaMeta metaMeta, Guid associationTypeId, Guid roleTypeId, MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
+    internal MetaManyToManyRoleType AddManyToManyRelation(MetaMeta metaMeta, Guid associationTypeId, Guid roleTypeId, MetaObjectType objectType, string? roleSingularName, string? associationSingularName)
     {
         roleSingularName ??= objectType.Name;
         var rolePluralName = roleSingularName.Pluralize();

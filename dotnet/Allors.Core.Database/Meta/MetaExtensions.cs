@@ -11,7 +11,7 @@ using Allors.Core.Meta;
 public static class MetaExtensions
 {
     /// <summary>
-    /// Creates a new domain.
+    /// Adds a new concreteMethodType.
     /// </summary>
     public static Domain AddDomain(this Meta @this, Guid id, string name)
     {
@@ -26,6 +26,24 @@ public static class MetaExtensions
         domain.Add(m.DomainTypes(), domain);
 
         return domain;
+    }
+
+    /// <summary>
+    /// Adds a new concrete method type.
+    /// </summary>
+    public static ConcreteMethodType AddConcreteMethodType(this Meta @this, Class @class, MethodType methodType)
+    {
+        var m = @this.MetaMeta;
+
+        var concreteMethodType = @this.Build<ConcreteMethodType>(v =>
+        {
+            v[m.ConcreteMethodTypeClass] = @class;
+            v[m.ConcreteMethodTypeMethodType] = methodType;
+        });
+
+        concreteMethodType.Add(m.DomainTypes(), concreteMethodType);
+
+        return concreteMethodType;
     }
 
     /// <summary>

@@ -78,37 +78,37 @@ public sealed class MetaMeta
         return objectType;
     }
 
-    public MetaUnitRoleType AddUnitRelation(Guid associationTypeId, Guid roleTypeId, MetaObjectType associationObjectType, MetaObjectType roleObjectType, string roleName, string? associationName = null)
+    public MetaUnitRoleType AddUnitRelation(Guid associationTypeId, Guid roleTypeId, MetaObjectType associationObjectType, MetaObjectType roleObjectType, string? roleName = null, string? associationName = null)
     {
-        var role = associationObjectType.AddUnit(this, associationTypeId, roleTypeId, roleObjectType, roleName, associationName);
+        var role = associationObjectType.AddUnitRelation(this, associationTypeId, roleTypeId, roleObjectType, roleName, associationName);
         this.Add(role);
         return role;
     }
 
     public MetaOneToOneRoleType AddOneToOneRelation(Guid associationTypeId, Guid roleTypeId, MetaObjectType associationObjectType, MetaObjectType roleObjectType, string? roleName = null, string? associationName = null)
     {
-        var role = associationObjectType.AddOneToOne(this, associationTypeId, roleTypeId, roleObjectType, roleName, associationName);
+        var role = associationObjectType.AddOneToOneRelation(this, associationTypeId, roleTypeId, roleObjectType, roleName, associationName);
         this.Add(role);
         return role;
     }
 
     public MetaManyToOneRoleType AddManyToOneRelation(Guid associationTypeId, Guid roleTypeId, MetaObjectType associationObjectType, MetaObjectType roleObjectType, string? roleName = null, string? associationName = null)
     {
-        var role = associationObjectType.AddManyToOne(this, associationTypeId, roleTypeId, roleObjectType, roleName, associationName);
+        var role = associationObjectType.AddManyToOneRelation(this, associationTypeId, roleTypeId, roleObjectType, roleName, associationName);
         this.Add(role);
         return role;
     }
 
     public MetaOneToManyRoleType AddOneToManyRelation(Guid associationTypeId, Guid roleTypeId, MetaObjectType associationObjectType, MetaObjectType roleObjectType, string? roleName = null, string? associationName = null)
     {
-        var role = associationObjectType.AddOneToMany(this, associationTypeId, roleTypeId, roleObjectType, roleName, associationName);
+        var role = associationObjectType.AddOneToManyRelation(this, associationTypeId, roleTypeId, roleObjectType, roleName, associationName);
         this.Add(role);
         return role;
     }
 
     public MetaManyToManyRoleType AddManyToManyRelation(Guid associationTypeId, Guid roleTypeId, MetaObjectType associationObjectType, MetaObjectType roleObjectType, string? roleName = null, string? associationName = null)
     {
-        var role = associationObjectType.AddManyToMany(this, associationTypeId, roleTypeId, roleObjectType, roleName, associationName);
+        var role = associationObjectType.AddManyToManyRelation(this, associationTypeId, roleTypeId, roleObjectType, roleName, associationName);
         this.Add(role);
         return role;
     }

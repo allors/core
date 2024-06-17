@@ -4,7 +4,6 @@ using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Globalization;
 using System.Linq;
 using Allors.Core.MetaMeta;
 
@@ -86,16 +85,14 @@ public sealed class Meta(MetaMeta meta)
 
     internal void SetUnitRole(MetaObject association, MetaUnitRoleType roleType, object? role)
     {
-        var normalizedRole = Normalize(roleType, role);
-
         var currentRole = this.GetUnitRole(association, roleType);
-        if (Equals(currentRole, normalizedRole))
+        if (Equals(currentRole, role))
         {
             return;
         }
 
         // Role
-        this.changedRelations.RoleByAssociation(roleType)[association] = normalizedRole;
+        this.changedRelations.RoleByAssociation(roleType)[association] = role;
     }
 
     internal IMetaObject? GetToOneRole(IMetaObject association, IMetaToOneRoleType roleType) => (IMetaObject?)this.GetRole(association, roleType);
@@ -214,35 +211,6 @@ public sealed class Meta(MetaMeta meta)
         }
 
         return (IImmutableSet<IMetaObject>?)association;
-    }
-
-    private static object? Normalize(MetaUnitRoleType roleType, object? value)
-    {
-        if (value == null)
-        {
-            return value;
-        }
-
-        if (value is DateTime dateTime && dateTime != DateTime.MinValue && dateTime != DateTime.MaxValue)
-        {
-            dateTime = dateTime.Kind switch
-            {
-                DateTimeKind.Local => dateTime.ToUniversalTime(),
-                DateTimeKind.Unspecified => throw new ArgumentException(@"DateTime value is of DateTimeKind.Kind Unspecified.
-Unspecified is only allowed for DateTime.MaxValue and DateTime.MinValue. 
-Use DateTimeKind.Utc or DateTimeKind.Local."),
-                _ => dateTime,
-            };
-
-            return new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Hour, dateTime.Minute, dateTime.Second, dateTime.Millisecond, DateTimeKind.Utc);
-        }
-
-        if (value.GetType() != roleType.ObjectType.Type && roleType.ObjectType.TypeCode.HasValue)
-        {
-            value = Convert.ChangeType(value, roleType.ObjectType.TypeCode.Value, CultureInfo.InvariantCulture);
-        }
-
-        return value;
     }
 
     private static MetaObject Normalize(IMetaToOneRoleType roleType, object value)

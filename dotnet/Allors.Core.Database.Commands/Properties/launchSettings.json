@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Allors.Core.Database.Commands": {
+      "commandName": "Project",
+      "commandLineArgs": "--file Allors.Core.Database.Commands.deps.json"
+    }
+  }
+}
