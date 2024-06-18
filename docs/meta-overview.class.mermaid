@@ -2,7 +2,7 @@ classDiagram
     class AssociationType
     <<interface>> AssociationType
     RelationEndType <|-- AssociationType
-    AssociationType o-- Composite : Composite
+    AssociationType o-- Composite
     class BinaryAssociationType
     UnitAssociationType <|-- BinaryAssociationType
     class BinaryRoleType
@@ -19,7 +19,7 @@ classDiagram
     Composite o-- MethodType : ConcreteMethodTypes
     Composite o-- Class : Concretes
     Composite o-- Interface : DirectSupertypes
-    Composite o-- MethodType : MethodTypes
+    Composite o-- MethodType
     Composite o-- Interface : Supertypes
     class CompositeAssociationType
     <<interface>> CompositeAssociationType
@@ -29,8 +29,8 @@ classDiagram
     RoleType <|-- CompositeRoleType
     class ConcreteMethodType
     ConcreteMethodType : Action Action
-    ConcreteMethodType o-- Class : Class
-    ConcreteMethodType o-- MethodType : MethodType
+    ConcreteMethodType o-- Class
+    ConcreteMethodType o-- MethodType
     class DateTimeAssociationType
     UnitAssociationType <|-- DateTimeAssociationType
     class DateTimeRoleType
@@ -47,7 +47,7 @@ classDiagram
     MetaObject <|-- Domain
     Domain : String Name
     Domain o-- Domain : Superdomains
-    Domain o-- Type : Types
+    Domain o-- Type
     class FloatAssociationType
     UnitAssociationType <|-- FloatAssociationType
     class FloatRoleType
@@ -78,10 +78,10 @@ classDiagram
     MetaObject : Unique Id
     class MethodPart
     MethodPart : Action Action
-    MethodPart o-- Composite : Composite
-    MethodPart o-- Domain : Domain
+    MethodPart o-- Composite
+    MethodPart o-- Domain
     class MethodType
-    MethodType o-- MethodPart : MethodParts
+    MethodType o-- MethodPart
     MethodType : String Name
     class ObjectType
     <<interface>> ObjectType
@@ -111,10 +111,10 @@ classDiagram
     <<interface>> RoleType
     RelationEndType <|-- RoleType
     RoleType : String AssignedPluralName
-    RoleType o-- AssociationType : AssociationType
+    RoleType o-- AssociationType
     RoleType : String DerivedPluralName
     RoleType : String Name
-    RoleType o-- ObjectType : ObjectType
+    RoleType o-- ObjectType
     RoleType : String SingularName
     class StringAssociationType
     UnitAssociationType <|-- StringAssociationType

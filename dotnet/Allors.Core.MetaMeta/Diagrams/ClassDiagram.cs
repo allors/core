@@ -57,7 +57,7 @@ public sealed partial class ClassDiagram
                 .Where(v => roleTypeSet != null ? roleTypeSet.Contains(v) : true)
                 .OrderBy(v => v.Name))
             {
-                if (roleType is MetaUnitRoleType)
+                if (roleType is MetaUnitRoleType || !compositeSet.Contains(roleType.ObjectType))
                 {
                     diagram.AppendLine(CultureInfo.InvariantCulture, $"    {composite.Name} : {roleType.ObjectType.Name} {roleType.Name}");
                 }
@@ -79,7 +79,8 @@ public sealed partial class ClassDiagram
                         roleTypeMultiplicity = $" \"{roleTypeMultiplicity}\"";
                     }
 
-                    diagram.AppendLine(CultureInfo.InvariantCulture, $"    {composite.Name} {associationTypeMultiplicity}o--{roleTypeMultiplicity} {roleType.ObjectType.Name} : {roleType.Name}");
+                    var assignedRoleTypeName = roleType.SingularName != roleType.ObjectType.Name ? $" : {roleType.Name}" : string.Empty;
+                    diagram.AppendLine(CultureInfo.InvariantCulture, $"    {composite.Name} {associationTypeMultiplicity}o--{roleTypeMultiplicity} {roleType.ObjectType.Name}{assignedRoleTypeName}");
                 }
             }
         }
