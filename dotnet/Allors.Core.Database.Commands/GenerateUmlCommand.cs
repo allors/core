@@ -51,18 +51,19 @@
 
                     meta.Derive();
 
-                    var diagram = new ClassDiagram(metaMeta).Render();
-                    var markdownDiagram =
-                    $"""
-                    ```mermaid
-                    {diagram}
-                    ```
-                    """;
-
                     var directoryInfo = output!;
-                    var filePath = Path.Combine(directoryInfo.FullName, "meta-meta-overview.md");
 
-                    File.WriteAllText(filePath, markdownDiagram);
+                    void WriteMetaClassDiagram(string name, IEnumerable<MetaObjectType>? metaComposites = null, IEnumerable<IMetaRoleType>? metaRoleTypes = null)
+                    {
+                        metaComposites ??= metaMeta.MetaComposites;
+                        var diagram = new ClassDiagram().Render(metaComposites);
+                        var filePath = Path.Combine(directoryInfo.FullName, $"meta-{name}.class.mermaid");
+                        File.WriteAllText(filePath, diagram);
+                    }
+
+                    WriteMetaClassDiagram("overview");
+
+                    WriteMetaClassDiagram("method", metaMeta.MetaComposites.Where(v => v.Name.Contains("Method")));
 
                     return Task.FromResult(0);
                 },

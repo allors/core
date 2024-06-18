@@ -1,21 +1,31 @@
 ﻿namespace Allors.Core.MetaMeta.Diagrams;
 
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using Allors.Core.MetaMeta;
 
-public sealed class ClassDiagram(MetaMeta metaMeta, ClassDiagram.Config? config = null)
+public sealed partial class ClassDiagram
 {
-    public string Render()
+    public string? Title { get; init; }
+
+    public string? OneMultiplicity { get; init; }
+
+    public string? ManyMultiplicity { get; init; }
+
+    public string Render(IEnumerable<MetaObjectType> composites, IEnumerable<IMetaRoleType>? roleTypes = null)
     {
+        var compositeSet = new HashSet<MetaObjectType>(composites);
+        var roleTypeSet = roleTypes != null ? new HashSet<IMetaRoleType>(roleTypes) : null;
+
         var diagram = new StringBuilder();
 
-        if (config?.Title != null)
+        if (this.Title != null)
         {
             string title = $"""
              ---
-             title: {config.Title}
+             title: {this.Title}
              ---
 
              """;
@@ -27,22 +37,25 @@ public sealed class ClassDiagram(MetaMeta metaMeta, ClassDiagram.Config? config 
 
                    """);
 
-        var composites = metaMeta.ObjectTypeById.Values
-            .Where(v => v.Kind != MetaObjectTypeKind.Unit)
-            .OrderBy(v => v.Name);
-
-        foreach (var composite in composites)
+        foreach (var composite in compositeSet
+            .OrderBy(v => v.Name))
         {
             diagram.AppendLine(CultureInfo.InvariantCulture, $"    class {composite.Name}");
+            if (composite.Kind == MetaObjectTypeKind.Interface)
+            {
+                diagram.AppendLine(CultureInfo.InvariantCulture, $"    <<interface>> {composite.Name}");
+            }
 
-            var directSuperTypes = composite.DirectSupertypes;
-            foreach (var directSuperType in directSuperTypes)
+            foreach (var directSuperType in composite.DirectSupertypes
+                .Where(compositeSet.Contains)
+                .OrderBy(v => v.Name))
             {
                 diagram.AppendLine(CultureInfo.InvariantCulture, $"    {directSuperType.Name} <|-- {composite.Name}");
             }
 
-            var declaredRoleTypes = composite.DeclaredRoleTypeByName.Values.OrderBy(v => v.Name);
-            foreach (var roleType in declaredRoleTypes)
+            foreach (var roleType in composite.DeclaredRoleTypeByName.Values
+                .Where(v => roleTypeSet != null ? roleTypeSet.Contains(v) : true)
+                .OrderBy(v => v.Name))
             {
                 if (roleType is MetaUnitRoleType)
                 {
@@ -50,8 +63,8 @@ public sealed class ClassDiagram(MetaMeta metaMeta, ClassDiagram.Config? config 
                 }
                 else if (roleType is IMetaCompositeRoleType compositeRoleType && roleType.AssociationType is IMetaCompositeAssociationType compositeAssociationType)
                 {
-                    var oneMultiplicity = config?.OneMultiplicity;
-                    var manyMultiplicity = config?.ManyMultiplicity;
+                    var oneMultiplicity = this.OneMultiplicity;
+                    var manyMultiplicity = this.ManyMultiplicity;
 
                     var associationTypeMultiplicity = compositeAssociationType.IsOne ? oneMultiplicity : manyMultiplicity;
                     var roleTypeMultiplicity = compositeRoleType.IsOne ? oneMultiplicity : manyMultiplicity;
@@ -72,14 +85,5 @@ public sealed class ClassDiagram(MetaMeta metaMeta, ClassDiagram.Config? config 
         }
 
         return diagram.ToString();
-    }
-
-    public sealed record Config
-    {
-        public string? Title { get; init; }
-
-        public string? OneMultiplicity { get; init; }
-
-        public string? ManyMultiplicity { get; init; }
     }
 }

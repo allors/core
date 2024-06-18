@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public sealed class MetaMeta
 {
@@ -29,6 +30,10 @@ public sealed class MetaMeta
     public IReadOnlyDictionary<Guid, IMetaAssociationType> AssociationTypeById => this.associationTypeById;
 
     public IReadOnlyDictionary<Guid, IMetaRoleType> RoleTypeById => this.roleTypeById;
+
+    public IEnumerable<MetaObjectType> MetaComposites => this.ObjectTypeById
+        .Values
+        .Where(v => v.Kind != MetaObjectTypeKind.Unit);
 
     public MetaObjectType AddUnit(Guid id, string name)
     {

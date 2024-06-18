@@ -466,7 +466,7 @@ public static class CoreMetaMeta
         var unique = m.AddUnit(Unique, nameof(Unique));
         var action = m.AddUnit(Action, nameof(Action));
 
-        // Composites
+        // MetaComposites
         var associationType = m.AddInterface(AssociationType, nameof(AssociationType));
         var @class = m.AddClass(Class, typeof(Class));
         var composite = m.AddInterface(Composite, nameof(Composite));

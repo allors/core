@@ -1,6 +1,6 @@
-```mermaid
 classDiagram
     class AssociationType
+    <<interface>> AssociationType
     RelationEndType <|-- AssociationType
     AssociationType o-- Composite : Composite
     class BinaryAssociationType
@@ -14,6 +14,7 @@ classDiagram
     class Class
     Composite <|-- Class
     class Composite
+    <<interface>> Composite
     ObjectType <|-- Composite
     Composite o-- MethodType : ConcreteMethodTypes
     Composite o-- Class : Concretes
@@ -21,8 +22,10 @@ classDiagram
     Composite o-- MethodType : MethodTypes
     Composite o-- Interface : Supertypes
     class CompositeAssociationType
+    <<interface>> CompositeAssociationType
     AssociationType <|-- CompositeAssociationType
     class CompositeRoleType
+    <<interface>> CompositeRoleType
     RoleType <|-- CompositeRoleType
     class ConcreteMethodType
     ConcreteMethodType : Action Action
@@ -60,6 +63,7 @@ classDiagram
     class Interface
     Composite <|-- Interface
     class ManyToAssociationType
+    <<interface>> ManyToAssociationType
     CompositeAssociationType <|-- ManyToAssociationType
     class ManyToManyAssociationType
     ManyToAssociationType <|-- ManyToManyAssociationType
@@ -70,6 +74,7 @@ classDiagram
     class ManyToOneRoleType
     ToOneRoleType <|-- ManyToOneRoleType
     class MetaObject
+    <<interface>> MetaObject
     MetaObject : Unique Id
     class MethodPart
     MethodPart : Action Action
@@ -79,11 +84,13 @@ classDiagram
     MethodType o-- MethodPart : MethodParts
     MethodType : String Name
     class ObjectType
+    <<interface>> ObjectType
     Type <|-- ObjectType
     ObjectType : String AssignedPluralName
     ObjectType : String DerivedPluralName
     ObjectType : String SingularName
     class OneToAssociationType
+    <<interface>> OneToAssociationType
     CompositeAssociationType <|-- OneToAssociationType
     class OneToManyAssociationType
     OneToAssociationType <|-- OneToManyAssociationType
@@ -94,11 +101,14 @@ classDiagram
     class OneToOneRoleType
     ToOneRoleType <|-- OneToOneRoleType
     class OperandType
+    <<interface>> OperandType
     Type <|-- OperandType
     class RelationEndType
+    <<interface>> RelationEndType
     OperandType <|-- RelationEndType
     RelationEndType : Boolean IsMany
     class RoleType
+    <<interface>> RoleType
     RelationEndType <|-- RoleType
     RoleType : String AssignedPluralName
     RoleType o-- AssociationType : AssociationType
@@ -113,10 +123,13 @@ classDiagram
     StringRoleType : Integer AssignedSize
     StringRoleType : Integer DerivedSize
     class ToManyRoleType
+    <<interface>> ToManyRoleType
     CompositeRoleType <|-- ToManyRoleType
     class ToOneRoleType
+    <<interface>> ToOneRoleType
     CompositeRoleType <|-- ToOneRoleType
     class Type
+    <<interface>> Type
     MetaObject <|-- Type
     class UniqueAssociationType
     UnitAssociationType <|-- UniqueAssociationType
@@ -125,8 +138,8 @@ classDiagram
     class Unit
     ObjectType <|-- Unit
     class UnitAssociationType
+    <<interface>> UnitAssociationType
     AssociationType <|-- UnitAssociationType
     class UnitRoleType
+    <<interface>> UnitRoleType
     RoleType <|-- UnitRoleType
-
-```

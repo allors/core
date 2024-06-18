@@ -14,17 +14,19 @@ public class ClassDiagramTests
 
         var s1 = meta.AddInterface(Guid.NewGuid(), "S1");
         var i1 = meta.AddInterface(Guid.NewGuid(), "I1", s1);
-        meta.AddClass(Guid.NewGuid(), "C1", i1);
+        var c1 = meta.AddClass(Guid.NewGuid(), "C1", i1);
 
-        new ClassDiagram(meta)
-            .Render()
+        new ClassDiagram()
+            .Render([s1, i1, c1])
             .Should()
             .Be(@"classDiagram
     class C1
     I1 <|-- C1
     class I1
+    <<interface>> I1
     S1 <|-- I1
     class S1
+    <<interface>> S1
 ");
     }
 
@@ -37,8 +39,8 @@ public class ClassDiagramTests
         var person = meta.AddClass(Guid.NewGuid(), "Person");
         meta.AddOneToManyRelation(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
-        new ClassDiagram(meta)
-            .Render()
+        new ClassDiagram()
+            .Render(meta.MetaComposites)
             .Should()
             .Be("""
             classDiagram
@@ -63,8 +65,8 @@ public class ClassDiagramTests
         meta.AddOneToManyRelation(Guid.NewGuid(), Guid.NewGuid(), internalOrganization, person, "Employee");
         meta.AddOneToManyRelation(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Customer");
 
-        new ClassDiagram(meta)
-            .Render()
+        new ClassDiagram()
+            .Render(meta.MetaComposites)
             .Should()
             .Be("""
             classDiagram
@@ -83,9 +85,11 @@ public class ClassDiagramTests
     {
         var meta = new MetaMeta();
 
-        var config = new ClassDiagram.Config { Title = "My Empty Diagram" };
-        new ClassDiagram(meta, config)
-            .Render()
+        new ClassDiagram
+        {
+            Title = "My Empty Diagram",
+        }
+            .Render(meta.MetaComposites)
             .Should()
             .Be("""
             ---
@@ -105,9 +109,12 @@ public class ClassDiagramTests
         var person = meta.AddClass(Guid.NewGuid(), "Person");
         meta.AddOneToManyRelation(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
-        var config = new ClassDiagram.Config { OneMultiplicity = "1", ManyMultiplicity = "1..*" };
-        new ClassDiagram(meta, config)
-            .Render()
+        new ClassDiagram
+        {
+            OneMultiplicity = "1",
+            ManyMultiplicity = "1..*",
+        }
+            .Render(meta.MetaComposites)
             .Should()
             .Be("""
             classDiagram
@@ -127,11 +134,13 @@ public class ClassDiagramTests
         var person = meta.AddClass(Guid.NewGuid(), "Person");
         meta.AddOneToManyRelation(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
-        var config = new ClassDiagram.Config { OneMultiplicity = "one" };
-        new ClassDiagram(meta, config)
-            .Render()
-            .Should()
-            .Be("""
+        new ClassDiagram
+        {
+            OneMultiplicity = "one",
+        }
+        .Render(meta.MetaComposites)
+        .Should()
+        .Be("""
             classDiagram
                 class Organization
                 Organization "one" o-- Person : Employees
@@ -149,16 +158,17 @@ public class ClassDiagramTests
         var person = meta.AddClass(Guid.NewGuid(), "Person");
         meta.AddOneToManyRelation(Guid.NewGuid(), Guid.NewGuid(), organization, person, "Employee");
 
-        var config = new ClassDiagram.Config { ManyMultiplicity = "many" };
-        new ClassDiagram(meta, config)
-            .Render()
-            .Should()
+        new ClassDiagram
+        {
+            ManyMultiplicity = "many",
+        }
+        .Render(meta.MetaComposites).Should()
             .Be("""
-            classDiagram
-                class Organization
-                Organization o-- "many" Person : Employees
-                class Person
+                classDiagram
+                    class Organization
+                    Organization o-- "many" Person : Employees
+                    class Person
 
-            """);
+                """);
     }
 }

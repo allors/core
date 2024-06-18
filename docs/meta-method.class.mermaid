@@ -1,0 +1,12 @@
+classDiagram
+    class ConcreteMethodType
+    ConcreteMethodType : Action Action
+    ConcreteMethodType o-- Class : Class
+    ConcreteMethodType o-- MethodType : MethodType
+    class MethodPart
+    MethodPart : Action Action
+    MethodPart o-- Composite : Composite
+    MethodPart o-- Domain : Domain
+    class MethodType
+    MethodType o-- MethodPart : MethodParts
+    MethodType : String Name
