@@ -5,28 +5,11 @@ using Allors.Core.Database.Meta;
 using Allors.Core.Database.MetaMeta;
 using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
-using Allors.Core.MetaMeta.Diagrams;
 using FluentAssertions;
 using Xunit;
 
 public class CoreMetaTests
 {
-    [Fact]
-    public void Diagram()
-    {
-        var metaMeta = new MetaMeta();
-        CoreMetaMeta.Populate(metaMeta);
-
-        var meta = new Meta(metaMeta);
-        CoreMeta.Populate(meta);
-
-        meta.Derive();
-
-        var diagram = new ClassDiagram(metaMeta).Render();
-
-        diagram.Should().NotBeNull();
-    }
-
     [Fact]
     public void Build()
     {
