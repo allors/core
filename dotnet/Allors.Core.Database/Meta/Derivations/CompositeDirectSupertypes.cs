@@ -24,7 +24,7 @@ public sealed class CompositeDirectSupertypes(Meta meta) : IMetaDerivation
 
         foreach (var composite in meta.Objects.Where(v => m.Composite().IsAssignableFrom(v.ObjectType)))
         {
-            composite[m.CompositeSupertypes] = [];
+            composite[m.CompositeDirectSupertypes] = [];
         }
 
         foreach (var inheritance in meta.Objects.Where(v => m.Inheritance().IsAssignableFrom(v.ObjectType)))
@@ -34,7 +34,7 @@ public sealed class CompositeDirectSupertypes(Meta meta) : IMetaDerivation
 
             if (subtype == null || supertype == null)
             {
-                // TOOD: log error
+                // TODO: log error
                 continue;
             }
 

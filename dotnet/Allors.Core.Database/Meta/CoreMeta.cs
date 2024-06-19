@@ -80,11 +80,12 @@ public static class CoreMeta
     public static readonly Guid CompositeOnPostDerive = new("03f3e559-f275-4bee-8036-1cf6e930804b");
 
     /// <summary>
-    /// Populates meta with Core types.
+    /// Populate meta with Core derivations.
     /// </summary>
-    public static void Populate(Meta meta)
+    public static void Configure(Meta meta)
     {
         // Derivations
+        meta.DerivationById[nameof(CompositeConcretes)] = new CompositeConcretes(meta);
         meta.DerivationById[nameof(CompositeDirectSupertypes)] = new CompositeDirectSupertypes(meta);
         meta.DerivationById[nameof(CompositeSupertypes)] = new CompositeSupertypes(meta);
         meta.DerivationById[nameof(ConcreteMethodTypeAction)] = new ConcreteMethodTypeAction(meta);
@@ -94,7 +95,13 @@ public static class CoreMeta
         meta.DerivationById[nameof(RoleTypeName)] = new RoleTypeName(meta);
         meta.DerivationById[nameof(MethodTypeConcreteMethodTypes)] = new MethodTypeConcreteMethodTypes(meta);
         meta.DerivationById[nameof(StringRoleTypeDerivedSize)] = new StringRoleTypeDerivedSize(meta);
+    }
 
+    /// <summary>
+    /// Populate meta with Core types.
+    /// </summary>
+    public static void Populate(Meta meta)
+    {
         // Domain
         var core = meta.AddDomain(AllorsCore, nameof(AllorsCore));
 

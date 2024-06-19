@@ -10,10 +10,12 @@ public abstract class Tests
     protected Tests()
     {
         var metaMeta = new MetaMeta();
-        CoreMetaMeta.Populate(metaMeta);
-
         var meta = new Core.Meta.Meta(metaMeta);
+
+        CoreMetaMeta.Populate(metaMeta);
+        CoreMeta.Configure(meta);
         CoreMeta.Populate(meta);
+
         TestsMeta.Populate(meta);
 
         meta.Derive();

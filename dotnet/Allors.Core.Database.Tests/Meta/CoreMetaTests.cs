@@ -14,9 +14,10 @@ public class CoreMetaTests
     public void Build()
     {
         var metaMeta = new MetaMeta();
-        CoreMetaMeta.Populate(metaMeta);
-
         var meta = new Meta(metaMeta);
+
+        CoreMetaMeta.Populate(metaMeta);
+        CoreMeta.Configure(meta);
         CoreMeta.Populate(meta);
 
         meta.Derive();

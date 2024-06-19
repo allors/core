@@ -170,7 +170,7 @@ public static class MetaMetaExtensions
     /// <summary>
     /// A meta object.
     /// </summary>
-    public static MetaObjectType MetaObject(this MetaMeta @this) => @this.ObjectTypeById[CoreMetaMeta.MetaObject];
+    public static MetaObjectType MetaObject(this MetaMeta @this) => @this.ObjectTypeById[CoreMetaMeta.MetaIdentifiableObject];
 
     /// <summary>
     /// The id of a meta object.

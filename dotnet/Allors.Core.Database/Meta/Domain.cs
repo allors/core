@@ -1,7 +1,6 @@
 ﻿namespace Allors.Core.Database.Meta;
 
 using System;
-using System.Collections.Generic;
 using Allors.Core.Database.MetaMeta;
 using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
@@ -22,31 +21,28 @@ public class Domain : MetaObject
     /// <summary>
     /// Add an inheritance relation between a subtype and a supertype.
     /// </summary>
-    public IEnumerable<Inheritance> AddInheritance(Guid id, IComposite subtype, params Interface[] supertypes)
+    public void AddInheritance(IComposite subtype, params Interface[] supertypes)
     {
         foreach (var supertype in supertypes)
         {
-            yield return this.AddInheritance(id, subtype, supertype);
+            this.AddInheritance(subtype, supertype);
         }
     }
 
     /// <summary>
     /// Add an inheritance relation between a subtype and a supertype.
     /// </summary>
-    public Inheritance AddInheritance(Guid id, IComposite subtype, Interface supertype)
+    public void AddInheritance(IComposite subtype, Interface supertype)
     {
         var m = this.MetaMeta;
 
         var inheritance = this.Meta.Build<Inheritance>(v =>
         {
-            v[m.MetaObjectId] = id;
             v[m.InheritanceSubtype] = subtype;
             v[m.InheritanceSupertype] = supertype;
         });
 
         this.Add(m.DomainTypes(), inheritance);
-
-        return inheritance;
     }
 
     /// <summary>

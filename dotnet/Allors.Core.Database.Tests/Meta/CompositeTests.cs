@@ -14,9 +14,10 @@ public class CompositeTests
     public void Supertypes()
     {
         var metaMeta = new MetaMeta();
-        CoreMetaMeta.Populate(metaMeta);
-
         var meta = new Meta(metaMeta);
+
+        CoreMetaMeta.Populate(metaMeta);
+        CoreMeta.Configure(meta);
         CoreMeta.Populate(meta);
 
         meta.Derive();
@@ -27,8 +28,8 @@ public class CompositeTests
         var i1 = domain.AddInterface(Guid.NewGuid(), "I1");
         var c1 = domain.AddInterface(Guid.NewGuid(), "C1");
 
-        domain.AddInheritance(Guid.NewGuid(), i1, s1);
-        domain.AddInheritance(Guid.NewGuid(), c1, i1);
+        domain.AddInheritance(i1, s1);
+        domain.AddInheritance(c1, i1);
 
         meta.Derive();
 

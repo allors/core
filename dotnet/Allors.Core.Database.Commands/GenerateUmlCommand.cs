@@ -45,9 +45,10 @@
                 (output) =>
                 {
                     var m = new MetaMeta();
-                    CoreMetaMeta.Populate(m);
-
                     var meta = new Core.Meta.Meta(m);
+
+                    CoreMetaMeta.Populate(m);
+                    CoreMeta.Configure(meta);
                     CoreMeta.Populate(meta);
 
                     meta.Derive();

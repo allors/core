@@ -137,11 +137,11 @@ public static class TestsMeta
         var c3 = d.AddClass(C3, nameof(C3));
         var c4 = d.AddClass(C4, nameof(C4));
 
-        d.AddInheritance(new Guid("9b0d35eb-c635-43d4-92fc-3e5352c51272"), i12, m.Object());
-        d.AddInheritance(new Guid("1823df02-c77a-412e-87f3-36457b6f60ac"), i1, s1, i12);
-        d.AddInheritance(new Guid("1685a94f-14d6-45e7-98e3-b897959e0328"), i2, s2, i12);
-        d.AddInheritance(new Guid("e890b0b3-1f02-4c5d-bd05-c23d36cefde9"), c1, i1);
-        d.AddInheritance(new Guid("11ac4d4b-c835-4ef1-aafc-35a15d3f50ae"), c2, i2);
+        d.AddInheritance(i12, m.Object());
+        d.AddInheritance(i1, s1, i12);
+        d.AddInheritance(i2, s2, i12);
+        d.AddInheritance(c1, i1);
+        d.AddInheritance(c2, i2);
 
         d.AddStringRelation(new Guid("1CCF5BAC-3ED4-490B-9B09-822E045FB0CE"), I1AllorsString, i1, "I1AllorsString");
         d.AddStringRelation(new Guid("B9434972-9B14-403F-91D3-EE2A0866A5D4"), C1AllorsString, c1, "C1AllorsString");
