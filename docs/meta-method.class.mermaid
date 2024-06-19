@@ -1,12 +1,18 @@
 classDiagram
+    class Class
+    Composite <|-- Class
+    class Composite
+    <<interface>> Composite
+    Composite o-- Class : Concretes
+    Composite o-- MethodType
     class ConcreteMethodType
     ConcreteMethodType : Action Action
-    ConcreteMethodType : Class Class
-    ConcreteMethodType o-- MethodType
+    ConcreteMethodType o-- Class
     class MethodPart
     MethodPart : Action Action
-    MethodPart : Composite Composite
+    MethodPart o-- Composite
     MethodPart : Domain Domain
     class MethodType
+    MethodType o-- ConcreteMethodType
     MethodType o-- MethodPart
     MethodType : String Name

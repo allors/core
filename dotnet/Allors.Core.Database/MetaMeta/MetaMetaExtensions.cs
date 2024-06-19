@@ -33,11 +33,6 @@ public static class MetaMetaExtensions
     public static MetaObjectType CompositeAssociationType(this MetaMeta @this) => @this.ObjectTypeById[CoreMetaMeta.CompositeAssociationType];
 
     /// <summary>
-    /// The concrete method types of a composite.
-    /// </summary>
-    public static MetaManyToManyRoleType CompositeConcreteMethodTypes(this MetaMeta @this) => (MetaManyToManyRoleType)@this.RoleTypeById[CoreMetaMeta.CompositeConcreteMethodTypes];
-
-    /// <summary>
     /// The concretes (subclasses in case of an interface, the class iteself in case of a class) of a composite.
     /// </summary>
     public static MetaManyToManyRoleType CompositeConcretes(this MetaMeta @this) => (MetaManyToManyRoleType)@this.RoleTypeById[CoreMetaMeta.CompositeConcretes];
@@ -75,12 +70,17 @@ public static class MetaMetaExtensions
     /// <summary>
     /// A method type of a concrete method type.
     /// </summary>
-    public static MetaManyToOneRoleType ConcreteMethodTypeMethodType(this MetaMeta @this) => (MetaManyToOneRoleType)@this.RoleTypeById[CoreMetaMeta.ConcreteMethodTypeMethodType];
+    public static MetaManyToOneRoleType ConcreteMethodTypeMethodType(this MetaMeta @this) => (MetaManyToOneRoleType)@this.RoleTypeById[CoreMetaMeta.MethodTypeConcreteMethodTypes];
 
     /// <summary>
     /// The action of the concrete method type.
     /// </summary>
     public static MetaUnitRoleType ConcreteMethodTypeAction(this MetaMeta @this) => (MetaUnitRoleType)@this.RoleTypeById[CoreMetaMeta.ConcreteMethodTypeAction];
+
+    /// <summary>
+    /// A method type of a concrete method type.
+    /// </summary>
+    public static MetaOneToManyRoleType ConcreteMethodTypeMethodParts(this MetaMeta @this) => (MetaOneToManyRoleType)@this.RoleTypeById[CoreMetaMeta.ConcreteMethodTypeMethodParts];
 
     /// <summary>
     /// A domain.
@@ -425,7 +425,12 @@ public static class MetaMetaExtensions
     /// <summary>
     /// The method parts of a method type.
     /// </summary>
-    public static MetaOneToManyRoleType MethodTypeMethodPart(this MetaMeta @this) => (MetaOneToManyRoleType)@this.RoleTypeById[CoreMetaMeta.MethodTypeMethodParts];
+    public static MetaOneToManyRoleType MethodTypeConcreteMethodTypes(this MetaMeta @this) => (MetaOneToManyRoleType)@this.RoleTypeById[CoreMetaMeta.MethodTypeConcreteMethodTypes];
+
+    /// <summary>
+    /// The method parts of a method type.
+    /// </summary>
+    public static MetaOneToManyRoleType MethodTypeMethodParts(this MetaMeta @this) => (MetaOneToManyRoleType)@this.RoleTypeById[CoreMetaMeta.MethodTypeMethodParts];
 
     /// <summary>
     /// Method part.

@@ -16,7 +16,6 @@ classDiagram
     class Composite
     <<interface>> Composite
     ObjectType <|-- Composite
-    Composite o-- MethodType : ConcreteMethodTypes
     Composite o-- Class : Concretes
     Composite o-- Interface : DirectSupertypes
     Composite o-- MethodType
@@ -30,7 +29,6 @@ classDiagram
     class ConcreteMethodType
     ConcreteMethodType : Action Action
     ConcreteMethodType o-- Class
-    ConcreteMethodType o-- MethodType
     class DateTimeAssociationType
     UnitAssociationType <|-- DateTimeAssociationType
     class DateTimeRoleType
@@ -81,6 +79,7 @@ classDiagram
     MethodPart o-- Composite
     MethodPart o-- Domain
     class MethodType
+    MethodType o-- ConcreteMethodType
     MethodType o-- MethodPart
     MethodType : String Name
     class ObjectType

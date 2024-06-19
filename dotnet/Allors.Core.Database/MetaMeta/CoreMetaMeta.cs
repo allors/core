@@ -265,11 +265,6 @@ public static class CoreMetaMeta
     public static readonly Guid AssociationTypeComposite = new("0576ea29-8b60-44c5-bc3b-ac74a527482a");
 
     /// <summary>
-    /// Composite.ConcreteMethodTypes.
-    /// </summary>
-    public static readonly Guid CompositeConcreteMethodTypes = new("554ffab8-c40a-4194-b868-3d1b8024099d");
-
-    /// <summary>
     /// Composite.Concretes.
     /// </summary>
     public static readonly Guid CompositeConcretes = new("aea9f623-ad98-40b9-ab89-5aea35bca09d");
@@ -300,14 +295,14 @@ public static class CoreMetaMeta
     public static readonly Guid ConcreteMethodTypeAction = new("83b66287-d150-460d-b328-20f3e469edac");
 
     /// <summary>
+    /// ConcreteMethodType.MethodParts.
+    /// </summary>
+    public static readonly Guid ConcreteMethodTypeMethodParts = new("84b10772-1d48-4333-afec-8d3292d63f10");
+
+    /// <summary>
     /// ConcreteMethodType.Class.
     /// </summary>
     public static readonly Guid ConcreteMethodTypeClass = new("bb988c65-5d13-4afb-90c9-4a5d249d3833");
-
-    /// <summary>
-    /// ConcreteMethodType.MethodType.
-    /// </summary>
-    public static readonly Guid ConcreteMethodTypeMethodType = new("07a477f6-797e-4d17-b0da-cf7ede2c5492");
 
     /// <summary>
     /// DecimalRoleType.AssignedPrecision.
@@ -378,6 +373,11 @@ public static class CoreMetaMeta
     /// MethodType.
     /// </summary>
     public static readonly Guid MethodType = new("5768954e-012b-4b2e-bb22-992806ad973d");
+
+    /// <summary>
+    /// MethodType.ConcreteMethodType.
+    /// </summary>
+    public static readonly Guid MethodTypeConcreteMethodTypes = new("07a477f6-797e-4d17-b0da-cf7ede2c5492");
 
     /// <summary>
     /// MethodType.Name.
@@ -514,7 +514,7 @@ public static class CoreMetaMeta
         var unitRoleType = m.AddInterface(UnitRoleType, nameof(UnitRoleType));
         var methodType = m.AddClass(MethodType, typeof(MethodType));
         var methodPart = m.AddClass(MethodPart, typeof(MethodPart));
-        var concreteMethod = m.AddClass(ConcreteMethodType, typeof(ConcreteMethodType));
+        var concreteMethodType = m.AddClass(ConcreteMethodType, typeof(ConcreteMethodType));
 
         // Inheritance
         m.AddInheritance(new Guid("12ec1d97-6208-4cf5-866b-58675aa8a38e"), associationType, relationEndType);
@@ -566,14 +566,13 @@ public static class CoreMetaMeta
         m.AddManyToOneRelation(new Guid("cea0ed95-ae21-451d-bef3-2cd6ccb34c29"), AssociationTypeComposite, associationType, composite);
 
         m.AddManyToManyRelation(new Guid("0b58ac29-4e31-498d-9748-bca2497c010c"), CompositeConcretes, composite, @class, "Concrete");
-        m.AddManyToManyRelation(new Guid("9e0ae5cb-3306-4189-aebe-5b824a3e2820"), CompositeConcreteMethodTypes, composite, methodType, "ConcreteMethodType");
         m.AddManyToManyRelation(new Guid("960162a2-a902-4cd9-9576-ccb0e7c9e01c"), CompositeDirectSupertypes, composite, @interface, "DirectSupertype");
         m.AddManyToManyRelation(new Guid("b0129926-2eb2-4ac7-80e0-93a2329964cf"), CompositeSupertypes, composite, @interface, "Supertype");
         m.AddOneToManyRelation(new Guid("1883f701-6037-442c-9ae9-140b715110a6"), CompositeMethodTypes, composite, methodType);
 
-        m.AddUnitRelation(new Guid("c72f0838-f063-4339-8451-d5ae089243e3"), ConcreteMethodTypeAction, concreteMethod, action);
-        m.AddManyToOneRelation(new Guid("910647d5-dd0d-4f14-84e2-b702e7b7404d"), ConcreteMethodTypeClass, concreteMethod, @class);
-        m.AddManyToOneRelation(new Guid("ee15e939-83e0-4b9b-ab78-dc4e6000bc3c"), ConcreteMethodTypeMethodType, concreteMethod, methodType);
+        m.AddUnitRelation(new Guid("c72f0838-f063-4339-8451-d5ae089243e3"), ConcreteMethodTypeAction, concreteMethodType, action);
+        m.AddOneToManyRelation(new Guid("c59106d0-72db-48ef-a7ee-ddf8e16f3a73"), ConcreteMethodTypeMethodParts, concreteMethodType, methodPart);
+        m.AddManyToOneRelation(new Guid("910647d5-dd0d-4f14-84e2-b702e7b7404d"), ConcreteMethodTypeClass, concreteMethodType, @class);
 
         m.AddUnitRelation(new Guid("5b2ac86d-af09-46f6-a454-4d2a3bdeaed3"), DecimalRoleTypeAssignedPrecision, decimalRoleType, integer, "AssignedPrecision");
         m.AddUnitRelation(new Guid("3c25e09b-6b89-46e9-b1bb-f89c4d2fa4db"), DecimalRoleTypeDerivedPrecision, decimalRoleType, integer, "DerivedPrecision");
@@ -593,6 +592,7 @@ public static class CoreMetaMeta
 
         m.AddUnitRelation(new Guid("d8a5df00-b3d8-4a9b-a2b6-27b94ba4e6ab"), MethodTypeName, methodType, @string, "Name");
         m.AddOneToManyRelation(new Guid("8a16775d-fb56-4e9c-b328-929cbfc032ed"), MethodTypeMethodParts, methodType, methodPart);
+        m.AddOneToManyRelation(new Guid("ee15e939-83e0-4b9b-ab78-dc4e6000bc3c"), MethodTypeConcreteMethodTypes, methodType, concreteMethodType);
 
         m.AddUnitRelation(new Guid("c45fcfac-5614-4a03-b86a-df2f75cc5fcb"), ObjectTypeAssignedPluralName, objectType, @string, "AssignedPluralName");
         m.AddUnitRelation(new Guid("edb514d1-f0b6-44d0-a0ce-2ff9a132b4f7"), ObjectTypeDerivedPluralName, objectType, @string, "DerivedPluralName");

@@ -1,6 +1,7 @@
 ﻿namespace Allors.Core.Database.Commands
 {
     using System.CommandLine;
+    using System.Linq;
     using Allors.Core.Database.Meta;
     using Allors.Core.Database.MetaMeta;
     using Allors.Core.MetaMeta;
@@ -43,10 +44,10 @@
             generateUmlCommand.SetHandler(
                 (output) =>
                 {
-                    var metaMeta = new MetaMeta();
-                    CoreMetaMeta.Populate(metaMeta);
+                    var m = new MetaMeta();
+                    CoreMetaMeta.Populate(m);
 
-                    var meta = new Core.Meta.Meta(metaMeta);
+                    var meta = new Core.Meta.Meta(m);
                     CoreMeta.Populate(meta);
 
                     meta.Derive();
@@ -55,15 +56,19 @@
 
                     void WriteMetaClassDiagram(string name, IEnumerable<MetaObjectType>? metaComposites = null, IEnumerable<IMetaRoleType>? metaRoleTypes = null)
                     {
-                        metaComposites ??= metaMeta.MetaComposites;
-                        var diagram = new ClassDiagram().Render(metaComposites);
+                        metaComposites ??= m.MetaComposites;
+                        var diagram = new ClassDiagram().Render(metaComposites, metaRoleTypes);
                         var filePath = Path.Combine(directoryInfo.FullName, $"meta-{name}.class.mermaid");
                         File.WriteAllText(filePath, diagram);
                     }
 
                     WriteMetaClassDiagram("overview");
 
-                    WriteMetaClassDiagram("method", metaMeta.MetaComposites.Where(v => v.Name.Contains("Method")));
+                    MetaObjectType[] primary = [m.MethodType(), m.ConcreteMethodType(), m.MethodPart()];
+                    MetaObjectType[] secondary = [m.Composite(), m.Class()];
+                    var metaComposites = primary.Union(secondary);
+                    var metaRoleTypes = primary.SelectMany(v => v.RoleTypeByName.Values).Union([m.CompositeMethodTypes(), m.CompositeConcretes()]);
+                    WriteMetaClassDiagram("method", metaComposites, metaRoleTypes);
 
                     return Task.FromResult(0);
                 },

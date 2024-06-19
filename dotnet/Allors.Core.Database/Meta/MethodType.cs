@@ -19,6 +19,20 @@ public sealed class MethodType : MetaObject, IComposite
     }
 
     /// <summary>
+    /// Adds a new concrete method type.
+    /// </summary>
+    public ConcreteMethodType AddConcreteMethodType(Class @class)
+    {
+        var m = this.MetaMeta;
+
+        var concreteMethodType = this.Meta.Build<ConcreteMethodType>(v => v[m.ConcreteMethodTypeClass] = @class);
+
+        this.Add(m.MethodTypeConcreteMethodTypes(), concreteMethodType);
+
+        return concreteMethodType;
+    }
+
+    /// <summary>
     /// Adds a method definition.
     /// </summary>
     public MethodPart AddMethodPart(Domain domain, IComposite composite, Action<IObject, object> action)
@@ -32,7 +46,7 @@ public sealed class MethodType : MetaObject, IComposite
             v[m.MethodPartAction] = action;
         });
 
-        this.Add(m.MethodTypeMethodPart, methodPart);
+        this.Add(m.MethodTypeMethodParts, methodPart);
 
         return methodPart;
     }

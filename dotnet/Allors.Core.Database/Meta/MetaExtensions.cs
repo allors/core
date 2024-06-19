@@ -29,24 +29,6 @@ public static class MetaExtensions
     }
 
     /// <summary>
-    /// Adds a new concrete method type.
-    /// </summary>
-    public static ConcreteMethodType AddConcreteMethodType(this Meta @this, Class @class, MethodType methodType)
-    {
-        var m = @this.MetaMeta;
-
-        var concreteMethodType = @this.Build<ConcreteMethodType>(v =>
-        {
-            v[m.ConcreteMethodTypeClass] = @class;
-            v[m.ConcreteMethodTypeMethodType] = methodType;
-        });
-
-        concreteMethodType.Add(m.DomainTypes(), concreteMethodType);
-
-        return concreteMethodType;
-    }
-
-    /// <summary>
     /// Binary.
     /// </summary>
     public static Unit Binary(this Meta @this) => (Unit)@this.Get(CoreMeta.Binary);
