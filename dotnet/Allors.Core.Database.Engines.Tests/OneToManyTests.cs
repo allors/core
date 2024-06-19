@@ -841,11 +841,6 @@ public abstract class OneToManyTests : Tests
             {
                 Debugger.Log(0, null, $"Act Repeats {actRepeats}\n");
 
-                if (preactName == "Commit" && actRepeats == 2)
-                {
-                    Debugger.Break();
-                }
-
                 foreach (var assertPermutation in assertPermutations)
                 {
                     foreach (var assertRepeats in new[] { 1, 2 })

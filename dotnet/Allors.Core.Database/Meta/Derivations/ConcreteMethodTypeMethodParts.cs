@@ -27,8 +27,11 @@ public sealed class ConcreteMethodTypeMethodParts(Meta meta) : IMetaDerivation
 
         foreach (var concreteMethodType in meta.Objects.Where(v => m.ConcreteMethodType().IsAssignableFrom(v.ObjectType)))
         {
-            var @class = concreteMethodType[m.ConcreteMethodTypeClass];
-            var methodType = concreteMethodType[m.MethodTypeConcreteMethodTypes().AssociationType];
+            var @class = concreteMethodType[m.ConcreteMethodTypeClass]!;
+            var compositesWhereConcrete = @class[m.CompositeConcretes().AssociationType]!.ToHashSet();
+            var methodType = concreteMethodType[m.MethodTypeConcreteMethodTypes().AssociationType]!;
+            var methodParts = methodType[m.MethodTypeMethodParts]!.Where(v => compositesWhereConcrete.Contains(v));
+            concreteMethodType[m.ConcreteMethodTypeMethodParts] = methodParts;
         }
     }
 }

@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
@@ -179,15 +178,7 @@ public class OneToOneTests
             [
                 (association, _, _, fromAnother, to) => fromAnother.Should().Be(to[association]),
                 (_, role, from, _, _) => from[role].Should().BeNull(),
-                (_, role, _, fromAnother, to) =>
-                {
-                    if (!Equals(to, fromAnother[role]))
-                    {
-                        Debugger.Break();
-                    }
-
-                    fromAnother[role].Should().Be(to);
-                }
+                (_, role, _, fromAnother, to) => fromAnother[role].Should().Be(to)
             ]);
     }
 

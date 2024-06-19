@@ -30,9 +30,14 @@ public static class CoreMetaMeta
     public static readonly Guid Unique = new("12e9b779-f5c0-4226-ad43-3d11a9fbcffe");
 
     /// <summary>
-    /// Unique.
+    /// Action.
     /// </summary>
     public static readonly Guid Action = new("e767d885-70ac-4837-b116-0cccfc500495");
+
+    /// <summary>
+    /// Actions.
+    /// </summary>
+    public static readonly Guid Actions = new("35104663-ca6f-40d4-9f4c-c527617e09c2");
 
     /// <summary>
     /// AssociationType.
@@ -292,7 +297,7 @@ public static class CoreMetaMeta
     /// <summary>
     /// ConcreteMethodType.Action.
     /// </summary>
-    public static readonly Guid ConcreteMethodTypeAction = new("83b66287-d150-460d-b328-20f3e469edac");
+    public static readonly Guid ConcreteMethodTypeActions = new("83b66287-d150-460d-b328-20f3e469edac");
 
     /// <summary>
     /// ConcreteMethodType.MethodParts.
@@ -465,6 +470,7 @@ public static class CoreMetaMeta
         var @string = m.AddUnit(String, nameof(String));
         var unique = m.AddUnit(Unique, nameof(Unique));
         var action = m.AddUnit(Action, nameof(Action));
+        var actions = m.AddUnit(Actions, nameof(Actions));
 
         // MetaComposites
         var associationType = m.AddInterface(AssociationType, nameof(AssociationType));
@@ -570,7 +576,7 @@ public static class CoreMetaMeta
         m.AddManyToManyRelation(new Guid("b0129926-2eb2-4ac7-80e0-93a2329964cf"), CompositeSupertypes, composite, @interface, "Supertype");
         m.AddOneToManyRelation(new Guid("1883f701-6037-442c-9ae9-140b715110a6"), CompositeMethodTypes, composite, methodType);
 
-        m.AddUnitRelation(new Guid("c72f0838-f063-4339-8451-d5ae089243e3"), ConcreteMethodTypeAction, concreteMethodType, action);
+        m.AddUnitRelation(new Guid("c72f0838-f063-4339-8451-d5ae089243e3"), ConcreteMethodTypeActions, concreteMethodType, actions);
         m.AddOneToManyRelation(new Guid("c59106d0-72db-48ef-a7ee-ddf8e16f3a73"), ConcreteMethodTypeMethodParts, concreteMethodType, methodPart);
         m.AddManyToOneRelation(new Guid("910647d5-dd0d-4f14-84e2-b702e7b7404d"), ConcreteMethodTypeClass, concreteMethodType, @class);
 

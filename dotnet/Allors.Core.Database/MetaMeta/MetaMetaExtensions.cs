@@ -75,7 +75,7 @@ public static class MetaMetaExtensions
     /// <summary>
     /// The action of the concrete method type.
     /// </summary>
-    public static MetaUnitRoleType ConcreteMethodTypeAction(this MetaMeta @this) => (MetaUnitRoleType)@this.RoleTypeById[CoreMetaMeta.ConcreteMethodTypeAction];
+    public static MetaUnitRoleType ConcreteMethodTypeActions(this MetaMeta @this) => (MetaUnitRoleType)@this.RoleTypeById[CoreMetaMeta.ConcreteMethodTypeActions];
 
     /// <summary>
     /// A method type of a concrete method type.

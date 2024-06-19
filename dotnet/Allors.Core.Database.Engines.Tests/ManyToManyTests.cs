@@ -293,11 +293,6 @@ public abstract class ManyToManyTests : Tests
             {
                 Debugger.Log(0, null, $"Act Repeats {actRepeats}\n");
 
-                if (preactName == "Commit" && actRepeats == 2)
-                {
-                    Debugger.Break();
-                }
-
                 foreach (var assertPermutation in assertPermutations)
                 {
                     foreach (var assertRepeats in new[] { 1, 2 })
@@ -401,11 +396,6 @@ public abstract class ManyToManyTests : Tests
             foreach (var actRepeats in new[] { 1, 2 })
             {
                 Debugger.Log(0, null, $"Act Repeats {actRepeats}\n");
-
-                if (preactName == "Commit" && actRepeats == 2)
-                {
-                    Debugger.Break();
-                }
 
                 foreach (var assertPermutation in assertPermutations)
                 {
