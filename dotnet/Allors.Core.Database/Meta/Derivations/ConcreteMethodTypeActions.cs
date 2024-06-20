@@ -7,9 +7,9 @@ using Allors.Core.Database.MetaMeta;
 using Allors.Core.Meta;
 
 /// <summary>
-/// Derive the action of a concrete method.
+/// Derive the actions of a concrete method type.
 /// </summary>
-public sealed class ConcreteMethodTypeAction(Meta meta) : IMetaDerivation
+public sealed class ConcreteMethodTypeActions(Meta meta) : IMetaDerivation
 {
     /// <inheritdoc/>
     public void Derive(MetaChangeSet changeSet)
@@ -74,7 +74,7 @@ public sealed class ConcreteMethodTypeAction(Meta meta) : IMetaDerivation
                 }
             }
 
-            concreteMethodType[m.ConcreteMethodTypeActions] = actions;
+            concreteMethodType[m.ConcreteMethodTypeActions] = actions.ToArray();
         }
     }
 }

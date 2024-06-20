@@ -88,7 +88,7 @@ public static class CoreMeta
         meta.DerivationById[nameof(CompositeConcretes)] = new CompositeConcretes(meta);
         meta.DerivationById[nameof(CompositeDirectSupertypes)] = new CompositeDirectSupertypes(meta);
         meta.DerivationById[nameof(CompositeSupertypes)] = new CompositeSupertypes(meta);
-        meta.DerivationById[nameof(ConcreteMethodTypeAction)] = new ConcreteMethodTypeAction(meta);
+        meta.DerivationById[nameof(ConcreteMethodTypeActions)] = new ConcreteMethodTypeActions(meta);
         meta.DerivationById[nameof(ConcreteMethodTypeMethodParts)] = new ConcreteMethodTypeMethodParts(meta);
         meta.DerivationById[nameof(DecimalRoleTypeDerivedPrecision)] = new DecimalRoleTypeDerivedPrecision(meta);
         meta.DerivationById[nameof(DecimalRoleTypeDerivedScale)] = new DecimalRoleTypeDerivedScale(meta);
