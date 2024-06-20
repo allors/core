@@ -1,6 +1,7 @@
 ﻿namespace Allors.Core.Database.Tests.Meta;
 
 using System;
+using System.Linq;
 using Allors.Core.Database.Meta;
 using Allors.Core.Database.MetaMeta;
 using Allors.Core.Meta;
@@ -125,5 +126,100 @@ public class DerivationssTests
         c1Method[m.MethodTypeConcreteMethodTypes].Should().ContainSingle();
         c2Method[m.MethodTypeConcreteMethodTypes].Should().ContainSingle();
         c3Method[m.MethodTypeConcreteMethodTypes].Should().ContainSingle();
+    }
+
+    [Fact]
+    public void ConcreteMethodTypeMethodParts()
+    {
+        var metaMeta = new MetaMeta();
+        var meta = new Meta(metaMeta);
+
+        CoreMetaMeta.Populate(metaMeta);
+        CoreMeta.Configure(meta);
+
+        var m = metaMeta;
+
+        var top = meta.AddDomain(Guid.NewGuid(), "Top");
+        var middle = meta.AddDomain(Guid.NewGuid(), "Middle");
+        var bottom = meta.AddDomain(Guid.NewGuid(), "Bottom");
+
+        var s123 = top.AddInterface(Guid.NewGuid(), "S123");
+        var i12 = middle.AddInterface(Guid.NewGuid(), "I12");
+        var i23 = middle.AddInterface(Guid.NewGuid(), "I23");
+        var c1 = bottom.AddClass(Guid.NewGuid(), "C1");
+        var c2 = bottom.AddClass(Guid.NewGuid(), "C2");
+        var c3 = bottom.AddClass(Guid.NewGuid(), "C3");
+
+        top.AddInheritance(i12, s123);
+        top.AddInheritance(i23, s123);
+        top.AddInheritance(c1, i12);
+        top.AddInheritance(c2, i12, i23);
+        top.AddInheritance(c3, i23);
+
+        var methodType = top.AddMethodType(Guid.NewGuid(), s123, "S123Method");
+
+        Action<IObject, object> topS123Action = (_, _) => { };
+        Action<IObject, object> middleS123Action = (_, _) => { };
+        Action<IObject, object> bottomS123Action = (_, _) => { };
+
+        Action<IObject, object> topI12Action = (_, _) => { };
+        Action<IObject, object> middleI12Action = (_, _) => { };
+        Action<IObject, object> bottomI12Action = (_, _) => { };
+
+        Action<IObject, object> topI23Action = (_, _) => { };
+        Action<IObject, object> middleI23Action = (_, _) => { };
+        Action<IObject, object> bottomI23Action = (_, _) => { };
+
+        Action<IObject, object> topC1Action = (_, _) => { };
+        Action<IObject, object> middleC1Action = (_, _) => { };
+        Action<IObject, object> bottomC1Action = (_, _) => { };
+
+        Action<IObject, object> topC2Action = (_, _) => { };
+        Action<IObject, object> middleC2Action = (_, _) => { };
+        Action<IObject, object> bottomC2Action = (_, _) => { };
+
+        Action<IObject, object> topC3Action = (_, _) => { };
+        Action<IObject, object> middleC3Action = (_, _) => { };
+        Action<IObject, object> bottomC3Action = (_, _) => { };
+
+        var topS123MethodPart = methodType.AddMethodPart(top, s123, topS123Action);
+        var middleS123MethodPart = methodType.AddMethodPart(middle, s123, middleS123Action);
+        var bottomS123MethodPart = methodType.AddMethodPart(bottom, s123, bottomS123Action);
+
+        var topI12MethodPart = methodType.AddMethodPart(top, i12, topI12Action);
+        var middleI12MethodPart = methodType.AddMethodPart(middle, i12, middleI12Action);
+        var bottomI12MethodPart = methodType.AddMethodPart(bottom, i12, bottomI12Action);
+
+        var topI23MethodPart = methodType.AddMethodPart(top, i23, topI23Action);
+        var middleI23MethodPart = methodType.AddMethodPart(middle, i23, middleI23Action);
+        var bottomI23MethodPart = methodType.AddMethodPart(bottom, i23, bottomI23Action);
+
+        var topC1MethodPart = methodType.AddMethodPart(top, c1, topC1Action);
+        var middleC1MethodPart = methodType.AddMethodPart(middle, c1, middleC1Action);
+        var bottomC1MethodPart = methodType.AddMethodPart(bottom, c1, bottomC1Action);
+
+        var topC2MethodPart = methodType.AddMethodPart(top, c2, topC2Action);
+        var middleC2MethodPart = methodType.AddMethodPart(middle, c2, middleC2Action);
+        var bottomC2MethodPart = methodType.AddMethodPart(bottom, c2, bottomC2Action);
+
+        var topC3MethodPart = methodType.AddMethodPart(top, c3, topC3Action);
+        var middleC3MethodPart = methodType.AddMethodPart(middle, c3, middleC3Action);
+        var bottomC3MethodPart = methodType.AddMethodPart(bottom, c3, bottomC3Action);
+
+        meta.Derive();
+
+        var concreteMethodTypes = methodType[m.MethodTypeConcreteMethodTypes]!;
+
+        var c1ConcreteMethodType = concreteMethodTypes.First(v => v[m.ConcreteMethodTypeClass] == c1);
+        var c2ConcreteMethodType = concreteMethodTypes.First(v => v[m.ConcreteMethodTypeClass] == c2);
+        var c3ConcreteMethodType = concreteMethodTypes.First(v => v[m.ConcreteMethodTypeClass] == c3);
+
+        var c1ConcreteMethodTypeMethodParts = c1ConcreteMethodType[m.ConcreteMethodTypeMethodParts]!;
+        var c2ConcreteMethodTypeMethodParts = c2ConcreteMethodType[m.ConcreteMethodTypeMethodParts]!;
+        var c3ConcreteMethodTypeMethodParts = c3ConcreteMethodType[m.ConcreteMethodTypeMethodParts]!;
+
+        c1ConcreteMethodTypeMethodParts.Should().HaveCount(9);
+        c2ConcreteMethodTypeMethodParts.Should().HaveCount(12);
+        c3ConcreteMethodTypeMethodParts.Should().HaveCount(9);
     }
 }

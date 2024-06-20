@@ -80,7 +80,7 @@ public static class MetaMetaExtensions
     /// <summary>
     /// A method type of a concrete method type.
     /// </summary>
-    public static MetaOneToManyRoleType ConcreteMethodTypeMethodParts(this MetaMeta @this) => (MetaOneToManyRoleType)@this.RoleTypeById[CoreMetaMeta.ConcreteMethodTypeMethodParts];
+    public static MetaManyToManyRoleType ConcreteMethodTypeMethodParts(this MetaMeta @this) => (MetaManyToManyRoleType)@this.RoleTypeById[CoreMetaMeta.ConcreteMethodTypeMethodParts];
 
     /// <summary>
     /// A domain.

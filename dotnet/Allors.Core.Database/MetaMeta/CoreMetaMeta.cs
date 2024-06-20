@@ -576,7 +576,7 @@ public static class CoreMetaMeta
         m.AddOneToManyRelation(new Guid("1883f701-6037-442c-9ae9-140b715110a6"), CompositeMethodTypes, composite, methodType);
 
         m.AddUnitRelation(new Guid("c72f0838-f063-4339-8451-d5ae089243e3"), ConcreteMethodTypeActions, concreteMethodType, actions);
-        m.AddOneToManyRelation(new Guid("c59106d0-72db-48ef-a7ee-ddf8e16f3a73"), ConcreteMethodTypeMethodParts, concreteMethodType, methodPart);
+        m.AddManyToManyRelation(new Guid("c59106d0-72db-48ef-a7ee-ddf8e16f3a73"), ConcreteMethodTypeMethodParts, concreteMethodType, methodPart);
         m.AddManyToOneRelation(new Guid("910647d5-dd0d-4f14-84e2-b702e7b7404d"), ConcreteMethodTypeClass, concreteMethodType, @class);
 
         m.AddUnitRelation(new Guid("5b2ac86d-af09-46f6-a454-4d2a3bdeaed3"), DecimalRoleTypeAssignedPrecision, decimalRoleType, integer, "AssignedPrecision");

@@ -52,5 +52,12 @@ public sealed class MethodType : MetaObject, IComposite
     }
 
     /// <inheritdoc/>
-    public override string ToString() => (string)this[this.MetaMeta.MethodTypeName]!;
+    public override string ToString()
+    {
+        var m = this.MetaMeta;
+
+        var composite = this[m.CompositeMethodTypes().AssociationType];
+        var name = this[m.MethodTypeName];
+        return $"{composite}.{name}";
+    }
 }

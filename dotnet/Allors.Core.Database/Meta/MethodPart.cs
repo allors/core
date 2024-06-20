@@ -1,5 +1,6 @@
 ﻿namespace Allors.Core.Database.Meta;
 
+using Allors.Core.Database.MetaMeta;
 using Allors.Core.Meta;
 using Allors.Core.MetaMeta;
 
@@ -14,5 +15,16 @@ public sealed class MethodPart : MetaObject
     public MethodPart(Meta meta, MetaObjectType objectType)
         : base(meta, objectType)
     {
+    }
+
+    /// <inheritdoc/>
+    public override string ToString()
+    {
+        var m = this.MetaMeta;
+
+        var domain = this[m.MethodPartDomain];
+        var composite = this[m.MethodPartComposite];
+        var methodType = this[m.MethodTypeMethodParts().AssociationType];
+        return $"{methodType}({domain}:{composite})";
     }
 }

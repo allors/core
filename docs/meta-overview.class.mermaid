@@ -27,7 +27,7 @@ classDiagram
     <<interface>> CompositeRoleType
     RoleType <|-- CompositeRoleType
     class ConcreteMethodType
-    ConcreteMethodType : Action Action
+    ConcreteMethodType : Actions Actions
     ConcreteMethodType o-- Class
     ConcreteMethodType o-- MethodPart
     class DateTimeAssociationType
@@ -43,7 +43,7 @@ classDiagram
     DecimalRoleType : Integer DerivedPrecision
     DecimalRoleType : Integer DerivedScale
     class Domain
-    MetaObject <|-- Domain
+    MetaIdentifiableObject <|-- Domain
     Domain : String Name
     Domain o-- Domain : Superdomains
     Domain o-- Type
@@ -52,7 +52,6 @@ classDiagram
     class FloatRoleType
     UnitRoleType <|-- FloatRoleType
     class Inheritance
-    MetaObject <|-- Inheritance
     Inheritance o-- Composite : Subtype
     Inheritance o-- Interface : Supertype
     class IntegerAssociationType
@@ -72,9 +71,9 @@ classDiagram
     ManyToAssociationType <|-- ManyToOneAssociationType
     class ManyToOneRoleType
     ToOneRoleType <|-- ManyToOneRoleType
-    class MetaObject
-    <<interface>> MetaObject
-    MetaObject : Unique Id
+    class MetaIdentifiableObject
+    <<interface>> MetaIdentifiableObject
+    MetaIdentifiableObject : Unique Id
     class MethodPart
     MethodPart : Action Action
     MethodPart o-- Composite
@@ -130,7 +129,7 @@ classDiagram
     CompositeRoleType <|-- ToOneRoleType
     class Type
     <<interface>> Type
-    MetaObject <|-- Type
+    MetaIdentifiableObject <|-- Type
     class UniqueAssociationType
     UnitAssociationType <|-- UniqueAssociationType
     class UniqueRoleType

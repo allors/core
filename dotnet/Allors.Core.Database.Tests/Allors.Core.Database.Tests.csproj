@@ -25,8 +25,4 @@
     <ProjectReference Include="..\Allors.Core.Database\Allors.Core.Database.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Meta\Derivations\" />
-  </ItemGroup>
-
 </Project>
