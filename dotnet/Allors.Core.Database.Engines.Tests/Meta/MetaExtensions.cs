@@ -121,5 +121,19 @@ public static class MetaExtensions
 
     public static StringRoleType C4AllorsString(this Meta @this) => (StringRoleType)@this.Get(TestsMeta.C4AllorsString);
 
+    public static BooleanRoleType I1AllorsBoolean(this Meta @this) => (BooleanRoleType)@this.Get(TestsMeta.I1AllorsBoolean);
+
+    public static BooleanRoleType C1AllorsBoolean(this Meta @this) => (BooleanRoleType)@this.Get(TestsMeta.C1AllorsBoolean);
+
+    public static BooleanRoleType C2AllorsBoolean(this Meta @this) => (BooleanRoleType)@this.Get(TestsMeta.C2AllorsBoolean);
+
+    public static BooleanRoleType C3AllorsBoolean(this Meta @this) => (BooleanRoleType)@this.Get(TestsMeta.C3AllorsBoolean);
+
+    public static BooleanRoleType C4AllorsBoolean(this Meta @this) => (BooleanRoleType)@this.Get(TestsMeta.C4AllorsBoolean);
+
+    public static BooleanRoleType C1DidIt(this Meta @this) => (BooleanRoleType)@this.Get(TestsMeta.C1DidIt);
+
+    public static MethodType C1DoIt(this Meta @this) => (MethodType)@this.Get(TestsMeta.C1DoIt);
+
     private static IMetaObject Get(this Meta @this, Guid id) => @this.Objects.First(v => ((Guid?)v[@this.MetaMeta.MetaObjectId]) == id);
 }

@@ -30,6 +30,7 @@ public sealed class EnginesMeta
                     Class @class => new EnginesClass(this, @class),
                     Interface @interface => new EnginesInterface(this, @interface),
                     Unit unit => new EnginesUnit(this, unit),
+
                     BinaryRoleType binaryRoleType => new EnginesBinaryRoleType(this, binaryRoleType),
                     BooleanRoleType booleanRoleType => new EnginesBooleanRoleType(this, booleanRoleType),
                     DateTimeRoleType dateTimeRoleType => new EnginesDateTimeRoleType(this, dateTimeRoleType),
@@ -38,11 +39,21 @@ public sealed class EnginesMeta
                     IntegerRoleType integerRoleType => new EnginesIntegerRoleType(this, integerRoleType),
                     StringRoleType stringRoleType => new EnginesStringRoleType(this, stringRoleType),
                     UniqueRoleType uniqueRoleType => new EnginesUniqueRoleType(this, uniqueRoleType),
+
                     OneToOneRoleType oneToOneRoleType => new EnginesOneToOneRoleType(this, oneToOneRoleType),
                     ManyToOneRoleType manyToOneRoleType => new EnginesManyToOneRoleType(this, manyToOneRoleType),
                     OneToManyRoleType oneToManyRoleType => new EnginesOneToManyRoleType(this, oneToManyRoleType),
                     ManyToManyRoleType manyToManyRoleType => new EnginesManyToManyRoleType(this, manyToManyRoleType),
+
+                    BinaryAssociationType binaryAssociationType => new EnginesBinaryAssociationType(this, binaryAssociationType),
+                    BooleanAssociationType booleanAssociationType => new EnginesBooleanAssociationType(this, booleanAssociationType),
+                    DateTimeAssociationType dateTimeAssociationType => new EnginesDateTimeAssociationType(this, dateTimeAssociationType),
+                    DecimalAssociationType decimalAssociationType => new EnginesDecimalAssociationType(this, decimalAssociationType),
+                    FloatAssociationType floatAssociationType => new EnginesFloatAssociationType(this, floatAssociationType),
+                    IntegerAssociationType integerAssociationType => new EnginesIntegerAssociationType(this, integerAssociationType),
                     StringAssociationType stringAssociationType => new EnginesStringAssociationType(this, stringAssociationType),
+                    UniqueAssociationType uniqueAssociationType => new EnginesUniqueAssociationType(this, uniqueAssociationType),
+
                     OneToOneAssociationType oneToOneAssociationType => new EnginesOneToOneAssociationType(this, oneToOneAssociationType),
                     OneToManyAssociationType oneToManyAssociationType => new EnginesOneToManyAssociationType(this, oneToManyAssociationType),
                     ManyToOneAssociationType manyToOneAssociationType => new EnginesManyToOneAssociationType(this, manyToOneAssociationType),

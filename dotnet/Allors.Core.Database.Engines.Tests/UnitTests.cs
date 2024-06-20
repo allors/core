@@ -57,5 +57,23 @@ public abstract class UnitTests : Tests
         }
     }
 
+    [Fact]
+    public void Boolean()
+    {
+        foreach (var (_, preact) in this.preActs)
+        {
+            var database = this.CreateDatabase();
+            var transaction = database.CreateTransaction();
+
+            var c1a = transaction.Build(this.Meta.C1());
+
+            preact(transaction);
+
+            c1a[this.Meta.I1AllorsBoolean] = true;
+
+            c1a[this.Meta.I1AllorsBoolean].Should().BeTrue();
+        }
+    }
+
     protected abstract IDatabase CreateDatabase();
 }

@@ -119,6 +119,20 @@ public static class TestsMeta
 
     internal static readonly Guid C4AllorsString = new("4255196c-2101-47c3-ac1f-178222cfe426");
 
+    internal static readonly Guid I1AllorsBoolean = new("85fe3c15-4639-4c06-9413-beacc5c9036f");
+
+    internal static readonly Guid C1AllorsBoolean = new("8218d3b0-ebed-48a1-bcef-5580fb6b34d0");
+
+    internal static readonly Guid C2AllorsBoolean = new("45f31e39-0004-4588-960b-71ecd37aacc2");
+
+    internal static readonly Guid C3AllorsBoolean = new("e965de33-6ad5-432e-85e4-8b51ec07e2a5");
+
+    internal static readonly Guid C4AllorsBoolean = new("831a653c-d0d6-4c70-9f3c-e843e19efefa");
+
+    internal static readonly Guid C1DidIt = new("04a01f81-0ef8-474d-a471-716115866a74");
+
+    internal static readonly Guid C1DoIt = new("635261ae-8f73-4bf4-aa07-2e16a74a67a1");
+
     /// <summary>
     /// Populates meta with Tests types.
     /// </summary>
@@ -143,11 +157,17 @@ public static class TestsMeta
         d.AddInheritance(c1, i1);
         d.AddInheritance(c2, i2);
 
-        d.AddStringRelation(new Guid("1CCF5BAC-3ED4-490B-9B09-822E045FB0CE"), I1AllorsString, i1, "I1AllorsString");
-        d.AddStringRelation(new Guid("B9434972-9B14-403F-91D3-EE2A0866A5D4"), C1AllorsString, c1, "C1AllorsString");
-        d.AddStringRelation(new Guid("F86DC318-AEB0-4311-B26D-DC74003281F1"), C2AllorsString, c2, "C2AllorsString");
-        d.AddStringRelation(new Guid("5B9E7A1B-4CA2-45D4-8FEB-829CF2115F33"), C3AllorsString, c3, "C3AllorsString");
-        d.AddStringRelation(new Guid("2B0B3AAE-0F9E-43CF-BF0C-2CD38C3D08F6"), C4AllorsString, c4, "C4AllorsString");
+        d.AddStringRelation(new Guid("e7a9c5fc-5436-49f0-8ea0-8b7773cf020e"), I1AllorsString, i1, "I1AllorsString");
+        d.AddStringRelation(new Guid("d15d4aae-84d4-4797-974b-91819e896391"), C1AllorsString, c1, "C1AllorsString");
+        d.AddStringRelation(new Guid("d96ef233-4595-4dc6-a656-dd88aee3c1d1"), C2AllorsString, c2, "C2AllorsString");
+        d.AddStringRelation(new Guid("b16c7486-5683-4b58-9cc4-672c16fd750e"), C3AllorsString, c3, "C3AllorsString");
+        d.AddStringRelation(new Guid("a4e0c4bc-9bf1-4969-81fe-b4302a5d7aae"), C4AllorsString, c4, "C4AllorsString");
+
+        d.AddBooleanRelation(new Guid("41dcbf0e-508d-466e-b668-d4064f52477e"), I1AllorsBoolean, i1, "I1AllorsBoolean");
+        d.AddBooleanRelation(new Guid("f30517e2-a70e-49b8-9be0-f80e05d71c42"), C1AllorsBoolean, c1, "C1AllorsBoolean");
+        d.AddBooleanRelation(new Guid("da8738d9-de1e-4245-a99c-b8cbd0478e34"), C2AllorsBoolean, c2, "C2AllorsBoolean");
+        d.AddBooleanRelation(new Guid("03c88bb1-a418-4d6c-9c5e-b0ef4e0be3e7"), C3AllorsBoolean, c3, "C3AllorsBoolean");
+        d.AddBooleanRelation(new Guid("77486494-bebe-4d3c-9198-11cc574edd26"), C4AllorsBoolean, c4, "C4AllorsBoolean");
 
         d.AddOneToOneRelation(C1WhereC1OneToOne, C1C1OneToOne, c1, c1, "C1OneToOne");
         d.AddOneToOneRelation(C1WhereI1OneToOne, C1I1OneToOne, c1, i1, "I1OneToOne");
@@ -172,5 +192,11 @@ public static class TestsMeta
         d.AddManyToManyRelation(C1sWhereC2ManyToMany, C1C2ManyToMany, c1, c2, "C2ManyToMany");
         d.AddManyToManyRelation(C1sWhereI2ManyToMany, C1I2ManyToMany, c1, i2, "I2ManyToMany");
         d.AddManyToManyRelation(C2sWhereC1ManyToMany, C2C1ManyToMany, c2, c1, "C1ManyToMany");
+
+        d.AddBooleanRelation(new Guid("bbabcbef-c758-45df-adad-69d841aab360"), C1DidIt, c1, "DidIt");
+
+        var c1DoIt = d.AddMethodType(C1DoIt, c1, "DoIt");
+
+        c1DoIt.AddMethodPart(d, c1, Methods.C1.DoIt);
     }
 }

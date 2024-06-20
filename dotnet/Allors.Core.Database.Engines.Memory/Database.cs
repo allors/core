@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using Allors.Core.Database.Engines.Meta;
+using Allors.Core.Meta;
 
 /// <inheritdoc />
 public class Database : IDatabase
@@ -21,6 +22,8 @@ public class Database : IDatabase
         this.Store = new Store(ImmutableDictionary<long, Record>.Empty);
         this.nextObjectId = 0;
     }
+
+    Meta IDatabase.Meta => this.Meta.Meta;
 
     internal EnginesMeta Meta { get; }
 

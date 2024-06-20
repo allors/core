@@ -7,7 +7,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using Allors.Core.Database.Engines.Meta;
 using Allors.Core.Database.Meta;
-using Allors.Core.Database.Methods;
+using Allors.Core.Database.MetaMeta;
 
 /// <inheritdoc />
 public class Object : IObject
@@ -426,6 +426,8 @@ public class Object : IObject
 
     bool IObject.Exist(Func<IAssociationType> associationType) => this.Exist(associationType());
 
+    void IObject.Call(Func<MethodType> methodType) => this.Call(methodType());
+
     /// <inheritdoc />
     public void Add(IToManyRoleType roleType, IObject value) => this.Add(this.Meta[roleType], value);
 
@@ -437,6 +439,19 @@ public class Object : IObject
 
     /// <inheritdoc />
     public bool Exist(IAssociationType associationType) => this.Exist(this.Meta[associationType]);
+
+    /// <inheritdoc/>
+    public void Call(MethodType methodType)
+    {
+        var m = this.Meta.Meta.MetaMeta;
+        var concreteMethodType = methodType[m.MethodTypeConcreteMethodTypes]!.First(v => v[m.ConcreteMethodTypeClass] == this.Class.MetaObject);
+        var actions = (Action<IObject, object>[])concreteMethodType[m.ConcreteMethodTypeActions]!;
+
+        foreach (var action in actions)
+        {
+            action(this, new object());
+        }
+    }
 
     /// <inheritdoc/>
     public override string ToString() => $"{this.Class.SingularName}:{this.Id}";

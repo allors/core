@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using Allors.Core.Database.Meta;
-using Allors.Core.Database.Methods;
 
 /// <summary>
 /// The object.
@@ -194,4 +193,14 @@ public interface IObject
     /// Is there a value for this role type.
     /// </summary>
     bool Exist(Func<IAssociationType> associationType);
+
+    /// <summary>
+    /// Execute a method.
+    /// </summary>
+    void Call(MethodType methodType);
+
+    /// <summary>
+    /// Execute a method.
+    /// </summary>
+    void Call(Func<MethodType> methodType);
 }
