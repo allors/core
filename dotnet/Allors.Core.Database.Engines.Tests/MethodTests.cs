@@ -16,9 +16,11 @@ public abstract class MethodTests : Tests
 
         var c1a = transaction.Build(m.C1);
 
-        c1a.Call(m.C1DoIt);
+        var ctx = c1a.Call(m.C1DoIt);
 
         c1a[m.C1DidIt].Should().BeTrue();
+
+        ctx["Success"] = true;
     }
 
     protected abstract IDatabase CreateDatabase();

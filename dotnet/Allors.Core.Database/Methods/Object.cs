@@ -11,7 +11,7 @@ public static class Object
     /// The OnBuild method gets called after the object has been created
     /// and the builders were executed.
     /// </summary>
-    public static void OnBuild(this IObject @this, object method)
+    public static void OnBuild(this IObject @this, IMethodContext context)
     {
         Console.WriteLine($"{@this.GetType().Name}.{nameof(OnBuild)}");
     }

@@ -10,10 +10,12 @@ public static class C1
     /// <summary>
     /// Do it.
     /// </summary>
-    public static void DoIt(this IObject @this, object method)
+    public static void DoIt(this IObject @this, IMethodContext ctx)
     {
         var m = @this.Transaction.Database.Meta;
 
         @this[m.C1DidIt] = true;
+
+        ctx["Success"] = true;
     }
 }

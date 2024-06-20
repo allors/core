@@ -35,7 +35,7 @@ public sealed class MethodType : MetaObject, IComposite
     /// <summary>
     /// Adds a method definition.
     /// </summary>
-    public MethodPart AddMethodPart(Domain domain, IComposite composite, Action<IObject, object> action)
+    public MethodPart AddMethodPart(Domain domain, IComposite composite, Method action)
     {
         var m = this.MetaMeta;
 

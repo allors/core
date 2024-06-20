@@ -158,29 +158,29 @@ public class DerivationssTests
 
         var methodType = top.AddMethodType(Guid.NewGuid(), s123, "S123Method");
 
-        Action<IObject, object> topS123Action = (_, _) => { };
-        Action<IObject, object> middleS123Action = (_, _) => { };
-        Action<IObject, object> bottomS123Action = (_, _) => { };
+        Method topS123Action = (_, _) => { };
+        Method middleS123Action = (_, _) => { };
+        Method bottomS123Action = (_, _) => { };
 
-        Action<IObject, object> topI12Action = (_, _) => { };
-        Action<IObject, object> middleI12Action = (_, _) => { };
-        Action<IObject, object> bottomI12Action = (_, _) => { };
+        Method topI12Action = (_, _) => { };
+        Method middleI12Action = (_, _) => { };
+        Method bottomI12Action = (_, _) => { };
 
-        Action<IObject, object> topI23Action = (_, _) => { };
-        Action<IObject, object> middleI23Action = (_, _) => { };
-        Action<IObject, object> bottomI23Action = (_, _) => { };
+        Method topI23Action = (_, _) => { };
+        Method middleI23Action = (_, _) => { };
+        Method bottomI23Action = (_, _) => { };
 
-        Action<IObject, object> topC1Action = (_, _) => { };
-        Action<IObject, object> middleC1Action = (_, _) => { };
-        Action<IObject, object> bottomC1Action = (_, _) => { };
+        Method topC1Action = (_, _) => { };
+        Method middleC1Action = (_, _) => { };
+        Method bottomC1Action = (_, _) => { };
 
-        Action<IObject, object> topC2Action = (_, _) => { };
-        Action<IObject, object> middleC2Action = (_, _) => { };
-        Action<IObject, object> bottomC2Action = (_, _) => { };
+        Method topC2Action = (_, _) => { };
+        Method middleC2Action = (_, _) => { };
+        Method bottomC2Action = (_, _) => { };
 
-        Action<IObject, object> topC3Action = (_, _) => { };
-        Action<IObject, object> middleC3Action = (_, _) => { };
-        Action<IObject, object> bottomC3Action = (_, _) => { };
+        Method topC3Action = (_, _) => { };
+        Method middleC3Action = (_, _) => { };
+        Method bottomC3Action = (_, _) => { };
 
         var topS123MethodPart = methodType.AddMethodPart(top, s123, topS123Action);
         var middleS123MethodPart = methodType.AddMethodPart(middle, s123, middleS123Action);
@@ -253,29 +253,29 @@ public class DerivationssTests
 
         var methodType = top.AddMethodType(Guid.NewGuid(), s123, "S123Method");
 
-        Action<IObject, object> topS123Action = (_, _) => { };
-        Action<IObject, object> middleS123Action = (_, _) => { };
-        Action<IObject, object> bottomS123Action = (_, _) => { };
+        Method topS123Action = (_, _) => { };
+        Method middleS123Action = (_, _) => { };
+        Method bottomS123Action = (_, _) => { };
 
-        Action<IObject, object> topI12Action = (_, _) => { };
-        Action<IObject, object> middleI12Action = (_, _) => { };
-        Action<IObject, object> bottomI12Action = (_, _) => { };
+        Method topI12Action = (_, _) => { };
+        Method middleI12Action = (_, _) => { };
+        Method bottomI12Action = (_, _) => { };
 
-        Action<IObject, object> topI23Action = (_, _) => { };
-        Action<IObject, object> middleI23Action = (_, _) => { };
-        Action<IObject, object> bottomI23Action = (_, _) => { };
+        Method topI23Action = (_, _) => { };
+        Method middleI23Action = (_, _) => { };
+        Method bottomI23Action = (_, _) => { };
 
-        Action<IObject, object> topC1Action = (_, _) => { };
-        Action<IObject, object> middleC1Action = (_, _) => { };
-        Action<IObject, object> bottomC1Action = (_, _) => { };
+        Method topC1Action = (_, _) => { };
+        Method middleC1Action = (_, _) => { };
+        Method bottomC1Action = (_, _) => { };
 
-        Action<IObject, object> topC2Action = (_, _) => { };
-        Action<IObject, object> middleC2Action = (_, _) => { };
-        Action<IObject, object> bottomC2Action = (_, _) => { };
+        Method topC2Action = (_, _) => { };
+        Method middleC2Action = (_, _) => { };
+        Method bottomC2Action = (_, _) => { };
 
-        Action<IObject, object> topC3Action = (_, _) => { };
-        Action<IObject, object> middleC3Action = (_, _) => { };
-        Action<IObject, object> bottomC3Action = (_, _) => { };
+        Method topC3Action = (_, _) => { };
+        Method middleC3Action = (_, _) => { };
+        Method bottomC3Action = (_, _) => { };
 
         var topS123MethodPart = methodType.AddMethodPart(top, s123, topS123Action);
         var middleS123MethodPart = methodType.AddMethodPart(middle, s123, middleS123Action);
@@ -309,9 +309,9 @@ public class DerivationssTests
         var c2ConcreteMethodType = concreteMethodTypes.First(v => v[m.ConcreteMethodTypeClass] == c2);
         var c3ConcreteMethodType = concreteMethodTypes.First(v => v[m.ConcreteMethodTypeClass] == c3);
 
-        var c1ConcreteMethodTypeActions = (Action<IObject, object>[])c1ConcreteMethodType[m.ConcreteMethodTypeActions]!;
-        var c2ConcreteMethodTypeActions = (Action<IObject, object>[])c2ConcreteMethodType[m.ConcreteMethodTypeActions]!;
-        var c3ConcreteMethodTypeActions = (Action<IObject, object>[])c3ConcreteMethodType[m.ConcreteMethodTypeActions]!;
+        var c1ConcreteMethodTypeActions = (Method[])c1ConcreteMethodType[m.ConcreteMethodTypeActions]!;
+        var c2ConcreteMethodTypeActions = (Method[])c2ConcreteMethodType[m.ConcreteMethodTypeActions]!;
+        var c3ConcreteMethodTypeActions = (Method[])c3ConcreteMethodType[m.ConcreteMethodTypeActions]!;
 
         c1ConcreteMethodTypeActions.Should().HaveCount(9);
         c2ConcreteMethodTypeActions.Should().HaveCount(12);

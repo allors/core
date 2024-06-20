@@ -58,7 +58,7 @@ public sealed class ConcreteMethodTypeActions(Meta meta) : IMetaDerivation
             var methodType = concreteMethodType[m.MethodTypeConcreteMethodTypes().AssociationType]!;
             var methodPartByDomainByComposite = methodType[m.MethodTypeMethodParts].GroupBy(v => v[m.MethodPartComposite]).ToDictionary(v => v.Key!, v => v.GroupBy(w => w[m.MethodPartDomain]).ToDictionary(v => v.Key!, v => v.First()));
 
-            var actions = new List<Action<IObject, object>>();
+            var actions = new List<Method>();
 
             foreach (var composite in sortedComposites)
             {
@@ -68,7 +68,7 @@ public sealed class ConcreteMethodTypeActions(Meta meta) : IMetaDerivation
                     {
                         if (methodPartByDomain.TryGetValue(domain, out var methodPart))
                         {
-                            actions.Add((Action<IObject, object>)methodPart[m.MethodPartAction]!);
+                            actions.Add((Method)methodPart[m.MethodPartAction]!);
                         }
                     }
                 }

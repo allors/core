@@ -426,7 +426,7 @@ public class Object : IObject
 
     bool IObject.Exist(Func<IAssociationType> associationType) => this.Exist(associationType());
 
-    void IObject.Call(Func<MethodType> methodType) => this.Call(methodType());
+    IMethodContext IObject.Call(Func<MethodType> methodType) => this.Call(methodType());
 
     /// <inheritdoc />
     public void Add(IToManyRoleType roleType, IObject value) => this.Add(this.Meta[roleType], value);
@@ -441,16 +441,20 @@ public class Object : IObject
     public bool Exist(IAssociationType associationType) => this.Exist(this.Meta[associationType]);
 
     /// <inheritdoc/>
-    public void Call(MethodType methodType)
+    public IMethodContext Call(MethodType methodType)
     {
         var m = this.Meta.Meta.MetaMeta;
         var concreteMethodType = methodType[m.MethodTypeConcreteMethodTypes]!.First(v => v[m.ConcreteMethodTypeClass] == this.Class.MetaObject);
-        var actions = (Action<IObject, object>[])concreteMethodType[m.ConcreteMethodTypeActions]!;
+        var actions = (Method[])concreteMethodType[m.ConcreteMethodTypeActions]!;
+
+        var context = new MethodContext();
 
         foreach (var action in actions)
         {
-            action(this, new object());
+            action(this, context);
         }
+
+        return context;
     }
 
     /// <inheritdoc/>

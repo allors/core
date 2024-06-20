@@ -197,10 +197,10 @@ public interface IObject
     /// <summary>
     /// Execute a method.
     /// </summary>
-    void Call(MethodType methodType);
+    IMethodContext Call(MethodType methodType);
 
     /// <summary>
     /// Execute a method.
     /// </summary>
-    void Call(Func<MethodType> methodType);
+    IMethodContext Call(Func<MethodType> methodType);
 }

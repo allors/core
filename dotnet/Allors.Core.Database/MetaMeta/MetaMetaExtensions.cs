@@ -413,7 +413,7 @@ public static class MetaMetaExtensions
     public static MetaObjectType UnitRoleType(this MetaMeta @this) => @this.ObjectTypeById[CoreMetaMeta.UnitRoleType];
 
     /// <summary>
-    /// Method type.
+    /// MethodPart type.
     /// </summary>
     public static MetaObjectType MethodType(this MetaMeta @this) => @this.ObjectTypeById[CoreMetaMeta.MethodType];
 
@@ -433,7 +433,7 @@ public static class MetaMetaExtensions
     public static MetaOneToManyRoleType MethodTypeMethodParts(this MetaMeta @this) => (MetaOneToManyRoleType)@this.RoleTypeById[CoreMetaMeta.MethodTypeMethodParts];
 
     /// <summary>
-    /// Method part.
+    /// MethodPart part.
     /// </summary>
     public static MetaObjectType MethodPart(this MetaMeta @this) => @this.ObjectTypeById[CoreMetaMeta.MethodPart];
 
