@@ -150,12 +150,13 @@ public static class TestsMeta
         var c2 = d.AddClass(C2, nameof(C2));
         var c3 = d.AddClass(C3, nameof(C3));
         var c4 = d.AddClass(C4, nameof(C4));
-
         d.AddInheritance(i12, m.Object());
         d.AddInheritance(i1, s1, i12);
         d.AddInheritance(i2, s2, i12);
         d.AddInheritance(c1, i1);
         d.AddInheritance(c2, i2);
+        d.AddInheritance(c3, m.Object());
+        d.AddInheritance(c4, m.Object());
 
         d.AddStringRelation(new Guid("e7a9c5fc-5436-49f0-8ea0-8b7773cf020e"), I1AllorsString, i1, "I1AllorsString");
         d.AddStringRelation(new Guid("d15d4aae-84d4-4797-974b-91819e896391"), C1AllorsString, c1, "C1AllorsString");

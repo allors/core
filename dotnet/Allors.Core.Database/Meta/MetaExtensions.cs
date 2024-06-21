@@ -73,5 +73,25 @@ public static class MetaExtensions
     /// </summary>
     public static Interface Object(this Meta @this) => (Interface)@this.Get(CoreMeta.Object);
 
+    /// <summary>
+    /// Object.OnBuild.
+    /// </summary>
+    public static MethodType ObjectOnBuild(this Meta @this) => (MethodType)@this.Get(CoreMeta.ObjectOnBuild);
+
+    /// <summary>
+    /// Object.OnPostDerive.
+    /// </summary>
+    public static MethodType ObjectOnPostBuild(this Meta @this) => (MethodType)@this.Get(CoreMeta.ObjectOnPostBuild);
+
+    /// <summary>
+    /// Object.OnInit.
+    /// </summary>
+    public static MethodType ObjectOnInit(this Meta @this) => (MethodType)@this.Get(CoreMeta.ObjectOnInit);
+
+    /// <summary>
+    /// Object.OnPostDerive.
+    /// </summary>
+    public static MethodType ObjectOnPostDerive(this Meta @this) => (MethodType)@this.Get(CoreMeta.ObjectOnPostDerive);
+
     private static IMetaObject Get(this Meta @this, Guid id) => @this.Objects.First(v => ((Guid)v[@this.MetaMeta.MetaObjectId]!) == id);
 }

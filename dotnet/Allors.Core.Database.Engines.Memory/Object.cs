@@ -444,7 +444,8 @@ public class Object : IObject
     public IMethodContext Call(MethodType methodType)
     {
         var m = this.Meta.Meta.MetaMeta;
-        var concreteMethodType = methodType[m.MethodTypeConcreteMethodTypes]!.First(v => v[m.ConcreteMethodTypeClass] == this.Class.MetaObject);
+        var concreteMethodTypes = methodType[m.MethodTypeConcreteMethodTypes]!;
+        var concreteMethodType = concreteMethodTypes.First(v => v[m.ConcreteMethodTypeClass] == this.Class.MetaObject);
         var actions = (Method[])concreteMethodType[m.ConcreteMethodTypeActions]!;
 
         var context = new MethodContext();

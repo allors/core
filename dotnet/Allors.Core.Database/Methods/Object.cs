@@ -8,11 +8,11 @@ using System;
 public static class Object
 {
     /// <summary>
-    /// The OnBuild method gets called after the object has been created
-    /// and the builders were executed.
+    /// The OnPostBuild method gets called after the object has been created
+    /// and the builders (Build arguments and OnBuild methods) were executed.
     /// </summary>
-    public static void OnBuild(this IObject @this, IMethodContext context)
+    public static void OnPostBuild(this IObject @this, IMethodContext context)
     {
-        Console.WriteLine($"{@this.GetType().Name}.{nameof(OnBuild)}");
+        Console.WriteLine($"{@this.GetType().Name}.{nameof(OnPostBuild)}");
     }
 }

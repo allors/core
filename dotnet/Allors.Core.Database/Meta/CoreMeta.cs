@@ -60,24 +60,24 @@ public static class CoreMeta
     public static readonly Guid Object = new("89612710-ce42-4507-b1cf-cf48d63739a2");
 
     /// <summary>
-    /// Composite.OnBuild.
+    /// Object.OnBuild.
     /// </summary>
-    public static readonly Guid CompositeOnBuild = new("5d64b1bf-5bea-43dd-8cbe-87aaf0d88d8b");
+    public static readonly Guid ObjectOnBuild = new("5d64b1bf-5bea-43dd-8cbe-87aaf0d88d8b");
 
     /// <summary>
-    /// Composite.OnPostBuild.
+    /// Object.OnPostBuild.
     /// </summary>
-    public static readonly Guid CompositeOnPostBuild = new("90133ea6-2444-43bb-8c74-1390571a412d");
+    public static readonly Guid ObjectOnPostBuild = new("90133ea6-2444-43bb-8c74-1390571a412d");
 
     /// <summary>
-    /// Composite.OnInit.
+    /// Object.OnInit.
     /// </summary>
-    public static readonly Guid CompositeOnInit = new("03f3e559-f275-4bee-8036-1cf6e930804b");
+    public static readonly Guid ObjectOnInit = new("03f3e559-f275-4bee-8036-1cf6e930804b");
 
     /// <summary>
-    /// Composite.OnPostDerive.
+    /// Object.OnPostDerive.
     /// </summary>
-    public static readonly Guid CompositeOnPostDerive = new("03f3e559-f275-4bee-8036-1cf6e930804b");
+    public static readonly Guid ObjectOnPostDerive = new("03f3e559-f275-4bee-8036-1cf6e930804b");
 
     /// <summary>
     /// Populate meta with Core derivations.
@@ -116,11 +116,11 @@ public static class CoreMeta
 
         var @object = core.AddInterface(Object, nameof(Object));
 
-        var compositeOnBuild = core.AddMethodType(CompositeOnBuild, @object, "OnBuild");
-        core.AddMethodType(CompositeOnPostBuild, @object, "OnPostBuild");
-        core.AddMethodType(CompositeOnInit, @object, "OnInit");
-        core.AddMethodType(CompositeOnPostDerive, @object, "OnPostDerive");
+        core.AddMethodType(ObjectOnBuild, @object, "OnPostDerive");
+        var objectOnPostBuild = core.AddMethodType(ObjectOnPostBuild, @object, "OnPostDerive");
+        core.AddMethodType(ObjectOnInit, @object, "OnInit");
+        core.AddMethodType(ObjectOnPostDerive, @object, "OnPostDerive");
 
-        compositeOnBuild.AddMethodPart(core, @object, Methods.Object.OnBuild);
+        objectOnPostBuild.AddMethodPart(core, @object, Methods.Object.OnPostBuild);
     }
 }

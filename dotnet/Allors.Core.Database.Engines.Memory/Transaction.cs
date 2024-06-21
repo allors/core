@@ -67,23 +67,18 @@ public class Transaction : ITransaction
     IEnumerable<IObject> ITransaction.Build(Func<Class> @class, int amount) => this.Build(@class(), amount);
 
     /// <inheritdoc/>
-    public IObject Build(Class @class)
-    {
-        var newObject = new Object(this, this.Meta[@class], this.Database.NextObjectId());
-        this.InstantiatedObjectByObjectId.Add(newObject.Id, newObject);
-        return newObject;
-    }
+    public IObject Build(Class @class) => this.BuildWithLifecycleMethods(@class);
 
     /// <inheritdoc/>
     public IEnumerable<IObject> Build(Class @class, int amount)
     {
-        var objects = new IObject[amount];
+        var newObjects = new IObject[amount];
         for (var i = 0; i < amount; i++)
         {
-            objects[i] = this.Build(@class);
+            newObjects[i] = this.BuildWithLifecycleMethods(@class);
         }
 
-        return objects;
+        return newObjects;
     }
 
     /// <inheritdoc />
@@ -128,6 +123,18 @@ public class Transaction : ITransaction
     public void Rollback()
     {
         this.Reset();
+    }
+
+    private Object BuildWithLifecycleMethods(Class @class)
+    {
+        var newObject = new Object(this, this.Meta[@class], this.Database.NextObjectId());
+        this.InstantiatedObjectByObjectId.Add(newObject.Id, newObject);
+
+        var m = this.Meta.Meta;
+        newObject.Call(m.ObjectOnBuild());
+        newObject.Call(m.ObjectOnPostBuild());
+
+        return newObject;
     }
 
     private void Reset()
