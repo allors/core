@@ -197,10 +197,10 @@ public interface IObject
     /// <summary>
     /// Execute a method.
     /// </summary>
-    IMethodContext Call(MethodType methodType);
+    IMethodContext Call(MethodType methodType, Action<IMethodContext>? init = null);
 
     /// <summary>
     /// Execute a method.
     /// </summary>
-    IMethodContext Call(Func<MethodType> methodType);
+    IMethodContext Call(Func<MethodType> methodType, Action<IMethodContext>? init = null);
 }

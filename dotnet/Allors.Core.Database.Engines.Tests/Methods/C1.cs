@@ -14,7 +14,9 @@ public static class C1
     {
         var m = @this.Transaction.Database.Meta;
 
-        @this[m.C1DidIt] = true;
+        bool? shouldDoIt = (bool?)ctx["ShouldDoIt"];
+
+        @this[m.C1DidIt] = shouldDoIt ?? true;
 
         ctx["Success"] = true;
     }
